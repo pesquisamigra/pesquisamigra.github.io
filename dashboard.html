@@ -13,13 +13,13 @@
   .header h1 { color: var(--purple); font-size: 1.5rem; }
   .filters { display: flex; gap: 1rem; margin-bottom: 1rem; }
   select { padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; outline: none; }
-  .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 2rem; }
+  .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 2.5rem; }
   table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
   th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
   th { background: var(--purple); color: #FFF; font-weight: 500; }
   tr:hover { background: #F0EEFF; }
   .loading { text-align: center; padding: 2rem; color: var(--purple); font-weight: bold; }
-  .section-title { font-size: 1.2rem; color: var(--purple); margin-bottom: 1rem; }
+  .section-title { font-size: 1.2rem; color: var(--purple); margin-bottom: 1rem; border-left: 4px solid var(--purple); padding-left: 10px; }
 </style>
 </head>
 <body>
@@ -43,6 +43,7 @@
   </select>
 </div>
 
+<h2 class="section-title">Resumo dos Participantes</h2>
 <div class="table-wrap">
   <div id="loading" class="loading">Carregando dados...</div>
   <table id="dataTable" style="display:none;">
@@ -50,18 +51,17 @@
       <tr>
         <th>Vínculo</th>
         <th>Residência</th>
-        <th>Área</th>
+        <th>Área(s)</th>
         <th>Referencial Teórico</th>
         <th>Roda de Conversa</th>
         <th>E-mail</th>
-        <th>Disponibilidade</th>
       </tr>
     </thead>
     <tbody id="tableBody"></tbody>
   </table>
 </div>
 
-<h2 class="section-title">Mapa de Disponibilidade (Roda de Conversa)</h2>
+<h2 class="section-title">Mapa de Disponibilidade (Grade Semanal)</h2>
 <div class="table-wrap">
   <table id="availTable" style="display:none;">
     <thead>
@@ -84,7 +84,6 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNy
 
 let allData = [];
 
-// Busca dados
 async function fetchData() {
   try {
     const res = await fetch(APPS_SCRIPT_URL, { method: 'GET', redirect: 'follow' });
@@ -100,10 +99,9 @@ async function fetchData() {
   }
 }
 
-// Formata texto
+// Quebra linhas nas vírgulas para facilitar a leitura
 const formatText = (text) => text ? String(text).replace(/,/g, '<br>') : '';
 
-// Renderiza tabela principal
 function renderTable() {
   const filterV = document.getElementById('filterVinculo').value;
   const filterR = document.getElementById('filterRoda').value;
@@ -127,7 +125,6 @@ function renderTable() {
       <td>${formatText(row['Referencial Teórico'])}</td>
       <td>${formatText(row['Roda de Conversa'])}</td>
       <td>${formatText(row['E-mail (roda)'])}</td>
-      <td>${formatText(row['Disponibilidade (roda)'])}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -135,16 +132,13 @@ function renderTable() {
   renderAvailTable(filtered);
 }
 
-// Renderiza grid de disponibilidade
 function renderAvailTable(data) {
   const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
   const periods = ['Manhã', 'Tarde', 'Noite'];
   const grid = { 'Manhã': {}, 'Tarde': {}, 'Noite': {} };
 
-  // Inicializa matriz
   periods.forEach(p => days.forEach(d => grid[p][d] = []));
 
-  // Popula e-mails
   data.forEach(row => {
     if (row['Roda de Conversa'] === 'Sim' && row['E-mail (roda)'] && row['Disponibilidade (roda)']) {
       const disp = row['Disponibilidade (roda)'].split(',');
@@ -159,12 +153,12 @@ function renderAvailTable(data) {
     }
   });
 
-  // Monta HTML
   const tbody = document.getElementById('availBody');
   tbody.innerHTML = '';
   periods.forEach(p => {
     let tr = `<tr><td><strong>${p}</strong></td>`;
     days.forEach(d => {
+      // Espaçamento entre e-mails para melhor visualização no mapa
       tr += `<td>${grid[p][d].join('<br><br>')}</td>`;
     });
     tr += `</tr>`;
