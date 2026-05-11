@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psicologia e Migração — Pesquisa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4A3F8F;
+    --purple-light: #6C5FBF;
+    --purple-pale: #F0EEFF;
+    --purple-mid: #C4B8F5;
+    --accent: #C17B4E;
+    --accent-pale: #FDF3EC;
+    --text: #1A1830;
+    --text-mid: #4A4766;
+    --text-soft: #8A87A8;
+    --bg: #FAFAF8;
+    --white: #FFFFFF;
+    --border: #E2DFF5;
+    --success: #2D7A5F;
+    --success-bg: #EAF5F0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  .hero { background: var(--purple); color: white; padding: 4rem 2rem 6rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .hero::after  { content: ''; position: absolute; bottom: -100px; left: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,255,255,0.03); }
+  .hero-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 1rem; font-weight: 400; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem,5vw,3.2rem); line-height: 1.15; margin-bottom: .75rem; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--purple-mid); }
+  .hero-sub { font-size: 1rem; color: rgba(255,255,255,.65); max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; font-weight: 300; }
+  .hero-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .hero-meta span { font-size: 12px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 6px; }
+  .hero-meta svg { width: 14px; height: 14px; opacity: .6; }
+  .wrapper { max-width: 720px; margin: -3rem auto 4rem; padding: 0 1.5rem; position: relative; z-index: 2; }
+  .progress-wrap { background: white; border-radius: 16px 16px 0 0; padding: 1.5rem 2rem 1rem; border: 1px solid var(--border); border-bottom: none; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .progress-label { font-size: 12px; font-weight: 500; color: var(--text-soft); letter-spacing: .04em; }
+  .progress-count { font-size: 12px; color: var(--purple); font-weight: 500; }
+  .progress-bar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--purple-light)); border-radius: 999px; transition: width .5s cubic-bezier(.4,0,.2,1); width: 0%; }
+  .card { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 16px 16px; padding: 2rem; box-shadow: 0 8px 40px rgba(74,63,143,.08); }
+  .section { display: none; animation: fadeUp .4s ease forwards; }
+  .section.active { display: block; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .section-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--purple); background: var(--purple-pale); padding: 4px 12px; border-radius: 999px; margin-bottom: 1rem; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; line-height: 1.3; }
+  .section-desc { font-size: .875rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 2rem; font-weight: 300; }
+  .field { margin-bottom: 1.75rem; }
+  .field-label { display: block; font-size: .9rem; font-weight: 500; color: var(--text); margin-bottom: .4rem; line-height: 1.5; }
+  .field-hint { font-size: .78rem; color: var(--text-soft); margin-bottom: .6rem; font-weight: 300; }
+  .required { color: var(--accent); margin-left: 2px; }
+
+  .select-wrap { position: relative; }
+  .select-wrap select {
+    width: 100%; padding: .75rem 2.5rem .75rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    color: var(--text); background: var(--bg);
+    appearance: none; -webkit-appearance: none;
+    cursor: pointer; outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(74,63,143,.1); background: white; }
+  .select-wrap::after {
+    content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
+    border-top: 6px solid var(--text-soft); pointer-events: none;
+  }
+  .select-wrap select optgroup { font-weight: 600; font-size: .82rem; color: var(--purple); }
+
+  input[type="text"], input[type="email"], textarea {
+    width: 100%; padding: .75rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    color: var(--text); background: var(--bg);
+    transition: border-color .2s, box-shadow .2s; outline: none; resize: vertical;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: var(--purple); box-shadow: 0 0 0 3px rgba(74,63,143,.1); background: white;
+  }
+  textarea { min-height: 110px; }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-item { display: flex; align-items: flex-start; gap: 12px; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color .2s, background .2s; user-select: none; }
+  .option-item:hover { border-color: var(--purple-mid); background: var(--purple-pale); }
+  .option-item input { display: none; }
+  .option-item.selected { border-color: var(--purple); background: var(--purple-pale); }
+  .option-dot { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; margin-top: 1px; transition: border-color .2s, background .2s; display: flex; align-items: center; justify-content: center; }
+  .option-item.selected .option-dot { border-color: var(--purple); background: var(--purple); }
+  .option-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: 0; transition: opacity .15s; }
+  .option-item.selected .option-dot::after { opacity: 1; }
+  .option-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; margin-top: 1px; transition: border-color .2s, background .2s; display: flex; align-items: center; justify-content: center; }
+  .option-item.selected .option-box { border-color: var(--purple); background: var(--purple); }
+  .option-box::after { content: ''; width: 10px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px,-1px); opacity: 0; transition: opacity .15s; }
+  .option-item.selected .option-box::after { opacity: 1; }
+  .option-text { font-size: .875rem; color: var(--text-mid); line-height: 1.5; }
+  .option-item.selected .option-text { color: var(--purple); }
+
+  .other-input { margin-top: 8px; display: none; }
+  .other-input input { width: 100%; }
+  .other-input.visible { display: block; animation: fadeUp .25s ease; }
+
+  /* Grid de disponibilidade */
+  .availability {
+    display: none;
+    margin-top: 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    background: var(--bg);
+  }
+  .availability.visible { display: block; animation: fadeUp .3s ease; }
+  .avail-title {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--purple);
+    margin-bottom: .75rem;
+    letter-spacing: .03em;
+  }
+  .avail-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(3, 1fr);
+    gap: 6px;
+    font-size: .78rem;
+  }
+  .avail-header {
+    text-align: center;
+    font-weight: 500;
+    color: var(--text-soft);
+    padding: .35rem 0;
+    font-size: .72rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .avail-day {
+    display: flex; align-items: center;
+    color: var(--text-mid);
+    font-weight: 500;
+    font-size: .82rem;
+  }
+  .avail-cell {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    padding: .55rem 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+    position: relative;
+  }
+  .avail-cell:hover { border-color: var(--purple-mid); background: var(--purple-pale); }
+  .avail-cell input { display: none; }
+  .avail-cell.selected {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: white;
+  }
+  .avail-cell.selected::after {
+    content: '✓';
+    color: white;
+    font-size: .85rem;
+    font-weight: 600;
+  }
+  .avail-cell:not(.selected)::after {
+    content: '';
+    width: 14px; height: 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .tcle-box { background: var(--accent-pale); border: 1px solid #EDD5BE; border-radius: 12px; padding: 1.5rem; font-size: .82rem; line-height: 1.8; color: var(--text-mid); max-height: 360px; overflow-y: auto; margin-bottom: 1.5rem; }
+  .tcle-box h4 { font-family: 'DM Serif Display', serif; font-size: 1rem; font-weight: 400; color: var(--accent); margin-bottom: .75rem; }
+  .tcle-box h5 { font-size: .78rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 1rem 0 .4rem; }
+  .tcle-box p { margin-bottom: .6rem; }
+
+  .btn-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .btn { padding: .7rem 1.75rem; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: .875rem; font-weight: 500; cursor: pointer; border: none; transition: all .2s; }
+  .btn-ghost { background: transparent; color: var(--text-soft); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--purple-mid); color: var(--purple); }
+  .btn-primary { background: var(--purple); color: white; box-shadow: 0 4px 14px rgba(74,63,143,.25); }
+  .btn-primary:hover { background: var(--purple-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(74,63,143,.3); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+  .btn-danger { background: transparent; color: #B94040; border: 1.5px solid #E8C0C0; }
+  .btn-danger:hover { background: #FDF0F0; }
+
+  .success-screen { text-align: center; padding: 3rem 1rem; }
+  .success-icon { width: 72px; height: 72px; background: var(--success-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+  .success-icon svg { width: 32px; height: 32px; color: var(--success); }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: .75rem; }
+  .success-screen p { font-size: .9rem; color: var(--text-soft); max-width: 380px; margin: 0 auto; line-height: 1.7; }
+
+  .error-msg { font-size: .78rem; color: #B94040; margin-top: 5px; display: none; }
+  .field.has-error input, .field.has-error textarea, .field.has-error select { border-color: #D98080; }
+  .field.has-error .error-msg { display: block; }
+
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .divider { display: flex; align-items: center; gap: 12px; margin: 1.5rem 0; font-size: .75rem; color: var(--text-soft); letter-spacing: .06em; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .site-footer { text-align: center; padding: 2rem; font-size: .75rem; color: var(--text-soft); line-height: 1.8; }
+  .site-footer a { color: var(--purple); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.25rem 5rem; }
+    .card { padding: 1.25rem; }
+    .btn-row { justify-content: stretch; }
+    .btn { flex: 1; text-align: center; }
+    .avail-grid { grid-template-columns: 55px repeat(3, 1fr); font-size: .7rem; }
+    .avail-day { font-size: .72rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-eyebrow">Pesquisa Acadêmica · PUC Minas · CAAE 96206826.1.0000.5137</p>
+  <h1>Psicologia e <em>Migração</em></h1>
+  <p class="hero-sub">Cartografia das suas práticas e saberes — mapeando o campo com quem o constrói.</p>
+  <div class="hero-meta">
+    <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10–20 minutos</span>
+    <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Dados confidenciais</span>
+    <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>CEP aprovado</span>
+  </div>
+</header>
+
+<main class="wrapper">
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label" id="progressLabel">TCLE — Consentimento</span>
+      <span class="progress-count" id="progressCount">0 / 4</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="card">
+
+    <!-- ══ SEÇÃO 0: TCLE ══ -->
+    <div class="section active" id="sec0">
+      <span class="section-tag">Antes de começar</span>
+      <h2 class="section-title">Termo de Consentimento</h2>
+      <p class="section-desc">Leia com atenção. Sua participação só prossegue após a confirmação abaixo.</p>
+      <div class="tcle-box">
+        <h4>Termo de Consentimento Livre e Esclarecido (TCLE)</h4>
+        <p><strong>Título:</strong> Psicologia e Migração: Cartografia das suas práticas e saberes<br><strong>N.º Registro CEP:</strong> CAAE 96206826.1.0000.5137</p>
+        <p>Prezado(a) Sr(a), você está sendo convidado(a) a participar de uma pesquisa acadêmica que tem como objetivo compreender e mapear como se configura o campo de atuação e formação dos profissionais da Psicologia com a temática das migrações internacionais no Brasil.</p>
+        <p>Sua participação consistirá em responder a um questionário online semiestruturado. O tempo estimado é de 10 a 20 minutos.</p>
+        <h5>Riscos e Benefícios</h5>
+        <p>Os riscos são considerados mínimos. Pode haver eventual desconforto emocional ao relatar desafios da prática profissional. Devido à natureza online da coleta, há risco potencial de quebra de sigilo ou interceptação de dados por terceiros. Os dados serão coletados por plataforma segura com acesso restrito ao pesquisador e transferidos para armazenamento offline protegido. Em publicações, seu anonimato será rigorosamente preservado.</p>
+        <h5>Participação Voluntária</h5>
+        <p>Sua participação é voluntária e não implica pagamento ou custo. Você pode retirar o consentimento a qualquer momento. O estudo segue a Resolução CNS 510/2016. Todo material coletado ficará sob guarda do pesquisador por 5 anos e, após esse período, será destruído.</p>
+        <h5>Pesquisador Responsável</h5>
+        <p>Henrique Galhano Balieiro · Rua Euclasio, 35 – Santa Efigênia, BH/MG<br>Tel.: (31) 9.99605-1906 · henriquegb@gmail.com</p>
+        <h5>Comitê de Ética</h5>
+        <p>CEP PUC Minas · Av. Dom José Gaspar, 500 – Prédio 6 · Tel.: (31) 3319-4517 · cep.proppg@pucminas.br</p>
+        <p>Em caso de eventuais danos decorrentes da pesquisa, será observada, nos termos da lei, a responsabilidade civil.</p>
+      </div>
+      <div class="field" id="field-tcle">
+        <label class="field-label">Você concorda em participar desta pesquisa? <span class="required">*</span></label>
+        <div class="options">
+          <label class="option-item" onclick="selectRadio(this,'tcle')"><input type="radio" name="tcle" value="sim"><div class="option-dot"></div><span class="option-text">Declaro que li e concordo em participar desta pesquisa.</span></label>
+          <label class="option-item btn-danger" onclick="selectRadio(this,'tcle')"><input type="radio" name="tcle" value="nao"><div class="option-dot"></div><span class="option-text">Não concordo em participar.</span></label>
+        </div>
+        <span class="error-msg">Por favor, selecione uma opção para continuar.</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="handleTcle()">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- ══ SEÇÃO 1: PERFIL ══ -->
+    <div class="section" id="sec1">
+      <span class="section-tag">Seção 1 de 4</span>
+      <h2 class="section-title">Perfil do Participante</h2>
+      <p class="section-desc">Informações gerais para caracterização da amostra. Todas as respostas são confidenciais.</p>
+
+      <div class="field" id="field-idade">
+        <label class="field-label">Idade <span class="required">*</span></label>
+        <div class="select-wrap">
+          <select id="idade" onchange="clearError('field-idade')">
+            <option value="" disabled selected>Selecione sua faixa etária</option>
+            <option value="18">18 anos</option>
+            <option value="19">19 anos</option>
+            <option value="20">20 anos</option>
+            <option value="21">21 anos</option>
+            <option value="22">22 anos</option>
+            <option value="23">23 anos</option>
+            <option value="24">24 anos</option>
+            <option value="25">25 anos</option>
+            <option value="26">26 anos</option>
+            <option value="27">27 anos</option>
+            <option value="28">28 anos</option>
+            <option value="29">29 anos</option>
+            <option value="30">30 anos</option>
+            <option value="31">31 anos</option>
+            <option value="32">32 anos</option>
+            <option value="33">33 anos</option>
+            <option value="34">34 anos</option>
+            <option value="35">35 anos</option>
+            <option value="36">36 anos</option>
+            <option value="37">37 anos</option>
+            <option value="38">38 anos</option>
+            <option value="39">39 anos</option>
+            <option value="40">40 anos</option>
+            <option value="41">41 anos</option>
+            <option value="42">42 anos</option>
+            <option value="43">43 anos</option>
+            <option value="44">44 anos</option>
+            <option value="45">45 anos</option>
+            <option value="46">46 anos</option>
+            <option value="47">47 anos</option>
+            <option value="48">48 anos</option>
+            <option value="49">49 anos</option>
+            <option value="50">50 anos</option>
+            <option value="51">51 anos</option>
+            <option value="52">52 anos</option>
+            <option value="53">53 anos</option>
+            <option value="54">54 anos</option>
+            <option value="55">55 anos</option>
+            <option value="56">56 anos</option>
+            <option value="57">57 anos</option>
+            <option value="58">58 anos</option>
+            <option value="59">59 anos</option>
+            <option value="60">60 anos</option>
+            <option value="61">61 anos</option>
+            <option value="62">62 anos</option>
+            <option value="63">63 anos</option>
+            <option value="64">64 anos</option>
+            <option value="65+">65 anos ou mais</option>
+          </select>
+        </div>
+        <span class="error-msg">Por favor, selecione sua idade.</span>
+      </div>
+
+      <!-- NACIONALIDADE -->
+      <div class="field" id="field-nacionalidade">
+        <label class="field-label">Nacionalidade <span class="required">*</span></label>
+        <div class="select-wrap">
+          <select id="nacionalidade" onchange="handleNacionalidade(this)">
+            <option value="" disabled selected>Selecione sua nacionalidade</option>
+            <optgroup label="🇧🇷 Brasil">
+              <option value="Brasileira">Brasileira</option>
+            </optgroup>
+            <optgroup label="América do Sul">
+              <option value="Argentina">Argentina</option>
+              <option value="Boliviana">Boliviana</option>
+              <option value="Chilena">Chilena</option>
+              <option value="Colombiana">Colombiana</option>
+              <option value="Equatoriana">Equatoriana</option>
+              <option value="Guianense">Guianense</option>
+              <option value="Paraguaia">Paraguaia</option>
+              <option value="Peruana">Peruana</option>
+              <option value="Surinamesa">Surinamesa</option>
+              <option value="Uruguaia">Uruguaia</option>
+              <option value="Venezuelana">Venezuelana</option>
+            </optgroup>
+            <optgroup label="América Central e Caribe">
+              <option value="Costarriquenha">Costarriquenha</option>
+              <option value="Cubana">Cubana</option>
+              <option value="Guatemalteca">Guatemalteca</option>
+              <option value="Haitiana">Haitiana</option>
+              <option value="Hondurenha">Hondurenha</option>
+              <option value="Jamaicana">Jamaicana</option>
+              <option value="Mexicana">Mexicana</option>
+              <option value="Nicaraguense">Nicaraguense</option>
+              <option value="Panamenha">Panamenha</option>
+              <option value="Salvadorenha">Salvadorenha</option>
+              <option value="Dominicana">Dominicana (Rep. Dom.)</option>
+            </optgroup>
+            <optgroup label="América do Norte">
+              <option value="Canadense">Canadense</option>
+              <option value="Estadunidense">Estadunidense (EUA)</option>
+            </optgroup>
+            <optgroup label="Europa">
+              <option value="Alemã">Alemã</option>
+              <option value="Espanhola">Espanhola</option>
+              <option value="Francesa">Francesa</option>
+              <option value="Italiana">Italiana</option>
+              <option value="Polonesa">Polonesa</option>
+              <option value="Portuguesa">Portuguesa</option>
+              <option value="Britânica">Britânica (Reino Unido)</option>
+              <option value="Ucraniana">Ucraniana</option>
+              <option value="Romena">Romena</option>
+              <option value="Holandesa">Holandesa</option>
+              <option value="Belga">Belga</option>
+              <option value="Suíça">Suíça</option>
+              <option value="Grega">Grega</option>
+              <option value="Russa">Russa</option>
+            </optgroup>
+            <optgroup label="África">
+              <option value="Angolana">Angolana</option>
+              <option value="Cabo-verdiana">Cabo-verdiana</option>
+              <option value="Congolesa">Congolesa (RDC)</option>
+              <option value="Ganesa">Ganesa</option>
+              <option value="Marroquina">Marroquina</option>
+              <option value="Moçambicana">Moçambicana</option>
+              <option value="Nigeriana">Nigeriana</option>
+              <option value="Senegalesa">Senegalesa</option>
+              <option value="Sul-africana">Sul-africana</option>
+            </optgroup>
+            <optgroup label="Ásia e Oriente Médio">
+              <option value="Afegã">Afegã</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="Chinesa">Chinesa</option>
+              <option value="Coreana">Coreana (Sul)</option>
+              <option value="Indiana">Indiana</option>
+              <option value="Iraniana">Iraniana</option>
+              <option value="Japonesa">Japonesa</option>
+              <option value="Libanesa">Libanesa</option>
+              <option value="Paquistanesa">Paquistanesa</option>
+              <option value="Síria">Síria</option>
+              <option value="Turca">Turca</option>
+            </optgroup>
+            <optgroup label="Oceania">
+              <option value="Australiana">Australiana</option>
+              <option value="Neozelandesa">Neozelandesa</option>
+            </optgroup>
+            <optgroup label="Outra">
+              <option value="outro_nac">Outra — digitar abaixo</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="other-input" id="outro-nac-wrap">
+          <input type="text" id="outro-nac" placeholder="Digite sua nacionalidade">
+        </div>
+        <span class="error-msg">Por favor, selecione ou informe sua nacionalidade.</span>
+      </div>
+
+      <!-- PAÍS DE RESIDÊNCIA ATUAL -->
+      <div class="field" id="field-residencia">
+        <label class="field-label">País de residência atual <span class="required">*</span></label>
+        <div class="select-wrap">
+          <select id="residencia" onchange="handleResidencia(this)">
+            <option value="" disabled selected>Selecione seu país de residência atual</option>
+            <option value="Brasil">🇧🇷 Brasil</option>
+            <option value="fora_brasil" style="font-weight:600">Não moro atualmente no Brasil</option>
+          </select>
+        </div>
+        <div class="other-input" id="pais-fora-wrap">
+          <div class="select-wrap" style="margin-top:6px">
+            <select id="pais-fora" onchange="handlePaisFora(this)">
+              <option value="" disabled selected>Selecione o país onde reside</option>
+              <optgroup label="América do Sul">
+                <option value="Argentina">Argentina</option>
+                <option value="Bolívia">Bolívia</option>
+                <option value="Chile">Chile</option>
+                <option value="Colômbia">Colômbia</option>
+                <option value="Equador">Equador</option>
+                <option value="Guiana">Guiana</option>
+                <option value="Paraguai">Paraguai</option>
+                <option value="Peru">Peru</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Uruguai">Uruguai</option>
+                <option value="Venezuela">Venezuela</option>
+              </optgroup>
+              <optgroup label="América Central e Caribe">
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="México">México</option>
+                <option value="Nicarágua">Nicarágua</option>
+                <option value="Panamá">Panamá</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="República Dominicana">República Dominicana</option>
+              </optgroup>
+              <optgroup label="América do Norte">
+                <option value="Canadá">Canadá</option>
+                <option value="Estados Unidos">Estados Unidos</option>
+              </optgroup>
+              <optgroup label="Europa">
+                <option value="Alemanha">Alemanha</option>
+                <option value="Espanha">Espanha</option>
+                <option value="França">França</option>
+                <option value="Itália">Itália</option>
+                <option value="Polônia">Polônia</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Reino Unido">Reino Unido</option>
+                <option value="Ucrânia">Ucrânia</option>
+                <option value="Romênia">Romênia</option>
+                <option value="Países Baixos">Países Baixos</option>
+                <option value="Bélgica">Bélgica</option>
+                <option value="Suíça">Suíça</option>
+                <option value="Grécia">Grécia</option>
+                <option value="Rússia">Rússia</option>
+                <option value="Irlanda">Irlanda</option>
+                <option value="Suécia">Suécia</option>
+                <option value="Noruega">Noruega</option>
+                <option value="Dinamarca">Dinamarca</option>
+                <option value="Áustria">Áustria</option>
+              </optgroup>
+              <optgroup label="África">
+                <option value="Angola">Angola</option>
+                <option value="Cabo Verde">Cabo Verde</option>
+                <option value="República Democrática do Congo">República Democrática do Congo</option>
+                <option value="Gana">Gana</option>
+                <option value="Marrocos">Marrocos</option>
+                <option value="Moçambique">Moçambique</option>
+                <option value="Nigéria">Nigéria</option>
+                <option value="Senegal">Senegal</option>
+                <option value="África do Sul">África do Sul</option>
+              </optgroup>
+              <optgroup label="Ásia e Oriente Médio">
+                <option value="Afeganistão">Afeganistão</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="China">China</option>
+                <option value="Coreia do Sul">Coreia do Sul</option>
+                <option value="Índia">Índia</option>
+                <option value="Irã">Irã</option>
+                <option value="Japão">Japão</option>
+                <option value="Líbano">Líbano</option>
+                <option value="Paquistão">Paquistão</option>
+                <option value="Síria">Síria</option>
+                <option value="Turquia">Turquia</option>
+                <option value="Israel">Israel</option>
+                <option value="Emirados Árabes Unidos">Emirados Árabes Unidos</option>
+              </optgroup>
+              <optgroup label="Oceania">
+                <option value="Austrália">Austrália</option>
+                <option value="Nova Zelândia">Nova Zelândia</option>
+              </optgroup>
+              <optgroup label="Outro">
+                <option value="outro_pais">Outro — digitar abaixo</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="other-input" id="outro-pais-wrap" style="margin-top:6px">
+            <input type="text" id="outro-pais" placeholder="Digite o país onde reside">
+          </div>
+        </div>
+        <span class="error-msg">Por favor, informe seu país de residência.</span>
+      </div>
+
+      <!-- VÍNCULO -->
+      <div class="field" id="field-vinculo">
+        <label class="field-label">Qual seu vínculo atual com a Psicologia? <span class="required">*</span></label>
+        <div class="options">
+          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Estudante de Graduação em Psicologia"><div class="option-dot"></div><span class="option-text">Estudante de Graduação em Psicologia</span></label>
+          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Estudante de Pós-Graduação"><div class="option-dot"></div><span class="option-text">Estudante de Pós-Graduação (Especialização, Mestrado, Doutorado)</span></label>
+          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Profissional formado(a) em Psicologia (com CRP ativo)"><div class="option-dot"></div><span class="option-text">Profissional formado(a) em Psicologia (com CRP ativo)</span></label>
+          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Outro"><div class="option-dot"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-vinculo-wrap">
+          <input type="text" id="outro-vinculo" placeholder="Especifique seu vínculo">
+        </div>
+        <span class="error-msg">Por favor, selecione uma opção.</span>
+      </div>
+
+      <!-- PERÍODO -->
+      <div class="field" id="field-periodo">
+        <label class="field-label">Se você for estudante, em qual período está?</label>
+        <div class="options">
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos iniciais (1º–2º ano)"><div class="option-dot"></div><span class="option-text">Anos iniciais (1º–2º ano)</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos intermediários (3º–4º ano)"><div class="option-dot"></div><span class="option-text">Anos intermediários (3º–4º ano)</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Ano final / Estágios (5º ano)"><div class="option-dot"></div><span class="option-text">Ano final / Estágios (5º ano)</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-graduando(a) – Especialização"><div class="option-dot"></div><span class="option-text">Pós-graduando(a) – Especialização</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
+          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
+        </div>
+      </div>
+
+      <!-- TEMPO -->
+      <div class="field" id="field-tempo">
+        <label class="field-label">Se você for profissional, há quanto tempo atua?</label>
+        <div class="options">
+          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
+          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Menos de 1 ano"><div class="option-dot"></div><span class="option-text">Menos de 1 ano</span></label>
+          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="1 a 5 anos"><div class="option-dot"></div><span class="option-text">1 a 5 anos</span></label>
+          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="6 a 10 anos"><div class="option-dot"></div><span class="option-text">6 a 10 anos</span></label>
+          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Mais de 10 anos"><div class="option-dot"></div><span class="option-text">Mais de 10 anos</span></label>
+        </div>
+      </div>
+
+      <!-- ÁREA -->
+      <div class="field" id="field-area">
+        <label class="field-label">Principal área de atuação ou interesse <span class="required">*</span></label>
+        <p class="field-hint">Áreas elencadas pelo CFP – Resolução nº 23/2022. Marque apenas a principal.</p>
+        <div class="options">
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Escolar / Educacional"><div class="option-dot"></div><span class="option-text">Psicologia Escolar / Educacional</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Organizacional e do Trabalho"><div class="option-dot"></div><span class="option-text">Psicologia Organizacional e do Trabalho</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia de Trânsito"><div class="option-dot"></div><span class="option-text">Psicologia de Trânsito</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Jurídica"><div class="option-dot"></div><span class="option-text">Psicologia Jurídica</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia do Esporte"><div class="option-dot"></div><span class="option-text">Psicologia do Esporte</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Clínica"><div class="option-dot"></div><span class="option-text">Psicologia Clínica</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Hospitalar"><div class="option-dot"></div><span class="option-text">Psicologia Hospitalar</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicopedagogia"><div class="option-dot"></div><span class="option-text">Psicopedagogia</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicomotricidade"><div class="option-dot"></div><span class="option-text">Psicomotricidade</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Social"><div class="option-dot"></div><span class="option-text">Psicologia Social</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Neuropsicologia"><div class="option-dot"></div><span class="option-text">Neuropsicologia</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia em Saúde"><div class="option-dot"></div><span class="option-text">Psicologia em Saúde</span></label>
+          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Avaliação Psicológica"><div class="option-dot"></div><span class="option-text">Avaliação Psicológica</span></label>
+        </div>
+        <span class="error-msg">Por favor, selecione uma área.</span>
+      </div>
+
+      <!-- REFERENCIAL -->
+      <div class="field" id="field-referencial">
+        <label class="field-label">Referencial teórico para pensar Psicologia e Migração <span class="required">*</span></label>
+        <p class="field-hint">Pode marcar mais de uma opção.</p>
+        <div class="options">
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Abordagem Centrada na Pessoa"><div class="option-box"></div><span class="option-text">Abordagem Centrada na Pessoa</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Analítica Jungiana"><div class="option-box"></div><span class="option-text">Analítica Jungiana</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Bioenergética"><div class="option-box"></div><span class="option-text">Bioenergética</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Esquizoanálise e Análise Institucional"><div class="option-box"></div><span class="option-text">Esquizoanálise e Análise Institucional</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Esquizodrama"><div class="option-box"></div><span class="option-text">Esquizodrama</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Fenomenologia existencial"><div class="option-box"></div><span class="option-text">Fenomenologia existencial</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Gestalt-terapia"><div class="option-box"></div><span class="option-text">Gestalt-terapia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Logoterapia"><div class="option-box"></div><span class="option-text">Logoterapia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicanálise"><div class="option-box"></div><span class="option-text">Psicanálise</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicodrama"><div class="option-box"></div><span class="option-text">Psicodrama</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Sistêmica"><div class="option-box"></div><span class="option-text">Sistêmica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Sócio-Histórica"><div class="option-box"></div><span class="option-text">Sócio-Histórica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="TCC – Terapia Cognitivo-Comportamental"><div class="option-box"></div><span class="option-text">TCC – Terapia Cognitivo-Comportamental</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapia do Esquema"><div class="option-box"></div><span class="option-text">Terapia do Esquema</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapia Sistêmica"><div class="option-box"></div><span class="option-text">Terapia Sistêmica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapias de Terceira Onda"><div class="option-box"></div><span class="option-text">Terapias de Terceira Onda</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicologia Social / Comunitária"><div class="option-box"></div><span class="option-text">Psicologia Social / Comunitária</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial', null, 'outro-ref-wrap')"><input type="checkbox" name="referencial" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-ref-wrap">
+          <input type="text" id="outro-ref" placeholder="Especifique o referencial teórico">
+        </div>
+        <span class="error-msg">Selecione ao menos uma opção.</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goTo(0)">← Voltar</button>
+        <button class="btn btn-primary" onclick="nextSection(1)">Próxima seção →</button>
+      </div>
+    </div>
+
+    <!-- ══ SEÇÃO 2: TRAJETÓRIA ══ -->
+    <div class="section" id="sec2">
+      <span class="section-tag">Seção 2 de 4</span>
+      <h2 class="section-title">Trajetória e Interesse</h2>
+      <p class="section-desc">Conte-nos como você chegou até este campo de estudo e prática.</p>
+
+      <div class="field" id="field-interesse">
+        <label class="field-label">Como surgiu seu interesse pelo tema da Psicologia e Migração? <span class="required">*</span></label>
+        <p class="field-hint">Você pode marcar mais de uma opção.</p>
+        <div class="options">
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Disciplina na graduação ou pós-graduação"><div class="option-box"></div><span class="option-text">Através de uma disciplina na graduação ou pós-graduação</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Experiência pessoal ou familiar com a migração"><div class="option-box"></div><span class="option-text">Por meio de uma experiência pessoal ou familiar com a migração</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Ativismo, movimentos sociais ou voluntariado"><div class="option-box"></div><span class="option-text">A partir do envolvimento com ativismo, movimentos sociais ou voluntariado</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Noticiário e eventos globais"><div class="option-box"></div><span class="option-text">Influenciado(a) pelo noticiário e por eventos globais</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Contato profissional com migrantes / refugiados"><div class="option-box"></div><span class="option-text">Através do contato profissional direto com pessoas migrantes / refugiadas</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Leituras, eventos acadêmicos, congressos ou palestras"><div class="option-box"></div><span class="option-text">Por meio de leituras, eventos acadêmicos, congressos ou palestras</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse')"><input type="checkbox" name="interesse" value="Lacuna na formação ou no mercado de trabalho"><div class="option-box"></div><span class="option-text">Identificação de uma lacuna na formação ou no mercado de trabalho</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'interesse', null, 'outro-int-wrap')"><input type="checkbox" name="interesse" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-int-wrap">
+          <input type="text" id="outro-int" placeholder="Especifique como surgiu o interesse">
+        </div>
+        <span class="error-msg">Selecione ao menos uma opção.</span>
+      </div>
+
+      <div class="field" id="field-motivo">
+        <label class="field-label">Em suas palavras, qual o principal motivo que o(a) levou a se dedicar a este campo? <span class="required">*</span></label>
+        <textarea id="motivo" placeholder="Escreva livremente..."></textarea>
+        <span class="error-msg">Campo obrigatório.</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goTo(1)">← Voltar</button>
+        <button class="btn btn-primary" onclick="nextSection(2)">Próxima seção →</button>
+      </div>
+    </div>
+
+    <!-- ══ SEÇÃO 3: PERCEPÇÕES ══ -->
+    <div class="section" id="sec3">
+      <span class="section-tag">Seção 3 de 4</span>
+      <h2 class="section-title">Percepções sobre o Campo</h2>
+      <p class="section-desc">Sua visão sobre os temas, importância e desafios da área.</p>
+
+      <div class="field" id="field-subtemas">
+        <label class="field-label">Quais subtemas mais lhe interessam? <span class="required">*</span></label>
+        <p class="field-hint">Marque até 3 opções.</p>
+        <div class="options">
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Saúde mental e trauma em populações migrantes / refugiadas"><div class="option-box"></div><span class="option-text">Saúde mental e trauma em populações migrantes / refugiadas</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Processos de identidade, pertencimento e aculturação"><div class="option-box"></div><span class="option-text">Processos de identidade, pertencimento e aculturação</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Choque cultural e adaptação psicossocial"><div class="option-box"></div><span class="option-text">Choque cultural e adaptação psicossocial</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Xenofobia, preconceito e relações interculturais"><div class="option-box"></div><span class="option-text">Xenofobia, preconceito e relações interculturais</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Políticas públicas, advocacy e garantia de direitos"><div class="option-box"></div><span class="option-text">Políticas públicas, advocacy e garantia de direitos</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Infância, adolescência e família no contexto migratório"><div class="option-box"></div><span class="option-text">Infância, adolescência e família no contexto migratório</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Questões de gênero e sexualidade na migração"><div class="option-box"></div><span class="option-text">Questões de gênero e sexualidade na migração</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Intervenções clínicas e psicossociais com migrantes"><div class="option-box"></div><span class="option-text">Intervenções clínicas e psicossociais com migrantes</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Refúgio, apatridia e deslocamento forçado"><div class="option-box"></div><span class="option-text">Refúgio, apatridia e deslocamento forçado</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3,'outro-sub-wrap')"><input type="checkbox" name="subtemas" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-sub-wrap">
+          <input type="text" id="outro-sub" placeholder="Especifique o subtema">
+        </div>
+        <span class="error-msg">Selecione ao menos uma opção (máx. 3).</span>
+      </div>
+
+      <div class="field" id="field-importancia">
+        <label class="field-label">A Psicologia deve se dedicar ao estudo e à prática com populações em mobilidade humana? <span class="required">*</span></label>
+        <textarea id="importancia" placeholder="Compartilhe sua opinião..."></textarea>
+        <span class="error-msg">Campo obrigatório.</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Se sim, por quais motivos?</label>
+        <textarea id="motivos_sim" placeholder="Opcional..."></textarea>
+      </div>
+
+      <div class="divider">desafios percebidos</div>
+
+      <div class="field" id="field-desafios_estudo">
+        <label class="field-label">Maiores desafios ao estudar esta área <span class="required">*</span></label>
+        <p class="field-hint">Marque todas as que se aplicam.</p>
+        <div class="options">
+          <label class="option-item" onclick="toggleCheck(this,'desafios_estudo')"><input type="checkbox" name="desafios_estudo" value="Falta de formação e capacitação específica"><div class="option-box"></div><span class="option-text">Falta de formação e capacitação específica na graduação / pós-graduação</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_estudo')"><input type="checkbox" name="desafios_estudo" value="Dificuldade em acessar a população migrante"><div class="option-box"></div><span class="option-text">Dificuldade em acessar a população migrante para pesquisa ou intervenção</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_estudo')"><input type="checkbox" name="desafios_estudo" value="Falta de reconhecimento da importância da área"><div class="option-box"></div><span class="option-text">Falta de reconhecimento da importância da área</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_estudo')"><input type="checkbox" name="desafios_estudo" value="Pouca literatura em português"><div class="option-box"></div><span class="option-text">Pouca literatura ou material de referência em português</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_estudo', null, 'outro-dest-wrap')"><input type="checkbox" name="desafios_estudo" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-dest-wrap">
+          <input type="text" id="outro-dest" placeholder="Especifique o desafio">
+        </div>
+        <span class="error-msg">Selecione ao menos uma opção.</span>
+      </div>
+
+      <div class="field" id="field-desafios_trabalho">
+        <label class="field-label">Maiores desafios ao trabalhar nesta área <span class="required">*</span></label>
+        <p class="field-hint">Marque todas as que se aplicam.</p>
+        <div class="options">
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Falta de formação específica"><div class="option-box"></div><span class="option-text">Falta de formação específica na graduação / pós-graduação</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Escassez de materiais de referência"><div class="option-box"></div><span class="option-text">Escassez de materiais de referência para atuação</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Falta de reconhecimento por profissionais ou instituições"><div class="option-box"></div><span class="option-text">Falta de reconhecimento por outros profissionais ou instituições</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Dificuldade na comunicação com migrantes"><div class="option-box"></div><span class="option-text">Dificuldade na comunicação com os migrantes</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Escassez de recursos financeiros e institucionais"><div class="option-box"></div><span class="option-text">Escassez de recursos financeiros e institucionais</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho')"><input type="checkbox" name="desafios_trabalho" value="Desgaste emocional"><div class="option-box"></div><span class="option-text">Desgaste emocional</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'desafios_trabalho', null, 'outro-dtrab-wrap')"><input type="checkbox" name="desafios_trabalho" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-dtrab-wrap">
+          <input type="text" id="outro-dtrab" placeholder="Especifique o desafio">
+        </div>
+        <span class="error-msg">Selecione ao menos uma opção.</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goTo(2)">← Voltar</button>
+        <button class="btn btn-primary" onclick="nextSection(3)">Próxima seção →</button>
+      </div>
+    </div>
+
+    <!-- ══ SEÇÃO 4: CONSIDERAÇÕES FINAIS ══ -->
+    <div class="section" id="sec4">
+      <span class="section-tag">Seção 4 de 4</span>
+      <h2 class="section-title">Considerações Finais</h2>
+      <p class="section-desc">Você está quase lá. Suas últimas contribuições são muito importantes.</p>
+
+      <div class="field" id="field-fortalecimento">
+        <label class="field-label">O que você acredita ser necessário para o fortalecimento do campo no Brasil? <span class="required">*</span></label>
+        <textarea id="fortalecimento" placeholder="Compartilhe suas ideias..."></textarea>
+        <span class="error-msg">Campo obrigatório.</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Gostaria de acrescentar algum comentário ou sugestão?</label>
+        <textarea id="comentarios" placeholder="Opcional..."></textarea>
+      </div>
+
+      <div class="field" id="field-roda">
+        <label class="field-label">Teria interesse em participar de uma roda de conversa online sobre a pesquisa? <span class="required">*</span></label>
+        <div class="options">
+          <label class="option-item" onclick="handleRoda('nao')"><input type="radio" name="roda" value="Não"><div class="option-dot"></div><span class="option-text">Não, obrigado(a)</span></label>
+          <label class="option-item" onclick="handleRoda('sim')"><input type="radio" name="roda" value="Sim"><div class="option-dot"></div><span class="option-text">Sim, tenho interesse!</span></label>
+        </div>
+        <span class="error-msg">Por favor, selecione uma opção.</span>
+      </div>
+
+      <div class="field" id="email-field" style="display:none">
+        <label class="field-label">Seu e-mail para contato <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="seu@email.com">
+        <span class="error-msg">Por favor, informe um e-mail válido.</span>
+      </div>
+
+      <!-- DISPONIBILIDADE -->
+      <div class="field" id="field-disponibilidade" style="display:none">
+        <label class="field-label">Sua disponibilidade <span class="required">*</span></label>
+        <p class="field-hint">Marque os dias e períodos em que você teria disponibilidade. Pode marcar mais de uma opção.</p>
+        <div class="availability visible">
+          <div class="avail-title">Selecione dia + período</div>
+          <div class="avail-grid">
+            <div></div>
+            <div class="avail-header">Manhã</div>
+            <div class="avail-header">Tarde</div>
+            <div class="avail-header">Noite</div>
+            <div class="avail-day">Segunda</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Segunda - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Segunda - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Segunda - Noite"></div>
+            <div class="avail-day">Terça</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Terça - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Terça - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Terça - Noite"></div>
+            <div class="avail-day">Quarta</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quarta - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quarta - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quarta - Noite"></div>
+            <div class="avail-day">Quinta</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quinta - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quinta - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Quinta - Noite"></div>
+            <div class="avail-day">Sexta</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sexta - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sexta - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sexta - Noite"></div>
+            <div class="avail-day">Sábado</div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sábado - Manhã"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sábado - Tarde"></div>
+            <div class="avail-cell" onclick="toggleAvail(this)"><input type="checkbox" name="disp" value="Sábado - Noite"></div>
+          </div>
+        </div>
+        <span class="error-msg">Selecione ao menos um horário disponível.</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goTo(3)">← Voltar</button>
+        <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Enviar respostas ✓</button>
+      </div>
+    </div>
+
+    <div class="section" id="sec-success">
+      <div class="success-screen">
+        <div class="success-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2>Respostas enviadas!</h2>
+        <p>Obrigado(a) pela sua participação. Sua contribuição é essencial para mapear e fortalecer o campo da Psicologia e Migração no Brasil.</p>
+        <p style="margin-top:1rem;font-size:.8rem;color:var(--text-soft)">Os resultados desta pesquisa serão divulgados publicamente após a conclusão do estudo.</p>
+      </div>
+    </div>
+
+    <div class="section" id="sec-recusa">
+      <div class="success-screen">
+        <div class="success-icon" style="background:#FDF0F0">
+          <svg fill="none" stroke="#B94040" stroke-width="2" viewBox="0 0 24 24" style="color:#B94040"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <h2>Participação não confirmada</h2>
+        <p>Você optou por não participar desta pesquisa. Agradecemos seu tempo.</p>
+        <p style="margin-top:1rem;font-size:.8rem;color:var(--text-soft)">Caso mude de ideia, recarregue a página para recomeçar.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>Pesquisador: Henrique Galhano Balieiro · <a href="mailto:henriquegb@gmail.com">henriquegb@gmail.com</a></p>
+  <p>CEP PUC Minas · (31) 3319-4517 · <a href="mailto:cep.proppg@pucminas.br">cep.proppg@pucminas.br</a></p>
+  <p style="margin-top:6px;font-size:.7rem;opacity:.6">CAAE 96206826.1.0000.5137 · Resolução CNS 510/2016</p>
+</footer>
+
+<script>
+const APPS_SCRIPT_URL = 'SUA_URL_DO_APPS_SCRIPT_AQUI';
+
+let currentSection = 0;
+const sectionLabels = ['TCLE — Consentimento','Seção 1 — Perfil','Seção 2 — Trajetória','Seção 3 — Percepções','Seção 4 — Considerações'];
+
+function goTo(n) {
+  document.getElementById('sec' + currentSection).classList.remove('active');
+  currentSection = n;
+  document.getElementById('sec' + n).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function updateProgress() {
+  const pct = (currentSection / 4) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = sectionLabels[currentSection] || 'Concluído';
+  document.getElementById('progressCount').textContent = currentSection + ' / 4';
+}
+
+function handleNacionalidade(sel) {
+  const wrap = document.getElementById('outro-nac-wrap');
+  if (sel.value === 'outro_nac') {
+    wrap.classList.add('visible');
+    setTimeout(function(){ document.getElementById('outro-nac').focus(); }, 50);
+  } else {
+    wrap.classList.remove('visible');
+    document.getElementById('outro-nac').value = '';
+  }
+  clearError('field-nacionalidade');
+}
+
+function handleResidencia(sel) {
+  const wrap = document.getElementById('pais-fora-wrap');
+  const outroWrap = document.getElementById('outro-pais-wrap');
+  if (sel.value === 'fora_brasil') {
+    wrap.classList.add('visible');
+  } else {
+    wrap.classList.remove('visible');
+    outroWrap.classList.remove('visible');
+    document.getElementById('pais-fora').selectedIndex = 0;
+    document.getElementById('outro-pais').value = '';
+  }
+  clearError('field-residencia');
+}
+
+function handlePaisFora(sel) {
+  const outroWrap = document.getElementById('outro-pais-wrap');
+  if (sel.value === 'outro_pais') {
+    outroWrap.classList.add('visible');
+    setTimeout(function(){ document.getElementById('outro-pais').focus(); }, 50);
+  } else {
+    outroWrap.classList.remove('visible');
+    document.getElementById('outro-pais').value = '';
+  }
+}
+
+function handleRoda(choice) {
+  const emailField = document.getElementById('email-field');
+  const dispField = document.getElementById('field-disponibilidade');
+  const radios = document.querySelectorAll('[name="roda"]');
+  radios.forEach(function(r){ r.closest('.option-item').classList.remove('selected'); });
+
+  if (choice === 'sim') {
+    radios[1].checked = true;
+    radios[1].closest('.option-item').classList.add('selected');
+    emailField.style.display = 'block';
+    dispField.style.display = 'block';
+  } else {
+    radios[0].checked = true;
+    radios[0].closest('.option-item').classList.add('selected');
+    emailField.style.display = 'none';
+    dispField.style.display = 'none';
+    document.getElementById('email').value = '';
+    document.querySelectorAll('[name="disp"]').forEach(function(cb){
+      cb.checked = false;
+      cb.closest('.avail-cell').classList.remove('selected');
+    });
+  }
+  clearError('field-roda');
+  clearError('field-disponibilidade');
+  clearError('email-field');
+}
+
+function toggleAvail(cell) {
+  const inp = cell.querySelector('input');
+  inp.checked = !inp.checked;
+  cell.classList.toggle('selected');
+  clearError('field-disponibilidade');
+}
+
+function selectRadio(el, name) {
+  document.querySelectorAll('[name="' + name + '"]').forEach(function(inp){
+    inp.closest('.option-item').classList.remove('selected');
+  });
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  clearError('field-' + name);
+
+  if (name === 'vinculo') {
+    const wrap = document.getElementById('outro-vinculo-wrap');
+    if (el.querySelector('input').value === 'Outro') {
+      wrap.classList.add('visible');
+      setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
+    } else {
+      wrap.classList.remove('visible');
+      document.getElementById('outro-vinculo').value = '';
+    }
+  }
+}
+
+// ── Checkbox CORRIGIDO ───────────────────────────────────────
+// Estado é alternado ANTES de manipular o campo "Outro"
+function toggleCheck(el, name, max, otherWrapId) {
+  const inp = el.querySelector('input');
+  const checked = document.querySelectorAll('[name="' + name + '"]:checked');
+
+  if (!inp.checked && max && checked.length >= max) return;
+
+  inp.checked = !inp.checked;
+  el.classList.toggle('selected', inp.checked);
+
+  if (otherWrapId) {
+    const wrap = document.getElementById(otherWrapId);
+    if (wrap) {
+      if (inp.checked) {
+        wrap.classList.add('visible');
+        setTimeout(function(){ wrap.querySelector('input').focus(); }, 50);
+      } else {
+        wrap.classList.remove('visible');
+        wrap.querySelector('input').value = '';
+      }
+    }
+  }
+
+  clearError('field-' + name);
+}
+
+function getVal(id)       { const e = document.getElementById(id); return e && e.value ? e.value.trim() : ''; }
+function getRadio(name)   { const e = document.querySelector('[name="' + name + '"]:checked'); return e ? e.value : ''; }
+function getChecked(name) { return [].slice.call(document.querySelectorAll('[name="' + name + '"]:checked')).map(function(e){ return e.value; }).join(', '); }
+function showError(id)    { const e = document.getElementById(id); if (e) e.classList.add('has-error'); }
+function clearError(id)   { const e = document.getElementById(id); if (e) e.classList.remove('has-error'); }
+
+function getNacionalidade() {
+  const sel = document.getElementById('nacionalidade').value;
+  if (!sel) return '';
+  if (sel === 'outro_nac') return getVal('outro-nac');
+  return sel;
+}
+
+function getResidencia() {
+  const sel = document.getElementById('residencia').value;
+  if (!sel) return '';
+  if (sel === 'Brasil') return 'Brasil';
+  if (sel === 'fora_brasil') {
+    const pais = document.getElementById('pais-fora').value;
+    if (!pais) return '';
+    if (pais === 'outro_pais') return getVal('outro-pais');
+    return pais;
+  }
+  return '';
+}
+
+function getCheckFull(name, otherId) {
+  let vals = getChecked(name);
+  const outro = getVal(otherId);
+  if (outro && vals.indexOf('Outro') !== -1) {
+    vals = vals.replace('Outro', 'Outro: ' + outro);
+  }
+  return vals;
+}
+
+function getVinculo() {
+  const v = getRadio('vinculo');
+  if (v === 'Outro') return 'Outro: ' + getVal('outro-vinculo');
+  return v;
+}
+
+function validate(rules) {
+  let ok = true;
+  rules.forEach(function(r){
+    if (!r.check) { showError(r.id); ok = false; }
+    else clearError(r.id);
+  });
+  return ok;
+}
+
+function handleTcle() {
+  const v = getRadio('tcle');
+  if (!v) { showError('field-tcle'); return; }
+  if (v === 'nao') {
+    document.getElementById('sec0').classList.remove('active');
+    document.getElementById('sec-recusa').classList.add('active');
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressLabel').textContent = 'Participação encerrada';
+    document.getElementById('progressCount').textContent = '—';
+    return;
+  }
+  goTo(1);
+}
+
+function nextSection(from) {
+  let ok = false;
+  if (from === 1) {
+    const vinc = getRadio('vinculo');
+    const vincOk = vinc && (vinc !== 'Outro' || getVal('outro-vinculo'));
+    ok = validate([
+      { id: 'field-idade',        check: getVal('idade') },
+      { id: 'field-nacionalidade',check: getNacionalidade() },
+      { id: 'field-residencia',   check: getResidencia() },
+      { id: 'field-vinculo',      check: vincOk },
+      { id: 'field-area',         check: getRadio('area') },
+      { id: 'field-referencial',  check: getChecked('referencial') }
+    ]);
+  } else if (from === 2) {
+    ok = validate([
+      { id: 'field-interesse', check: getChecked('interesse') },
+      { id: 'field-motivo',    check: getVal('motivo') }
+    ]);
+  } else if (from === 3) {
+    ok = validate([
+      { id: 'field-subtemas',          check: getChecked('subtemas') },
+      { id: 'field-importancia',       check: getVal('importancia') },
+      { id: 'field-desafios_estudo',   check: getChecked('desafios_estudo') },
+      { id: 'field-desafios_trabalho', check: getChecked('desafios_trabalho') }
+    ]);
+  }
+  if (ok) goTo(from + 1);
+  else {
+    const first = document.querySelector('.has-error');
+    if (first) window.scrollTo({ top: first.offsetTop - 80, behavior: 'smooth' });
+  }
+}
+
+async function submitForm() {
+  const roda = getRadio('roda');
+  const rules = [
+    { id: 'field-fortalecimento', check: getVal('fortalecimento') },
+    { id: 'field-roda',           check: roda }
+  ];
+  if (roda === 'Sim') {
+    const email = getVal('email');
+    const emailOk = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    rules.push({ id: 'email-field',           check: emailOk });
+    rules.push({ id: 'field-disponibilidade', check: getChecked('disp') });
+  }
+  if (!validate(rules)) {
+    const first = document.querySelector('.has-error');
+    if (first) window.scrollTo({ top: first.offsetTop - 80, behavior: 'smooth' });
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Enviando...';
+
+  const data = {
+    timestamp:         new Date().toLocaleString('pt-BR'),
+    tcle:              getRadio('tcle'),
+    idade:             getVal('idade'),
+    nacionalidade:     getNacionalidade(),
+    pais_residencia:   getResidencia(),
+    vinculo:           getVinculo(),
+    periodo:           getRadio('periodo'),
+    tempo_atuacao:     getRadio('tempo'),
+    area:              getRadio('area'),
+    referencial:       getCheckFull('referencial','outro-ref'),
+    interesse_origem:  getCheckFull('interesse','outro-int'),
+    motivo_dedicacao:  getVal('motivo'),
+    subtemas:          getCheckFull('subtemas','outro-sub'),
+    importancia:       getVal('importancia'),
+    motivos_sim:       getVal('motivos_sim'),
+    desafios_estudo:   getCheckFull('desafios_estudo','outro-dest'),
+    desafios_trabalho: getCheckFull('desafios_trabalho','outro-dtrab'),
+    fortalecimento:    getVal('fortalecimento'),
+    comentarios:       getVal('comentarios'),
+    roda_conversa:     roda,
+    email:             getVal('email'),
+    disponibilidade:   getChecked('disp')
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    document.getElementById('sec4').classList.remove('active');
+    document.getElementById('sec-success').classList.add('active');
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Concluído!';
+    document.getElementById('progressCount').textContent = '4 / 4';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    btn.disabled = false;
+    btn.innerHTML = 'Enviar respostas ✓';
+    alert('Ocorreu um erro ao enviar. Por favor, tente novamente.');
+  }
+}
+</script>
+</body>
+</html>
