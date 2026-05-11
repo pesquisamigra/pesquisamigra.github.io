@@ -367,96 +367,147 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   font-weight: 400;
 }
 
-/* AGENDA */
-.agenda-table-wrap {
+/* AGENDA — GRADE SEMANAL */
+.grade-wrap {
   background: white;
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
-.agenda-scroll {
+.grade-header-bar {
+  background: var(--purple);
+  color: white;
+  padding: .85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .82rem;
+  font-weight: 500;
+}
+.grade-header-bar::before {
+  content: '';
+  width: 3px;
+  height: 16px;
+  background: var(--purple-mid);
+  border-radius: 2px;
+}
+.grade-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-table.agenda-table {
+table.grade-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px;
+  min-width: 880px;
   font-size: .8rem;
 }
-table.agenda-table thead {
-  background: var(--purple);
-  color: white;
-}
-table.agenda-table thead th {
-  padding: .7rem .5rem;
-  font-size: .68rem;
-  font-weight: 500;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  border-right: 1px solid rgba(255,255,255,0.08);
-}
-table.agenda-table thead th:last-child { border-right: none; }
-table.agenda-table thead th.col-email,
-table.agenda-table thead th.col-vinc {
-  text-align: left;
-  padding-left: 1.1rem;
-}
-table.agenda-table thead th .day {
-  display: block;
-  font-size: .72rem;
+table.grade-table thead th {
+  background: var(--purple-pale);
+  color: var(--purple);
+  padding: .8rem .9rem;
+  font-size: .75rem;
   font-weight: 600;
-}
-table.agenda-table thead th .shift {
-  display: block;
-  font-size: .6rem;
-  opacity: .75;
-  margin-top: 2px;
-}
-table.agenda-table tbody td {
-  padding: .65rem .5rem;
-  text-align: center;
-  color: var(--text-mid);
+  letter-spacing: .04em;
+  text-align: left;
   border-bottom: 1px solid var(--border);
   border-right: 1px solid var(--border);
+}
+table.grade-table thead th:last-child { border-right: none; }
+table.grade-table thead th.col-periodo {
+  width: 110px;
+  background: white;
+  color: var(--text-soft);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 500;
+}
+table.grade-table tbody td {
+  padding: .9rem .9rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  vertical-align: top;
+  min-height: 48px;
+}
+table.grade-table tbody td:last-child { border-right: none; }
+table.grade-table tbody tr:last-child td { border-bottom: none; }
+table.grade-table tbody td.cell-periodo {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--text);
+  font-size: .82rem;
   vertical-align: middle;
 }
-table.agenda-table tbody td:last-child { border-right: none; }
-table.agenda-table tbody tr:last-child td { border-bottom: none; }
-table.agenda-table tbody tr:hover { background: var(--purple-pale); }
-td.agenda-email {
-  color: var(--purple);
-  font-weight: 400;
-  text-align: left !important;
-  padding-left: 1.1rem !important;
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.email-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: .8rem;
+  color: var(--text-mid);
+  line-height: 1.4;
 }
-td.agenda-vinc {
-  font-size: .75rem;
-  color: var(--text-soft);
-  text-align: left !important;
-  padding-left: 1.1rem !important;
-  white-space: nowrap;
+.email-chip + .email-chip { border-top: 1px dashed var(--border); margin-top: 4px; padding-top: 8px; }
+.email-chip a {
+  color: var(--text-mid);
+  text-decoration: none;
+  word-break: break-all;
+  flex: 1;
+  transition: color .15s;
 }
-.avail-dot {
+.email-chip a:hover { color: var(--purple); }
+.vinc-icon {
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: .7rem;
+  font-size: .72rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
-.avail-yes { background: var(--success-bg); color: var(--success); }
-.avail-no  { background: var(--border); color: transparent; }
+.v-grad { background: #E8F4F0; color: #2D7A5F; }   /* Graduação - verde */
+.v-pos  { background: #EDE8FA; color: #4A3F8F; }   /* Pós-grad - roxo */
+.v-prof { background: #FDF0E4; color: #C17B4E; }   /* Profissional - laranja */
+.v-out  { background: #F0EEEE; color: #6B6B6B; }   /* Outro - cinza */
+
+.grade-empty-cell {
+  color: var(--text-soft);
+  font-size: .7rem;
+  font-style: italic;
+  opacity: .5;
+}
+
+/* LEGENDA */
+.legend-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.legend-title {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: .85rem;
+}
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .65rem 1.5rem;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .82rem;
+  color: var(--text-mid);
+}
 
 .agenda-legend {
   display: flex;
@@ -482,10 +533,10 @@ td.agenda-vinc {
   .tab { padding: .75rem .75rem; font-size: .8rem; }
   .tab-content { padding: 1.25rem; }
   .topbar { padding: .75rem 1rem; }
-  table.agenda-table { font-size: .72rem; }
-  table.agenda-table thead th { padding: .55rem .35rem; font-size: .6rem; }
-  table.agenda-table tbody td { padding: .5rem .35rem; }
-  .avail-dot { width: 18px; height: 18px; font-size: .65rem; }
+  table.grade-table { font-size: .72rem; }
+  table.grade-table thead th { padding: .55rem .55rem; font-size: .68rem; }
+  table.grade-table tbody td { padding: .65rem .55rem; }
+  .email-chip { font-size: .72rem; }
 }
 </style>
 </head>
@@ -858,6 +909,15 @@ function renderQualitativo() {
 }
 
 // ── AGENDA ────────────────────────────────────
+function getVincIcon(vinculo) {
+  // Retorna { sigla, classe, label }
+  if (!vinculo) return { sigla: '?', classe: 'v-out', label: '—' };
+  if (vinculo.indexOf('Graduação em Psicologia') !== -1) return { sigla: 'G', classe: 'v-grad', label: 'Graduação' };
+  if (vinculo.indexOf('Pós-Graduação') !== -1)            return { sigla: 'P', classe: 'v-pos',  label: 'Pós-graduação' };
+  if (vinculo.indexOf('Profissional') !== -1)             return { sigla: 'Ψ', classe: 'v-prof', label: 'Profissional (CRP)' };
+  return { sigla: '+', classe: 'v-out', label: 'Outro' };
+}
+
 function renderAgenda() {
   const content = document.getElementById('agenda-content');
   const interested = allData.filter(r => col(r, 'roda') === 'Sim' && col(r, 'email'));
@@ -870,20 +930,40 @@ function renderAgenda() {
   const DAYS   = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
   const SHIFTS = ['Manhã','Tarde','Noite'];
 
-  const slots = [];
-  DAYS.forEach(d => SHIFTS.forEach(s => slots.push(`${d} - ${s}`)));
+  // Estrutura: grade[shift][day] = [ {email, vincIcon}, ... ]
+  const grade = {};
+  SHIFTS.forEach(s => {
+    grade[s] = {};
+    DAYS.forEach(d => grade[s][d] = []);
+  });
 
-  // Summary de disponibilidade por slot
+  // Contagem geral por slot
   const slotCounts = {};
-  slots.forEach(s => slotCounts[s] = 0);
-  interested.forEach(r => {
-    col(r, 'disponibilidade').split(',').forEach(slot => {
-      const s = slot.trim();
-      if (slotCounts[s] !== undefined) slotCounts[s]++;
-    });
+  DAYS.forEach(d => SHIFTS.forEach(s => slotCounts[`${d} - ${s}`] = 0));
+
+  interested.forEach(row => {
+    const email   = col(row, 'email');
+    const vinculo = col(row, 'vinculo');
+    const icon    = getVincIcon(vinculo);
+    const disp    = col(row, 'disponibilidade');
+
+    DAYS.forEach(d => SHIFTS.forEach(s => {
+      const slotKey = `${d} - ${s}`;
+      if (disp.indexOf(slotKey) !== -1) {
+        grade[s][d].push({ email, icon });
+        slotCounts[slotKey]++;
+      }
+    }));
   });
 
   const bestSlot = Object.entries(slotCounts).sort((a,b)=>b[1]-a[1])[0];
+
+  // Contagem por vínculo
+  const vincCounts = { 'v-grad': 0, 'v-pos': 0, 'v-prof': 0, 'v-out': 0 };
+  interested.forEach(r => {
+    const ic = getVincIcon(col(r, 'vinculo'));
+    vincCounts[ic.classe]++;
+  });
 
   content.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
@@ -891,54 +971,67 @@ function renderAgenda() {
         <div style="font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.3rem">Participantes confirmados</div>
         <div style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--purple)">${interested.length}</div>
       </div>
-      ${bestSlot ? `<div style="background:var(--success-bg);border:1px solid #B8E4D8;border-radius:12px;padding:.75rem 1.25rem;">
+      ${bestSlot && bestSlot[1] > 0 ? `<div style="background:var(--success-bg);border:1px solid #B8E4D8;border-radius:12px;padding:.75rem 1.25rem;">
         <div style="font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--success);margin-bottom:.25rem">Melhor horário</div>
         <div style="font-size:1rem;font-weight:500;color:var(--text)">${bestSlot[0]}</div>
         <div style="font-size:.75rem;color:var(--text-soft)">${bestSlot[1]} disponíve${bestSlot[1]>1?'is':'l'}</div>
       </div>` : ''}
     </div>
 
-    <div class="agenda-legend" style="margin-bottom:.75rem">
-      <span><span class="legend-dot" style="background:var(--success-bg);border:1px solid #B8E4D8"></span> Disponível</span>
-      <span><span class="legend-dot" style="background:var(--border)"></span> Indisponível</span>
-      <span style="margin-left:auto;font-size:.7rem;color:var(--text-soft)">${interested.length > 0 ? '← arraste horizontalmente para ver todos os horários →' : ''}</span>
+    <!-- LEGENDA DE VÍNCULOS -->
+    <div class="legend-box">
+      <div class="legend-title">Legenda — vínculo com a Psicologia</div>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <span class="vinc-icon v-grad">G</span>
+          <span>Graduação <span style="color:var(--text-soft)">(${vincCounts['v-grad']})</span></span>
+        </div>
+        <div class="legend-item">
+          <span class="vinc-icon v-pos">P</span>
+          <span>Pós-graduação <span style="color:var(--text-soft)">(${vincCounts['v-pos']})</span></span>
+        </div>
+        <div class="legend-item">
+          <span class="vinc-icon v-prof">Ψ</span>
+          <span>Profissional (CRP) <span style="color:var(--text-soft)">(${vincCounts['v-prof']})</span></span>
+        </div>
+        <div class="legend-item">
+          <span class="vinc-icon v-out">+</span>
+          <span>Outro <span style="color:var(--text-soft)">(${vincCounts['v-out']})</span></span>
+        </div>
+      </div>
     </div>
 
-    <div class="agenda-table-wrap">
-      <div class="agenda-scroll">
-        <table class="agenda-table">
+    <!-- GRADE SEMANAL -->
+    <div class="grade-wrap">
+      <div class="grade-header-bar">Mapa de disponibilidade — grade semanal</div>
+      <div class="grade-scroll">
+        <table class="grade-table">
           <thead>
             <tr>
-              <th class="col-email" rowspan="1">E-mail</th>
-              <th class="col-vinc" rowspan="1">Vínculo</th>
-              ${slots.map(s => {
-                const [day, shift] = s.split(' - ');
-                return `<th><span class="day">${day.substring(0,3)}</span><span class="shift">${shift.substring(0,3)}</span></th>`;
-              }).join('')}
+              <th class="col-periodo">Período</th>
+              ${DAYS.map(d => `<th>${d}</th>`).join('')}
             </tr>
           </thead>
           <tbody>
-            ${interested.map(row => {
-              const email   = col(row, 'email');
-              const vinculo = col(row, 'vinculo')
-                .replace('Profissional formado(a) em Psicologia (com CRP ativo)', 'Profissional')
-                .replace('Estudante de Pós-Graduação','Pós-grad.')
-                .replace('Estudante de Graduação em Psicologia','Graduação');
-              const dispStr = col(row, 'disponibilidade');
-              return `<tr>
-                <td class="agenda-email" title="${email}">${email}</td>
-                <td class="agenda-vinc">${vinculo || '—'}</td>
-                ${slots.map(s => {
-                  const ok = dispStr.indexOf(s) !== -1;
-                  return `<td><span class="avail-dot ${ok ? 'avail-yes' : 'avail-no'}">${ok ? '✓' : '·'}</span></td>`;
+            ${SHIFTS.map(s => `
+              <tr>
+                <td class="cell-periodo">${s}</td>
+                ${DAYS.map(d => {
+                  const list = grade[s][d];
+                  if (!list.length) return `<td><span class="grade-empty-cell">—</span></td>`;
+                  return `<td>${list.map(p => `
+                    <div class="email-chip">
+                      <span class="vinc-icon ${p.icon.classe}" title="${p.icon.label}">${p.icon.sigla}</span>
+                      <a href="mailto:${p.email}" title="${p.email}">${p.email}</a>
+                    </div>`).join('')}</td>`;
                 }).join('')}
-              </tr>`;
-            }).join('')}
+              </tr>`).join('')}
           </tbody>
         </table>
       </div>
     </div>
 
+    <!-- DISPONIBILIDADE AGREGADA -->
     <div style="margin-top:2rem">
       <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:1rem;">Disponibilidade agregada por horário</div>
       <div class="bar-list">
