@@ -46,7 +46,6 @@
   <div id="loading" class="loading">Carregando dados...</div>
   <table id="dataTable" style="display:none;">
     <thead>
-<thead>
       <tr>
         <th>Data</th>
         <th>Vínculo</th>
@@ -54,22 +53,23 @@
         <th>Nacionalidade</th>
         <th>Residência</th>
         <th>Área</th>
+        <th>Referencial Teórico</th>
         <th>Roda de Conversa</th>
         <th>E-mail</th>
         <th>Disponibilidade</th>
       </tr>
     </thead>
-   <tbody id="tableBody"></tbody>
+    <tbody id="tableBody"></tbody>
   </table>
 </div>
 
 <script>
-// Cole a mesma URL gerada na nova implantação do Apps Script
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNyYEWSp6qdSOkoCPgo7TmTXWWNBD38IrjdwfpvRddlIs2tF97HhwjdBQ/exec';
+// Substitua pela URL da sua implantação
+const APPS_SCRIPT_URL = 'SUA_URL_DO_APPS_SCRIPT_AQUI';
 
 let allData = [];
 
-// Busca os dados da planilha ao carregar a página
+// Busca os dados via GET e renderiza a tabela
 async function fetchData() {
   try {
     const res = await fetch(APPS_SCRIPT_URL);
@@ -82,7 +82,7 @@ async function fetchData() {
   }
 }
 
-// Filtra e desenha as linhas da tabela no HTML
+// Filtra os dados e injeta no DOM
 function renderTable() {
   const filterV = document.getElementById('filterVinculo').value;
   const filterR = document.getElementById('filterRoda').value;
@@ -99,17 +99,20 @@ function renderTable() {
 
   filtered.forEach(row => {
     const tr = document.createElement('tr');
-tr.innerHTML = `
+    tr.innerHTML = `
       <td>${row['Timestamp'] || ''}</td>
       <td>${row['Vínculo'] || ''}</td>
       <td>${row['Idade'] || ''}</td>
       <td>${row['Nacionalidade'] || ''}</td>
       <td>${row['País de Residência Atual'] || ''}</td>
       <td>${row['Área(s) de Atuação/Interesse'] || ''}</td>
+      <td>${row['Referencial Teórico'] || ''}</td>
       <td>${row['Roda de Conversa'] || ''}</td>
       <td>${row['E-mail (roda)'] || ''}</td>
       <td>${row['Disponibilidade (roda)'] || ''}</td>
     `;
+    tbody.appendChild(tr);
+  });
 }
 
 fetchData();
