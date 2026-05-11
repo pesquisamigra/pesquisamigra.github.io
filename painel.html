@@ -375,47 +375,88 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   overflow: hidden;
   margin-bottom: 2rem;
 }
-.agenda-header {
-  display: grid;
-  grid-template-columns: 160px 1fr 80px 80px 80px 80px 80px 80px 80px;
+.agenda-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+table.agenda-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+  font-size: .8rem;
+}
+table.agenda-table thead {
   background: var(--purple);
   color: white;
-  font-size: .72rem;
+}
+table.agenda-table thead th {
+  padding: .7rem .5rem;
+  font-size: .68rem;
   font-weight: 500;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   text-transform: uppercase;
-}
-.agenda-header div, .agenda-row div {
-  padding: .75rem .6rem;
   text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
-.agenda-header div:first-child, .agenda-row div:first-child {
+table.agenda-table thead th:last-child { border-right: none; }
+table.agenda-table thead th.col-email,
+table.agenda-table thead th.col-vinc {
   text-align: left;
-  padding-left: 1.25rem;
+  padding-left: 1.1rem;
 }
-.agenda-row {
-  display: grid;
-  grid-template-columns: 160px 1fr 80px 80px 80px 80px 80px 80px 80px;
-  border-bottom: 1px solid var(--border);
-  font-size: .82rem;
+table.agenda-table thead th .day {
+  display: block;
+  font-size: .72rem;
+  font-weight: 600;
+}
+table.agenda-table thead th .shift {
+  display: block;
+  font-size: .6rem;
+  opacity: .75;
+  margin-top: 2px;
+}
+table.agenda-table tbody td {
+  padding: .65rem .5rem;
+  text-align: center;
   color: var(--text-mid);
-  transition: background .15s;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  vertical-align: middle;
 }
-.agenda-row:last-child { border-bottom: none; }
-.agenda-row:hover { background: var(--purple-pale); }
-.agenda-email { color: var(--purple); font-weight: 400; }
+table.agenda-table tbody td:last-child { border-right: none; }
+table.agenda-table tbody tr:last-child td { border-bottom: none; }
+table.agenda-table tbody tr:hover { background: var(--purple-pale); }
+td.agenda-email {
+  color: var(--purple);
+  font-weight: 400;
+  text-align: left !important;
+  padding-left: 1.1rem !important;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+td.agenda-vinc {
+  font-size: .75rem;
+  color: var(--text-soft);
+  text-align: left !important;
+  padding-left: 1.1rem !important;
+  white-space: nowrap;
+}
 .avail-dot {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: .65rem;
+  font-size: .7rem;
   font-weight: 600;
 }
 .avail-yes { background: var(--success-bg); color: var(--success); }
-.avail-no  { background: var(--border); color: var(--text-soft); }
+.avail-no  { background: var(--border); color: transparent; }
 
 .agenda-legend {
   display: flex;
@@ -440,8 +481,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   .charts-grid { grid-template-columns: 1fr; }
   .tab { padding: .75rem .75rem; font-size: .8rem; }
   .tab-content { padding: 1.25rem; }
-  .agenda-header, .agenda-row { grid-template-columns: 140px 1fr repeat(7, 50px); font-size: .7rem; }
   .topbar { padding: .75rem 1rem; }
+  table.agenda-table { font-size: .72rem; }
+  table.agenda-table thead th { padding: .55rem .35rem; font-size: .6rem; }
+  table.agenda-table tbody td { padding: .5rem .35rem; }
+  .avail-dot { width: 18px; height: 18px; font-size: .65rem; }
 }
 </style>
 </head>
@@ -545,7 +589,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 // ══════════════════════════════════════════════
 //  CONFIGURAÇÃO — edite aqui
 // ══════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySVGyNXLk-KWHn9tYKJH2hCerzzretCGDjXey7AVclTfOgS_R8Mr4j24F_mjHR5_tL/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNyYEWSp6qdSOkoCPgo7TmTXWWNBD38IrjdwfpvRddlIs2tF97HhwjdBQ/exec';
 
 // Defina sua chave de acesso aqui (ou use a lógica de validação no servidor)
 // Para maior segurança, considere validar no Apps Script via parâmetro GET
@@ -857,28 +901,41 @@ function renderAgenda() {
     <div class="agenda-legend" style="margin-bottom:.75rem">
       <span><span class="legend-dot" style="background:var(--success-bg);border:1px solid #B8E4D8"></span> Disponível</span>
       <span><span class="legend-dot" style="background:var(--border)"></span> Indisponível</span>
+      <span style="margin-left:auto;font-size:.7rem;color:var(--text-soft)">${interested.length > 0 ? '← arraste horizontalmente para ver todos os horários →' : ''}</span>
     </div>
 
-    <div class="agenda-table-wrap" style="overflow-x:auto">
-      <div style="min-width:900px">
-        <div class="agenda-header">
-          <div>E-mail</div>
-          <div>Vínculo</div>
-          ${DAYS.flatMap(d => SHIFTS.map(s => `<div style="font-size:.65rem">${d.substring(0,3)}<br>${s.substring(0,3)}</div>`)).join('')}
-        </div>
-        ${interested.map(row => {
-          const email    = col(row, 'email');
-          const vinculo  = col(row, 'vinculo').replace('Profissional formado(a) em Psicologia (com CRP ativo)', 'Profissional').replace('Estudante de Pós-Graduação','Pós-grad.').replace('Estudante de Graduação em Psicologia','Graduação');
-          const dispStr  = col(row, 'disponibilidade');
-          return `<div class="agenda-row">
-            <div class="agenda-email" title="${email}">${email.length > 24 ? email.substring(0,22) + '…' : email}</div>
-            <div style="font-size:.75rem;color:var(--text-soft)">${vinculo || '—'}</div>
-            ${slots.map(s => {
-              const ok = dispStr.indexOf(s) !== -1;
-              return `<div><span class="avail-dot ${ok ? 'avail-yes' : 'avail-no'}">${ok ? '✓' : ''}</span></div>`;
+    <div class="agenda-table-wrap">
+      <div class="agenda-scroll">
+        <table class="agenda-table">
+          <thead>
+            <tr>
+              <th class="col-email" rowspan="1">E-mail</th>
+              <th class="col-vinc" rowspan="1">Vínculo</th>
+              ${slots.map(s => {
+                const [day, shift] = s.split(' - ');
+                return `<th><span class="day">${day.substring(0,3)}</span><span class="shift">${shift.substring(0,3)}</span></th>`;
+              }).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${interested.map(row => {
+              const email   = col(row, 'email');
+              const vinculo = col(row, 'vinculo')
+                .replace('Profissional formado(a) em Psicologia (com CRP ativo)', 'Profissional')
+                .replace('Estudante de Pós-Graduação','Pós-grad.')
+                .replace('Estudante de Graduação em Psicologia','Graduação');
+              const dispStr = col(row, 'disponibilidade');
+              return `<tr>
+                <td class="agenda-email" title="${email}">${email}</td>
+                <td class="agenda-vinc">${vinculo || '—'}</td>
+                ${slots.map(s => {
+                  const ok = dispStr.indexOf(s) !== -1;
+                  return `<td><span class="avail-dot ${ok ? 'avail-yes' : 'avail-no'}">${ok ? '✓' : '·'}</span></td>`;
+                }).join('')}
+              </tr>`;
             }).join('')}
-          </div>`;
-        }).join('')}
+          </tbody>
+        </table>
       </div>
     </div>
 
