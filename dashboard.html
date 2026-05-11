@@ -15,7 +15,7 @@
   select { padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; outline: none; }
   .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; }
   table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
-  th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
   th { background: var(--purple); color: #FFF; font-weight: 500; }
   tr:hover { background: #F0EEFF; }
   .loading { text-align: center; padding: 2rem; color: var(--purple); font-weight: bold; }
@@ -47,10 +47,7 @@
   <table id="dataTable" style="display:none;">
     <thead>
       <tr>
-        <th>Data</th>
         <th>Vínculo</th>
-        <th>Idade</th>
-        <th>Nacionalidade</th>
         <th>Residência</th>
         <th>Área</th>
         <th>Referencial Teórico</th>
@@ -64,7 +61,6 @@
 </div>
 
 <script>
-// Substitua pela URL da sua implantação
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNyYEWSp6qdSOkoCPgo7TmTXWWNBD38IrjdwfpvRddlIs2tF97HhwjdBQ/exec';
 
 let allData = [];
@@ -72,15 +68,27 @@ let allData = [];
 // Busca os dados via GET e renderiza a tabela
 async function fetchData() {
   try {
-    const res = await fetch(APPS_SCRIPT_URL);
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'GET',
+      redirect: 'follow'
+    });
+    
+    if (!res.ok) {
+      throw new Error(`Erro de rede: ${res.status}`);
+    }
+    
     allData = await res.json();
     document.getElementById('loading').style.display = 'none';
     document.getElementById('dataTable').style.display = 'table';
     renderTable();
   } catch (e) {
-    document.getElementById('loading').innerText = 'Erro ao carregar os dados.';
+    console.error("Erro completo:", e);
+    document.getElementById('loading').innerHTML = `Erro ao carregar os dados.<br><small>${e.message}</small>`;
   }
 }
+
+// Substitui vírgulas por quebras de linha HTML
+const formatText = (text) => text ? String(text).replace(/,/g, '<br>') : '';
 
 // Filtra os dados e injeta no DOM
 function renderTable() {
@@ -100,16 +108,13 @@ function renderTable() {
   filtered.forEach(row => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${row['Timestamp'] || ''}</td>
-      <td>${row['Vínculo'] || ''}</td>
-      <td>${row['Idade'] || ''}</td>
-      <td>${row['Nacionalidade'] || ''}</td>
-      <td>${row['País de Residência Atual'] || ''}</td>
-      <td>${row['Área(s) de Atuação/Interesse'] || ''}</td>
-      <td>${row['Referencial Teórico'] || ''}</td>
-      <td>${row['Roda de Conversa'] || ''}</td>
-      <td>${row['E-mail (roda)'] || ''}</td>
-      <td>${row['Disponibilidade (roda)'] || ''}</td>
+      <td>${formatText(row['Vínculo'])}</td>
+      <td>${formatText(row['País de Residência Atual'])}</td>
+      <td>${formatText(row['Área(s) de Atuação/Interesse'])}</td>
+      <td>${formatText(row['Referencial Teórico'])}</td>
+      <td>${formatText(row['Roda de Conversa'])}</td>
+      <td>${formatText(row['E-mail (roda)'])}</td>
+      <td>${formatText(row['Disponibilidade (roda)'])}</td>
     `;
     tbody.appendChild(tr);
   });
