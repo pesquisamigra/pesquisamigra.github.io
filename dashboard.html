@@ -13,12 +13,13 @@
   .header h1 { color: var(--purple); font-size: 1.5rem; }
   .filters { display: flex; gap: 1rem; margin-bottom: 1rem; }
   select { padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; outline: none; }
-  .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; }
+  .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 2rem; }
   table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
   th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
   th { background: var(--purple); color: #FFF; font-weight: 500; }
   tr:hover { background: #F0EEFF; }
   .loading { text-align: center; padding: 2rem; color: var(--purple); font-weight: bold; }
+  .section-title { font-size: 1.2rem; color: var(--purple); margin-bottom: 1rem; }
 </style>
 </head>
 <body>
@@ -60,37 +61,49 @@
   </table>
 </div>
 
+<h2 class="section-title">Mapa de Disponibilidade (Roda de Conversa)</h2>
+<div class="table-wrap">
+  <table id="availTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Segunda</th>
+        <th>Terça</th>
+        <th>Quarta</th>
+        <th>Quinta</th>
+        <th>Sexta</th>
+        <th>Sábado</th>
+      </tr>
+    </thead>
+    <tbody id="availBody"></tbody>
+  </table>
+</div>
+
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNyYEWSp6qdSOkoCPgo7TmTXWWNBD38IrjdwfpvRddlIs2tF97HhwjdBQ/exec';
 
 let allData = [];
 
-// Busca os dados via GET e renderiza a tabela
+// Busca dados
 async function fetchData() {
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'GET',
-      redirect: 'follow'
-    });
-    
-    if (!res.ok) {
-      throw new Error(`Erro de rede: ${res.status}`);
-    }
+    const res = await fetch(APPS_SCRIPT_URL, { method: 'GET', redirect: 'follow' });
+    if (!res.ok) throw new Error(`Erro: ${res.status}`);
     
     allData = await res.json();
     document.getElementById('loading').style.display = 'none';
     document.getElementById('dataTable').style.display = 'table';
+    document.getElementById('availTable').style.display = 'table';
     renderTable();
   } catch (e) {
-    console.error("Erro completo:", e);
-    document.getElementById('loading').innerHTML = `Erro ao carregar os dados.<br><small>${e.message}</small>`;
+    document.getElementById('loading').innerHTML = `Erro ao carregar dados.<br><small>${e.message}</small>`;
   }
 }
 
-// Substitui vírgulas por quebras de linha HTML
+// Formata texto
 const formatText = (text) => text ? String(text).replace(/,/g, '<br>') : '';
 
-// Filtra os dados e injeta no DOM
+// Renderiza tabela principal
 function renderTable() {
   const filterV = document.getElementById('filterVinculo').value;
   const filterR = document.getElementById('filterRoda').value;
@@ -117,6 +130,45 @@ function renderTable() {
       <td>${formatText(row['Disponibilidade (roda)'])}</td>
     `;
     tbody.appendChild(tr);
+  });
+
+  renderAvailTable(filtered);
+}
+
+// Renderiza grid de disponibilidade
+function renderAvailTable(data) {
+  const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  const periods = ['Manhã', 'Tarde', 'Noite'];
+  const grid = { 'Manhã': {}, 'Tarde': {}, 'Noite': {} };
+
+  // Inicializa matriz
+  periods.forEach(p => days.forEach(d => grid[p][d] = []));
+
+  // Popula e-mails
+  data.forEach(row => {
+    if (row['Roda de Conversa'] === 'Sim' && row['E-mail (roda)'] && row['Disponibilidade (roda)']) {
+      const disp = row['Disponibilidade (roda)'].split(',');
+      disp.forEach(item => {
+        const parts = item.split('-');
+        if (parts.length === 2) {
+          const d = parts[0].trim();
+          const p = parts[1].trim();
+          if (grid[p] && grid[p][d]) grid[p][d].push(row['E-mail (roda)']);
+        }
+      });
+    }
+  });
+
+  // Monta HTML
+  const tbody = document.getElementById('availBody');
+  tbody.innerHTML = '';
+  periods.forEach(p => {
+    let tr = `<tr><td><strong>${p}</strong></td>`;
+    days.forEach(d => {
+      tr += `<td>${grid[p][d].join('<br><br>')}</td>`;
+    });
+    tr += `</tr>`;
+    tbody.innerHTML += tr;
   });
 }
 
