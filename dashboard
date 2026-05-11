@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Psicologia e Migração</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --purple: #4A3F8F; --bg: #FAFAF8; --border: #E2DFF5; --text: #1A1830; }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; }
+  body { background: var(--bg); color: var(--text); padding: 2rem; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+  .header h1 { color: var(--purple); font-size: 1.5rem; }
+  .filters { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  select { padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; outline: none; }
+  .table-wrap { overflow-x: auto; background: #FFF; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+  th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { background: var(--purple); color: #FFF; font-weight: 500; }
+  tr:hover { background: #F0EEFF; }
+  .loading { text-align: center; padding: 2rem; color: var(--purple); font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Dashboard de Respostas</h1>
+  <div id="count">Total: 0</div>
+</div>
+
+<div class="filters">
+  <select id="filterVinculo" onchange="renderTable()">
+    <option value="Todos">Todos os Vínculos</option>
+    <option value="Estudante de Graduação em Psicologia">Graduação</option>
+    <option value="Estudante de Pós-Graduação">Pós-Graduação</option>
+    <option value="Profissional formado(a) em Psicologia (com CRP ativo)">Profissional</option>
+  </select>
+  <select id="filterRoda" onchange="renderTable()">
+    <option value="Todos">Interesse na Roda?</option>
+    <option value="Sim">Sim</option>
+    <option value="Não">Não</option>
+  </select>
+</div>
+
+<div class="table-wrap">
+  <div id="loading" class="loading">Carregando dados...</div>
+  <table id="dataTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Vínculo</th>
+        <th>Idade</th>
+        <th>Nacionalidade</th>
+        <th>Residência</th>
+        <th>Área</th>
+        <th>Roda de Conversa</th>
+        <th>E-mail</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<script>
+// Cole a mesma URL gerada na nova implantação do Apps Script
+const APPS_SCRIPT_URL = 'SUA_URL_DO_APPS_SCRIPT_AQUI';
+
+let allData = [];
+
+// Busca os dados da planilha ao carregar a página
+async function fetchData() {
+  try {
+    const res = await fetch(APPS_SCRIPT_URL);
+    allData = await res.json();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('dataTable').style.display = 'table';
+    renderTable();
+  } catch (e) {
+    document.getElementById('loading').innerText = 'Erro ao carregar os dados.';
+  }
+}
+
+// Filtra e desenha as linhas da tabela no HTML
+function renderTable() {
+  const filterV = document.getElementById('filterVinculo').value;
+  const filterR = document.getElementById('filterRoda').value;
+  const tbody = document.getElementById('tableBody');
+  
+  let filtered = allData.filter(row => {
+    const matchV = filterV === 'Todos' || (row['Vínculo'] && row['Vínculo'].includes(filterV));
+    const matchR = filterR === 'Todos' || row['Roda de Conversa'] === filterR;
+    return matchV && matchR;
+  });
+
+  document.getElementById('count').innerText = `Total: ${filtered.length}`;
+  tbody.innerHTML = '';
+
+  filtered.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row['Timestamp'] || ''}</td>
+      <td>${row['Vínculo'] || ''}</td>
+      <td>${row['Idade'] || ''}</td>
+      <td>${row['Nacionalidade'] || ''}</td>
+      <td>${row['País de Residência Atual'] || ''}</td>
+      <td>${row['Área(s) de Atuação/Interesse'] || ''}</td>
+      <td>${row['Roda de Conversa'] || ''}</td>
+      <td>${row['E-mail (roda)'] || ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+fetchData();
+</script>
+</body>
+</html>
