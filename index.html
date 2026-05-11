@@ -557,22 +557,14 @@
       </div>
 
       <!-- PERÍODO -->
-      <div class="field" id="field-periodo">
-        <label class="field-label">Se você for estudante, em qual período está?</label>
-        <div class="options">
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos iniciais (1º–2º ano)"><div class="option-dot"></div><span class="option-text">Anos iniciais (1º–2º ano)</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos intermediários (3º–4º ano)"><div class="option-dot"></div><span class="option-text">Anos intermediários (3º–4º ano)</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Ano final / Estágios (5º ano)"><div class="option-dot"></div><span class="option-text">Ano final / Estágios (5º ano)</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-graduando(a) – Especialização"><div class="option-dot"></div><span class="option-text">Pós-graduando(a) – Especialização</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
-          <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
+      <div class="field" id="field-periodo" style="display:none">
+        <label class="field-label">Em qual período / nível você está?</label>
+        <div class="options" id="options-periodo">
         </div>
       </div>
 
       <!-- TEMPO -->
-      <div class="field" id="field-tempo">
+      <div class="field" id="field-tempo" style="display:none">
         <label class="field-label">Se você for profissional, há quanto tempo atua?</label>
         <div class="options">
           <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
@@ -585,24 +577,24 @@
 
       <!-- ÁREA -->
       <div class="field" id="field-area">
-        <label class="field-label">Principal área de atuação ou interesse <span class="required">*</span></label>
-        <p class="field-hint">Áreas elencadas pelo CFP – Resolução nº 23/2022. Marque apenas a principal.</p>
+        <label class="field-label">Área(s) de atuação ou interesse <span class="required">*</span></label>
+        <p class="field-hint">Áreas elencadas pelo CFP – Resolução nº 23/2022. Pode marcar mais de uma.</p>
         <div class="options">
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Escolar / Educacional"><div class="option-dot"></div><span class="option-text">Psicologia Escolar / Educacional</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Organizacional e do Trabalho"><div class="option-dot"></div><span class="option-text">Psicologia Organizacional e do Trabalho</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia de Trânsito"><div class="option-dot"></div><span class="option-text">Psicologia de Trânsito</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Jurídica"><div class="option-dot"></div><span class="option-text">Psicologia Jurídica</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia do Esporte"><div class="option-dot"></div><span class="option-text">Psicologia do Esporte</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Clínica"><div class="option-dot"></div><span class="option-text">Psicologia Clínica</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Hospitalar"><div class="option-dot"></div><span class="option-text">Psicologia Hospitalar</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicopedagogia"><div class="option-dot"></div><span class="option-text">Psicopedagogia</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicomotricidade"><div class="option-dot"></div><span class="option-text">Psicomotricidade</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia Social"><div class="option-dot"></div><span class="option-text">Psicologia Social</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Neuropsicologia"><div class="option-dot"></div><span class="option-text">Neuropsicologia</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Psicologia em Saúde"><div class="option-dot"></div><span class="option-text">Psicologia em Saúde</span></label>
-          <label class="option-item" onclick="selectRadio(this,'area')"><input type="radio" name="area" value="Avaliação Psicológica"><div class="option-dot"></div><span class="option-text">Avaliação Psicológica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Escolar / Educacional"><div class="option-box"></div><span class="option-text">Psicologia Escolar / Educacional</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Organizacional e do Trabalho"><div class="option-box"></div><span class="option-text">Psicologia Organizacional e do Trabalho</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia de Trânsito"><div class="option-box"></div><span class="option-text">Psicologia de Trânsito</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Jurídica"><div class="option-box"></div><span class="option-text">Psicologia Jurídica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia do Esporte"><div class="option-box"></div><span class="option-text">Psicologia do Esporte</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Clínica"><div class="option-box"></div><span class="option-text">Psicologia Clínica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Hospitalar"><div class="option-box"></div><span class="option-text">Psicologia Hospitalar</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicopedagogia"><div class="option-box"></div><span class="option-text">Psicopedagogia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicomotricidade"><div class="option-box"></div><span class="option-text">Psicomotricidade</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia Social"><div class="option-box"></div><span class="option-text">Psicologia Social</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Neuropsicologia"><div class="option-box"></div><span class="option-text">Neuropsicologia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Psicologia em Saúde"><div class="option-box"></div><span class="option-text">Psicologia em Saúde</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'area')"><input type="checkbox" name="area" value="Avaliação Psicológica"><div class="option-box"></div><span class="option-text">Avaliação Psicológica</span></label>
         </div>
-        <span class="error-msg">Por favor, selecione uma área.</span>
+        <span class="error-msg">Por favor, selecione ao menos uma área.</span>
       </div>
 
       <!-- REFERENCIAL -->
@@ -958,6 +950,42 @@ function toggleAvail(cell) {
   clearError('field-disponibilidade');
 }
 
+// Exibe os campos e opções corretas baseado no vínculo selecionado
+function atualizaVinculo(val) {
+  const fieldPeriodo = document.getElementById('field-periodo');
+  const optionsPeriodo = document.getElementById('options-periodo');
+  const fieldTempo = document.getElementById('field-tempo');
+  
+  fieldPeriodo.style.display = 'block';
+  fieldTempo.style.display = 'none';
+
+  if (val === 'Estudante de Graduação em Psicologia') {
+    optionsPeriodo.innerHTML = `
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos iniciais (1º–2º ano)"><div class="option-dot"></div><span class="option-text">Anos iniciais (1º–2º ano)</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos intermediários (3º–4º ano)"><div class="option-dot"></div><span class="option-text">Anos intermediários (3º–4º ano)</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Ano final / Estágios (5º ano)"><div class="option-dot"></div><span class="option-text">Ano final / Estágios (5º ano)</span></label>
+    `;
+  } else if (val === 'Estudante de Pós-Graduação') {
+    optionsPeriodo.innerHTML = `
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
+    `;
+  } else if (val === 'Profissional formado(a) em Psicologia (com CRP ativo)') {
+    optionsPeriodo.innerHTML = `
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
+    `;
+    fieldTempo.style.display = 'block';
+  } else {
+    fieldPeriodo.style.display = 'none';
+  }
+}
+
 function selectRadio(el, name) {
   document.querySelectorAll('[name="' + name + '"]').forEach(function(inp){
     inp.closest('.option-item').classList.remove('selected');
@@ -967,8 +995,10 @@ function selectRadio(el, name) {
   clearError('field-' + name);
 
   if (name === 'vinculo') {
+    const val = el.querySelector('input').value;
+    atualizaVinculo(val);
     const wrap = document.getElementById('outro-vinculo-wrap');
-    if (el.querySelector('input').value === 'Outro') {
+    if (val === 'Outro') {
       wrap.classList.add('visible');
       setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
     } else {
@@ -1079,7 +1109,7 @@ function nextSection(from) {
       { id: 'field-nacionalidade',check: getNacionalidade() },
       { id: 'field-residencia',   check: getResidencia() },
       { id: 'field-vinculo',      check: vincOk },
-      { id: 'field-area',         check: getRadio('area') },
+      { id: 'field-area',         check: getChecked('area') },
       { id: 'field-referencial',  check: getChecked('referencial') }
     ]);
   } else if (from === 2) {
@@ -1133,7 +1163,7 @@ async function submitForm() {
     vinculo:           getVinculo(),
     periodo:           getRadio('periodo'),
     tempo_atuacao:     getRadio('tempo'),
-    area:              getRadio('area'),
+    area:              getChecked('area'),
     referencial:       getCheckFull('referencial','outro-ref'),
     interesse_origem:  getCheckFull('interesse','outro-int'),
     motivo_dedicacao:  getVal('motivo'),
