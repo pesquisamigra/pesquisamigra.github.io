@@ -597,7 +597,6 @@
             <div class="options">
               <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Atende imigrantes internacionais que vivem no Brasil"><div class="option-box"></div><span class="option-text">Atende imigrantes internacionais que vivem no Brasil</span></label>
               <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Atende brasileiros no exterior"><div class="option-box"></div><span class="option-text">Atende brasileiros no exterior</span></label>
-              <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Ambos (imigrantes no Brasil e brasileiros no exterior)"><div class="option-box"></div><span class="option-text">Ambos (imigrantes no Brasil e brasileiros no exterior)</span></label>
             </div>
           </div>
 
@@ -605,7 +604,7 @@
           <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-politicas',2)">
             <input type="checkbox" name="atuacao_migracao" value="Políticas públicas (SUS, SUAS etc.)">
             <div class="option-box"></div>
-            <span class="option-text">Atua nas políticas públicas (SUS, SUAS etc.)</span>
+            <span class="option-text">Atua nas políticas públicas (SUS, SUAS, etc.)</span>
           </label>
           <div class="subsecao" id="sub-politicas">
             <div class="field-hint">Em qual(is) política(s)?</div>
@@ -663,6 +662,12 @@
             <span class="option-text">Não se aplica</span>
           </label>
 
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2,'outro-ref-wrap')"><input type="checkbox" name="atuacao_migracao" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+        </div>
+        <div class="other-input" id="outro-ref-wrap">
+          <input type="text" id="outro-ref" placeholder="Especifique">
+        </div>
+        
         </div>
         <span class="error-msg">Por favor, selecione ao menos uma opção.</span>
       </div>
