@@ -6,7 +6,6 @@
 <title>Painel de Resultados — Psicologia e Migração</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
   --purple: #4A3F8F;
@@ -247,92 +246,87 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .tab-content { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
 .tab-content.active { display: block; }
 
-/* MÉTRICAS */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-.metric-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.25rem 1.5rem;
-}
-.metric-label {
-  font-size: .72rem;
-  font-weight: 500;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  margin-bottom: .5rem;
-}
-.metric-value {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2rem;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1;
-}
-.metric-sub {
-  font-size: .75rem;
-  color: var(--text-soft);
-  margin-top: .3rem;
-  font-weight: 300;
-}
-
-/* SEÇÕES */
+/* ── BLOCOS NUMÉRICOS ── */
 .section-block { margin-bottom: 2.5rem; }
 .section-heading {
-  font-size: .7rem;
+  font-size: .68rem;
   font-weight: 600;
-  letter-spacing: .12em;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--purple);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.section-heading::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+.section-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* CHARTS */
-.charts-grid {
+.count-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: .75rem;
 }
-.chart-card {
+.count-card {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
 }
-.chart-card.full { grid-column: 1 / -1; }
-.chart-title {
-  font-size: .8rem;
+.count-label {
+  font-size: .68rem;
   font-weight: 500;
-  color: var(--text-mid);
-  margin-bottom: 1.25rem;
-  letter-spacing: .02em;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  line-height: 1.4;
+  margin-bottom: .4rem;
 }
-.chart-wrap { position: relative; }
-.chart-wrap canvas { max-height: 240px; }
+.count-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--purple);
+}
+.count-pct {
+  font-size: .7rem;
+  color: var(--text-soft);
+  font-weight: 300;
+  margin-top: .2rem;
+}
 
-/* BARRA HORIZONTAL */
-.bar-list { display: flex; flex-direction: column; gap: 10px; }
-.bar-item { display: flex; flex-direction: column; gap: 4px; }
-.bar-label-row { display: flex; justify-content: space-between; align-items: baseline; }
-.bar-label { font-size: .78rem; color: var(--text-mid); line-height: 1.4; flex: 1; padding-right: 8px; }
-.bar-count { font-size: .78rem; font-weight: 500; color: var(--purple); min-width: 28px; text-align: right; }
-.bar-track { height: 6px; background: var(--purple-pale); border-radius: 999px; overflow: hidden; }
-.bar-fill { height: 100%; background: var(--purple); border-radius: 999px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+.block-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+.block-card.full { grid-column: 1 / -1; }
+.block-title {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: .9rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--border);
+}
+.num-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: .45rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.num-row:last-child { border-bottom: none; }
+.num-key { font-size: .82rem; color: var(--text-mid); flex: 1; line-height: 1.4; }
+.num-val { font-size: .95rem; font-weight: 500; color: var(--text); min-width: 28px; text-align: right; }
+.num-pct { font-size: .72rem; color: var(--text-soft); min-width: 42px; text-align: right; }
 
 /* QUALITATIVO */
 .qual-section { margin-bottom: 2.5rem; }
@@ -587,26 +581,34 @@ table.grade-table tbody td.cell-periodo {
     </div>
     <div id="quant-content" style="display:none">
 
-      <div class="metrics-grid" id="metrics-grid"></div>
+      <!-- Visão geral -->
+      <div class="section-block">
+        <div class="section-heading">Visão geral</div>
+        <div class="count-grid" id="metrics-geral"></div>
+      </div>
 
+      <!-- Faixas etárias -->
+      <div class="section-block">
+        <div class="section-heading">Idade</div>
+        <div class="count-grid" id="metrics-idade"></div>
+      </div>
+
+      <!-- Perfil -->
       <div class="section-block">
         <div class="section-heading">Perfil</div>
-        <div class="charts-grid" id="charts-perfil"></div>
+        <div class="two-col" id="blocks-perfil"></div>
       </div>
 
+      <!-- Trajetória -->
       <div class="section-block">
         <div class="section-heading">Trajetória e interesse</div>
-        <div class="charts-grid" id="charts-traj"></div>
+        <div class="two-col" id="blocks-traj"></div>
       </div>
 
+      <!-- Percepções -->
       <div class="section-block">
         <div class="section-heading">Percepções sobre o campo</div>
-        <div class="charts-grid" id="charts-perc"></div>
-      </div>
-
-      <div class="section-block">
-        <div class="section-heading">Roda de conversa</div>
-        <div class="charts-grid" id="charts-roda"></div>
+        <div class="two-col" id="blocks-perc"></div>
       </div>
 
     </div>
@@ -640,7 +642,7 @@ table.grade-table tbody td.cell-periodo {
 // ══════════════════════════════════════════════
 //  CONFIGURAÇÃO — edite aqui
 // ══════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZta4os4vRw4gXDqjeZSkRdGVWQ7ZQE_yM4f_vLpc7owf1JOB_iymX1p4PJu1oOHAYTw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySVGyNXLk-KWHn9tYKJH2hCerzzretCGDjXey7AVclTfOgS_R8Mr4j24F_mjHR5_tL/exec';
 
 // Defina sua chave de acesso aqui (ou use a lógica de validação no servidor)
 // Para maior segurança, considere validar no Apps Script via parâmetro GET
@@ -649,7 +651,6 @@ const ACCESS_KEY = 'migra2025';
 // ══════════════════════════════════════════════
 
 let allData = [];
-let chartInstances = {};
 
 // ── AUTH ──────────────────────────────────────
 function doLogin() {
@@ -687,20 +688,52 @@ function switchTab(n) {
 // ── LOAD DATA ─────────────────────────────────
 async function loadData() {
   document.getElementById('load0').style.display = 'flex';
+  document.getElementById('load0').innerHTML = '<div class="spinner-lg"></div><p>Carregando dados da planilha...</p>';
   document.getElementById('quant-content').style.display = 'none';
 
   try {
     const res = await fetch(APPS_SCRIPT_URL + '?action=read', { method: 'GET' });
-    const json = await res.json();
+
+    if (!res.ok) {
+      throw new Error('HTTP ' + res.status);
+    }
+
+    const text = await res.text();
+    let json;
+    try {
+      json = JSON.parse(text);
+    } catch (parseErr) {
+      console.error('Resposta recebida (não-JSON):', text.substring(0, 500));
+      throw new Error('Resposta não é JSON. O Apps Script provavelmente não tem o endpoint de leitura ainda. Resposta: ' + text.substring(0, 100));
+    }
+
+    if (json.status === 'error') {
+      throw new Error(json.message || 'Erro no Apps Script');
+    }
+
     allData = json.rows || [];
-    document.getElementById('lastUpdate').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
+    document.getElementById('lastUpdate').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR') + ' · ' + allData.length + ' resposta' + (allData.length !== 1 ? 's' : '');
     renderQuantitativo();
     renderQualitativo();
     renderAgenda();
   } catch (e) {
+    console.error('Erro ao carregar:', e);
     document.getElementById('load0').innerHTML =
-      '<p style="color:var(--danger);text-align:center">Erro ao carregar dados.<br><small>Verifique se o Apps Script está publicado com permissão de leitura.</small><br><br>' +
-      '<button onclick="loadData()" style="margin-top:8px;padding:.5rem 1rem;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:white">Tentar novamente</button></p>';
+      '<div style="text-align:center;max-width:480px;padding:1rem">' +
+      '<p style="color:var(--danger);font-weight:500;margin-bottom:.5rem">Erro ao carregar dados</p>' +
+      '<p style="color:var(--text-soft);font-size:.8rem;margin-bottom:1rem">' + e.message + '</p>' +
+      '<div style="background:var(--accent-pale);border:1px solid #EDD5BE;border-radius:10px;padding:1rem;font-size:.78rem;color:var(--text-mid);text-align:left;line-height:1.7;margin-bottom:1rem">' +
+        '<strong style="color:var(--accent)">Checklist:</strong><br>' +
+        '1. Cole o novo <code>Code.gs</code> no editor do Apps Script<br>' +
+        '2. Salve (💾) o projeto<br>' +
+        '3. Implantar → <strong>Gerenciar implantações</strong><br>' +
+        '4. Clique no ícone de lápis (editar) na implantação ativa<br>' +
+        '5. Em "Versão", selecione <strong>Nova versão</strong><br>' +
+        '6. Garanta que "Executar como" = <strong>Eu</strong> e "Quem tem acesso" = <strong>Qualquer pessoa</strong><br>' +
+        '7. Clique em Implantar e copie a URL atualizada' +
+      '</div>' +
+      '<button onclick="loadData()" style="padding:.6rem 1.2rem;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:white;font-family:inherit">↺ Tentar novamente</button>' +
+      '</div>';
     document.getElementById('load0').style.display = 'flex';
   }
 }
@@ -731,140 +764,94 @@ function sortedEntries(obj, top = 999) {
   return Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, top);
 }
 
-function destroyChart(id) {
-  if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+// ── QUANTITATIVO ──────────────────────────────
+function pct(n, total) {
+  if (!total) return '';
+  return Math.round(n / total * 100) + '%';
 }
 
-const PURPLE_SHADES = [
-  '#4A3F8F','#6C5FBF','#8E7FCF','#B0A0DF','#D0C8EF',
-  '#534AB7','#3C3489','#7F77DD','#AFA9EC','#CECBF6'
-];
+function countCard(label, value, sub) {
+  return `<div class="count-card">
+    <div class="count-label">${label}</div>
+    <div class="count-value">${value}</div>
+    ${sub ? `<div class="count-pct">${sub}</div>` : ''}
+  </div>`;
+}
 
-// ── QUANTITATIVO ──────────────────────────────
+function blockCard(title, rows, total, full) {
+  const rowsHtml = rows.map(([key, val]) =>
+    `<div class="num-row">
+      <span class="num-key">${key}</span>
+      <span class="num-val">${val}</span>
+      <span class="num-pct">${pct(val, total)}</span>
+    </div>`
+  ).join('');
+  return `<div class="block-card${full ? ' full' : ''}">
+    <div class="block-title">${title}</div>
+    ${rowsHtml || '<div class="num-row"><span class="num-key" style="font-style:italic;opacity:.5">Sem dados</span></div>'}
+  </div>`;
+}
+
 function renderQuantitativo() {
   document.getElementById('load0').style.display = 'none';
   document.getElementById('quant-content').style.display = 'block';
 
   const total = allData.length;
-  const comRoda = allData.filter(r => col(r, 'roda') === 'Sim').length;
 
-  // Métricas
-  document.getElementById('metrics-grid').innerHTML = `
-    <div class="metric-card">
-      <div class="metric-label">Total de respostas</div>
-      <div class="metric-value" style="color:var(--purple)">${total}</div>
-      <div class="metric-sub">participantes</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Roda de conversa</div>
-      <div class="metric-value" style="color:var(--success)">${comRoda}</div>
-      <div class="metric-sub">${total ? Math.round(comRoda/total*100) : 0}% do total</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Respostas qualit.</div>
-      <div class="metric-value">${allData.filter(r => col(r,'motivo')).length}</div>
-      <div class="metric-sub">sobre motivação</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Países</div>
-      <div class="metric-value">${Object.keys(countField('residencia')).length}</div>
-      <div class="metric-sub">de residência</div>
-    </div>
-  `;
+  // ── VISÃO GERAL ──
+  const tcleCount = countField('tcle');
+  const tcleSim = tcleCount['sim'] || tcleCount['Sim'] || 0;
+  const tcleNao = tcleCount['nao'] || tcleCount['Não'] || 0;
+  const paisesCount = Object.keys(countField('residencia')).length;
 
-  // PERFIL
-  renderSection('charts-perfil', [
-    { id: 'c-vinculo',     title: 'Vínculo com a Psicologia',     field: 'vinculo',      type: 'pie' },
-    { id: 'c-area',        title: 'Áreas de atuação/interesse',   field: 'area',         type: 'hbar' },
-    { id: 'c-referencial', title: 'Referencial teórico',          field: 'referencial',  type: 'hbar' },
-    { id: 'c-residencia',  title: 'País de residência',           field: 'residencia',   type: 'pie' },
-  ]);
+  document.getElementById('metrics-geral').innerHTML =
+    countCard('Total de respostas', total, '') +
+    countCard('TCLE — concordaram', tcleSim, pct(tcleSim, total)) +
+    countCard('TCLE — não concordaram', tcleNao, pct(tcleNao, total)) +
+    countCard('Países de residência', paisesCount, 'distintos');
 
-  // TRAJETÓRIA
-  renderSection('charts-traj', [
-    { id: 'c-interesse',   title: 'Como surgiu o interesse',       field: 'interesse',   type: 'hbar' },
-    { id: 'c-subtemas',    title: 'Subtemas de maior interesse',   field: 'subtemas',    type: 'hbar' },
-  ]);
+  // ── FAIXAS ETÁRIAS ──
+  const idadeRaw = allData.map(r => parseInt(col(r, 'idade')) || 0).filter(n => n > 0);
+  const faixas = [
+    ['18 – 24 anos', idadeRaw.filter(n => n >= 18 && n <= 24).length],
+    ['25 – 34 anos', idadeRaw.filter(n => n >= 25 && n <= 34).length],
+    ['35 – 44 anos', idadeRaw.filter(n => n >= 35 && n <= 44).length],
+    ['45 – 54 anos', idadeRaw.filter(n => n >= 45 && n <= 54).length],
+    ['55 – 64 anos', idadeRaw.filter(n => n >= 55 && n <= 64).length],
+    ['65 anos ou mais', idadeRaw.filter(n => n >= 65).length],
+  ];
+  document.getElementById('metrics-idade').innerHTML =
+    faixas.map(([label, val]) => countCard(label, val, pct(val, idadeRaw.length))).join('');
 
-  // PERCEPÇÕES
-  renderSection('charts-perc', [
-    { id: 'c-dest-estudo', title: 'Desafios ao estudar a área',    field: 'desafios_estudo',   type: 'hbar' },
-    { id: 'c-dest-trab',   title: 'Desafios ao trabalhar na área', field: 'desafios_trabalho', type: 'hbar' },
-  ]);
+  // ── PERFIL ──
+  const perfil = document.getElementById('blocks-perfil');
+  const vinculo = sortedEntries(countField('vinculo'));
+  const nac     = sortedEntries(countField('nacionalidade'));
+  const tempo   = sortedEntries(countField('tempo'));
+  const area    = sortedEntries(countField('area'));
+  const referen = sortedEntries(countField('referencial'));
+  perfil.innerHTML =
+    blockCard('Vínculo com a Psicologia', vinculo, total) +
+    blockCard('Nacionalidade', nac, total) +
+    blockCard('Tempo de atuação / estudo na área', tempo, total) +
+    blockCard('Áreas de atuação ou interesse', area, total) +
+    blockCard('Referencial teórico', referen, total, true);
 
-  // RODA
-  const rodaCount = countField('roda');
-  renderSection('charts-roda', [
-    { id: 'c-roda', title: 'Interesse em roda de conversa', data: rodaCount, type: 'doughnut' },
-  ]);
-}
+  // ── TRAJETÓRIA ──
+  const traj = document.getElementById('blocks-traj');
+  const interesse = sortedEntries(countField('interesse'));
+  const subtemas  = sortedEntries(countField('subtemas'));
+  traj.innerHTML =
+    blockCard('Como surgiu o interesse', interesse, total) +
+    blockCard('Subtemas de maior interesse', subtemas, total);
 
-function renderSection(containerId, charts) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  charts.forEach(cfg => {
-    const full = cfg.type === 'hbar' && !cfg.half ? ' full' : '';
-    const div = document.createElement('div');
-    div.className = 'chart-card' + full;
-    div.innerHTML = `<div class="chart-title">${cfg.title}</div><div class="chart-wrap" id="wrap-${cfg.id}"></div>`;
-    container.appendChild(div);
-
-    const counts = cfg.data || countField(cfg.field);
-    if (cfg.type === 'hbar') {
-      renderHBar(div.querySelector('.chart-wrap'), counts);
-    } else {
-      const canvas = document.createElement('canvas');
-      canvas.id = cfg.id;
-      div.querySelector('.chart-wrap').appendChild(canvas);
-      renderPieOrDoughnut(cfg.id, counts, cfg.type);
-    }
-  });
-}
-
-function renderHBar(wrap, counts) {
-  const entries = sortedEntries(counts, 12);
-  const max = entries.length ? entries[0][1] : 1;
-  wrap.innerHTML = '<div class="bar-list">' + entries.map(([label, val]) => `
-    <div class="bar-item">
-      <div class="bar-label-row">
-        <span class="bar-label">${label}</span>
-        <span class="bar-count">${val}</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${Math.round(val/max*100)}%"></div>
-      </div>
-    </div>`).join('') + '</div>';
-}
-
-function renderPieOrDoughnut(id, counts, type) {
-  destroyChart(id);
-  const entries = sortedEntries(counts, 8);
-  const labels = entries.map(e => e[0]);
-  const data = entries.map(e => e[1]);
-  const ctx = document.getElementById(id).getContext('2d');
-  chartInstances[id] = new Chart(ctx, {
-    type: type === 'doughnut' ? 'doughnut' : 'pie',
-    data: {
-      labels,
-      datasets: [{ data, backgroundColor: PURPLE_SHADES.slice(0, labels.length), borderWidth: 2, borderColor: '#fff' }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { font: { family: 'DM Sans', size: 11 }, padding: 12, color: '#4A4766', boxWidth: 12, boxHeight: 12 }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / ctx.dataset.data.reduce((a,b)=>a+b,0) * 100)}%)`
-          }
-        }
-      },
-      cutout: type === 'doughnut' ? '60%' : undefined,
-    }
-  });
+  // ── PERCEPÇÕES ──
+  const perc = document.getElementById('blocks-perc');
+  const destEstudo = sortedEntries(countField('desafios_estudo'));
+  const destTrab   = sortedEntries(countField('desafios_trabalho'));
+  perc.innerHTML =
+    blockCard('Desafios ao estudar a área', destEstudo, total) +
+    blockCard('Desafios ao trabalhar na área', destTrab, total);
 }
 
 // ── QUALITATIVO ──────────────────────────────
@@ -910,7 +897,6 @@ function renderQualitativo() {
 
 // ── AGENDA ────────────────────────────────────
 function getVincIcon(vinculo) {
-  // Retorna { sigla, classe, label }
   if (!vinculo) return { sigla: '?', classe: 'v-out', label: '—' };
   if (vinculo.indexOf('Graduação em Psicologia') !== -1) return { sigla: 'G', classe: 'v-grad', label: 'Graduação' };
   if (vinculo.indexOf('Pós-Graduação') !== -1)            return { sigla: 'P', classe: 'v-pos',  label: 'Pós-graduação' };
@@ -930,85 +916,91 @@ function renderAgenda() {
   const DAYS   = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
   const SHIFTS = ['Manhã','Tarde','Noite'];
 
-  // Estrutura: grade[shift][day] = [ {email, vincIcon}, ... ]
+  // grade[shift][day] = [ {email, icon}, ... ]
   const grade = {};
-  SHIFTS.forEach(s => {
-    grade[s] = {};
-    DAYS.forEach(d => grade[s][d] = []);
-  });
+  SHIFTS.forEach(s => { grade[s] = {}; DAYS.forEach(d => grade[s][d] = []); });
 
-  // Contagem geral por slot
+  // contagem por slot
   const slotCounts = {};
-  DAYS.forEach(d => SHIFTS.forEach(s => slotCounts[`${d} - ${s}`] = 0));
+  DAYS.forEach(d => SHIFTS.forEach(s => slotCounts[d + ' - ' + s] = 0));
 
   interested.forEach(row => {
-    const email   = col(row, 'email');
-    const vinculo = col(row, 'vinculo');
-    const icon    = getVincIcon(vinculo);
-    const disp    = col(row, 'disponibilidade');
-
+    const email  = col(row, 'email');
+    const icon   = getVincIcon(col(row, 'vinculo'));
+    const disp   = col(row, 'disponibilidade');
     DAYS.forEach(d => SHIFTS.forEach(s => {
-      const slotKey = `${d} - ${s}`;
-      if (disp.indexOf(slotKey) !== -1) {
-        grade[s][d].push({ email, icon });
-        slotCounts[slotKey]++;
-      }
+      const k = d + ' - ' + s;
+      if (disp.indexOf(k) !== -1) { grade[s][d].push({ email, icon }); slotCounts[k]++; }
     }));
   });
 
-  const bestSlot = Object.entries(slotCounts).sort((a,b)=>b[1]-a[1])[0];
-
-  // Contagem por vínculo
+  // contagem por vínculo
   const vincCounts = { 'v-grad': 0, 'v-pos': 0, 'v-prof': 0, 'v-out': 0 };
-  interested.forEach(r => {
-    const ic = getVincIcon(col(r, 'vinculo'));
-    vincCounts[ic.classe]++;
-  });
+  interested.forEach(r => vincCounts[getVincIcon(col(r, 'vinculo')).classe]++);
+
+  // total de participantes
+  const n = interested.length;
 
   content.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;">
+    <!-- CABEÇALHO COM CONTAGEM -->
+    <div style="margin-bottom:1.5rem;display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
       <div>
-        <div style="font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.3rem">Participantes confirmados</div>
-        <div style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--purple)">${interested.length}</div>
+        <div style="font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.3rem">Participantes confirmados</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:2.5rem;line-height:1;color:var(--purple)">${n}</div>
       </div>
-      ${bestSlot && bestSlot[1] > 0 ? `<div style="background:var(--success-bg);border:1px solid #B8E4D8;border-radius:12px;padding:.75rem 1.25rem;">
-        <div style="font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--success);margin-bottom:.25rem">Melhor horário</div>
-        <div style="font-size:1rem;font-weight:500;color:var(--text)">${bestSlot[0]}</div>
-        <div style="font-size:.75rem;color:var(--text-soft)">${bestSlot[1]} disponíve${bestSlot[1]>1?'is':'l'}</div>
-      </div>` : ''}
-    </div>
-
-    <!-- LEGENDA DE VÍNCULOS -->
-    <div class="legend-box">
-      <div class="legend-title">Legenda — vínculo com a Psicologia</div>
-      <div class="legend-grid">
-        <div class="legend-item">
-          <span class="vinc-icon v-grad">G</span>
-          <span>Graduação <span style="color:var(--text-soft)">(${vincCounts['v-grad']})</span></span>
-        </div>
-        <div class="legend-item">
-          <span class="vinc-icon v-pos">P</span>
-          <span>Pós-graduação <span style="color:var(--text-soft)">(${vincCounts['v-pos']})</span></span>
-        </div>
-        <div class="legend-item">
-          <span class="vinc-icon v-prof">Ψ</span>
-          <span>Profissional (CRP) <span style="color:var(--text-soft)">(${vincCounts['v-prof']})</span></span>
-        </div>
-        <div class="legend-item">
-          <span class="vinc-icon v-out">+</span>
-          <span>Outro <span style="color:var(--text-soft)">(${vincCounts['v-out']})</span></span>
+      <div class="legend-box" style="margin:0;flex:1;min-width:220px">
+        <div class="legend-title">Vínculo com a Psicologia</div>
+        <div class="legend-grid">
+          <div class="legend-item"><span class="vinc-icon v-grad">G</span><span>Graduação <span style="color:var(--text-soft)">(${vincCounts['v-grad']})</span></span></div>
+          <div class="legend-item"><span class="vinc-icon v-pos">P</span><span>Pós-graduação <span style="color:var(--text-soft)">(${vincCounts['v-pos']})</span></span></div>
+          <div class="legend-item"><span class="vinc-icon v-prof">Ψ</span><span>Profissional (CRP) <span style="color:var(--text-soft)">(${vincCounts['v-prof']})</span></span></div>
+          <div class="legend-item"><span class="vinc-icon v-out">+</span><span>Outro <span style="color:var(--text-soft)">(${vincCounts['v-out']})</span></span></div>
         </div>
       </div>
     </div>
 
-    <!-- GRADE SEMANAL -->
-    <div class="grade-wrap">
-      <div class="grade-header-bar">Mapa de disponibilidade — grade semanal</div>
+    <!-- VISÃO GERAL: grade de contagens por dia/turno -->
+    <div class="grade-wrap" style="margin-bottom:1.5rem">
+      <div class="grade-header-bar">Visão geral — disponibilidade por dia e turno</div>
       <div class="grade-scroll">
         <table class="grade-table">
           <thead>
             <tr>
-              <th class="col-periodo">Período</th>
+              <th class="col-periodo">Turno</th>
+              ${DAYS.map(d => `<th>${d}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${SHIFTS.map(s => `
+              <tr>
+                <td class="cell-periodo">${s}</td>
+                ${DAYS.map(d => {
+                  const cnt = slotCounts[d + ' - ' + s];
+                  if (!cnt) return `<td style="text-align:center"><span class="grade-empty-cell">—</span></td>`;
+                  const intensity = Math.round(cnt / n * 100);
+                  const bg = intensity >= 75 ? 'var(--purple)' : intensity >= 40 ? '#8E7FCF' : '#D0C8EF';
+                  const fg = intensity >= 40 ? 'white' : 'var(--purple)';
+                  return `<td style="text-align:center;vertical-align:middle;padding:.75rem">
+                    <span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px">
+                      <span style="background:${bg};color:${fg};border-radius:8px;padding:4px 10px;font-size:.88rem;font-weight:600;min-width:36px;display:inline-block;text-align:center">${cnt}</span>
+                      <span style="font-size:.65rem;color:var(--text-soft)">${intensity}%</span>
+                    </span>
+                  </td>`;
+                }).join('')}
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GRADE COM EMAILS POR SLOT -->
+    <div class="grade-wrap">
+      <div class="grade-header-bar">Detalhamento — e-mail por dia e turno</div>
+      <div class="grade-scroll">
+        <table class="grade-table">
+          <thead>
+            <tr>
+              <th class="col-periodo">Turno</th>
               ${DAYS.map(d => `<th>${d}</th>`).join('')}
             </tr>
           </thead>
@@ -1028,23 +1020,6 @@ function renderAgenda() {
               </tr>`).join('')}
           </tbody>
         </table>
-      </div>
-    </div>
-
-    <!-- DISPONIBILIDADE AGREGADA -->
-    <div style="margin-top:2rem">
-      <div style="font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:1rem;">Disponibilidade agregada por horário</div>
-      <div class="bar-list">
-        ${Object.entries(slotCounts).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).map(([slot, cnt]) => `
-          <div class="bar-item">
-            <div class="bar-label-row">
-              <span class="bar-label">${slot}</span>
-              <span class="bar-count">${cnt}</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill" style="width:${Math.round(cnt/interested.length*100)}%"></div>
-            </div>
-          </div>`).join('')}
       </div>
     </div>
   `;
