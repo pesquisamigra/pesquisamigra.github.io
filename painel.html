@@ -521,6 +521,37 @@ table.grade-table tbody td.cell-periodo {
   font-size: .9rem;
   font-weight: 300;
 }
+.outros-box {
+  background: var(--accent-pale);
+  border: 1px solid #EDD5BE;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  grid-column: 1 / -1;
+}
+.outros-box .block-title {
+  color: var(--accent);
+  border-bottom-color: #EDD5BE;
+}
+.outros-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid #EDD5BE;
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: .78rem;
+  color: var(--text-mid);
+  margin: 3px 4px 3px 0;
+}
+.outros-tag .outros-count {
+  background: var(--accent);
+  color: white;
+  border-radius: 999px;
+  padding: 0 6px;
+  font-size: .68rem;
+  font-weight: 600;
+}
 
 @media (max-width: 720px) {
   .charts-grid { grid-template-columns: 1fr; }
@@ -771,6 +802,35 @@ function sortedEntries(obj, top = 999) {
   return Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, top);
 }
 
+// Extrai os valores "Outro: ..." de um campo e conta por texto
+function extractOutros(field) {
+  const counts = {};
+  allData.forEach(row => {
+    col(row, field).split(' | ').forEach(v => {
+      v = v.trim();
+      if (v.startsWith('Outro: ')) {
+        const texto = v.slice(7).trim();
+        if (texto) counts[texto] = (counts[texto] || 0) + 1;
+      }
+    });
+  });
+  return counts;
+}
+
+// Bloco de outros mencionados — retorna '' se vazio
+function outrosBox(title, field) {
+  const counts = extractOutros(field);
+  const entries = sortedEntries(counts);
+  if (!entries.length) return '';
+  const tags = entries.map(([texto, n]) =>
+    `<span class="outros-tag">${texto}${n > 1 ? ` <span class="outros-count">${n}×</span>` : ''}</span>`
+  ).join('');
+  return `<div class="outros-box">
+    <div class="block-title">${title}</div>
+    <div style="margin-top:.25rem">${tags}</div>
+  </div>`;
+}
+
 // ── QUANTITATIVO ──────────────────────────────
 function pct(n, total) {
   if (!total) return '';
@@ -837,12 +897,15 @@ function renderQuantitativo() {
   const tempo   = sortedEntries(countField('tempo'));
   const area    = sortedEntries(countField('area'));
   const referen = sortedEntries(countField('referencial'));
+  const referencialLimpo = referen.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
+    .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
   perfil.innerHTML =
     blockCard('Vínculo com a Psicologia', vinculo, total) +
     blockCard('Nacionalidade', nac, total) +
     blockCard('Tempo de atuação / estudo na área', tempo, total) +
     blockCard('Áreas de atuação ou interesse', area, total) +
-    blockCard('Referencial teórico', referen, total, true);
+    blockCard('Referencial teórico', sortedEntries(referencialLimpo), total, true) +
+    outrosBox('Outros referenciais mencionados', 'referencial');
 
   // ── TRAJETÓRIA ──
   const traj = document.getElementById('blocks-traj');
@@ -868,10 +931,18 @@ function renderQuantitativo() {
   const politicas = sortedEntries(countField('politicas_tipo'));
   const blocoAtuacao = document.getElementById('blocks-atuacao');
   if (blocoAtuacao) {
+    // Filtrar "Outro: ..." dos contadores principais para exibir limpo
+    const atuacaoLimpa = atuacao.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
+      .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
+    const politicasLimpa = politicas.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
+      .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
+
     blocoAtuacao.innerHTML =
-      blockCard('Modalidade de atuação', atuacao, totalAtuacao, true) +
+      blockCard('Modalidade de atuação', sortedEntries(atuacaoLimpa), totalAtuacao, true) +
+      outrosBox('Outros tipos de atuação mencionados', 'atuacao_migracao') +
       blockCard('Público clínico (quando aplica)', clinico, totalAtuacao) +
-      blockCard('Políticas públicas (quando aplica)', politicas, totalAtuacao);
+      blockCard('Políticas públicas (quando aplica)', sortedEntries(politicasLimpa), totalAtuacao) +
+      outrosBox('Outras políticas mencionadas', 'politicas_tipo');
   }
 }
 
