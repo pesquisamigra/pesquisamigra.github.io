@@ -754,7 +754,7 @@ const COLS = {
   atuacao_migracao: 22, clinico_publico: 23, politicas_tipo: 24
 };
 
-function col(row, key) { return (row[COLS[key]] || '').toString().trim(); }
+function col(row, key) { const v = row[COLS[key]]; return (v === undefined || v === null) ? '' : v.toString().trim(); }
 
 function countField(field) {
   const counts = {};
