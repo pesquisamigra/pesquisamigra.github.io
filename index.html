@@ -558,11 +558,10 @@
         </div>
       </div>
 
-      <!-- TEMPO -->
-      <div class="field" id="field-tempo" style="display:none">
-        <label class="field-label">Se você for profissional, há quanto tempo atua?</label>
+      <!-- TEMPO — visível para todos os respondentes -->
+      <div class="field" id="field-tempo">
+        <label class="field-label">Seja trabalhando ou estudando, há quanto tempo você se dedica nesta temática?</label>
         <div class="options">
-          <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
           <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="Menos de 1 ano"><div class="option-dot"></div><span class="option-text">Menos de 1 ano</span></label>
           <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="1 a 5 anos"><div class="option-dot"></div><span class="option-text">1 a 5 anos</span></label>
           <label class="option-item" onclick="selectRadio(this,'tempo')"><input type="radio" name="tempo" value="6 a 10 anos"><div class="option-dot"></div><span class="option-text">6 a 10 anos</span></label>
@@ -855,7 +854,7 @@
 </footer>
 
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmFM3ZIvswEtNyYEWSp6qdSOkoCPgo7TmTXWWNBD38IrjdwfpvRddlIs2tF97HhwjdBQ/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZta4os4vRw4gXDqjeZSkRdGVWQ7ZQE_yM4f_vLpc7owf1JOB_iymX1p4PJu1oOHAYTw/exec';
 
 let currentSection = 0;
 const sectionLabels = ['TCLE — Consentimento','Seção 1 — Perfil','Seção 2 — Trajetória','Seção 3 — Percepções','Seção 4 — Considerações'];
@@ -945,14 +944,11 @@ function toggleAvail(cell) {
   clearError('field-disponibilidade');
 }
 
-// Exibe os campos e opções corretas baseado no vínculo selecionado
 function atualizaVinculo(val) {
   const fieldPeriodo = document.getElementById('field-periodo');
   const optionsPeriodo = document.getElementById('options-periodo');
-  const fieldTempo = document.getElementById('field-tempo');
-  
+
   fieldPeriodo.style.display = 'block';
-  fieldTempo.style.display = 'none';
 
   if (val === 'Estudante de Graduação em Psicologia') {
     optionsPeriodo.innerHTML = `
@@ -969,13 +965,12 @@ function atualizaVinculo(val) {
     `;
   } else if (val === 'Profissional formado(a) em Psicologia (com CRP ativo)') {
     optionsPeriodo.innerHTML = `
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica (sem pós-graduação)</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
     `;
-    fieldTempo.style.display = 'block';
   } else {
     fieldPeriodo.style.display = 'none';
   }
@@ -1003,8 +998,6 @@ function selectRadio(el, name) {
   }
 }
 
-// ── Checkbox CORRIGIDO ───────────────────────────────────────
-// Estado é alternado ANTES de manipular o campo "Outro"
 function toggleCheck(el, name, max, otherWrapId) {
   const inp = el.querySelector('input');
   const checked = document.querySelectorAll('[name="' + name + '"]:checked');
