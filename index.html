@@ -280,8 +280,6 @@
         <p>Sua participação é voluntária e não implica pagamento ou custo. Você pode retirar o consentimento a qualquer momento. O estudo segue a Resolução CNS 510/2016. Todo material coletado ficará sob guarda do pesquisador por 5 anos e, após esse período, será destruído.</p>
         <h5>Pesquisador Responsável</h5>
         <p>Henrique Galhano Balieiro<br>Tel.: (31) 9.9605-1906 · henriquegb@gmail.com</p>
-        <h5>Orientadora</h5>
-        <p>Prof. Drª Márcia Stengel</p>
         <h5>Comitê de Ética</h5>
         <p>CEP PUC Minas · Av. Dom José Gaspar, 500 – Prédio 6 · Tel.: (31) 3319-4517 · cep.proppg@pucminas.br</p>
         <p>Em caso de eventuais danos decorrentes da pesquisa, será observada, nos termos da lei, a responsabilidade civil.</p>
@@ -309,7 +307,7 @@
         <label class="field-label">Idade <span class="required">*</span></label>
         <div class="select-wrap">
           <select id="idade" onchange="clearError('field-idade')">
-            <option value="" disabled selected>Selecione sua idade</option>
+            <option value="" disabled selected>Selecione sua faixa etária</option>
             <option value="18">18 anos</option>
             <option value="19">19 anos</option>
             <option value="20">20 anos</option>
@@ -567,16 +565,17 @@
       <!-- VÍNCULO -->
       <div class="field" id="field-vinculo">
         <label class="field-label">Qual seu vínculo atual com a Psicologia? <span class="required">*</span></label>
+        <p class="field-hint">Pode marcar até 2 opções — ex.: Profissional e Pós-Graduação ao mesmo tempo.</p>
         <div class="options">
-          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Estudante de Graduação em Psicologia"><div class="option-dot"></div><span class="option-text">Estudante de Graduação em Psicologia</span></label>
-          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Estudante de Pós-Graduação"><div class="option-dot"></div><span class="option-text">Estudante de Pós-Graduação (Especialização, Mestrado, Doutorado)</span></label>
-          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Profissional formado(a) em Psicologia (com CRP ativo)"><div class="option-dot"></div><span class="option-text">Profissional formado(a) em Psicologia (com CRP ativo)</span></label>
-          <label class="option-item" onclick="selectRadio(this,'vinculo')"><input type="radio" name="vinculo" value="Outro"><div class="option-dot"></div><span class="option-text">Outro</span></label>
+          <label class="option-item" onclick="toggleVinculo(this,'Estudante de Graduação em Psicologia')"><input type="checkbox" name="vinculo" value="Estudante de Graduação em Psicologia"><div class="option-box"></div><span class="option-text">Estudante de Graduação em Psicologia</span></label>
+          <label class="option-item" onclick="toggleVinculo(this,'Estudante de Pós-Graduação')"><input type="checkbox" name="vinculo" value="Estudante de Pós-Graduação"><div class="option-box"></div><span class="option-text">Estudante de Pós-Graduação (Especialização, Mestrado, Doutorado)</span></label>
+          <label class="option-item" onclick="toggleVinculo(this,'Profissional formado(a) em Psicologia (com CRP ativo)')"><input type="checkbox" name="vinculo" value="Profissional formado(a) em Psicologia (com CRP ativo)"><div class="option-box"></div><span class="option-text">Profissional formado(a) em Psicologia (com CRP ativo)</span></label>
+          <label class="option-item" onclick="toggleVinculo(this,'Outro')"><input type="checkbox" name="vinculo" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
         </div>
         <div class="other-input" id="outro-vinculo-wrap">
           <input type="text" id="outro-vinculo" placeholder="Especifique seu vínculo">
         </div>
-        <span class="error-msg">Por favor, selecione uma opção.</span>
+        <span class="error-msg">Por favor, selecione ao menos uma opção.</span>
       </div>
 
 
@@ -597,6 +596,7 @@
             <div class="options">
               <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Atende imigrantes internacionais que vivem no Brasil"><div class="option-box"></div><span class="option-text">Atende imigrantes internacionais que vivem no Brasil</span></label>
               <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Atende brasileiros no exterior"><div class="option-box"></div><span class="option-text">Atende brasileiros no exterior</span></label>
+              <label class="option-item" onclick="toggleCheck(this,'clinico_publico')"><input type="checkbox" name="clinico_publico" value="Ambos (imigrantes no Brasil e brasileiros no exterior)"><div class="option-box"></div><span class="option-text">Ambos (imigrantes no Brasil e brasileiros no exterior)</span></label>
             </div>
           </div>
 
@@ -604,7 +604,7 @@
           <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-politicas',2)">
             <input type="checkbox" name="atuacao_migracao" value="Políticas públicas (SUS, SUAS etc.)">
             <div class="option-box"></div>
-            <span class="option-text">Atua nas políticas públicas (SUS, SUAS, etc.)</span>
+            <span class="option-text">Atua nas políticas públicas (SUS, SUAS etc.)</span>
           </label>
           <div class="subsecao" id="sub-politicas">
             <div class="field-hint">Em qual(is) política(s)?</div>
@@ -643,32 +643,12 @@
 
           <!-- Voluntariado -->
           <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
-            <input type="checkbox" name="atuacao_migracao" value="Faz voluntariado na área">
+            <input type="checkbox" name="atuacao_migracao" value="Faz voluntariado com migrantes">
             <div class="option-box"></div>
-            <span class="option-text">Faz voluntariado na área</span>
+            <span class="option-text">Faz voluntariado com migrantes</span>
           </label>
 
-          <!-- Não atua -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
-          <input type="checkbox" name="atuacao_migracao" value="Não atua na área">
-          <div class="option-box"></div>
-          <span class="option-text">Não atua na área</span>
-          </label>
-          
-          <!-- Não se aplica -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
-            <input type="checkbox" name="atuacao_migracao" value="Não se aplica">
-            <div class="option-box"></div>
-            <span class="option-text">Não se aplica</span>
-          </label>
-
-        <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2,'outro-ref-wrap')">
-          <input type="checkbox" name="atuacao_migracao" value="Outro">
-          <div class="option-box"></div><span class="option-text">Outro</span></label> 
-        <div class="other-input" id="outro-ref-wrap"> <input type="text" id="outro-ref" placeholder="Especifique">
         </div>
-
-       </div>
         <span class="error-msg">Por favor, selecione ao menos uma opção.</span>
       </div>
 
@@ -795,7 +775,7 @@
         <label class="field-label">Quais subtemas mais lhe interessam? <span class="required">*</span></label>
         <p class="field-hint">Marque até 3 opções.</p>
         <div class="options">
-          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Saúde mental e atenção psicossoical de populações migrantes / refugiadas"><div class="option-box"></div><span class="option-text">Saúde mental e trauma em populações migrantes / refugiadas</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Saúde mental e trauma em populações migrantes / refugiadas"><div class="option-box"></div><span class="option-text">Saúde mental e trauma em populações migrantes / refugiadas</span></label>
           <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Processos de identidade, pertencimento e aculturação"><div class="option-box"></div><span class="option-text">Processos de identidade, pertencimento e aculturação</span></label>
           <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Choque cultural e adaptação psicossocial"><div class="option-box"></div><span class="option-text">Choque cultural e adaptação psicossocial</span></label>
           <label class="option-item" onclick="toggleCheck(this,'subtemas',3)"><input type="checkbox" name="subtemas" value="Xenofobia, preconceito e relações interculturais"><div class="option-box"></div><span class="option-text">Xenofobia, preconceito e relações interculturais</span></label>
@@ -813,9 +793,14 @@
       </div>
 
       <div class="field" id="field-importancia">
-        <label class="field-label">Qual a importância da Psicologia se dedicar ao estudo e à prática com populações em mobilidade humana? <span class="required">*</span></label>
+        <label class="field-label">A Psicologia deve se dedicar ao estudo e à prática com populações em mobilidade humana? <span class="required">*</span></label>
         <textarea id="importancia" placeholder="Compartilhe sua opinião..."></textarea>
         <span class="error-msg">Campo obrigatório.</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Se sim, por quais motivos?</label>
+        <textarea id="motivos_sim" placeholder="Opcional..."></textarea>
       </div>
 
       <div class="divider">desafios percebidos</div>
@@ -965,7 +950,6 @@
 
 <footer class="site-footer">
   <p>Pesquisador: Henrique Galhano Balieiro · <a href="mailto:henriquegb@gmail.com">henriquegb@gmail.com</a></p>
-  <p>Orientadora: Prof. Drª Márcia Stengel</p>
   <p>CEP PUC Minas · (31) 3319-4517 · <a href="mailto:cep.proppg@pucminas.br">cep.proppg@pucminas.br</a></p>
   <p style="margin-top:6px;font-size:.7rem;opacity:.6">CAAE 96206826.1.0000.5137</p>
 </footer>
@@ -1061,56 +1045,87 @@ function toggleAvail(cell) {
   clearError('field-disponibilidade');
 }
 
-function atualizaVinculo(val) {
-  const fieldPeriodo  = document.getElementById('field-periodo');
-  const optionsPeriodo = document.getElementById('options-periodo');
-  const fieldAtuacao  = document.getElementById('field-atuacao-migracao');
-  const isProfissional = (val === 'Profissional formado(a) em Psicologia (com CRP ativo)' || val === 'Estudante de Pós-Graduação');
+function atualizaVinculo() {
+  // Lê todos os vínculos selecionados
+  var selecionados = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
+  var temPos      = selecionados.indexOf('Estudante de Pós-Graduação') !== -1;
+  var temProf     = selecionados.indexOf('Profissional formado(a) em Psicologia (com CRP ativo)') !== -1;
+  var temGrad     = selecionados.indexOf('Estudante de Graduação em Psicologia') !== -1;
+  var mostraAtuacao = temPos || temProf;
 
-  // Controla o bloco de atuação com migração
+  var fieldPeriodo   = document.getElementById('field-periodo');
+  var optionsPeriodo = document.getElementById('options-periodo');
+  var fieldAtuacao   = document.getElementById('field-atuacao-migracao');
+
+  // Bloco de atuação com migração
   if (fieldAtuacao) {
-    fieldAtuacao.style.display = isProfissional ? 'block' : 'none';
-    if (!isProfissional) {
-      // Limpa subseções e checkboxes ao trocar de vínculo
+    fieldAtuacao.style.display = mostraAtuacao ? 'block' : 'none';
+    if (!mostraAtuacao) {
       document.querySelectorAll('[name="atuacao_migracao"],[name="clinico_publico"],[name="politicas_tipo"]').forEach(function(cb){
         cb.checked = false;
         var item = cb.closest('.option-item');
         if (item) item.classList.remove('selected');
       });
-      document.querySelectorAll('#sub-clinico,#sub-politicas').forEach(function(s){
-        s.classList.remove('visible');
-      });
+      document.querySelectorAll('#sub-clinico,#sub-politicas').forEach(function(s){ s.classList.remove('visible'); });
     }
   }
 
-  // Controla o campo período
-  if (val === 'Estudante de Graduação em Psicologia') {
+  // Campo período — prioridade: Pós > Grad > Profissional sem pós
+  if (temPos) {
+    // Pós-Graduação (pode ser combinado com Profissional)
     fieldPeriodo.style.display = 'block';
-    optionsPeriodo.innerHTML = `
+    optionsPeriodo.innerHTML = \`
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
+      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
+    \`;
+  } else if (temGrad) {
+    fieldPeriodo.style.display = 'block';
+    optionsPeriodo.innerHTML = \`
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos iniciais (1º–2º ano)"><div class="option-dot"></div><span class="option-text">Anos iniciais (1º–2º ano)</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Anos intermediários (3º–4º ano)"><div class="option-dot"></div><span class="option-text">Anos intermediários (3º–4º ano)</span></label>
       <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Ano final / Estágios (5º ano)"><div class="option-dot"></div><span class="option-text">Ano final / Estágios (5º ano)</span></label>
-    `;
-  } else if (val === 'Estudante de Pós-Graduação') {
-    fieldPeriodo.style.display = 'block';
-    optionsPeriodo.innerHTML = `
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
-    `;
-  } else if (isProfissional) {
-    fieldPeriodo.style.display = 'block';
-    optionsPeriodo.innerHTML = `
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Não se aplica"><div class="option-dot"></div><span class="option-text">Não se aplica (sem pós-graduação)</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Especialização"><div class="option-dot"></div><span class="option-text">Especialização</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Mestrado"><div class="option-dot"></div><span class="option-text">Mestrado</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Doutorado"><div class="option-dot"></div><span class="option-text">Doutorado</span></label>
-      <label class="option-item" onclick="selectRadio(this,'periodo')"><input type="radio" name="periodo" value="Pós-doutorado"><div class="option-dot"></div><span class="option-text">Pós-doutorado</span></label>
-    `;
+    \`;
+  } else if (temProf) {
+    // Profissional sem pós-graduação
+    fieldPeriodo.style.display = 'none';
   } else {
     fieldPeriodo.style.display = 'none';
   }
+
+  // Limpa seleção de período quando as opções mudam
+  document.querySelectorAll('[name="periodo"]').forEach(function(r){
+    r.checked = false;
+    var item = r.closest('.option-item');
+    if (item) item.classList.remove('selected');
+  });
+}
+
+function toggleVinculo(el, val) {
+  var inp = el.querySelector('input');
+  var checked = document.querySelectorAll('[name="vinculo"]:checked');
+
+  // Max 2 seleções
+  if (!inp.checked && checked.length >= 2) return;
+
+  inp.checked = !inp.checked;
+  el.classList.toggle('selected', inp.checked);
+  clearError('field-vinculo');
+
+  // Campo "Outro" aberto/fechado
+  var wrap = document.getElementById('outro-vinculo-wrap');
+  if (val === 'Outro') {
+    if (inp.checked) {
+      wrap.classList.add('visible');
+      setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
+    } else {
+      wrap.classList.remove('visible');
+      document.getElementById('outro-vinculo').value = '';
+    }
+  }
+
+  atualizaVinculo();
 }
 
 function selectRadio(el, name) {
@@ -1121,18 +1136,7 @@ function selectRadio(el, name) {
   el.querySelector('input').checked = true;
   clearError('field-' + name);
 
-  if (name === 'vinculo') {
-    const val = el.querySelector('input').value;
-    atualizaVinculo(val);
-    const wrap = document.getElementById('outro-vinculo-wrap');
-    if (val === 'Outro') {
-      wrap.classList.add('visible');
-      setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
-    } else {
-      wrap.classList.remove('visible');
-      document.getElementById('outro-vinculo').value = '';
-    }
-  }
+
 }
 
 
@@ -1208,9 +1212,13 @@ function getCheckFull(name, otherId) {
 }
 
 function getVinculo() {
-  const v = getRadio('vinculo');
-  if (v === 'Outro') return 'Outro: ' + getVal('outro-vinculo');
-  return v;
+  var vals = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
+  var result = vals.join(' | ');
+  if (result.indexOf('Outro') !== -1) {
+    var outro = getVal('outro-vinculo');
+    if (outro) result = result.replace('Outro', 'Outro: ' + outro);
+  }
+  return result;
 }
 
 function validate(rules) {
@@ -1239,8 +1247,11 @@ function handleTcle() {
 function nextSection(from) {
   let ok = false;
   if (from === 1) {
-    const vinc = getRadio('vinculo');
-    const vincOk = vinc && (vinc !== 'Outro' || getVal('outro-vinculo'));
+    var vincChecked = document.querySelectorAll('[name="vinculo"]:checked');
+    var vincOk = vincChecked.length > 0 && (
+      [].slice.call(vincChecked).every(function(cb){ return cb.value !== 'Outro'; }) ||
+      getVal('outro-vinculo')
+    );
     ok = validate([
       { id: 'field-idade',        check: getVal('idade') },
       { id: 'field-nacionalidade',check: getNacionalidade() },
