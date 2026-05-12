@@ -307,7 +307,7 @@
         <label class="field-label">Idade <span class="required">*</span></label>
         <div class="select-wrap">
           <select id="idade" onchange="clearError('field-idade')">
-            <option value="" disabled selected>Selecione sua faixa etária</option>
+            <option value="" disabled selected>Selecione sua idade</option>
             <option value="18">18 anos</option>
             <option value="19">19 anos</option>
             <option value="20">20 anos</option>
@@ -645,6 +645,20 @@
             <input type="checkbox" name="atuacao_migracao" value="Faz voluntariado com migrantes">
             <div class="option-box"></div>
             <span class="option-text">Faz voluntariado com migrantes</span>
+          </label>
+
+          <!-- Não atua -->
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
+          <input type="checkbox" name="atuacao_migracao" value="Não atua na área">
+          <div class="option-box"></div>
+          <span class="option-text">Não atua na área</span>
+          </label>
+          
+          <!-- Não se aplica -->
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
+            <input type="checkbox" name="atuacao_migracao" value="Não se aplica">
+            <div class="option-box"></div>
+            <span class="option-text">Não se aplica</span>
           </label>
 
         </div>
