@@ -585,7 +585,7 @@
         <div class="options">
 
           <!-- Atendimentos clínicos -->
-          <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-clinico')">
+          <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-clinico',2)">
             <input type="checkbox" name="atuacao_migracao" value="Atendimentos clínicos (psicoterapia)">
             <div class="option-box"></div>
             <span class="option-text">Realiza atendimentos clínicos (psicoterapia)</span>
@@ -600,7 +600,7 @@
           </div>
 
           <!-- Políticas públicas -->
-          <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-politicas')">
+          <label class="option-item" onclick="toggleCheckSub(this,'atuacao_migracao','sub-politicas',2)">
             <input type="checkbox" name="atuacao_migracao" value="Políticas públicas (SUS, SUAS etc.)">
             <div class="option-box"></div>
             <span class="option-text">Atua nas políticas públicas (SUS, SUAS etc.)</span>
@@ -620,28 +620,28 @@
           </div>
 
           <!-- Terceiro Setor -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao')">
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
             <input type="checkbox" name="atuacao_migracao" value="Organização de Terceiro Setor que atende migrantes (ONGs)">
             <div class="option-box"></div>
             <span class="option-text">Trabalha em Organização de Terceiro Setor que atende migrantes (ONGs)</span>
           </label>
 
           <!-- Agências internacionais -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao')">
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
             <input type="checkbox" name="atuacao_migracao" value="Agências internacionais (OIM, ACNUR etc.)">
             <div class="option-box"></div>
             <span class="option-text">Trabalha em agências internacionais (OIM, ACNUR etc.)</span>
           </label>
 
           <!-- Consulado / Embaixada -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao')">
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
             <input type="checkbox" name="atuacao_migracao" value="Consulado / Embaixada">
             <div class="option-box"></div>
             <span class="option-text">Trabalha em Consulado / Embaixada</span>
           </label>
 
           <!-- Voluntariado -->
-          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao')">
+          <label class="option-item" onclick="toggleCheck(this,'atuacao_migracao',2)">
             <input type="checkbox" name="atuacao_migracao" value="Faz voluntariado com migrantes">
             <div class="option-box"></div>
             <span class="option-text">Faz voluntariado com migrantes</span>
@@ -696,24 +696,24 @@
         <label class="field-label">Referencial teórico para pensar Psicologia e Migração <span class="required">*</span></label>
         <p class="field-hint">Pode marcar mais de uma opção.</p>
         <div class="options">
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Abordagem Centrada na Pessoa"><div class="option-box"></div><span class="option-text">Abordagem Centrada na Pessoa</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Analítica Jungiana"><div class="option-box"></div><span class="option-text">Analítica Jungiana</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Bioenergética"><div class="option-box"></div><span class="option-text">Bioenergética</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Esquizoanálise e Análise Institucional"><div class="option-box"></div><span class="option-text">Esquizoanálise e Análise Institucional</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Esquizodrama"><div class="option-box"></div><span class="option-text">Esquizodrama</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Fenomenologia existencial"><div class="option-box"></div><span class="option-text">Fenomenologia existencial</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Gestalt-terapia"><div class="option-box"></div><span class="option-text">Gestalt-terapia</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Logoterapia"><div class="option-box"></div><span class="option-text">Logoterapia</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicanálise"><div class="option-box"></div><span class="option-text">Psicanálise</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicodrama"><div class="option-box"></div><span class="option-text">Psicodrama</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Sistêmica"><div class="option-box"></div><span class="option-text">Sistêmica</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Sócio-Histórica"><div class="option-box"></div><span class="option-text">Sócio-Histórica</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="TCC – Terapia Cognitivo-Comportamental"><div class="option-box"></div><span class="option-text">TCC – Terapia Cognitivo-Comportamental</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapia do Esquema"><div class="option-box"></div><span class="option-text">Terapia do Esquema</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapia Sistêmica"><div class="option-box"></div><span class="option-text">Terapia Sistêmica</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Terapias de Terceira Onda"><div class="option-box"></div><span class="option-text">Terapias de Terceira Onda</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial')"><input type="checkbox" name="referencial" value="Psicologia Social / Comunitária"><div class="option-box"></div><span class="option-text">Psicologia Social / Comunitária</span></label>
-          <label class="option-item" onclick="toggleCheck(this,'referencial', null, 'outro-ref-wrap')"><input type="checkbox" name="referencial" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Abordagem Centrada na Pessoa"><div class="option-box"></div><span class="option-text">Abordagem Centrada na Pessoa</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Analítica Jungiana"><div class="option-box"></div><span class="option-text">Analítica Jungiana</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Bioenergética"><div class="option-box"></div><span class="option-text">Bioenergética</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Esquizoanálise e Análise Institucional"><div class="option-box"></div><span class="option-text">Esquizoanálise e Análise Institucional</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Esquizodrama"><div class="option-box"></div><span class="option-text">Esquizodrama</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Fenomenologia existencial"><div class="option-box"></div><span class="option-text">Fenomenologia existencial</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Gestalt-terapia"><div class="option-box"></div><span class="option-text">Gestalt-terapia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Logoterapia"><div class="option-box"></div><span class="option-text">Logoterapia</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Psicanálise"><div class="option-box"></div><span class="option-text">Psicanálise</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Psicodrama"><div class="option-box"></div><span class="option-text">Psicodrama</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Sistêmica"><div class="option-box"></div><span class="option-text">Sistêmica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Sócio-Histórica"><div class="option-box"></div><span class="option-text">Sócio-Histórica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="TCC – Terapia Cognitivo-Comportamental"><div class="option-box"></div><span class="option-text">TCC – Terapia Cognitivo-Comportamental</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Terapia do Esquema"><div class="option-box"></div><span class="option-text">Terapia do Esquema</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Terapia Sistêmica"><div class="option-box"></div><span class="option-text">Terapia Sistêmica</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Terapias de Terceira Onda"><div class="option-box"></div><span class="option-text">Terapias de Terceira Onda</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2)"><input type="checkbox" name="referencial" value="Psicologia Social / Comunitária"><div class="option-box"></div><span class="option-text">Psicologia Social / Comunitária</span></label>
+          <label class="option-item" onclick="toggleCheck(this,'referencial',2,'outro-ref-wrap')"><input type="checkbox" name="referencial" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></label>
         </div>
         <div class="other-input" id="outro-ref-wrap">
           <input type="text" id="outro-ref" placeholder="Especifique o referencial teórico">
@@ -1119,8 +1119,10 @@ function selectRadio(el, name) {
 }
 
 
-function toggleCheckSub(el, name, subId) {
+function toggleCheckSub(el, name, subId, max) {
   const inp = el.querySelector('input');
+  const checked = document.querySelectorAll('[name="' + name + '"]:checked');
+  if (!inp.checked && max && checked.length >= max) return;
   inp.checked = !inp.checked;
   el.classList.toggle('selected', inp.checked);
   const sub = document.getElementById(subId);
@@ -1155,7 +1157,7 @@ function toggleCheck(el, name, max, otherWrapId) {
 
 function getVal(id)       { const e = document.getElementById(id); return e && e.value ? e.value.trim() : ''; }
 function getRadio(name)   { const e = document.querySelector('[name="' + name + '"]:checked'); return e ? e.value : ''; }
-function getChecked(name) { return [].slice.call(document.querySelectorAll('[name="' + name + '"]:checked')).map(function(e){ return e.value; }).join(', '); }
+function getChecked(name) { return [].slice.call(document.querySelectorAll('[name="' + name + '"]:checked')).map(function(e){ return e.value; }).join(' | '); }
 function showError(id)    { const e = document.getElementById(id); if (e) e.classList.add('has-error'); }
 function clearError(id)   { const e = document.getElementById(id); if (e) e.classList.remove('has-error'); }
 
