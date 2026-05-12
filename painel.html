@@ -759,7 +759,7 @@ function col(row, key) { const v = row[COLS[key]]; return (v === undefined || v 
 function countField(field) {
   const counts = {};
   allData.forEach(row => {
-    col(row, field).split(',').forEach(v => {
+    col(row, field).split(' | ').forEach(v => {
       v = v.trim();
       if (v) counts[v] = (counts[v] || 0) + 1;
     });
