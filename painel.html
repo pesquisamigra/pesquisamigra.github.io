@@ -611,6 +611,12 @@ table.grade-table tbody td.cell-periodo {
         <div class="two-col" id="blocks-perc"></div>
       </div>
 
+      <!-- Atuação com Migração -->
+      <div class="section-block">
+        <div class="section-heading">Atuação com a migração <span style="font-size:.65rem;font-weight:400;color:var(--text-soft);letter-spacing:0;text-transform:none">(Profissionais e Pós-Graduandos)</span></div>
+        <div class="two-col" id="blocks-atuacao"></div>
+      </div>
+
     </div>
   </div>
 
@@ -642,7 +648,7 @@ table.grade-table tbody td.cell-periodo {
 // ══════════════════════════════════════════════
 //  CONFIGURAÇÃO — edite aqui
 // ══════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZta4os4vRw4gXDqjeZSkRdGVWQ7ZQE_yM4f_vLpc7owf1JOB_iymX1p4PJu1oOHAYTw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySVGyNXLk-KWHn9tYKJH2hCerzzretCGDjXey7AVclTfOgS_R8Mr4j24F_mjHR5_tL/exec';
 
 // Defina sua chave de acesso aqui (ou use a lógica de validação no servidor)
 // Para maior segurança, considere validar no Apps Script via parâmetro GET
@@ -744,7 +750,8 @@ const COLS = {
   vinculo: 5, periodo: 6, tempo: 7, area: 8, referencial: 9,
   interesse: 10, motivo: 11, subtemas: 12, importancia: 13, motivos_sim: 14,
   desafios_estudo: 15, desafios_trabalho: 16, fortalecimento: 17,
-  comentarios: 18, roda: 19, email: 20, disponibilidade: 21
+  comentarios: 18, roda: 19, email: 20, disponibilidade: 21,
+  atuacao_migracao: 22, clinico_publico: 23, politicas_tipo: 24
 };
 
 function col(row, key) { return (row[COLS[key]] || '').toString().trim(); }
@@ -852,6 +859,20 @@ function renderQuantitativo() {
   perc.innerHTML =
     blockCard('Desafios ao estudar a área', destEstudo, total) +
     blockCard('Desafios ao trabalhar na área', destTrab, total);
+
+  // ── ATUAÇÃO COM MIGRAÇÃO ──
+  // Total de respondentes que preencheram esse bloco (Prof. + Pós-grad.)
+  const totalAtuacao = allData.filter(r => col(r, 'atuacao_migracao')).length;
+  const atuacao   = sortedEntries(countField('atuacao_migracao'));
+  const clinico   = sortedEntries(countField('clinico_publico'));
+  const politicas = sortedEntries(countField('politicas_tipo'));
+  const blocoAtuacao = document.getElementById('blocks-atuacao');
+  if (blocoAtuacao) {
+    blocoAtuacao.innerHTML =
+      blockCard('Modalidade de atuação', atuacao, totalAtuacao, true) +
+      blockCard('Público clínico (quando aplica)', clinico, totalAtuacao) +
+      blockCard('Políticas públicas (quando aplica)', politicas, totalAtuacao);
+  }
 }
 
 // ── QUALITATIVO ──────────────────────────────
