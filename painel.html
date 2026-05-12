@@ -522,33 +522,29 @@ table.grade-table tbody td.cell-periodo {
   font-weight: 300;
 }
 .outros-box {
-  background: var(--accent-pale);
-  border: 1px solid #EDD5BE;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  grid-column: 1 / -1;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
 }
-.outros-box .block-title {
-  color: var(--accent);
-  border-bottom-color: #EDD5BE;
-}
+.outros-box .block-title { color: var(--purple); }
 .outros-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: white;
-  border: 1px solid #EDD5BE;
+  background: var(--purple-pale);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 3px 12px;
-  font-size: .78rem;
+  padding: 4px 14px;
+  font-size: .8rem;
   color: var(--text-mid);
   margin: 3px 4px 3px 0;
 }
 .outros-tag .outros-count {
-  background: var(--accent);
+  background: var(--purple);
   color: white;
   border-radius: 999px;
-  padding: 0 6px;
+  padding: 1px 7px;
   font-size: .68rem;
   font-weight: 600;
 }
@@ -897,14 +893,16 @@ function renderQuantitativo() {
   const tempo   = sortedEntries(countField('tempo'));
   const area    = sortedEntries(countField('area'));
   const referen = sortedEntries(countField('referencial'));
-  const referencialLimpo = referen.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
-    .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
+  const refOutroCount = referen.filter(([k]) => k.startsWith('Outro: ')).reduce((s,[,v]) => s+v, 0);
+  const referencialLimpo = referen
+    .filter(([k]) => !k.startsWith('Outro: '))
+    .concat(refOutroCount ? [['Outro', refOutroCount]] : []);
   perfil.innerHTML =
     blockCard('Vínculo com a Psicologia', vinculo, total) +
     blockCard('Nacionalidade', nac, total) +
     blockCard('Tempo de atuação / estudo na área', tempo, total) +
     blockCard('Áreas de atuação ou interesse', area, total) +
-    blockCard('Referencial teórico', sortedEntries(referencialLimpo), total, true) +
+    blockCard('Referencial teórico', referencialLimpo, total, true) +
     outrosBox('Outros referenciais mencionados', 'referencial');
 
   // ── TRAJETÓRIA ──
@@ -931,18 +929,24 @@ function renderQuantitativo() {
   const politicas = sortedEntries(countField('politicas_tipo'));
   const blocoAtuacao = document.getElementById('blocks-atuacao');
   if (blocoAtuacao) {
-    // Filtrar "Outro: ..." dos contadores principais para exibir limpo
-    const atuacaoLimpa = atuacao.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
-      .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
-    const politicasLimpa = politicas.map(([k, v]) => [k.startsWith('Outro: ') ? 'Outro (ver abaixo)' : k, v])
-      .reduce((acc, [k, v]) => { acc[k] = (acc[k] || 0) + v; return acc; }, {});
+    // Agrupa "Outro: texto" → linha "Outro" no contador + sub-bloco com os textos
+    // Conta quantos respondentes marcaram qualquer "Outro" em atuação
+    const atuacaoOutroCount = atuacao.filter(([k]) => k.startsWith('Outro: ')).reduce((s,[,v]) => s+v, 0);
+    const atuacaoLimpa = atuacao
+      .filter(([k]) => !k.startsWith('Outro: '))
+      .concat(atuacaoOutroCount ? [['Outro', atuacaoOutroCount]] : []);
+
+    const politicasOutroCount = politicas.filter(([k]) => k.startsWith('Outro: ')).reduce((s,[,v]) => s+v, 0);
+    const politicasLimpa = politicas
+      .filter(([k]) => !k.startsWith('Outro: '))
+      .concat(politicasOutroCount ? [['Outro', politicasOutroCount]] : []);
 
     blocoAtuacao.innerHTML =
-      blockCard('Modalidade de atuação', sortedEntries(atuacaoLimpa), totalAtuacao, true) +
+      blockCard('Modalidade de atuação', atuacaoLimpa, totalAtuacao, true) +
       outrosBox('Outros tipos de atuação mencionados', 'atuacao_migracao') +
       blockCard('Público clínico (quando aplica)', clinico, totalAtuacao) +
-      blockCard('Políticas públicas (quando aplica)', sortedEntries(politicasLimpa), totalAtuacao) +
-      outrosBox('Outras políticas mencionadas', 'politicas_tipo');
+      blockCard('Políticas públicas (quando aplica)', politicasLimpa, totalAtuacao) +
+      outrosBox('Outras políticas públicas mencionadas', 'politicas_tipo');
   }
 }
 
