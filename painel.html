@@ -893,12 +893,26 @@ function renderQuantitativo() {
   const tempo   = sortedEntries(countField('tempo'));
   const area    = sortedEntries(countField('area'));
   const referen = sortedEntries(countField('referencial'));
+  // Vínculo — 4 grupos: Graduação, Pós-Grad, Profissional, Pós+Profissional juntos
+  const vincGrad  = allData.filter(r => col(r,'vinculo').indexOf('Graduação em Psicologia') !== -1 && col(r,'vinculo').indexOf('Pós-Graduação') === -1 && col(r,'vinculo').indexOf('Profissional') === -1).length;
+  const vincPos   = allData.filter(r => col(r,'vinculo').indexOf('Pós-Graduação') !== -1 && col(r,'vinculo').indexOf('Profissional') === -1).length;
+  const vincProf  = allData.filter(r => col(r,'vinculo').indexOf('Profissional') !== -1 && col(r,'vinculo').indexOf('Pós-Graduação') === -1).length;
+  const vincAmb   = allData.filter(r => col(r,'vinculo').indexOf('Pós-Graduação') !== -1 && col(r,'vinculo').indexOf('Profissional') !== -1).length;
+  const vincOutro = allData.filter(r => { const v = col(r,'vinculo'); return v && v.split(' | ').every(x => x.startsWith('Outro')); }).length;
+  const vincRows  = [
+    ['Estudante de Graduação em Psicologia', vincGrad],
+    ['Estudante de Pós-Graduação (somente)', vincPos],
+    ['Profissional de Psicologia (somente)', vincProf],
+    ['Pós-Graduação + Profissional', vincAmb],
+    ['Outro', vincOutro],
+  ].filter(([,v]) => v > 0);
+
   const refOutroCount = referen.filter(([k]) => k.startsWith('Outro: ')).reduce((s,[,v]) => s+v, 0);
   const referencialLimpo = referen
     .filter(([k]) => !k.startsWith('Outro: '))
     .concat(refOutroCount ? [['Outro', refOutroCount]] : []);
   perfil.innerHTML =
-    blockCard('Vínculo com a Psicologia', vinculo, total) +
+    blockCard('Vínculo com a Psicologia', vincRows, total) +
     blockCard('Nacionalidade', nac, total) +
     blockCard('Tempo de atuação / estudo na área', tempo, total) +
     blockCard('Áreas de atuação ou interesse', area, total) +
