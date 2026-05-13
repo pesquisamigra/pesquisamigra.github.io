@@ -243,7 +243,7 @@
       <!-- VÍNCULO — checkbox, máx. 2 -->
       <div class="field" id="field-vinculo">
         <label class="field-label">Qual seu vínculo atual com a Psicologia? <span class="required">*</span></label>
-        <p class="field-hint">Pode marcar até 2 opções — ex.: Profissional e Pós-Graduação ao mesmo tempo.</p>
+        <p class="field-hint">Profissional e Pós-Graduação podem ser selecionados juntos. As demais opções são exclusivas.</p>
         <div class="options">
           <div class="option-item" onclick="toggleVinculo(this,'Estudante de Graduação em Psicologia')"><input type="checkbox" name="vinculo" value="Estudante de Graduação em Psicologia"><div class="option-box"></div><span class="option-text">Estudante de Graduação em Psicologia</span></div>
           <div class="option-item" onclick="toggleVinculo(this,'Estudante de Pós-Graduação')"><input type="checkbox" name="vinculo" value="Estudante de Pós-Graduação"><div class="option-box"></div><span class="option-text">Estudante de Pós-Graduação (Especialização, Mestrado, Doutorado)</span></div>
@@ -617,16 +617,46 @@ function toggleAvail(cell) {
 
 // ── VÍNCULO: checkbox max=2 ──────────────────────────────────────
 function toggleVinculo(el, val) {
-  var inp     = el.querySelector('input');
-  var checked = document.querySelectorAll('[name="vinculo"]:checked');
-  if (!inp.checked && checked.length >= 2) return;
-  inp.checked = !inp.checked;
-  el.classList.toggle('selected', inp.checked);
+  var inp = el.querySelector('input');
+
+  // Se está desmarcando — sempre permitido
+  if (inp.checked) {
+    inp.checked = false;
+    el.classList.remove('selected');
+    clearError('field-vinculo');
+    var wrap = document.getElementById('outro-vinculo-wrap');
+    if (val === 'Outro') { wrap.classList.remove('visible'); document.getElementById('outro-vinculo').value = ''; }
+    atualizaVinculo();
+    return;
+  }
+
+  // Está tentando marcar — verificar regras
+  var checked = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
+
+  // Graduação e Outro: somente sozinhos (se já há algo marcado, bloqueia)
+  if (val === 'Estudante de Graduação em Psicologia' || val === 'Outro') {
+    if (checked.length > 0) return; // já tem algo marcado — não permite
+  }
+
+  // Pós-Graduação ou Profissional: só podem ser combinados entre si
+  if (val === 'Estudante de Pós-Graduação' || val === 'Profissional formado(a) em Psicologia (com CRP ativo)') {
+    if (checked.length > 0) {
+      // Permite apenas se o que já está marcado é o outro do par Pós+Profissional
+      var permitidos = ['Estudante de Pós-Graduação', 'Profissional formado(a) em Psicologia (com CRP ativo)'];
+      var incompativel = checked.some(function(v){ return permitidos.indexOf(v) === -1; });
+      if (incompativel || checked.length >= 2) return;
+    }
+  }
+
+  // Marcar
+  inp.checked = true;
+  el.classList.add('selected');
   clearError('field-vinculo');
+
   var wrap = document.getElementById('outro-vinculo-wrap');
   if (val === 'Outro') {
-    if (inp.checked) { wrap.classList.add('visible'); setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50); }
-    else             { wrap.classList.remove('visible'); document.getElementById('outro-vinculo').value = ''; }
+    wrap.classList.add('visible');
+    setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
   }
   atualizaVinculo();
 }
