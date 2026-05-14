@@ -644,6 +644,12 @@ table.grade-table tbody td.cell-periodo {
         <div class="two-col" id="blocks-atuacao"></div>
       </div>
 
+      <!-- Participação em Conselhos / Coletivos / Movimentos -->
+      <div class="section-block">
+        <div class="section-heading">Participação em Conselhos, Coletivos e Movimentos Sociais</div>
+        <div class="two-col" id="blocks-participa"></div>
+      </div>
+
     </div>
   </div>
 
@@ -778,7 +784,9 @@ const COLS = {
   interesse: 10, motivo: 11, subtemas: 12, importancia: 13, motivos_sim: 14,
   desafios_estudo: 15, desafios_trabalho: 16, fortalecimento: 17,
   comentarios: 18, roda: 19, email: 20, disponibilidade: 21,
-  atuacao_migracao: 22, clinico_publico: 23, politicas_tipo: 24
+  atuacao_migracao: 22, clinico_publico: 23, politicas_tipo: 24,
+  participa: 25, part_tipo: 26, cclasse_funcao: 27, cdireitos_qual: 28,
+  coletivo_nome: 29, movimento_nome: 30
 };
 
 function col(row, key) { const v = row[COLS[key]]; return (v === undefined || v === null) ? '' : v.toString().trim(); }
@@ -816,6 +824,24 @@ function extractOutros(field) {
 // Bloco de outros mencionados — retorna '' se vazio
 function outrosBox(title, field) {
   const counts = extractOutros(field);
+  const entries = sortedEntries(counts);
+  if (!entries.length) return '';
+  const tags = entries.map(([texto, n]) =>
+    `<span class="outros-tag">${texto}${n > 1 ? ` <span class="outros-count">${n}×</span>` : ''}</span>`
+  ).join('');
+  return `<div class="outros-box">
+    <div class="block-title">${title}</div>
+    <div style="margin-top:.25rem">${tags}</div>
+  </div>`;
+}
+
+// Listar valores de um campo de texto livre (sem prefix Outro:)
+function listValores(title, field) {
+  const counts = {};
+  allData.forEach(row => {
+    const v = col(row, field).trim();
+    if (v) counts[v] = (counts[v] || 0) + 1;
+  });
   const entries = sortedEntries(counts);
   if (!entries.length) return '';
   const tags = entries.map(([texto, n]) =>
@@ -962,6 +988,39 @@ function renderQuantitativo() {
       blockCard('Políticas públicas (quando aplica)', politicasLimpa, totalAtuacao) +
       outrosBox('Outras políticas públicas mencionadas', 'politicas_tipo');
   }
+
+  // ── PARTICIPAÇÃO EM CONSELHOS / COLETIVOS / MOVIMENTOS ──
+  const blocoPart = document.getElementById('blocks-participa');
+  if (blocoPart) {
+    const partCount = countField('participa');
+    const partSim = partCount['Sim'] || 0;
+    const partNao = partCount['Não'] || 0;
+    const totalPart = partSim + partNao;
+
+    const tiposPart = sortedEntries(countField('part_tipo'));
+
+    // Função no Conselho de Classe — agrupa "Outro: texto"
+    const cclasse = sortedEntries(countField('cclasse_funcao'));
+    const cclasseOutroCount = cclasse.filter(([k]) => k.startsWith('Outro: ')).reduce((s,[,v]) => s+v, 0);
+    const cclasseLimpa = cclasse
+      .filter(([k]) => !k.startsWith('Outro: '))
+      .concat(cclasseOutroCount ? [['Outro', cclasseOutroCount]] : []);
+
+    // Linha resumo Sim/Não
+    const resumoPart = [
+      ['Sim, participa', partSim],
+      ['Não participa', partNao]
+    ].filter(([,v]) => v > 0);
+
+    blocoPart.innerHTML =
+      blockCard('Participa de algum conselho, coletivo ou movimento?', resumoPart, totalPart || total) +
+      blockCard('Tipos de participação', tiposPart, partSim, true) +
+      blockCard('Conselho de Classe — função', cclasseLimpa, partSim) +
+      outrosBox('Outras funções no Conselho de Classe', 'cclasse_funcao') +
+      listValores('Conselhos de Direitos mencionados', 'cdireitos_qual') +
+      listValores('Coletivos mencionados', 'coletivo_nome') +
+      listValores('Movimentos sociais mencionados', 'movimento_nome');
+  }
 }
 
 // ── QUALITATIVO ──────────────────────────────
@@ -1055,7 +1114,7 @@ function renderAgenda() {
     <!-- CABEÇALHO COM CONTAGEM -->
     <div style="margin-bottom:1.5rem;display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;">
       <div>
-        <div style="font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.3rem">Participantes interessados</div>
+        <div style="font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);margin-bottom:.3rem">Participantes confirmados</div>
         <div style="font-family:'DM Serif Display',serif;font-size:2.5rem;line-height:1;color:var(--purple)">${n}</div>
       </div>
       <div class="legend-box" style="margin:0;flex:1;min-width:220px">
