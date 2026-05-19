@@ -550,6 +550,9 @@
     <div class="form-group"><label>Nome completo</label>
       <input type="text" id="fNome" placeholder="Ex: Maria Silva">
     </div>
+    <div class="form-group"><label>WhatsApp (só números, com DDD)</label>
+      <input type="text" id="fWpp" placeholder="Ex: 31999998888" inputmode="numeric" maxlength="11">
+    </div>
     <div class="form-group"><label>Pagamento</label>
       <select id="fPag" onchange="toggleGP()">
         <option value="regular">Regular / Mensalista</option>
@@ -643,9 +646,9 @@ const CFG = {
   max:    10,
   maxGP:   2,
   hFecha:  2,
-  wppProf: '5531996051906',
+  wppProf: '5531997240362',
   // Mensagem padrão (editável no modal)
-  msgPadrao: `Olá, {nome}! 👋\n\nLembrando que sua aula com a *Iara Umezaki* é:\n📅 *{dia} às {hora}*\n🏋️ Tema: *{tema}*\n\nTe esperamos! 💜`
+  msgPadrao: `Olá, {nome}! 👋\n\nLembrando que sua aula com a *Iara Umezaki* é:\n📅 *{dia} às {hora}*\n Tema: *{tema}*\n\nAté mais! 🙏🏼🧘🏻‍♀️`
 };
 
 const DIA_MAP = {};
@@ -769,6 +772,7 @@ function abrirModal(dia){
   const hora=DIA_MAP[dia];
   document.getElementById('modalSub').textContent=`${dia} · ${hora}h`;
   document.getElementById('fNome').value='';
+  document.getElementById('fWpp').value='';
   document.getElementById('fPag').value='regular';
   document.getElementById('gpNote').classList.remove('show');
   document.getElementById('overlayAgendar').classList.add('open');
@@ -781,6 +785,7 @@ function toggleGP(){
 }
 function confirmar(){
   const nome=document.getElementById('fNome').value.trim();
+  const wpp =document.getElementById('fWpp').value.replace(/\D/g,'');
   const pag=document.getElementById('fPag').value;
   if(!nome){toast('Informe seu nome.',true);return;}
   if(!slot) return;
@@ -795,7 +800,7 @@ function confirmar(){
     toast('Você já está inscrito nesta aula!',true);return;
   }
   if(!data[dia]) data[dia]=[];
-  data[dia].push({nome,gp:pag==='gympass',ts:Date.now()});
+  data[dia].push({nome,wpp,gp:pag==='gympass',ts:Date.now()});
   save(data); closeModal('overlayAgendar');
   toast(`✅ ${nome} inscrito!`); renderAluno();
 }
@@ -997,12 +1002,17 @@ function renderPanel(){
     const rows=l.map((a,i)=>{
       const tipo=a.fixo?'fixo':a.repo?'repo':'normal';
       const avIdx=!a.fixo?data[nome]&&data[nome].findIndex?.(x=>x.nome===a.nome):-1;
+      const wppNum=a.wpp||'';
       return `<div class="aluno-row ${tipo}">
         <div class="aluno-num">${i+1}</div>
-        <div class="aluno-name">${a.nome}</div>
+        <div style="flex:1;min-width:0">
+          <div class="aluno-name">${a.nome}</div>
+          ${wppNum?`<div style="font-size:10px;color:var(--muted);margin-top:1px">📱 ${wppNum}</div>`:''}
+        </div>
         ${a.fixo?'<span class="atag fixo">FIXO</span>':''}
         ${a.repo?'<span class="atag repo">REPO</span>':''}
         ${a.gp?'<span class="atag gp">GP</span>':''}
+        ${wppNum?`<button class="btn-wpp-ind" onclick="window.open('https://wa.me/55${wppNum}','_blank')" title="Abrir WhatsApp">${wppSvg()}</button>`:''}
         ${!a.fixo&&avIdx>=0?`<button class="btn-del" onclick="removerAvulso('${nome}',${avIdx})">×</button>`:''}
       </div>`;
     }).join('');
