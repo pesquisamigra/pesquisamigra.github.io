@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iara Umezaki · Agendamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple:      #8B3F8B;
+    --purple-dark: #6A2E6A;
+    --purple-mid:  #A055A0;
+    --purple-lt:   #C07EC0;
+    --purple-pale: #F3E5F3;
+    --purple-bg:   #FAF3FA;
+    --white:       #FFFFFF;
+    --border:      #D9B8D9;
+    --text:        #3A1A3A;
+    --muted:       #9A7A9A;
+    --success:     #5E9E5E;
+    --danger:      #B84848;
+    --morning:     #B06818;
+    --morning-bg:  #FDF0DC;
+    --morning-bd:  #D4A060;
+    --gympass:     #2E8A9E;
+    --gympass-bg:  #D8EFF4;
+    --gympass-bd:  #70BAC8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--purple-bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    background: var(--white);
+    border-bottom: 3px solid var(--purple);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Logo SVG inline */
+  .logo-mark {
+    width: 56px; height: 56px; flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 30px);
+    letter-spacing: 7px;
+    color: var(--purple);
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .header-text p {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--purple-lt);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .week-bar {
+    background: var(--purple);
+    color: var(--white);
+    text-align: center;
+    padding: 8px 16px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .container { max-width: 1020px; margin: 0 auto; padding: 28px 16px 48px; }
+
+  /* ─── TABS ─── */
+  .tabs {
+    display: flex;
+    border: 2px solid var(--purple);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .tab {
+    flex: 1; padding: 12px 8px;
+    border: none; background: var(--white);
+    color: var(--purple);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .tab + .tab { border-left: 2px solid var(--purple); }
+  .tab.active { background: var(--purple); color: var(--white); }
+  .tab:hover:not(.active) { background: var(--purple-pale); }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ─── DAYS GRID ─── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 820px) { .days-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .days-grid { grid-template-columns: 1fr 1fr; } }
+
+  .day-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .day-card:hover { box-shadow: 0 6px 24px rgba(139,63,139,0.12); transform: translateY(-2px); }
+
+  .day-header {
+    background: var(--purple);
+    padding: 11px 14px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--white);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .day-geo {
+    width: 8px; height: 8px;
+    background: var(--purple-lt);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .shift-section { padding: 12px 12px 10px; }
+
+  .shift-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 7px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .shift-label.morning { color: var(--morning); }
+  .shift-label.night   { color: var(--purple); }
+
+  .shift-stats {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .shift-count { font-weight: 600; color: var(--text); }
+  .shift-count span { color: var(--muted); font-weight: 400; }
+
+  .gp-pill {
+    background: var(--gympass-bg);
+    border: 1px solid var(--gympass-bd);
+    color: var(--gympass);
+    border-radius: 3px; padding: 1px 5px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  .bar-track {
+    height: 3px; background: var(--purple-pale);
+    border-radius: 2px; overflow: hidden; margin-bottom: 9px;
+  }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s; }
+  .bar-fill.morning { background: var(--morning); }
+  .bar-fill.night   { background: var(--purple); }
+
+  .btn-slot {
+    width: 100%; padding: 8px 4px;
+    border-radius: 5px; border: 1.5px solid;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .btn-slot.morning {
+    border-color: var(--morning-bd); color: var(--morning);
+    background: var(--morning-bg);
+  }
+  .btn-slot.morning:hover:not(:disabled) {
+    background: var(--morning); color: var(--white);
+  }
+  .btn-slot.night {
+    border-color: var(--purple-lt); color: var(--purple);
+    background: var(--purple-pale);
+  }
+  .btn-slot.night:hover:not(:disabled) {
+    background: var(--purple); color: var(--white);
+  }
+  .btn-slot:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-slot.closed {
+    border-color: var(--border); color: var(--muted);
+    background: #f5f5f5; cursor: not-allowed; opacity: 1;
+  }
+
+  .divider { height: 1px; background: var(--purple-pale); margin: 9px 0; }
+
+  /* ─── MODAL ─── */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(58,26,58,0.55);
+    backdrop-filter: blur(3px);
+    z-index: 200; align-items: center; justify-content: center; padding: 16px;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border: 2px solid var(--purple);
+    border-radius: 12px;
+    padding: 32px 28px;
+    width: 100%; max-width: 420px;
+    position: relative;
+    animation: up 0.28s ease;
+  }
+  @keyframes up { from { transform: translateY(18px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-accent {
+    width: 36px; height: 4px;
+    background: var(--purple); border-radius: 2px; margin-bottom: 16px;
+  }
+  .modal h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 4px;
+  }
+  .modal-sub { color: var(--muted); font-size: 12px; letter-spacing: 1px; margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 7px;
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 11px 14px;
+    color: var(--text); background: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.18s;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus { border-color: var(--purple); }
+
+  .gp-note {
+    display: none;
+    background: var(--gympass-bg);
+    border: 1px solid var(--gympass-bd);
+    border-radius: 6px; padding: 9px 12px;
+    font-size: 12px; color: var(--gympass);
+    margin-bottom: 14px;
+  }
+  .gp-note.show { display: block; }
+
+  .modal-btns { display: flex; gap: 10px; margin-top: 22px; }
+  .btn-cancel {
+    flex: 1; padding: 12px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    background: var(--white); color: var(--muted);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .btn-cancel:hover { border-color: var(--purple); color: var(--purple); }
+  .btn-ok {
+    flex: 2; padding: 12px;
+    border: none; border-radius: 6px;
+    background: var(--purple); color: var(--white);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+    box-shadow: 0 4px 14px rgba(139,63,139,0.25);
+  }
+  .btn-ok:hover { background: var(--purple-dark); transform: translateY(-1px); }
+  .btn-close-modal {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--purple-pale); border: none; border-radius: 5px;
+    color: var(--purple); width: 30px; height: 30px;
+    font-size: 18px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: background 0.18s;
+  }
+  .btn-close-modal:hover { background: var(--border); }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(70px);
+    background: var(--success); color: var(--white);
+    padding: 12px 22px; border-radius: 40px;
+    font-size: 13px; font-weight: 500;
+    z-index: 300; transition: transform 0.28s ease;
+    white-space: nowrap; max-width: 90vw; text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.err  { background: var(--danger); }
+
+  /* ─── PAINEL ─── */
+  .panel-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+  }
+  .panel-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 22px; font-weight: 700;
+    letter-spacing: 5px; text-transform: uppercase;
+    color: var(--purple);
+  }
+
+  /* BOTÃO WHATSAPP */
+  .btn-wpp {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    background: #25D366; border: none; border-radius: 6px;
+    color: var(--white);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+    box-shadow: 0 3px 12px rgba(37,211,102,0.3);
+  }
+  .btn-wpp:hover { background: #1da851; transform: translateY(-1px); }
+  .btn-wpp svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px; margin-bottom: 24px;
+  }
+  .sum-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 14px 12px; text-align: center;
+  }
+  .sum-card .n {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 32px; font-weight: 700; line-height: 1; margin-bottom: 4px;
+  }
+  .sum-card .l {
+    font-size: 9px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  .sum-card.s-total .n { color: var(--purple); }
+  .sum-card.s-m .n    { color: var(--morning); }
+  .sum-card.s-n .n    { color: var(--purple-mid); }
+  .sum-card.s-gp .n   { color: var(--gympass); }
+
+  .pday-block {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 10px; margin-bottom: 12px; overflow: hidden;
+  }
+  .pday-head {
+    background: var(--purple-pale);
+    border-bottom: 1.5px solid var(--border);
+    padding: 10px 18px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--purple);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pday-shifts { display: grid; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 500px) { .pday-shifts { grid-template-columns: 1fr; } }
+  .pday-shift { padding: 14px 16px; }
+  .pday-shift + .pday-shift { border-left: 1.5px solid var(--border); }
+  @media (max-width: 500px) { .pday-shift + .pday-shift { border-left: none; border-top: 1.5px solid var(--border); } }
+
+  .pshift-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .enc-tag {
+    font-size: 8px; background: #eee; color: #999;
+    border-radius: 3px; padding: 2px 5px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  .aluno-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 9px; border-radius: 6px;
+    font-size: 13px; margin-bottom: 4px;
+    background: var(--purple-pale);
+    border: 1px solid var(--border);
+  }
+  .aluno-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--purple-lt); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; flex-shrink: 0;
+  }
+  .aluno-name { flex: 1; font-size: 13px; }
+  .aluno-gp {
+    background: var(--gympass-bg); border: 1px solid var(--gympass-bd);
+    color: var(--gympass); border-radius: 3px;
+    padding: 1px 5px; font-size: 9px; font-weight: 700;
+  }
+  .btn-del {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 16px; line-height: 1;
+    padding: 0 3px; transition: color 0.15s;
+  }
+  .btn-del:hover { color: var(--danger); }
+  .empty-msg {
+    font-size: 12px; color: var(--muted); font-style: italic;
+    padding: 6px 8px; opacity: 0.7;
+  }
+
+  .btn-reset {
+    width: 100%; margin-top: 20px; padding: 13px;
+    border: 1.5px solid var(--danger); border-radius: 6px;
+    background: var(--white); color: var(--danger);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.18s;
+  }
+  .btn-reset:hover { background: var(--danger); color: var(--white); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <!-- Logo geométrica recriada em SVG -->
+  <svg class="logo-mark" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="38" fill="#8B3F8B"/>
+    <line x1="2"  y1="28" x2="78" y2="28" stroke="white" stroke-width="3.5"/>
+    <line x1="2"  y1="48" x2="78" y2="48" stroke="white" stroke-width="3.5"/>
+    <line x1="14" y1="70" x2="66" y2="10" stroke="white" stroke-width="3.5"/>
+    <line x1="14" y1="10" x2="66" y2="70" stroke="white" stroke-width="3.5"/>
+  </svg>
+  <div class="header-text">
+    <h1>Iara Umezaki</h1>
+    <p>Agendamento de aulas</p>
+  </div>
+</header>
+
+<div class="week-bar" id="weekBar">Carregando semana...</div>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('aluno')">📋 Agendar Aula</button>
+    <button class="tab" onclick="switchTab('painel')">📊 Painel do Professor</button>
+  </div>
+
+  <!-- VIEW ALUNO -->
+  <div class="view active" id="view-aluno">
+    <div class="days-grid" id="daysGrid"></div>
+  </div>
+
+  <!-- VIEW PAINEL -->
+  <div class="view" id="view-painel">
+    <div class="panel-topbar">
+      <div class="panel-title">Painel</div>
+      <button class="btn-wpp" onclick="enviarWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.523 5.847L.057 23.886a.5.5 0 0 0 .606.63l6.222-1.635A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.875 9.875 0 0 1-5.031-1.374l-.36-.214-3.733.981.999-3.648-.235-.374A9.859 9.859 0 0 1 2.118 12C2.118 6.53 6.53 2.118 12 2.118S21.882 6.53 21.882 12 17.47 21.882 12 21.882z"/>
+        </svg>
+        Enviar lista
+      </button>
+    </div>
+    <div class="summary-row" id="summaryRow"></div>
+    <div id="panelDays"></div>
+    <button class="btn-reset" onclick="resetWeek()">↺ Resetar semana manualmente</button>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="btn-close-modal" onclick="closeModal()">×</button>
+    <div class="modal-accent"></div>
+    <h2>Reservar vaga</h2>
+    <p class="modal-sub" id="modalSub">—</p>
+    <div class="form-group">
+      <label>Nome completo</label>
+      <input type="text" id="fNome" placeholder="Ex: Maria Silva">
+    </div>
+    <div class="form-group">
+      <label>Pagamento</label>
+      <select id="fPag" onchange="toggleGP()">
+        <option value="regular">Regular / Mensalista</option>
+        <option value="gympass">Gympass</option>
+      </select>
+    </div>
+    <div class="gp-note" id="gpNote">
+      ℹ️ Vagas Gympass limitadas a 2 por turno.
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-ok" onclick="confirmar()">Confirmar vaga</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────
+const CFG = {
+  dias: ['Segunda','Terça','Quarta','Quinta','Sexta'],
+  horaManha: '06:00',
+  horaNoite: '19:00',
+  max: 10,
+  maxGP: 2,
+  hFecha: 2,
+  wppNum: '5531997240362'   // número da professora
+};
+const DIA_NUM = { Segunda:1, Terça:2, Quarta:3, Quinta:4, Sexta:5 };
+
+// ─── STORAGE ──────────────────────────────────────
+function weekKey() {
+  const n = new Date(), d = n.getDay();
+  const m = new Date(n); m.setDate(n.getDate() - d + (d===0?-6:1));
+  return `iara_${m.getFullYear()}_${m.getMonth()+1}_${m.getDate()}`;
+}
+function emptyData() {
+  const o={}; CFG.dias.forEach(d=>o[d]={manha:[],noite:[]}); return o;
+}
+function load() {
+  try { const r=localStorage.getItem(weekKey()); if(r) return JSON.parse(r); } catch(e){}
+  return emptyData();
+}
+function save(d) { localStorage.setItem(weekKey(), JSON.stringify(d)); }
+
+// ─── ESTADO ───────────────────────────────────────
+let data = load();
+let slot = null;
+
+// ─── UTILS ────────────────────────────────────────
+function weekRange() {
+  const n=new Date(), d=n.getDay();
+  const m=new Date(n); m.setDate(n.getDate()-d+(d===0?-6:1));
+  const f=new Date(m); f.setDate(m.getDate()+4);
+  const fmt=x=>`${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}`;
+  return `${fmt(m)} – ${fmt(f)}`;
+}
+
+function isFechado(dia, turno) {
+  const n=new Date(), diff=DIA_NUM[dia]-n.getDay();
+  const a=new Date(n); a.setDate(n.getDate()+diff);
+  const [h,m]=(turno==='manha'?CFG.horaManha:CFG.horaNoite).split(':');
+  a.setHours(+h-CFG.hFecha,+m,0,0);
+  return n>=a;
+}
+
+function toast(msg, err=false) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast'+(err?' err':'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// ─── TABS ─────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((el,i)=>
+    el.classList.toggle('active',(tab==='aluno'&&i===0)||(tab==='painel'&&i===1)));
+  document.querySelectorAll('.view').forEach((el,i)=>
+    el.classList.toggle('active',(tab==='aluno'&&i===0)||(tab==='painel'&&i===1)));
+  if(tab==='painel') renderPanel();
+}
+
+// ─── RENDER ALUNO ─────────────────────────────────
+function renderAluno() {
+  document.getElementById('weekBar').textContent = `Semana: ${weekRange()}`;
+  data = load();
+  const g = document.getElementById('daysGrid');
+  g.innerHTML = '';
+
+  CFG.dias.forEach(dia => {
+    const s  = data[dia]||{manha:[],noite:[]};
+    const fM = isFechado(dia,'manha'), fN = isFechado(dia,'noite');
+    const chM= s.manha.length>=CFG.max, chN= s.noite.length>=CFG.max;
+    const pM = Math.round(s.manha.length/CFG.max*100);
+    const pN = Math.round(s.noite.length/CFG.max*100);
+    const gM = s.manha.filter(a=>a.gp).length;
+    const gN = s.noite.filter(a=>a.gp).length;
+
+    const btnM = fM
+      ? `<button class="btn-slot closed" disabled>🔒 Encerrado</button>`
+      : chM ? `<button class="btn-slot morning" disabled>Turma cheia</button>`
+      : `<button class="btn-slot morning" onclick="abrirModal('${dia}','manha')">Reservar →</button>`;
+
+    const btnN = fN
+      ? `<button class="btn-slot closed" disabled>🔒 Encerrado</button>`
+      : chN ? `<button class="btn-slot night" disabled>Turma cheia</button>`
+      : `<button class="btn-slot night" onclick="abrirModal('${dia}','noite')">Reservar →</button>`;
+
+    g.innerHTML += `
+      <div class="day-card">
+        <div class="day-header"><div class="day-geo"></div>${dia}</div>
+        <div class="shift-section">
+          <div class="shift-label morning">☀️ ${CFG.horaManha}h</div>
+          <div class="shift-stats">
+            <span class="shift-count">${s.manha.length}<span>/${CFG.max}</span></span>
+            <span class="gp-pill">GP ${gM}/2</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill morning" style="width:${pM}%"></div></div>
+          ${btnM}
+        </div>
+        <div class="divider"></div>
+        <div class="shift-section">
+          <div class="shift-label night">🌙 ${CFG.horaNoite}h</div>
+          <div class="shift-stats">
+            <span class="shift-count">${s.noite.length}<span>/${CFG.max}</span></span>
+            <span class="gp-pill">GP ${gN}/2</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill night" style="width:${pN}%"></div></div>
+          ${btnN}
+        </div>
+      </div>`;
+  });
+}
+
+// ─── MODAL ────────────────────────────────────────
+function abrirModal(dia, turno) {
+  slot = {dia, turno};
+  const lbl = turno==='manha' ? `☀️ Manhã – ${CFG.horaManha}h` : `🌙 Noite – ${CFG.horaNoite}h`;
+  document.getElementById('modalSub').textContent = `${dia} · ${lbl}`;
+  document.getElementById('fNome').value = '';
+  document.getElementById('fPag').value = 'regular';
+  document.getElementById('gpNote').classList.remove('show');
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(()=>document.getElementById('fNome').focus(),100);
+}
+function closeModal() { document.getElementById('overlay').classList.remove('open'); slot=null; }
+function toggleGP() {
+  document.getElementById('gpNote').classList.toggle('show',
+    document.getElementById('fPag').value==='gympass');
+}
+
+function confirmar() {
+  const nome = document.getElementById('fNome').value.trim();
+  const pag  = document.getElementById('fPag').value;
+  if(!nome){ toast('Informe seu nome completo.',true); return; }
+  if(!slot) return;
+  data = load();
+  const {dia,turno} = slot;
+  const lista = data[dia][turno];
+  if(lista.length>=CFG.max){ toast('Turma lotada!',true); closeModal(); return; }
+  if(pag==='gympass' && lista.filter(a=>a.gp).length>=CFG.maxGP){
+    toast(`Vagas Gympass esgotadas neste turno (máx ${CFG.maxGP}).`,true);
+    closeModal(); return;
+  }
+  if(lista.find(a=>a.nome.toLowerCase()===nome.toLowerCase())){
+    toast('Este nome já está inscrito neste turno!',true); return;
+  }
+  lista.push({nome, gp:pag==='gympass', ts:Date.now()});
+  save(data); closeModal();
+  toast(`✅ ${nome} inscrito com sucesso!`);
+  renderAluno();
+}
+
+document.getElementById('overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('overlay')) closeModal();
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+document.getElementById('fNome').addEventListener('keydown',e=>{ if(e.key==='Enter') confirmar(); });
+
+// ─── PAINEL ───────────────────────────────────────
+function renderPanel() {
+  data = load();
+  let tA=0,tM=0,tN=0,tGP=0;
+  CFG.dias.forEach(dia=>{
+    const s=data[dia]||{manha:[],noite:[]};
+    tM+=s.manha.length; tN+=s.noite.length;
+    tGP+=s.manha.filter(a=>a.gp).length+s.noite.filter(a=>a.gp).length;
+  });
+  tA=tM+tN;
+
+  document.getElementById('summaryRow').innerHTML=`
+    <div class="sum-card s-total"><div class="n">${tA}</div><div class="l">Total semana</div></div>
+    <div class="sum-card s-m"><div class="n">${tM}</div><div class="l">Manhã</div></div>
+    <div class="sum-card s-n"><div class="n">${tN}</div><div class="l">Noite</div></div>
+    <div class="sum-card s-gp"><div class="n">${tGP}</div><div class="l">Gympass</div></div>`;
+
+  const pd = document.getElementById('panelDays');
+  pd.innerHTML='';
+  CFG.dias.forEach(dia=>{
+    const s=data[dia]||{manha:[],noite:[]};
+    const fM=isFechado(dia,'manha'), fN=isFechado(dia,'noite');
+
+    const rows=(arr,turno)=>arr.length===0
+      ? `<div class="empty-msg">Nenhum aluno inscrito</div>`
+      : arr.map((a,i)=>`
+          <div class="aluno-row">
+            <div class="aluno-num">${i+1}</div>
+            <div class="aluno-name">${a.nome}</div>
+            ${a.gp?'<span class="aluno-gp">GP</span>':''}
+            <button class="btn-del" onclick="remover('${dia}','${turno}',${i})">×</button>
+          </div>`).join('');
+
+    pd.innerHTML+=`
+      <div class="pday-block">
+        <div class="pday-head"><div class="day-geo" style="background:var(--purple-lt)"></div>${dia}</div>
+        <div class="pday-shifts">
+          <div class="pday-shift">
+            <div class="pshift-label" style="color:var(--morning)">
+              ☀️ Manhã ${CFG.horaManha}h
+              <span style="color:var(--muted);font-weight:400">(${s.manha.length}/${CFG.max})</span>
+              ${fM?'<span class="enc-tag">encerrado</span>':''}
+            </div>
+            ${rows(s.manha,'manha')}
+          </div>
+          <div class="pday-shift">
+            <div class="pshift-label" style="color:var(--purple)">
+              🌙 Noite ${CFG.horaNoite}h
+              <span style="color:var(--muted);font-weight:400">(${s.noite.length}/${CFG.max})</span>
+              ${fN?'<span class="enc-tag">encerrado</span>':''}
+            </div>
+            ${rows(s.noite,'noite')}
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+function remover(dia, turno, idx) {
+  if(!confirm('Remover este aluno?')) return;
+  data=load(); data[dia][turno].splice(idx,1); save(data);
+  renderPanel(); renderAluno(); toast('Aluno removido.');
+}
+
+function resetWeek() {
+  if(!confirm('Apagar todos os agendamentos desta semana?')) return;
+  const d=emptyData(); save(d); data=d;
+  renderPanel(); renderAluno(); toast('Semana resetada!');
+}
+
+// ─── WHATSAPP ─────────────────────────────────────
+function enviarWhatsApp() {
+  data = load();
+  const range = weekRange();
+  let msg = `*📋 Lista de Alunos – Iara Umezaki*\n`;
+  msg += `*Semana: ${range}*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+  CFG.dias.forEach(dia => {
+    const s = data[dia]||{manha:[],noite:[]};
+    const totalDia = s.manha.length + s.noite.length;
+    if(totalDia === 0) return; // pula dias sem ninguém
+
+    msg += `*${dia.toUpperCase()}*\n`;
+
+    if(s.manha.length > 0) {
+      msg += `  ☀️ Manhã ${CFG.horaManha}h (${s.manha.length}/${CFG.max})\n`;
+      s.manha.forEach((a,i)=>{
+        msg += `  ${i+1}. ${a.nome}${a.gp?' [GP]':''}\n`;
+      });
+    }
+    if(s.noite.length > 0) {
+      msg += `  🌙 Noite ${CFG.horaNoite}h (${s.noite.length}/${CFG.max})\n`;
+      s.noite.forEach((a,i)=>{
+        msg += `  ${i+1}. ${a.nome}${a.gp?' [GP]':''}\n`;
+      });
+    }
+    msg += '\n';
+  });
+
+  // totais
+  let tM=0,tN=0,tGP=0;
+  CFG.dias.forEach(dia=>{
+    const s=data[dia]||{manha:[],noite:[]};
+    tM+=s.manha.length; tN+=s.noite.length;
+    tGP+=s.manha.filter(a=>a.gp).length+s.noite.filter(a=>a.gp).length;
+  });
+  msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `Total manhã: ${tM} | Noite: ${tN} | Gympass: ${tGP}`;
+
+  const url = `https://wa.me/${CFG.wppNum}?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+}
+
+// ─── INIT ─────────────────────────────────────────
+renderAluno();
+</script>
+</body>
+</html>
