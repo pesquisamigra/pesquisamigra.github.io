@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCLE — Roda de Conversa · Psicologia e Migração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4A3F8F; --purple-light: #6C5FBF; --purple-pale: #F0EEFF;
+    --purple-mid: #C4B8F5; --accent: #C17B4E; --accent-pale: #FDF3EC;
+    --text: #1A1830; --text-mid: #4A4766; --text-soft: #8A87A8;
+    --bg: #FAFAF8; --border: #E2DFF5;
+    --success: #2D7A5F; --success-bg: #EAF5F0;
+    --danger: #B94040; --danger-bg: #FDF0F0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .hero { background: var(--purple); color: white; padding: 3rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .hero::after  { content: ''; position: absolute; bottom: -80px; left: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.03); }
+  .hero-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 1rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400; margin-bottom: .5rem; }
+  .hero h1 em { font-style: italic; color: var(--purple-mid); }
+  .hero p { font-size: .95rem; color: rgba(255,255,255,.6); font-weight: 300; }
+
+  .wrapper { max-width: 680px; margin: -3rem auto 4rem; padding: 0 1.25rem; position: relative; z-index: 2; }
+
+  /* Bloco de sessão */
+  .session-box {
+    background: var(--purple-pale); border: 1px solid var(--border);
+    border-left: 4px solid var(--purple); border-radius: 0 10px 10px 0;
+    padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+  }
+  .session-label { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple-light); margin-bottom: .5rem; }
+  .session-grupo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--purple); margin-bottom: .2rem; }
+  .session-hora  { font-size: 1rem; color: var(--text); margin-bottom: .2rem; }
+  .session-dur   { font-size: .8rem; color: var(--text-soft); }
+
+  /* Card do TCLE */
+  .card { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(74,63,143,.08); }
+  .card-header { background: var(--purple-pale); padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); }
+  .card-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--purple); }
+  .card-body { padding: 2rem; }
+
+  /* Caixa do TCLE */
+  .tcle-scroll { max-height: 480px; overflow-y: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); padding: 1.5rem; margin-bottom: 2rem; font-size: .875rem; line-height: 1.85; color: var(--text-mid); }
+  .tcle-scroll h3 { font-family: 'DM Serif Display', serif; font-size: 1rem; font-weight: 400; color: var(--accent); margin-bottom: 1rem; text-align: center; }
+  .tcle-scroll h4 { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 1.25rem 0 .5rem; }
+  .tcle-scroll p  { margin-bottom: .75rem; }
+  .tcle-scroll strong { color: var(--text); }
+  .tcle-scroll .destaque { font-weight: 600; color: var(--text); }
+  .lido-indicator { display: flex; align-items: center; gap: 8px; font-size: .75rem; color: var(--text-soft); margin-top: .75rem; }
+  .lido-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+  .lido-dot.ok { background: var(--success); }
+
+  /* Formulário */
+  .field { margin-bottom: 1.75rem; }
+  .field-label { display: block; font-size: .9rem; font-weight: 500; color: var(--text); margin-bottom: .5rem; }
+  .field-hint  { font-size: .78rem; color: var(--text-soft); margin-bottom: .6rem; font-weight: 300; }
+  .required { color: var(--accent); }
+
+  input[type="text"] {
+    width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--text);
+    background: var(--bg); outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  input[type="text"]:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(74,63,143,.1); background: white; }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-item { display: flex; align-items: flex-start; gap: 12px; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all .2s; user-select: none; }
+  .option-item:hover { border-color: var(--purple-mid); background: var(--purple-pale); }
+  .option-item input { display: none; }
+  .option-item.selected { border-color: var(--purple); background: var(--purple-pale); }
+  .option-dot { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; margin-top: 1px; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+  .option-item.selected .option-dot { border-color: var(--purple); background: var(--purple); }
+  .option-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; opacity: 0; }
+  .option-item.selected .option-dot::after { opacity: 1; }
+  .option-text { font-size: .875rem; color: var(--text-mid); line-height: 1.5; }
+  .option-item.selected .option-text { color: var(--purple); }
+
+  .concordo-box { display: flex; align-items: flex-start; gap: 12px; padding: 1rem 1.25rem; background: var(--purple-pale); border: 1.5px solid var(--purple-mid); border-radius: 10px; cursor: pointer; user-select: none; }
+  .concordo-box input { display: none; }
+  .checkbox-sq { width: 20px; height: 20px; border: 2px solid var(--purple-mid); border-radius: 5px; flex-shrink: 0; margin-top: 1px; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+  .concordo-box.checked .checkbox-sq { border-color: var(--purple); background: var(--purple); }
+  .checkbox-sq::after { content: ''; width: 10px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px,-1px); opacity: 0; }
+  .concordo-box.checked .checkbox-sq::after { opacity: 1; }
+  .concordo-text { font-size: .875rem; color: var(--text-mid); line-height: 1.6; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  .btn-assinar { width: 100%; padding: .9rem; background: var(--purple); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all .2s; box-shadow: 0 4px 14px rgba(74,63,143,.25); }
+  .btn-assinar:hover:not(:disabled) { background: var(--purple-light); transform: translateY(-1px); }
+  .btn-assinar:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-msg { font-size: .8rem; color: var(--danger); margin-top: 6px; display: none; }
+  .field.has-error .error-msg { display: block; }
+  .field.has-error input { border-color: #D98080; }
+
+  /* Tela de sucesso */
+  .success-screen { text-align: center; padding: 3rem 1.5rem; }
+  .success-icon { width: 72px; height: 72px; background: var(--success-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }
+  .success-icon svg { width: 32px; height: 32px; color: var(--success); }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: .75rem; color: var(--text); }
+  .success-screen p { font-size: .9rem; color: var(--text-soft); max-width: 420px; margin: 0 auto .75rem; line-height: 1.7; }
+
+  footer { text-align: center; padding: 2rem; font-size: .75rem; color: var(--text-soft); line-height: 1.8; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1.25rem 4.5rem; }
+    .card-body { padding: 1.25rem; }
+    .tcle-scroll { max-height: 360px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-eyebrow">Pesquisa Acadêmica · PPGPSI PUC Minas</p>
+  <h1>Psicologia e <em>Migração</em></h1>
+  <p>Termo de Consentimento — Roda de Conversa</p>
+</header>
+
+<main class="wrapper">
+
+  <!-- Bloco da sessão -->
+  <div class="session-box">
+    <div class="session-label">Sua sessão confirmada</div>
+    <div class="session-grupo"><?= grupo ?></div>
+    <div class="session-hora"><?= horario ?></div>
+    <div class="session-dur">Duração estimada: 2 horas</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Termo de Consentimento Livre e Esclarecido (TCLE)</h2>
+    </div>
+    <div class="card-body">
+
+      <!-- ══ FORMULÁRIO (visível por padrão) ══ -->
+      <div id="form-section">
+
+        <div class="tcle-scroll" id="tcle-text" onscroll="verificarLeitura()">
+
+          <h3>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</h3>
+
+          <p><strong>N.º Registro CEP:</strong> CAAE 96206826.1.0000.5137</p>
+          <p><strong>Título do Projeto:</strong> PSICOLOGIA E MIGRAÇÃO: CARTOGRAFIA DAS SUAS PRÁTICAS E SABERES</p>
+
+          <p>Prezado(a) Sr(a),</p>
+          <p>Você está sendo convidado(a) a participar de uma pesquisa acadêmica que tem como objetivo compreender e mapear como se configura o campo de atuação e formação dos profissionais da Psicologia com a temática das migrações internacionais no Brasil.</p>
+          <p>Sua participação nesta etapa consistirá em participar de uma roda de conversa online com outros participantes. Sobre sua percepção acadêmica, suas áreas de atuação profissional e os desafios que você percebe no trabalho ou na pesquisa com a população migrante. O tempo desta roda de conversa está estimado em <strong>2 horas</strong>.</p>
+
+          <h4>Riscos e Benefícios</h4>
+          <p>Por se tratar de pesquisa nas ciências humanas e sociais, os riscos são considerados mínimos. Pode haver eventual desconforto emocional ou fadiga ao relatar desafios e frustrações da prática profissional. Será garantido o sigilo e anonimato dos participantes nas publicações, se assim desejarem. Os participantes terão a liberdade de recusar respostas, interromper a participação ou retirar o consentimento a qualquer momento, sem prejuízo. O estudo seguirá a Resolução CNS 510/2016.</p>
+          <p>Devido à natureza online da coleta de dados — entrevistas por videoconferência —, existem riscos característicos do ambiente virtual. Há o risco potencial de interceptação de dados por terceiros (violação do sistema/hackers) e instabilidade na conexão.</p>
+          <p>O pesquisador utilizará plataformas de coleta de dados e videoconferência com protocolos de segurança e acesso restrito por senha. O armazenamento dos dados (respostas, áudios e transcrições) será feito em equipamento pessoal do pesquisador, protegido por senha e offline sempre que possível. Nas rodas de conversa, será pactuado formalmente o compromisso de sigilo entre todos os participantes.</p>
+          <p>Contudo, em função das limitações inerentes às tecnologias utilizadas, <span class="destaque">informa-se que não é possível ao pesquisador assegurar a total e absoluta confidencialidade dos dados no ambiente virtual</span>, havendo risco potencial de violação. O anonimato do participante será rigorosamente mantido pelo pesquisador em todas as publicações decorrentes do estudo, utilizando-se pseudônimos.</p>
+
+          <h4>Participação Voluntária</h4>
+          <p>Sua participação é muito importante e voluntária e, consequentemente, não haverá pagamento por participar desse estudo. Em contrapartida, você também não terá nenhum gasto.</p>
+          <p>As informações obtidas nesse estudo serão confidenciais, sendo assegurado o sigilo sobre sua participação em todas as fases da pesquisa, e quando da apresentação dos resultados em publicação científica ou educativa, uma vez que os resultados serão sempre apresentados como retrato de um grupo e não de uma pessoa. Você poderá se recusar a participar ou a responder as questões a qualquer momento, não havendo nenhum prejuízo pessoal se esta for a sua decisão.</p>
+          <p>Todo material coletado durante a pesquisa ficará sob a guarda e responsabilidade do pesquisador responsável pelo período de 5 (cinco) anos e, após esse período, será destruído.</p>
+
+          <h4>Benefícios Esperados</h4>
+          <p>Espera-se que esta roda de conversa promova um momento de reflexão e autoavaliação sobre a sua própria prática profissional e trajetória formativa no atendimento à população migrante com outros profissionais.</p>
+          <p>A sua participação fornecerá subsídios essenciais para o mapeamento e a compreensão do campo da Psicologia e migrações internacionais no Brasil. Os dados contribuirão para identificar lacunas na formação em Psicologia, fortalecer a rede de profissionais da área e auxiliar no futuro desenvolvimento de diretrizes técnicas e éticas para o trabalho com a população migrante.</p>
+
+          <h4>Danos Decorrentes</h4>
+          <p>Para todos os participantes, em caso de eventuais danos decorrentes da pesquisa, será observada, nos termos da lei, a responsabilidade civil.</p>
+          <p>Você deve guardar uma cópia deste termo onde constam os dados de contato do pesquisador responsável, podendo tirar suas dúvidas sobre o projeto e sua participação, agora ou a qualquer momento.</p>
+
+          <h4>Pesquisador Responsável</h4>
+          <p>Henrique Galhano Balieiro<br>Rua Euclasio, 35 – Bairro Santa Efigênia, Belo Horizonte - MG<br>Telefone: (31) 9.99605-1906 · <a href="mailto:henriquegb@gmail.com" style="color:var(--purple)">henriquegb@gmail.com</a></p>
+
+          <h4>Comitê de Ética em Pesquisa</h4>
+          <p>CEP PUC Minas · Av. Dom José Gaspar, 500 – Prédio 6 · Coração Eucarístico · 30535-901 · Belo Horizonte – MG<br>Tel.: (31) 3319-4517 · <a href="mailto:cep.proppg@pucminas.br" style="color:var(--purple)">cep.proppg@pucminas.br</a></p>
+          <p>Este estudo foi aprovado pelo Comitê de Ética em Pesquisa envolvendo Seres Humanos da Pontifícia Universidade Católica de Minas Gerais, que poderá ser contatado em caso de questões éticas.</p>
+
+          <p style="margin-top:1rem">Eu, <strong>Henrique Galhano Balieiro</strong>, comprometo-me a cumprir todas as exigências e responsabilidades a mim conferidas neste termo e agradeço a sua colaboração e sua confiança.</p>
+          <p style="font-size:.8rem;color:var(--text-soft)">Assinatura do(a) pesquisador(a) — 11/03/2026</p>
+
+        </div>
+
+        <!-- Indicador de leitura -->
+        <div class="lido-indicator">
+          <div class="lido-dot" id="lido-dot"></div>
+          <span id="lido-label">Role até o final do texto para continuar</span>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Nome -->
+        <div class="field" id="field-nome">
+          <label class="field-label">Seu nome completo <span class="required">*</span></label>
+          <p class="field-hint">Conforme será registrado na assinatura.</p>
+          <input type="text" id="nome" placeholder="Digite seu nome completo">
+          <span class="error-msg">Por favor, informe seu nome completo.</span>
+        </div>
+
+        <!-- Autorização de gravação -->
+        <div class="field" id="field-gravacao">
+          <label class="field-label">Autorização de gravação <span class="required">*</span></label>
+          <p class="field-hint">Selecione uma opção.</p>
+          <div class="options">
+            <div class="option-item" onclick="selecionarGravacao(this,'Autorizo gravação em áudio')">
+              <input type="radio" name="gravacao" value="Autorizo gravação em áudio">
+              <div class="option-dot"></div>
+              <span class="option-text">Autorizo gravação em áudio</span>
+            </div>
+            <div class="option-item" onclick="selecionarGravacao(this,'Autorizo gravação em vídeo')">
+              <input type="radio" name="gravacao" value="Autorizo gravação em vídeo">
+              <div class="option-dot"></div>
+              <span class="option-text">Autorizo gravação em vídeo</span>
+            </div>
+            <div class="option-item" onclick="selecionarGravacao(this,'Autorizo gravação em áudio e vídeo')">
+              <input type="radio" name="gravacao" value="Autorizo gravação em áudio e vídeo">
+              <div class="option-dot"></div>
+              <span class="option-text">Autorizo gravação em áudio e vídeo</span>
+            </div>
+            <div class="option-item" onclick="selecionarGravacao(this,'Não autorizo gravação')">
+              <input type="radio" name="gravacao" value="Não autorizo gravação">
+              <div class="option-dot"></div>
+              <span class="option-text">Não autorizo gravação</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-gravacao" style="display:none">Por favor, selecione uma opção.</span>
+        </div>
+
+        <!-- Concordância -->
+        <div class="field">
+          <div class="concordo-box" id="concordo-box" onclick="toggleConcordo()">
+            <input type="checkbox" id="concordo">
+            <div class="checkbox-sq"></div>
+            <span class="concordo-text">
+              Declaro que li e compreendi o Termo de Consentimento Livre e Esclarecido acima e
+              <strong>concordo em participar</strong> da Roda de Conversa da pesquisa
+              <em>Psicologia e Migração: Cartografia das suas práticas e saberes</em>.
+            </span>
+          </div>
+          <span class="error-msg" id="err-concordo" style="display:none">É necessário concordar com o TCLE para assinar.</span>
+        </div>
+
+        <hr class="divider">
+
+        <button class="btn-assinar" id="btn-assinar" onclick="assinar()">
+          Assinar e Confirmar Participação →
+        </button>
+
+      </div><!-- /form-section -->
+
+      <!-- ══ TELA DE SUCESSO ══ -->
+      <div id="success-section" style="display:none">
+        <div class="success-screen">
+          <div class="success-icon">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h2>Assinatura registrada!</h2>
+          <p>Obrigado(a) por assinar o Termo de Consentimento.</p>
+          <p>O <strong>link da sala de videoconferência</strong> com os dados completos da sua sessão foi enviado para o seu e-mail. Verifique também a caixa de spam.</p>
+          <p style="margin-top:1.25rem;font-size:.8rem;color:var(--text-soft)">
+            Dúvidas: <a href="mailto:henriquegb@gmail.com" style="color:var(--purple)">henriquegb@gmail.com</a>
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /card-body -->
+  </div><!-- /card -->
+
+</main>
+
+<footer>
+  <p>Pesquisador: Henrique Galhano Balieiro · <a href="mailto:henriquegb@gmail.com" style="color:var(--purple)">henriquegb@gmail.com</a></p>
+  <p>Orientadora: Prof. Drª Márcia Stengel · PPGPSI PUC Minas</p>
+  <p style="margin-top:6px;opacity:.6">CEP PUC Minas · (31) 3319-4517 · cep.proppg@pucminas.br</p>
+</footer>
+
+<script>
+  // Variáveis do template (injetadas pelo Apps Script)
+  var TOKEN   = '<?= token ?>';
+  var GRUPO   = '<?= grupo ?>';
+  var HORARIO = '<?= horario ?>';
+
+  var lido       = false;
+  var concordou  = false;
+  var gravacaoSel = null;
+
+  // ── Verificar se o usuário rolou até o final do TCLE ──
+  function verificarLeitura() {
+    if (lido) return;
+    var el = document.getElementById('tcle-text');
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 20) {
+      lido = true;
+      document.getElementById('lido-dot').classList.add('ok');
+      document.getElementById('lido-label').textContent = 'Texto lido ✓';
+    }
+  }
+
+  // ── Seleção de gravação ──
+  function selecionarGravacao(el, val) {
+    document.querySelectorAll('[name="gravacao"]').forEach(function(r) {
+      r.closest('.option-item').classList.remove('selected');
+    });
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+    gravacaoSel = val;
+    document.getElementById('err-gravacao').style.display = 'none';
+  }
+
+  // ── Checkbox de concordância ──
+  function toggleConcordo() {
+    concordou = !concordou;
+    var box = document.getElementById('concordo-box');
+    box.classList.toggle('checked', concordou);
+    document.getElementById('concordo').checked = concordou;
+    document.getElementById('err-concordo').style.display = 'none';
+  }
+
+  // ── Assinar ──
+  function assinar() {
+    var nome = document.getElementById('nome').value.trim();
+    var ok = true;
+
+    // Validações
+    if (!nome) {
+      document.getElementById('field-nome').classList.add('has-error');
+      ok = false;
+    } else {
+      document.getElementById('field-nome').classList.remove('has-error');
+    }
+
+    if (!gravacaoSel) {
+      document.getElementById('err-gravacao').style.display = 'block';
+      ok = false;
+    }
+
+    if (!concordou) {
+      document.getElementById('err-concordo').style.display = 'block';
+      ok = false;
+    }
+
+    if (!lido) {
+      alert('Por favor, leia o Termo de Consentimento na íntegra antes de assinar.');
+      document.getElementById('tcle-text').scrollIntoView({ behavior: 'smooth' });
+      ok = false;
+    }
+
+    if (!ok) return;
+
+    var btn = document.getElementById('btn-assinar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Registrando assinatura...';
+
+    google.script.run
+      .withSuccessHandler(function(result) {
+        if (result && result.ok) {
+          document.getElementById('form-section').style.display = 'none';
+          document.getElementById('success-section').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          var msg = (result && result.msg) ? result.msg : 'Erro desconhecido.';
+          alert('Não foi possível registrar: ' + msg + '\nTente novamente ou entre em contato: henriquegb@gmail.com');
+          btn.disabled = false;
+          btn.textContent = 'Assinar e Confirmar Participação →';
+        }
+      })
+      .withFailureHandler(function(err) {
+        alert('Erro de comunicação: ' + err + '\nTente novamente ou entre em contato: henriquegb@gmail.com');
+        btn.disabled = false;
+        btn.textContent = 'Assinar e Confirmar Participação →';
+      })
+      .registrarAssinatura(TOKEN, nome, gravacaoSel);
+  }
+</script>
+</body>
+</html>
