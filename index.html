@@ -46,7 +46,7 @@
   .select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--text-soft); pointer-events: none; }
   .select-wrap select optgroup { font-weight: 600; font-size: .82rem; color: var(--purple); }
   input[type="text"], input[type="email"], textarea { width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--text); background: var(--bg); transition: border-color .2s, box-shadow .2s; outline: none; resize: vertical; }
-  input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(74,63,143,.1); background: white; }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(217,119,6,.15); background: white; }
   textarea { min-height: 110px; }
   .options { display: flex; flex-direction: column; gap: 8px; }
   .option-item { display: flex; align-items: flex-start; gap: 12px; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color .2s, background .2s; user-select: none; }
@@ -148,10 +148,10 @@
       <div class="tcle-box">
         <h4>Termo de Consentimento Livre e Esclarecido (TCLE)</h4>
         <p><strong>Título:</strong> Psicologia e Migração: Cartografia das suas práticas e saberes<br><strong>N.º Registro CEP:</strong> CAAE 96206826.1.0000.5137</p>
-        <p>Prezada(o) você está sendo convidada(o) a participar de uma pesquisa acadêmica que tem como objetivo compreender e mapear como se configura o campo de atuação e formação dos profissionais da Psicologia com a temática das migrações internacionais no Brasil.</p>
+        <p>Prezado(a) você está sendo convidado(a) a participar de uma pesquisa acadêmica que tem como objetivo compreender e mapear como se configura o campo de atuação e formação dos profissionais da Psicologia com a temática das migrações internacionais no Brasil.</p>
         <p>Sua participação consistirá em responder a um questionário online semiestruturado. O tempo estimado é de 10 a 20 minutos.</p>
         <h5>Riscos e Benefícios</h5>
-        <p>Os riscos são considerados mínimos. Pode haver eventual desconforto emocional ao relatar desafios da prática profissional. Devido à natureza online da coleta, há risco potencial de quebra de sigilo ou interceptação de dados por terceiros. Os dados serão coletados por plataforma segura com acesso restrito ao pesquisador e transferidos para armazenamento offline protegido, apesar da natureza online da coleta e seus potenciais riscos (de quebra de sigilo, interceptação de dados ou outros). Garantimos que  seu anonimato será rigorosamente preservado em publicações (manuscritos, digitais ou outros que existam ou possam existir).</p>
+        <p>Os riscos são considerados mínimos. Pode haver eventual desconforto emocional ao relatar desafios da prática profissional. Devido à natureza online da coleta, há risco potencial de quebra de sigilo ou interceptação de dados por terceiros. Os dados serão coletados por plataforma segura com acesso restrito ao pesquisador e transferidos para armazenamento offline protegido. Em publicações, seu anonimato será rigorosamente preservado.</p>
         <h5>Participação Voluntária</h5>
         <p>Sua participação é voluntária e não implica pagamento ou custo. Você pode retirar o consentimento a qualquer momento. O estudo segue a Resolução CNS 510/2016. Todo material coletado ficará sob guarda do pesquisador por 5 anos e, após esse período, será destruído.</p>
         <h5>Pesquisador Responsável</h5>
@@ -240,7 +240,7 @@
         <span class="error-msg">Por favor, informe seu país de residência.</span>
       </div>
 
-      <!-- VÍNCULO — checkbox -->
+      <!-- VÍNCULO — checkbox, máx. 2 -->
       <div class="field" id="field-vinculo">
         <label class="field-label">Qual seu vínculo atual com a Psicologia? <span class="required">*</span></label>
         <p class="field-hint">Profissional e Pós-Graduação podem ser selecionados juntos. As demais opções são exclusivas.</p>
@@ -248,14 +248,13 @@
           <div class="option-item" onclick="toggleVinculo(this,'Estudante de Graduação em Psicologia')"><input type="checkbox" name="vinculo" value="Estudante de Graduação em Psicologia"><div class="option-box"></div><span class="option-text">Estudante de Graduação em Psicologia</span></div>
           <div class="option-item" onclick="toggleVinculo(this,'Estudante de Pós-Graduação')"><input type="checkbox" name="vinculo" value="Estudante de Pós-Graduação"><div class="option-box"></div><span class="option-text">Estudante de Pós-Graduação (Especialização, Mestrado, Doutorado)</span></div>
           <div class="option-item" onclick="toggleVinculo(this,'Profissional formado(a) em Psicologia (com CRP ativo)')"><input type="checkbox" name="vinculo" value="Profissional formado(a) em Psicologia (com CRP ativo)"><div class="option-box"></div><span class="option-text">Profissional formado(a) em Psicologia (com CRP ativo)</span></div>
-          <div class="option-item" onclick="toggleVinculo(this,'Profissional formado(a) em Psicologia (com registro no exterior)')"><input type="checkbox" name="vinculo" value="Profissional formado(a) em Psicologia (com registro no exterior)"><div class="option-box"></div><span class="option-text">Profissional formado(a) em Psicologia (com registro no exterior)</span></div>
           <div class="option-item" onclick="toggleVinculo(this,'Outro')"><input type="checkbox" name="vinculo" value="Outro"><div class="option-box"></div><span class="option-text">Outro</span></div>
         </div>
         <div class="other-input" id="outro-vinculo-wrap"><input type="text" id="outro-vinculo" placeholder="Especifique seu vínculo"></div>
         <span class="error-msg">Por favor, selecione ao menos uma opção.</span>
       </div>
 
-      <!-- ATUAÇÃO COM MIGRAÇÃO -->
+      <!-- ATUAÇÃO COM MIGRAÇÃO — Profissional e/ou Pós-Graduação -->
       <div class="field" id="field-atuacao-migracao" style="display:none">
         <label class="field-label">Qual é a sua atuação com a migração? <span class="required">*</span></label>
         <p class="field-hint">Pode marcar até 2 opções.</p>
@@ -318,11 +317,13 @@
         <span class="error-msg">Por favor, selecione uma opção.</span>
       </div>
 
-      <!-- SUB-BLOCO: tipos de participação -->
+      <!-- SUB-BLOCO: tipos de participação (só visível quando Sim) -->
       <div class="field" id="field-participa-tipo" style="display:none">
         <label class="field-label">Quais? <span class="required">*</span></label>
         <p class="field-hint">Pode marcar mais de uma opção.</p>
         <div class="options">
+
+          <!-- Conselho de Classe -->
           <div class="option-item" onclick="toggleCheckSub(this,'part_tipo','sub-cclasse')"><input type="checkbox" name="part_tipo" value="Conselho de Classe"><div class="option-box"></div><span class="option-text">Conselho de Classe</span></div>
           <div class="subsecao" id="sub-cclasse">
             <div class="field-hint">Qual sua atuação?</div>
@@ -333,26 +334,33 @@
             </div>
             <div class="other-input" id="cclasse-outro-wrap" style="margin-top:8px"><input type="text" id="cclasse-outro" placeholder="Especifique sua atuação"></div>
           </div>
+
+          <!-- Conselho de Direitos -->
           <div class="option-item" onclick="toggleCheckSub(this,'part_tipo','sub-cdireitos')"><input type="checkbox" name="part_tipo" value="Conselho de Direitos"><div class="option-box"></div><span class="option-text">Conselho de Direitos</span></div>
           <div class="subsecao" id="sub-cdireitos">
             <div class="field-hint">Qual conselho?</div>
             <input type="text" id="cdireitos-qual" placeholder="Ex.: Conselho Municipal dos Direitos da Criança e do Adolescente">
           </div>
+
+          <!-- Coletivo -->
           <div class="option-item" onclick="toggleCheckSub(this,'part_tipo','sub-coletivo')"><input type="checkbox" name="part_tipo" value="Coletivo"><div class="option-box"></div><span class="option-text">Coletivo</span></div>
           <div class="subsecao" id="sub-coletivo">
             <div class="field-hint">Nome do coletivo:</div>
             <input type="text" id="coletivo-nome" placeholder="Nome do coletivo">
           </div>
+
+          <!-- Movimento Social -->
           <div class="option-item" onclick="toggleCheckSub(this,'part_tipo','sub-movimento')"><input type="checkbox" name="part_tipo" value="Movimento Social"><div class="option-box"></div><span class="option-text">Movimento Social</span></div>
           <div class="subsecao" id="sub-movimento">
             <div class="field-hint">Nome do movimento:</div>
             <input type="text" id="movimento-nome" placeholder="Nome do movimento social">
           </div>
+
         </div>
         <span class="error-msg">Selecione ao menos uma opção.</span>
       </div>
 
-      <!-- ÁREA -->
+            <!-- ÁREA -->
       <div class="field" id="field-area">
         <label class="field-label">Área(s) de atuação ou interesse <span class="required">*</span></label>
         <p class="field-hint">Áreas elencadas pelo CFP – Resolução nº 23/2022. Pode marcar mais de uma.</p>
@@ -602,14 +610,7 @@
 </footer>
 
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZta4os4vRw4gXDqjeZSkRdGVWQ7ZQE_yM4f_vLpc7owf1JOB_iymX1p4PJu1oOHAYTw/exec';
-
-// Constantes para os valores de vínculo
-const VINCULO_GRAD    = 'Estudante de Graduação em Psicologia';
-const VINCULO_POS     = 'Estudante de Pós-Graduação';
-const VINCULO_CRP     = 'Profissional formado(a) em Psicologia (com CRP ativo)';
-const VINCULO_EXT     = 'Profissional formado(a) em Psicologia (com registro no exterior)';
-const VINCULO_OUTRO   = 'Outro';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw00_rxgklFEqCm4jWxdlnchj7mfsSV2-qogkZYBh-xZGAamqPBmwkWrYGw2RtiIQzRZA/exec';
 
 let currentSection = 0;
 const sectionLabels = ['TCLE — Consentimento','Seção 1 — Perfil','Seção 2 — Trajetória','Seção 3 — Percepções','Seção 4 — Considerações'];
@@ -673,6 +674,7 @@ function handleParticipa(choice) {
   } else {
     radios[0].checked = true; radios[0].closest('.option-item').classList.add('selected');
     tipoField.style.display = 'none';
+    // Limpar tudo dentro do tipoField
     document.querySelectorAll('[name="part_tipo"],[name="cclasse_funcao"]').forEach(function(cb){
       cb.checked = false;
       var item = cb.closest('.option-item');
@@ -694,7 +696,7 @@ function toggleAvail(cell) {
   clearError('field-disponibilidade');
 }
 
-// ── VÍNCULO: lógica de combinações ──────────────────────────────
+// ── VÍNCULO: checkbox max=2 ──────────────────────────────────────
 function toggleVinculo(el, val) {
   var inp = el.querySelector('input');
 
@@ -703,48 +705,27 @@ function toggleVinculo(el, val) {
     inp.checked = false;
     el.classList.remove('selected');
     clearError('field-vinculo');
-    if (val === VINCULO_OUTRO) {
-      document.getElementById('outro-vinculo-wrap').classList.remove('visible');
-      document.getElementById('outro-vinculo').value = '';
-    }
+    var wrap = document.getElementById('outro-vinculo-wrap');
+    if (val === 'Outro') { wrap.classList.remove('visible'); document.getElementById('outro-vinculo').value = ''; }
     atualizaVinculo();
     return;
   }
 
-  // Obtém os valores já marcados
+  // Está tentando marcar — verificar regras
   var checked = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
 
-  // Regras de exclusividade:
-  // GRAD e OUTRO: somente sozinhos
-  if (val === VINCULO_GRAD || val === VINCULO_OUTRO) {
-    if (checked.length > 0) return;
+  // Graduação e Outro: somente sozinhos (se já há algo marcado, bloqueia)
+  if (val === 'Estudante de Graduação em Psicologia' || val === 'Outro') {
+    if (checked.length > 0) return; // já tem algo marcado — não permite
   }
 
-  // CRP: pode combinar somente com POS
-  if (val === VINCULO_CRP) {
+  // Pós-Graduação ou Profissional: só podem ser combinados entre si
+  if (val === 'Estudante de Pós-Graduação' || val === 'Profissional formado(a) em Psicologia (com CRP ativo)') {
     if (checked.length > 0) {
-      var ok = checked.length === 1 && checked[0] === VINCULO_POS;
-      if (!ok) return;
-    }
-  }
-
-  // EXT: pode combinar somente com POS (não pode com CRP)
-  if (val === VINCULO_EXT) {
-    if (checked.length > 0) {
-      var ok = checked.length === 1 && checked[0] === VINCULO_POS;
-      if (!ok) return;
-    }
-  }
-
-  // POS: pode combinar com CRP ou EXT, mas não com ambos nem com GRAD/OUTRO
-  if (val === VINCULO_POS) {
-    if (checked.length > 0) {
-      var permitidos = [VINCULO_CRP, VINCULO_EXT];
+      // Permite apenas se o que já está marcado é o outro do par Pós+Profissional
+      var permitidos = ['Estudante de Pós-Graduação', 'Profissional formado(a) em Psicologia (com CRP ativo)'];
       var incompativel = checked.some(function(v){ return permitidos.indexOf(v) === -1; });
-      // Não permite se já tem CRP+EXT juntos (limite de 2 e só um profissional por vez)
-      var temCRP = checked.indexOf(VINCULO_CRP) !== -1;
-      var temEXT = checked.indexOf(VINCULO_EXT) !== -1;
-      if (incompativel || checked.length >= 2 || (temCRP && temEXT)) return;
+      if (incompativel || checked.length >= 2) return;
     }
   }
 
@@ -753,20 +734,20 @@ function toggleVinculo(el, val) {
   el.classList.add('selected');
   clearError('field-vinculo');
 
-  if (val === VINCULO_OUTRO) {
-    document.getElementById('outro-vinculo-wrap').classList.add('visible');
+  var wrap = document.getElementById('outro-vinculo-wrap');
+  if (val === 'Outro') {
+    wrap.classList.add('visible');
     setTimeout(function(){ document.getElementById('outro-vinculo').focus(); }, 50);
   }
   atualizaVinculo();
 }
 
 function atualizaVinculo() {
-  var sels   = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
-  var temPos  = sels.indexOf(VINCULO_POS) !== -1;
-  var temProf = sels.indexOf(VINCULO_CRP) !== -1;
-  var temExt  = sels.indexOf(VINCULO_EXT) !== -1;
-  var temGrad = sels.indexOf(VINCULO_GRAD) !== -1;
-  var mostraAtuacao = temPos || temProf || temExt;
+  var sels    = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
+  var temPos  = sels.indexOf('Estudante de Pós-Graduação') !== -1;
+  var temProf = sels.indexOf('Profissional formado(a) em Psicologia (com CRP ativo)') !== -1;
+  var temGrad = sels.indexOf('Estudante de Graduação em Psicologia') !== -1;
+  var mostraAtuacao = temPos || temProf;
 
   var fieldPeriodo   = document.getElementById('field-periodo');
   var optionsPeriodo = document.getElementById('options-periodo');
@@ -880,9 +861,9 @@ function getCheckFull(name, otherId) {
 function getVinculo() {
   var vals = [].slice.call(document.querySelectorAll('[name="vinculo"]:checked')).map(function(cb){ return cb.value; });
   var result = vals.join(' | ');
-  if (result.indexOf(VINCULO_OUTRO) !== -1) {
+  if (result.indexOf('Outro') !== -1) {
     var outro = getVal('outro-vinculo');
-    if (outro) result = result.replace(VINCULO_OUTRO, VINCULO_OUTRO + ': ' + outro);
+    if (outro) result = result.replace('Outro', 'Outro: ' + outro);
   }
   return result;
 }
@@ -911,7 +892,7 @@ function nextSection(from) {
   if (from === 1) {
     var vincChecked = document.querySelectorAll('[name="vinculo"]:checked');
     var vincOk = vincChecked.length > 0 && (
-      [].slice.call(vincChecked).every(function(cb){ return cb.value !== VINCULO_OUTRO; }) || getVal('outro-vinculo')
+      [].slice.call(vincChecked).every(function(cb){ return cb.value !== 'Outro'; }) || getVal('outro-vinculo')
     );
     ok = validate([
       { id: 'field-idade',         check: getVal('idade') },
@@ -922,6 +903,8 @@ function nextSection(from) {
       { id: 'field-area',          check: getChecked('area') },
       { id: 'field-referencial',   check: getChecked('referencial') }
     ]);
+
+    // Se participa = Sim, exigir pelo menos um tipo marcado
     if (ok && getRadio('participa') === 'Sim' && !getChecked('part_tipo')) {
       showError('field-participa-tipo');
       ok = false;
