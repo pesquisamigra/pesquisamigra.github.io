@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Presença — Psicologia e Migração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple: #4A3F8F; --purple-light: #6C5FBF; --purple-pale: #F0EEFF;
+  --purple-mid: #C4B8F5; --text: #1A1830; --text-mid: #4A4766;
+  --text-soft: #8A87A8; --bg: #FAFAF8; --white: #FFFFFF; --border: #E2DFF5;
+  --success: #2D7A5F; --success-bg: #EAF5F0; --success-mid: #6EE7B7;
+  --danger: #B94040; --danger-bg: #FDF0F0;
+  --accent: #C17B4E; --accent-pale: #FDF3EC;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── TOPBAR ── */
+.topbar { background: var(--purple); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 1rem; flex-wrap: wrap; }
+.topbar-left { display: flex; align-items: center; gap: 1rem; }
+.topbar-badge { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--purple-mid); background: rgba(255,255,255,.07); padding: 3px 10px; border-radius: 999px; }
+.topbar-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; font-weight: 400; color: white; }
+.topbar-title em { font-style: italic; color: var(--purple-mid); }
+.topbar-right { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.btn-top { padding: .4rem .9rem; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 500; cursor: pointer; border: none; transition: all .2s; }
+.btn-refresh { background: rgba(255,255,255,.1); color: white; border: 1px solid rgba(255,255,255,.2); }
+.btn-refresh:hover { background: rgba(255,255,255,.18); }
+.btn-export  { background: var(--purple-mid); color: var(--purple); border: none; }
+.btn-export:hover { background: white; }
+
+/* ── BARRA DE FILTROS ── */
+.filtros { background: white; border-bottom: 1px solid var(--border); padding: .85rem 2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.filtros-label { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); }
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-wrap input { width: 100%; padding: .55rem 1rem .55rem 2.2rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .875rem; color: var(--text); background: var(--bg); outline: none; transition: border-color .2s; }
+.search-wrap input:focus { border-color: var(--purple); background: white; }
+.search-icon { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); color: var(--text-soft); font-size: .9rem; pointer-events: none; }
+.select-filtro { padding: .55rem .9rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .875rem; color: var(--text); background: var(--bg); outline: none; cursor: pointer; }
+.select-filtro:focus { border-color: var(--purple); }
+
+/* ── SUMÁRIO ── */
+.sumario { display: flex; gap: .75rem; padding: 1.25rem 2rem; flex-wrap: wrap; }
+.sum-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: .75rem 1.25rem; display: flex; align-items: center; gap: .6rem; }
+.sum-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sum-dot.total   { background: var(--purple); }
+.sum-dot.present { background: var(--success); }
+.sum-dot.absent  { background: var(--border); }
+.sum-dot.tcle    { background: var(--accent); }
+.sum-num  { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--purple); line-height: 1; }
+.sum-num.green { color: var(--success); }
+.sum-label { font-size: .72rem; color: var(--text-soft); font-weight: 400; }
+
+/* ── LOADING / ERRO ── */
+.state-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 2rem; gap: 1rem; }
+.spinner-lg { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.state-screen p { font-size: .9rem; color: var(--text-soft); }
+
+/* ── GRUPOS ── */
+.content { padding: 1.5rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+.grupo-block { margin-bottom: 2rem; }
+.grupo-header { display: flex; align-items: center; gap: 1rem; margin-bottom: .75rem; flex-wrap: wrap; }
+.grupo-titulo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--purple); }
+.grupo-horario { font-size: .78rem; background: var(--purple-pale); color: var(--purple); padding: 3px 10px; border-radius: 999px; font-weight: 500; }
+.grupo-contagem { font-size: .78rem; color: var(--text-soft); margin-left: auto; }
+.grupo-presentes { font-size: .78rem; color: var(--success); font-weight: 500; }
+
+/* ── TABELA ── */
+.tabela-wrap { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+thead th { background: var(--purple-pale); color: var(--purple); font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .7rem 1rem; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+thead th:first-child { width: 44px; text-align: center; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #FAFAF8; }
+tbody tr.presente { background: #F0FDF4; }
+tbody tr.presente:hover { background: #ECFDF5; }
+tbody td { padding: .75rem 1rem; font-size: .875rem; color: var(--text-mid); vertical-align: middle; }
+tbody td:first-child { text-align: center; }
+
+/* Checkbox customizado */
+.check-wrap { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all .2s; margin: 0 auto; }
+.check-wrap:hover { border-color: var(--success); }
+.check-wrap.checked { background: var(--success); border-color: var(--success); }
+.check-wrap.checked::after { content: '✓'; color: white; font-size: .85rem; font-weight: 700; }
+
+.nome-cell { font-weight: 500; color: var(--text); }
+.nome-cell .email-sub { font-size: .75rem; color: var(--text-soft); font-weight: 300; margin-top: 2px; }
+.sem-nome { font-style: italic; color: var(--text-soft); font-weight: 300; }
+.badge { display: inline-flex; align-items: center; font-size: .7rem; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+.badge-tcle-sim { background: var(--success-bg); color: var(--success); }
+.badge-tcle-nao { background: var(--danger-bg); color: var(--danger); }
+.ref-text { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nac-text { white-space: nowrap; }
+
+/* Linha vazia */
+.tr-vazia td { text-align: center; padding: 2rem; color: var(--text-soft); font-style: italic; }
+
+/* Botão marcar todos */
+.btn-grupo { padding: 3px 10px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .72rem; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--text-soft); transition: all .15s; }
+.btn-grupo:hover { border-color: var(--success); color: var(--success); }
+
+@media (max-width: 720px) {
+  .topbar { padding: .75rem 1rem; }
+  .filtros { padding: .75rem 1rem; }
+  .content { padding: 1rem 1rem 3rem; }
+  .sumario { padding: 1rem; }
+  .tabela-wrap { overflow-x: auto; }
+  table { min-width: 560px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-badge">Painel Interno</span>
+    <span class="topbar-title">Psicologia e <em>Migração</em> — Lista de Presença</span>
+  </div>
+  <div class="topbar-right">
+    <span id="lastUpdate" style="font-size:.72rem;color:rgba(255,255,255,.4)"></span>
+    <button class="btn-top btn-refresh" onclick="carregarDados()">↺ Atualizar</button>
+    <button class="btn-top btn-export" onclick="exportarCSV()">⬇ Exportar CSV</button>
+  </div>
+</div>
+
+<!-- ── FILTROS ── -->
+<div class="filtros">
+  <span class="filtros-label">Filtrar</span>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="busca" placeholder="Buscar por nome, e-mail ou nacionalidade..." oninput="renderizar()">
+  </div>
+  <select class="select-filtro" id="filtroGrupo" onchange="renderizar()">
+    <option value="">Todos os grupos</option>
+  </select>
+  <select class="select-filtro" id="filtroPresenca" onchange="renderizar()">
+    <option value="">Todos</option>
+    <option value="presente">Presentes</option>
+    <option value="ausente">Ausentes</option>
+  </select>
+  <select class="select-filtro" id="filtroTCLE" onchange="renderizar()">
+    <option value="">Qualquer TCLE</option>
+    <option value="Sim">TCLE assinado</option>
+    <option value="Não">TCLE pendente</option>
+  </select>
+</div>
+
+<!-- ── SUMÁRIO ── -->
+<div class="sumario" id="sumario"></div>
+
+<!-- ── CONTEÚDO PRINCIPAL ── -->
+<div id="loading-state" class="state-screen">
+  <div class="spinner-lg"></div>
+  <p>Carregando participantes...</p>
+</div>
+
+<div id="erro-state" class="state-screen" style="display:none">
+  <p style="color:var(--danger);font-weight:500">Erro ao carregar dados</p>
+  <p id="erro-msg" style="font-size:.8rem"></p>
+  <button class="btn-top btn-refresh" onclick="carregarDados()" style="margin-top:.5rem">Tentar novamente</button>
+</div>
+
+<div class="content" id="main-content" style="display:none"></div>
+
+<script>
+// ⚠️ Substitua pela URL real do seu web app
+const APPS_URL = 'https://script.google.com/macros/s/SEU_ID_AQUI/exec';
+
+let todos = [];       // dados brutos da API
+let presencas = {};   // { email: true/false }
+
+// ── CARREGAR DADOS ───────────────────────────────────────────
+async function carregarDados() {
+  document.getElementById('loading-state').style.display = 'flex';
+  document.getElementById('erro-state').style.display    = 'none';
+  document.getElementById('main-content').style.display  = 'none';
+  document.getElementById('sumario').innerHTML = '';
+
+  try {
+    const res  = await fetch(APPS_URL + '?action=grupos');
+    const json = await res.json();
+    if (json.status !== 'ok') throw new Error(json.msg || 'Erro no servidor');
+
+    todos = json.participantes || [];
+    carregarPresencas();
+    preencherFiltroGrupos();
+    renderizar();
+
+    document.getElementById('lastUpdate').textContent =
+      'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('main-content').style.display  = 'block';
+  } catch(e) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('erro-state').style.display    = 'flex';
+    document.getElementById('erro-msg').textContent = e.message;
+  }
+}
+
+// ── PERSISTÊNCIA ─────────────────────────────────────────────
+function chaveLS() { return 'presencas_psimigra'; }
+function salvarPresencas() { localStorage.setItem(chaveLS(), JSON.stringify(presencas)); }
+function carregarPresencas() {
+  try { presencas = JSON.parse(localStorage.getItem(chaveLS()) || '{}'); }
+  catch(e) { presencas = {}; }
+}
+
+// ── TOGGLE PRESENÇA ──────────────────────────────────────────
+function togglePresenca(email) {
+  presencas[email] = !presencas[email];
+  salvarPresencas();
+  renderizar();
+}
+
+// Marcar/desmarcar todos de um grupo
+function toggleGrupo(grupo) {
+  const membros = todos.filter(p => p.grupo === grupo);
+  const todosPresentes = membros.every(p => presencas[p.email]);
+  membros.forEach(p => { presencas[p.email] = !todosPresentes; });
+  salvarPresencas();
+  renderizar();
+}
+
+// ── FILTRO DE GRUPOS ─────────────────────────────────────────
+function preencherFiltroGrupos() {
+  const grupos = [...new Set(todos.map(p => p.grupo))].sort();
+  const sel = document.getElementById('filtroGrupo');
+  sel.innerHTML = '<option value="">Todos os grupos</option>';
+  grupos.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    sel.appendChild(opt);
+  });
+}
+
+// ── RENDERIZAR ───────────────────────────────────────────────
+function renderizar() {
+  const busca         = document.getElementById('busca').value.toLowerCase().trim();
+  const filtroGrupo   = document.getElementById('filtroGrupo').value;
+  const filtroPresenca = document.getElementById('filtroPresenca').value;
+  const filtroTCLE    = document.getElementById('filtroTCLE').value;
+
+  // Filtrar
+  const filtrados = todos.filter(p => {
+    const nome    = (p.nome || '').toLowerCase();
+    const email   = (p.email || '').toLowerCase();
+    const nac     = (p.nacionalidade || '').toLowerCase();
+    const ref     = (p.referencial || '').toLowerCase();
+    const presente = !!presencas[p.email];
+
+    if (busca && !nome.includes(busca) && !email.includes(busca) &&
+        !nac.includes(busca) && !ref.includes(busca)) return false;
+    if (filtroGrupo   && p.grupo   !== filtroGrupo)    return false;
+    if (filtroPresenca === 'presente' && !presente)     return false;
+    if (filtroPresenca === 'ausente'  && presente)      return false;
+    if (filtroTCLE    && p.tcleSig  !== filtroTCLE)    return false;
+    return true;
+  });
+
+  // Sumário global (sem filtros)
+  const totalGeral    = todos.length;
+  const totalPresente = todos.filter(p => presencas[p.email]).length;
+  const totalTCLE     = todos.filter(p => p.tcleSig === 'Sim').length;
+  document.getElementById('sumario').innerHTML = `
+    <div class="sum-card">
+      <div class="sum-dot total"></div>
+      <div><div class="sum-num">${totalGeral}</div><div class="sum-label">Participantes</div></div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-dot present"></div>
+      <div><div class="sum-num green">${totalPresente}</div><div class="sum-label">Presentes</div></div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-dot absent"></div>
+      <div><div class="sum-num">${totalGeral - totalPresente}</div><div class="sum-label">Ausentes</div></div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-dot tcle"></div>
+      <div><div class="sum-num">${totalTCLE}</div><div class="sum-label">TCLE assinados</div></div>
+    </div>`;
+
+  // Agrupar
+  const grupos = {};
+  filtrados.forEach(p => {
+    if (!grupos[p.grupo]) grupos[p.grupo] = [];
+    grupos[p.grupo].push(p);
+  });
+  const gruposOrdenados = Object.keys(grupos).sort();
+
+  const content = document.getElementById('main-content');
+  if (filtrados.length === 0) {
+    content.innerHTML = '<div style="text-align:center;padding:4rem;color:var(--text-soft);font-style:italic">Nenhum participante encontrado com os filtros aplicados.</div>';
+    return;
+  }
+
+  content.innerHTML = gruposOrdenados.map(grupo => {
+    const membros = grupos[grupo];
+    const presentes = membros.filter(p => presencas[p.email]).length;
+    const horario   = membros[0]?.horario || '';
+    const todosPresentes = membros.every(p => presencas[p.email]);
+
+    const linhas = membros.map(p => {
+      const presente = !!presencas[p.email];
+      const nomeDisplay = p.nome
+        ? `<div class="nome-cell">${esc(p.nome)}<div class="email-sub">${esc(p.email)}</div></div>`
+        : `<div class="nome-cell"><span class="sem-nome">Aguardando assinatura</span><div class="email-sub">${esc(p.email)}</div></div>`;
+
+      const refCurta = (p.referencial || '').split(' | ').slice(0,2).join(', ');
+      const badgeTCLE = p.tcleSig === 'Sim'
+        ? '<span class="badge badge-tcle-sim">✓ Assinado</span>'
+        : '<span class="badge badge-tcle-nao">Pendente</span>';
+
+      return `<tr class="${presente ? 'presente' : ''}">
+        <td><div class="check-wrap ${presente ? 'checked' : ''}" onclick="togglePresenca('${esc(p.email)}')"></div></td>
+        <td>${nomeDisplay}</td>
+        <td class="nac-text">${esc(p.nacionalidade || '—')}</td>
+        <td><span class="ref-text" title="${esc(p.referencial || '')}">${esc(refCurta || '—')}</span></td>
+        <td>${badgeTCLE}</td>
+      </tr>`;
+    }).join('');
+
+    return `<div class="grupo-block">
+      <div class="grupo-header">
+        <span class="grupo-titulo">${esc(grupo)}</span>
+        <span class="grupo-horario">${esc(horario)}</span>
+        <span class="grupo-contagem">${membros.length} participante${membros.length !== 1 ? 's' : ''}</span>
+        <span class="grupo-presentes">${presentes} presente${presentes !== 1 ? 's' : ''}</span>
+        <button class="btn-grupo" onclick="toggleGrupo('${esc(grupo)}')">${todosPresentes ? 'Desmarcar todos' : 'Marcar todos'}</button>
+      </div>
+      <div class="tabela-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>✓</th>
+              <th>Nome / E-mail</th>
+              <th>Nacionalidade</th>
+              <th>Referencial Teórico</th>
+              <th>TCLE</th>
+            </tr>
+          </thead>
+          <tbody>${linhas}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── EXPORTAR CSV ─────────────────────────────────────────────
+function exportarCSV() {
+  const linhas = [['Grupo','Horário','Nome','E-mail','Nacionalidade','Referencial','TCLE Assinado','Presente']];
+  todos.forEach(p => {
+    linhas.push([
+      p.grupo, p.horario, p.nome || '', p.email,
+      p.nacionalidade, p.referencial, p.tcleSig,
+      presencas[p.email] ? 'Sim' : 'Não'
+    ]);
+  });
+  const csv = linhas.map(l =>
+    l.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')
+  ).join('\n');
+
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'lista_presenca_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── HELPER ───────────────────────────────────────────────────
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── INICIAR ──────────────────────────────────────────────────
+carregarDados();
+</script>
+</body>
+</html>
