@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreador de Melhorias - Livro sobre Migrações</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .metric-card h3 {
+            color: #667eea;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .metric-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #764ba2;
+            margin: 10px 0;
+        }
+        
+        .metric-card .percent {
+            font-size: 1.2em;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        thead {
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f0f4ff;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .status-critico {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-importante {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status-complementar {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .icon {
+            margin-right: 5px;
+        }
+        
+        .priority-high { color: #c62828; font-weight: bold; }
+        .priority-medium { color: #e65100; font-weight: bold; }
+        .priority-low { color: #2e7d32; font-weight: bold; }
+        
+        .stats-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .stats-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .export-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Rastreador de Melhorias</h1>
+            <p>Os Processos de Subjetivação na Mobilidade Humana</p>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>Progresso Geral</h3>
+                <div class="percent" id="totalPercent">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="totalFill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <h3>Pontos Críticos</h3>
+                <div class="number"><span id="criticosCont">0</span>/4</div>
+                <div class="percent" id="criticosPercent">0%</div>
+            </div>
+            <div class="metric-card">
+                <h3>Pontos Importantes</h3>
+                <div class="number"><span id="importanteCont">0</span>/8</div>
+                <div class="percent" id="importantePercent">0%</div>
+            </div>
+            <div class="metric-card">
+                <h3>Pontos Complementares</h3>
+                <div class="number"><span id="complementarCont">2</span>/8</div>
+                <div class="percent" id="complementarPercent">25%</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2 style="margin-bottom: 20px; color: #667eea;">Filtrar por Tipo:</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterTable('todos')">Todos (18)</button>
+                <button class="filter-btn" onclick="filterTable('critico')">🔴 Críticos (4)</button>
+                <button class="filter-btn" onclick="filterTable('importante')">🟡 Importantes (8)</button>
+                <button class="filter-btn" onclick="filterTable('complementar')">🟢 Complementares (8)</button>
+            </div>
+            
+            <div class="table-wrapper">
+                <table id="melhoriaTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px;">✓</th>
+                            <th style="width: 50px;">ID</th>
+                            <th style="width: 100px;">Tipo</th>
+                            <th style="width: 250px;">Descrição</th>
+                            <th style="width: 120px;">Localização</th>
+                            <th style="width: 80px;">Prioridade</th>
+                            <th style="width: 100px;">% Conclusão</th>
+                            <th style="width: 120px;">Responsável</th>
+                            <th style="width: 100px;">Data Prazo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="export-btn" onclick="exportToCSV()">📥 Exportar para CSV</button>
+            
+            <div class="stats-section">
+                <h3>Estatísticas Detalhadas</h3>
+                <div class="stat-item">
+                    <span><strong>Total de Pontos:</strong></span>
+                    <span>18</span>
+                </div>
+                <div class="stat-item">
+                    <span><strong>Concluído:</strong></span>
+                    <span id="concluidoStat">0</span>
+                </div>
+                <div class="stat-item">
+                    <span><strong>Em Progresso:</strong></span>
+                    <span id="progressoStat">0</span>
+                </div>
+                <div class="stat-item">
+                    <span><strong>Não Iniciado:</strong></span>
+                    <span id="naoIniciadoStat">18</span>
+                </div>
+                <div class="stat-item">
+                    <span><strong>Dias Restantes (estimado):</strong></span>
+                    <span id="diasRestantes">21</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>💡 Dica: Clique na checkbox para marcar um ponto como concluído e acompanhe o progresso em tempo real</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Última atualização: <span id="dataAtualizacao"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Dados dos pontos de melhoria
+        const melhorias = [
+            {id: 1, tipo: 'critico', descricao: 'Prefácio faltante', localizacao: 'Capa/Preliminares', prioridade: 'Alta', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 2, tipo: 'critico', descricao: 'Lacuna "XXXXXXXX" sobre apátrida', localizacao: 'Cap. 2.1', prioridade: 'Alta', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 3, tipo: 'critico', descricao: 'Data Roraima 2022(?)', localizacao: 'Cap. 4.1', prioridade: 'Alta', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 4, tipo: 'critico', descricao: 'Tradução *jus soli*', localizacao: 'Cap. 2.1', prioridade: 'Alta', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 5, tipo: 'importante', descricao: 'Título seção 1.2 confuso', localizacao: 'Cap. 1.2', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 6, tipo: 'importante', descricao: 'Igreja Católica (?) CSEM', localizacao: 'Cap. 2.3', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 7, tipo: 'importante', descricao: 'Razões afetivas (?)', localizacao: 'Cap. 2.1', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 8, tipo: 'importante', descricao: 'Qual Estado ideológico?', localizacao: 'Cap. 2.1', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 9, tipo: 'importante', descricao: 'Coesão parágrafo Estado/globalização', localizacao: 'Cap. 2.1', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 10, tipo: 'importante', descricao: 'Xenofobia Brasil (tanta?)', localizacao: 'Cap. 3.2', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 11, tipo: 'importante', descricao: 'Análise descaso SUAS', localizacao: 'Cap. 4', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 12, tipo: 'importante', descricao: 'Ano exposição 202?', localizacao: 'Cap. 4.5.1', prioridade: 'Média', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 13, tipo: 'complementar', descricao: 'Separar "intervençõespsicossociais"', localizacao: 'Cap. 4.3', prioridade: 'Baixa', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 14, tipo: 'complementar', descricao: 'Vírgula dupla "miséria, ,"', localizacao: 'Cap. 2.1', prioridade: 'Baixa', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 15, tipo: 'complementar', descricao: 'Consistência citações CSEM', localizacao: 'Cap. 2.3', prioridade: 'Baixa', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 16, tipo: 'complementar', descricao: 'Termos latim sem tradução', localizacao: 'Cap. 2.1', prioridade: 'Baixa', conclusao: 0, responsavel: '', dataPrazo: ''},
+            {id: 17, tipo: 'complementar', descricao: '✅ Epígrafe Drexler', localizacao: 'Cap. 3', prioridade: 'Baixa', conclusao: 100, responsavel: 'Autor', dataPrazo: '✓'},
+            {id: 18, tipo: 'complementar', descricao: '✅ Reflexão exposição', localizacao: 'Cap. 4.5.1', prioridade: 'Baixa', conclusao: 100, responsavel: 'Autor', dataPrazo: '✓'}
+        ];
+        
+        function renderTable(items = melhorias) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                const tipoBadge = `<span class="status-badge status-${item.tipo}">${item.tipo.charAt(0).toUpperCase() + item.tipo.slice(1)}</span>`;
+                const priorityClass = item.prioridade === 'Alta' ? 'priority-high' : item.prioridade === 'Média' ? 'priority-medium' : 'priority-low';
+                
+                row.innerHTML = `
+                    <td><input type="checkbox" class="checkbox" ${item.conclusao === 100 ? 'checked' : ''} onchange="updateConclusao(${item.id}, this.checked)"></td>
+                    <td><strong>#${item.id}</strong></td>
+                    <td>${tipoBadge}</td>
+                    <td>${item.descricao}</td>
+                    <td>${item.localizacao}</td>
+                    <td><span class="${priorityClass}">${item.prioridade}</span></td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${item.conclusao}%"></div>
+                        </div>
+                        <small>${item.conclusao}%</small>
+                    </td>
+                    <td><input type="text" value="${item.responsavel}" onchange="updateResponsavel(${item.id}, this.value)" placeholder="Nome" style="width: 100px; padding: 5px;"></td>
+                    <td><input type="date" value="${item.dataPrazo}" onchange="updateData(${item.id}, this.value)" style="width: 100px; padding: 5px;"></td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            updateMetrics();
+        }
+        
+        function updateConclusao(id, checked) {
+            const item = melhorias.find(m => m.id === id);
+            if (item) {
+                item.conclusao = checked ? 100 : 0;
+                renderTable();
+            }
+        }
+        
+        function updateResponsavel(id, valor) {
+            const item = melhorias.find(m => m.id === id);
+            if (item) {
+                item.responsavel = valor;
+            }
+        }
+        
+        function updateData(id, valor) {
+            const item = melhorias.find(m => m.id === id);
+            if (item) {
+                item.dataPrazo = valor;
+            }
+        }
+        
+        function updateMetrics() {
+            const total = melhorias.length;
+            const concluidos = melhorias.filter(m => m.conclusao === 100).length;
+            
+            const criticos = melhorias.filter(m => m.tipo === 'critico');
+            const criticosConcluidos = criticos.filter(m => m.conclusao === 100).length;
+            
+            const importantes = melhorias.filter(m => m.tipo === 'importante');
+            const importantesConcluidos = importantes.filter(m => m.conclusao === 100).length;
+            
+            const complementares = melhorias.filter(m => m.tipo === 'complementar');
+            const complementaresConcluidos = complementares.filter(m => m.conclusao === 100).length;
+            
+            const totalPercent = Math.round((concluidos / total) * 100);
+            const criticosPercent = Math.round((criticosConcluidos / criticos.length) * 100);
+            const importantesPercent = Math.round((importantesConcluidos / importantes.length) * 100);
+            const complementaresPercent = Math.round((complementaresConcluidos / complementares.length) * 100);
+            
+            document.getElementById('totalPercent').textContent = totalPercent + '%';
+            document.getElementById('totalFill').style.width = totalPercent + '%';
+            document.getElementById('criticosCont').textContent = criticosConcluidos;
+            document.getElementById('criticosPercent').textContent = criticosPercent + '%';
+            document.getElementById('importanteCont').textContent = importantesConcluidos;
+            document.getElementById('importantePercent').textContent = importantesPercent + '%';
+            document.getElementById('complementarCont').textContent = complementaresConcluidos;
+            document.getElementById('complementarPercent').textContent = complementaresPercent + '%';
+            
+            document.getElementById('concluidoStat').textContent = concluidos;
+            document.getElementById('naoIniciadoStat').textContent = total - concluidos;
+            
+            // Atualizar data
+            const agora = new Date();
+            document.getElementById('dataAtualizacao').textContent = agora.toLocaleDateString('pt-BR');
+        }
+        
+        function filterTable(tipo) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tipo === 'todos') {
+                renderTable(melhorias);
+            } else {
+                renderTable(melhorias.filter(m => m.tipo === tipo));
+            }
+        }
+        
+        function exportToCSV() {
+            let csv = 'ID,Tipo,Descrição,Localização,Prioridade,% Conclusão,Responsável,Data Prazo\n';
+            
+            melhorias.forEach(m => {
+                csv += `"${m.id}","${m.tipo}","${m.descricao}","${m.localizacao}","${m.prioridade}","${m.conclusao}%","${m.responsavel}","${m.dataPrazo}"\n`;
+            });
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+            element.setAttribute('download', 'melhorias_livro.csv');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        
+        // Inicializar
+        renderTable();
+    </script>
+</body>
+</html>
