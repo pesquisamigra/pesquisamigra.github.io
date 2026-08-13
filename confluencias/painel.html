@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Profissional — Confluências</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">Confluên<span>cias</span></a>
+            <nav class="main-nav">
+                <a href="profissionais.html">Profissionais</a>
+                <a href="index.html#artigos">Artigos</a>
+                <a href="index.html#eventos">Eventos</a>
+                <a href="painel.html" class="btn btn-primary btn-sm">Painel</a>
+                <a href="login.html" class="btn btn-outline btn-sm">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top:2rem; padding-bottom:2rem;">
+        <h1 style="margin-bottom:1.5rem;">Olá, Joana</h1>
+        
+        <div class="alert alert-success">Sua assinatura está ativa. Próxima cobrança em 13/09/2026.</div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">245</div>
+                <div class="label">Visualizações do perfil</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">12</div>
+                <div class="label">Contatos recebidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">8</div>
+                <div class="label">Publicações</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">3</div>
+                <div class="label">Eventos ativos</div>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:2rem;">
+            <div>
+                <h2 style="margin-bottom:1rem;">Meus conteúdos</h2>
+                <table class="table">
+                    <thead>
+                        <tr><th>Título</th><th>Tipo</th><th>Status</th><th>Ações</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ansiedade na vida moderna</td><td>Artigo</td><td>Publicado</td><td><a href="#">Editar</a></td></tr>
+                        <tr><td>Workshop de introdução à TCC</td><td>Evento</td><td>Publicado</td><td><a href="#">Editar</a></td></tr>
+                        <tr><td>Participação em congresso</td><td>Notícia</td><td>Pendente</td><td><a href="#">Editar</a></td></tr>
+                    </tbody>
+                </table>
+                <a href="#" class="btn btn-primary" style="margin-top:1rem;">+ Novo conteúdo</a>
+            </div>
+            <aside>
+                <div class="card">
+                    <h3>Minha assinatura</h3>
+                    <p><strong>Plano:</strong> Perfil no diretório</p>
+                    <p><strong>Status:</strong> Ativa</p>
+                    <p><strong>Valor:</strong> R$ 90,00/mês</p>
+                    <a href="#" class="btn btn-outline btn-sm">Cancelar</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p><strong>Confluências</strong></p>
+            <div><a href="index.html">Voltar ao início</a></div>
+        </div>
+    </footer>
+</body>
+</html>

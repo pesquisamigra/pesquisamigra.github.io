@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — Confluências</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">Confluên<span>cias</span></a>
+            <nav class="main-nav">
+                <a href="profissionais.html">Profissionais</a>
+                <a href="index.html#artigos">Artigos</a>
+                <a href="index.html#eventos">Eventos</a>
+                <a href="apoie.html">Apoie</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="max-width:800px; padding-top:2rem; padding-bottom:2rem;">
+        <h1 style="margin-bottom:1.5rem;">Assinatura de Perfil</h1>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem;">
+            <div class="card">
+                <h3>Resumo do pedido</h3>
+                <p><strong>Plano:</strong> Perfil no diretório</p>
+                <p><strong>Valor:</strong> R$ 90,00/mês</p>
+                <p><strong>Split:</strong> R$ 60 plataforma · R$ 30 movimento</p>
+                <hr style="margin:1rem 0;">
+                <p>Total hoje: <strong>R$ 90,00</strong></p>
+            </div>
+            <div class="card">
+                <h3>Forma de pagamento</h3>
+                <div class="form-group">
+                    <label>Cartão de crédito</label>
+                    <input type="text" placeholder="Número do cartão">
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                    <input type="text" placeholder="Validade" style="flex:1;">
+                    <input type="text" placeholder="CVV" style="width:80px;">
+                </div>
+                <div class="form-group">
+                    <label>Nome no cartão</label>
+                    <input type="text" placeholder="Como impresso no cartão">
+                </div>
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="text" placeholder="000.000.000-00">
+                </div>
+                <button class="btn btn-primary" style="width:100%;" onclick="window.location.href='painel.html'">Assinar agora</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p><strong>Confluências</strong></p>
+            <div><a href="index.html">Voltar ao início</a></div>
+        </div>
+    </footer>
+</body>
+</html>

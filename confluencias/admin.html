@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Confluências</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">Confluên<span>cias</span></a>
+            <nav class="main-nav">
+                <a href="profissionais.html">Profissionais</a>
+                <a href="admin.html" class="btn btn-primary btn-sm">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top:2rem; padding-bottom:2rem;">
+        <h1 style="margin-bottom:1.5rem;">Painel Administrativo</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">32</div>
+                <div class="label">Profissionais ativos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">12</div>
+                <div class="label">Perfis pendentes</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">7</div>
+                <div class="label">Conteúdos pendentes</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">R$ 2.880</div>
+                <div class="label">MRR</div>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom:1rem;">Moderação de perfis</h2>
+        <table class="table">
+            <thead>
+                <tr><th>Nome</th><th>CRP</th><th>Status</th><th>Ação</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Paula Costa</td><td>CRP 08/12345</td><td>Pendente</td><td><button class="btn btn-sm btn-primary">Aprovar</button> <button class="btn btn-sm btn-outline">Reprovar</button></td></tr>
+                <tr><td>Carlos Menezes</td><td>CRP 06/54321</td><td>Pendente</td><td><button class="btn btn-sm btn-primary">Aprovar</button> <button class="btn btn-sm btn-outline">Reprovar</button></td></tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin:2rem 0 1rem;">Moderação de conteúdos</h2>
+        <table class="table">
+            <thead>
+                <tr><th>Título</th><th>Tipo</th><th>Autor</th><th>Ação</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Participação em congresso</td><td>Notícia</td><td>Joana Silva</td><td><button class="btn btn-sm btn-primary">Aprovar</button> <button class="btn btn-sm btn-outline">Reprovar</button></td></tr>
+                <tr><td>Referência bibliográfica — Beck</td><td>Referência</td><td>Marcos Ribeiro</td><td><button class="btn btn-sm btn-primary">Aprovar</button> <button class="btn btn-sm btn-outline">Reprovar</button></td></tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p><strong>Confluências</strong></p>
+            <div><a href="index.html">Voltar ao início</a></div>
+        </div>
+    </footer>
+</body>
+</html>
