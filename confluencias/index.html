@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protótipo — Plataforma Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="none">
+
+<div class="hub">
+  <div class="wrap">
+
+    <div class="row" style="gap:10px;margin-bottom:26px">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 3c0 7 4 9 9 9s9 2 9 9" stroke="#EAF0EC" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M3 21c0-7 4-9 9-9" stroke="#B87A14" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name" style="color:#fff;font-size:1.4rem">Confluências</span>
+      <span class="badge badge-plain" style="background:rgba(255,255,255,.14)">Protótipo v1</span>
+    </div>
+
+    <h1 style="max-width:20ch">18 telas para ver a plataforma antes de construí-la.</h1>
+    <hr class="rule-confluencia" style="margin:22px 0">
+    <p class="lede" style="max-width:64ch">Protótipo estático de referência, feito a partir do Documento de Especificação v1.0. Serve para alinhar equipe, validar com profissionais reais e servir de base ao design system. Nada aqui é funcional: não há servidor, banco nem pagamento — os dados são fictícios e nenhum profissional citado existe.</p>
+
+    <div class="row" style="gap:10px;margin-top:26px">
+      <a class="btn btn-amber btn-lg" href="home.html">Abrir pela home</a>
+      <a class="btn btn-ghost btn-lg" href="cadastro.html" style="color:#E7EEE9;border-color:rgba(255,255,255,.3)">Seguir o fluxo de assinatura</a>
+    </div>
+
+    <div class="card" style="margin-top:34px;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#C6D4CF">
+      <h3 style="color:#fff;font-size:1.05rem;font-family:var(--font-ui);font-weight:600">Como navegar</h3>
+      <ul style="margin:10px 0 0;padding-left:18px;font-size:.92rem;line-height:1.7">
+        <li>O botão <b style="color:#fff">Ficha técnica</b>, no canto inferior direito de cada tela, mostra a rota, as histórias de usuário, os endpoints envolvidos e os estados que o desenvolvimento precisa prever.</li>
+        <li>A ficha também tem <b style="color:#fff">anterior / próxima</b> para percorrer o fluxo em ordem.</li>
+        <li>Os formulários validam de verdade: envie um campo vazio ou um e-mail inválido para ver as mensagens de erro do documento.</li>
+        <li>A busca do diretório filtra de verdade sobre 12 perfis fictícios.</li>
+      </ul>
+    </div>
+
+    <div class="hub-group">
+      <h2>Fluxo 1 · Visitante encontra um profissional</h2>
+      <p>Do primeiro contato com o site até a mensagem enviada.</p>
+      <div class="hub-grid">
+        <a class="hub-card" href="home.html"><b>Home</b><span class="r">/</span><span class="d">Busca central, perfis recentes, os dois planos e publicações.</span></a>
+        <a class="hub-card" href="profissionais.html"><b>Diretório e busca</b><span class="r">/profissionais</span><span class="d">Filtros combinados por especialidade, abordagem, estado, preço e modalidade. Funciona de verdade.</span></a>
+        <a class="hub-card" href="perfil.html"><b>Perfil público</b><span class="r">/profissionais/{slug}</span><span class="d">Abas por tipo de publicação e formulário de contato com consentimento.</span></a>
+        <a class="hub-card" href="artigo.html"><b>Detalhe do conteúdo</b><span class="r">/artigos/{slug}</span><span class="d">Artigo completo, autoria vinculada ao perfil e leituras relacionadas.</span></a>
+        <a class="hub-card" href="eventos.html"><b>Agenda de eventos</b><span class="r">/eventos</span><span class="d">Filtros por modalidade, cidade e valor. Inclui o estado “lotado”.</span></a>
+      </div>
+    </div>
+
+    <div class="hub-group">
+      <h2>Fluxo 2 · Profissional assina e monta o perfil</h2>
+      <p>Caminho crítico do produto: é onde o dinheiro entra e o perfil nasce.</p>
+      <div class="hub-grid">
+        <a class="hub-card" href="cadastro.html"><b>Criar conta</b><span class="r">/cadastro</span><span class="d">Validações completas: senha, termos, política de privacidade.</span></a>
+        <a class="hub-card" href="login.html"><b>Entrar</b><span class="r">/login</span><span class="d">Tem atalhos para entrar como profissional ou como admin.</span></a>
+        <a class="hub-card" href="onboarding.html"><b>Escolha de participação</b><span class="r">/onboarding</span><span class="d">Perfil R$ 90, contribuição R$ 30 ou apenas navegar. Cada escolha leva a um caminho diferente.</span></a>
+        <a class="hub-card" href="checkout.html"><b>Checkout da assinatura</b><span class="r">/checkout</span><span class="d">Cartão, Pix e boleto, com o rateio R$ 60/R$ 30 visível no resumo.</span></a>
+        <a class="hub-card" href="painel-perfil.html"><b>Edição do perfil</b><span class="r">/painel/perfil</span><span class="d">Formulário completo com todos os campos e regras da especificação.</span></a>
+      </div>
+    </div>
+
+    <div class="hub-group">
+      <h2>Fluxo 3 · Publicar e ser conferido</h2>
+      <p>Os quatro tipos de conteúdo e o que acontece depois do envio.</p>
+      <div class="hub-grid">
+        <a class="hub-card" href="painel-conteudos.html"><b>Meus conteúdos</b><span class="r">/painel/conteudos</span><span class="d">Lista com todos os estados: rascunho, em análise, ajustes pedidos, publicado, reprovado.</span></a>
+        <a class="hub-card" href="painel-conteudo-novo.html"><b>Nova publicação</b><span class="r">/painel/conteudos/novo</span><span class="d">Campos mudam conforme o tipo. Troque entre artigo, notícia, referência e evento.</span></a>
+        <a class="hub-card" href="admin-moderacao.html"><b>Fila de conferência</b><span class="r">/admin/moderacao</span><span class="d">Aprovar, pedir ajustes ou reprovar, com comentário obrigatório e histórico auditável.</span></a>
+      </div>
+    </div>
+
+    <div class="hub-group">
+      <h2>Painel do profissional</h2>
+      <p>O que sustenta a renovação da assinatura.</p>
+      <div class="hub-grid">
+        <a class="hub-card" href="painel.html"><b>Início do painel</b><span class="r">/painel</span><span class="d">Métricas de 30 dias, últimas mensagens e situação da assinatura.</span></a>
+        <a class="hub-card" href="painel-contatos.html"><b>Contatos recebidos</b><span class="r">/painel/contatos</span><span class="d">Mensagens do formulário público, com estados e retenção definida.</span></a>
+        <a class="hub-card" href="painel-assinatura.html"><b>Minha assinatura</b><span class="r">/painel/assinatura</span><span class="d">Cancelar, trocar cartão e histórico de cobranças, com uma recusa e a nova tentativa.</span></a>
+      </div>
+    </div>
+
+    <div class="hub-group">
+      <h2>Administração e apoio</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="admin.html"><b>Painel administrativo</b><span class="r">/admin</span><span class="d">Receita recorrente, fundo do movimento, cancelamentos e alertas de pagamento.</span></a>
+        <a class="hub-card" href="apoie.html"><b>Apoie o movimento</b><span class="r">/apoie</span><span class="d">Contribuição mensal ou pontual, com opção de aparecer publicamente.</span></a>
+      </div>
+    </div>
+
+    <div class="hub-group">
+      <h2>O que este protótipo ainda não cobre</h2>
+      <p>Deixado de fora de propósito — para não sugerir que já está decidido.</p>
+      <div class="card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#C6D4CF;margin-top:18px">
+        <ul style="margin:0;padding-left:18px;font-size:.92rem;line-height:1.8">
+          <li><b style="color:#fff">Recuperação de senha, configurações da conta e páginas legais</b> — telas simples, sem decisão de produto pendente.</li>
+          <li><b style="color:#fff">Exportação e exclusão de dados (LGPD)</b> — depende de definir quem é o controlador e o prazo de retenção.</li>
+          <li><b style="color:#fff">Fase 2</b> — mapa com geolocalização, selo verificado, biblioteca colaborativa, comunidade e destaques pagos.</li>
+          <li><b style="color:#fff">Faixa de preço no perfil público</b> — está no protótipo, mas depende de parecer jurídico sobre divulgação de honorários. Se o parecer for contrário, o campo vira privado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="small" style="color:#7E948E;margin-top:46px;border-top:1px solid rgba(255,255,255,.14);padding-top:20px">
+      Protótipo de referência · Plataforma Confluências · 13/08/2026 · HTML e CSS estáticos, sem dependências além das fontes.
+      Todos os nomes, textos, números e endereços são fictícios.
+    </p>
+  </div>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
