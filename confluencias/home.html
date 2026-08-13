@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confluências — encontre quem cuida</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="visitante"
+      data-route="/"
+      data-screen="Home institucional"
+      data-stories="US-006, US-025"
+      data-api="GET /api/profiles?destaque=true|GET /api/contents?limit=3|GET /api/contents?type=event&limit=3"
+      data-states="Sem profissionais aprovados ainda|Sem conteúdos publicados|Busca sem resultado">
+
+<section class="hero">
+  <svg class="hero-lines" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#2C5A52" stroke-width="1.2">
+      <path d="M-20 90 C 260 90 340 200 620 200 S 980 200 1220 132"/>
+      <path d="M-20 140 C 260 140 340 220 620 220 S 980 226 1220 186"/>
+      <path d="M-20 350 C 280 350 360 244 620 240 S 1000 258 1220 300"/>
+      <path d="M-20 400 C 280 400 360 268 620 262 S 1000 292 1220 352"/>
+    </g>
+    <circle cx="620" cy="230" r="4" fill="#B87A14"/>
+  </svg>
+
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Diretório de saúde mental</span>
+      <h1>Quem cuida também precisa ser encontrado.</h1>
+      <p class="lede" style="margin-top:18px">Confluências reúne psicólogas e psicólogos com registro ativo, cada um com seu perfil público e o que escreve, indica e organiza. Quem procura, encontra. Quem atende, aparece.</p>
+      <div class="row" style="margin-top:26px">
+        <a class="btn btn-amber btn-lg" href="profissionais.html">Encontrar profissional</a>
+        <a class="btn btn-ghost btn-lg" href="cadastro.html" style="color:#E7EEE9;border-color:rgba(255,255,255,.3)">Ter meu perfil</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>128</b><span>perfis publicados</span></div>
+        <div class="hero-stat"><b>19</b><span>estados</span></div>
+        <div class="hero-stat"><b>340</b><span>publicações</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:26px">
+      <span class="eyebrow">Buscar agora</span>
+      <hr class="rule-confluencia">
+      <form data-validar data-ir-para="profissionais.html" data-sucesso="Buscando profissionais…">
+        <div class="field">
+          <label for="h-esp">Do que você precisa</label>
+          <select class="select" id="h-esp">
+            <option>Qualquer especialidade</option>
+            <option>Ansiedade</option><option>Depressão</option><option>Luto</option>
+            <option>Relacionamentos</option><option>Infância</option><option>Burnout</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="h-cidade">Onde você está</label>
+          <input class="input" id="h-cidade" placeholder="Cidade ou estado">
+        </div>
+        <div class="field">
+          <label for="h-mod">Como prefere ser atendido</label>
+          <select class="select" id="h-mod">
+            <option>Tanto faz</option><option>On-line</option><option>Presencial</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Ver profissionais</button>
+        <p class="hint center" style="margin-top:12px">Buscar é gratuito e não exige cadastro.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="destaques">
+  <div class="wrap">
+    <div class="row-between" style="margin-bottom:24px">
+      <div>
+        <span class="eyebrow">Perfis recentes</span>
+        <h2>Quem entrou no diretório</h2>
+      </div>
+      <a class="btn btn-ghost" href="profissionais.html">Ver todos os 128</a>
+    </div>
+    <div class="grid g-3" id="home-pros"></div>
+  </div>
+</section>
+
+<section class="section-tight" id="como-funciona">
+  <div class="wrap">
+    <hr class="rule-confluencia wide">
+    <div class="grid g-2" style="gap:56px;margin-top:38px">
+      <div>
+        <span class="eyebrow">Como funciona</span>
+        <h2>Duas formas de estar aqui</h2>
+        <p class="lede" style="margin-top:14px">Uma para quem atende e quer ser encontrado. Outra para quem só quer que isso exista.</p>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <div class="row-between">
+            <h3>Perfil no diretório</h3>
+            <span class="option-price">R$ 90<span class="small muted">/mês</span></span>
+          </div>
+          <p class="small muted" style="margin:10px 0 14px">Perfil público completo, publicações vinculadas ao seu nome e contato direto de quem procura.</p>
+          <p class="mono small" style="color:var(--ink-3)">R$ 60 mantêm a plataforma · R$ 30 vão para o movimento</p>
+          <a class="btn btn-primary" href="cadastro.html" style="margin-top:16px">Assinar perfil</a>
+        </div>
+        <div class="card">
+          <div class="row-between">
+            <h3>Contribuição voluntária</h3>
+            <span class="option-price">R$ 30<span class="small muted">/mês</span></span>
+          </div>
+          <p class="small muted" style="margin:10px 0 14px">Sem perfil público. Seu nome pode aparecer na página de apoiadores, se você quiser.</p>
+          <p class="mono small" style="color:var(--ink-3)">100% vai para o movimento</p>
+          <a class="btn btn-ghost" href="apoie.html" style="margin-top:16px">Contribuir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="publicacoes">
+  <div class="wrap">
+    <div class="row-between" style="margin-bottom:24px">
+      <div>
+        <span class="eyebrow">Publicado por quem está no diretório</span>
+        <h2>Leituras e encontros</h2>
+      </div>
+      <a class="btn btn-ghost" href="artigo.html">Todas as publicações</a>
+    </div>
+    <div class="grid g-3" id="home-conteudos"></div>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="wrap wrap-narrow center">
+    <hr class="rule-confluencia" style="margin:0 auto 22px">
+    <p class="voz" style="font-size:1.55rem;line-height:1.45;color:var(--ink-2)">
+      “Confluência é onde dois cursos d’água se encontram e seguem juntos, sem que nenhum deixe de ser rio.”
+    </p>
+    <p class="small muted" style="margin-top:18px">Sobre o movimento · texto provisório do protótipo</p>
+  </div>
+</section>
+
+<script src="assets/dados.js"></script>
+<script>
+window.confPagina = function () {
+  var pros = document.getElementById('home-pros');
+  window.CONF_PROFISSIONAIS.slice(0, 3).forEach(function (p) {
+    var a = document.createElement('a');
+    a.className = 'card card-link pro-card';
+    a.href = 'perfil.html';
+    a.innerHTML =
+      '<span class="avatar ' + p.cor + '">' + confIniciais(p.nome) + '</span>' +
+      '<span><h3>' + p.nome + '</h3>' +
+      '<span class="pro-meta">' + p.crp + ' · ' + p.cidade + '/' + p.uf + '</span>' +
+      '<p class="small" style="margin:8px 0 0;color:var(--ink-2)">' + p.headline + '</p>' +
+      '<span class="pro-tags">' + p.especialidades.map(function (e) {
+        return '<span class="chip">' + e + '</span>';
+      }).join('') + '</span></span>';
+    pros.appendChild(a);
+  });
+
+  var cont = document.getElementById('home-conteudos');
+  window.CONF_CONTEUDOS.slice(0, 3).forEach(function (c) {
+    var a = document.createElement('a');
+    a.className = 'card card-link';
+    a.href = 'artigo.html';
+    a.innerHTML =
+      '<span class="badge badge-plain">' + c.tipo + '</span>' +
+      '<h3 style="margin:12px 0 8px">' + c.titulo + '</h3>' +
+      '<p class="small muted" style="margin:0 0 14px">' + c.resumo + '</p>' +
+      '<span class="pro-meta">' + c.autor + ' · ' + c.data.split('-').reverse().join('/') + '</span>';
+    cont.appendChild(a);
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

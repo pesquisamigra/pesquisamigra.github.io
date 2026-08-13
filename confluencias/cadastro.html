@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Criar conta — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="assinatura"
+      data-route="/cadastro"
+      data-screen="Criação de conta"
+      data-stories="US-001"
+      data-api="POST /api/auth/register"
+      data-states="E-mail já cadastrado|Senha fraca|Termos não aceitos|Aguardando confirmação por e-mail">
+
+<section class="section">
+  <div class="wrap" style="max-width:960px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center" id="grade-cadastro">
+
+    <div>
+      <span class="eyebrow">Passo 1 de 3</span>
+      <h1 style="font-size:2.1rem">Criar sua conta</h1>
+      <hr class="rule-confluencia" style="margin-top:16px">
+      <p class="lede">Criar conta é gratuito. Você escolhe no próximo passo se quer um perfil no diretório, contribuir com o movimento ou apenas navegar.</p>
+
+      <div class="stack" style="margin-top:26px">
+        <div class="notice notice-info">
+          <div><strong>Perfil no diretório</strong>R$ 90/mês. Perfil público, publicações e contato direto.</div>
+        </div>
+        <div class="notice notice-info">
+          <div><strong>Contribuição voluntária</strong>R$ 30/mês ou valor pontual. Sem perfil público.</div>
+        </div>
+      </div>
+      <p class="small muted" style="margin-top:20px">Já tem conta? <a href="login.html">Entrar</a>.</p>
+    </div>
+
+    <form class="card" data-validar data-ir-para="onboarding.html" data-sucesso="Conta criada. Confirme o e-mail que enviamos.">
+      <div class="field">
+        <label class="label-req" for="nome">Nome completo</label>
+        <input class="input" id="nome" autocomplete="name" data-erro="e-nome" data-regex="^.{3,120}$">
+        <span class="msg-error" id="e-nome">Informe seu nome completo.</span>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="email">E-mail</label>
+        <input class="input" type="email" id="email" autocomplete="email" data-erro="e-email" data-regex="^[^@\s]+@[^@\s]+\.[^@\s]+$">
+        <span class="msg-error" id="e-email">E-mail inválido.</span>
+        <p class="hint">Usamos para login, confirmações e avisos de moderação.</p>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="senha">Senha</label>
+        <input class="input" type="password" id="senha" autocomplete="new-password" data-erro="e-senha" data-regex="^(?=.*[A-Za-zÀ-ÿ])(?=.*\d).{8,}$">
+        <span class="msg-error" id="e-senha">A senha deve ter pelo menos 8 caracteres, incluindo letras e números.</span>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="senha2">Confirmar senha</label>
+        <input class="input" type="password" id="senha2" autocomplete="new-password" data-erro="e-senha2">
+        <span class="msg-error" id="e-senha2">As senhas não coincidem.</span>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="termos" data-erro="e-termos">
+        Li e aceito os <a href="#">termos de uso</a>.
+      </label>
+      <span class="msg-error" id="e-termos" style="margin:-8px 0 10px">Você precisa aceitar os termos.</span>
+
+      <label class="check">
+        <input type="checkbox" id="priv" data-erro="e-priv">
+        Li e aceito a <a href="#">política de privacidade</a>.
+      </label>
+      <span class="msg-error" id="e-priv" style="margin:-8px 0 10px">Você precisa aceitar a política de privacidade.</span>
+
+      <label class="check">
+        <input type="checkbox" id="news">
+        Quero receber novidades do movimento por e-mail. <span class="muted">(opcional)</span>
+      </label>
+
+      <button class="btn btn-primary btn-block btn-lg" type="submit" style="margin-top:10px">Criar conta</button>
+      <p class="hint center" style="margin-top:12px">Protegido por verificação antifraude.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+window.confPagina = function () {
+  var mq = window.matchMedia('(max-width: 860px)');
+  function ajustar() {
+    document.getElementById('grade-cadastro').style.gridTemplateColumns = mq.matches ? '1fr' : '1fr 1fr';
+  }
+  mq.addEventListener('change', ajustar); ajustar();
+
+  /* confirmação de senha */
+  var f = document.querySelector('form[data-validar]');
+  f.addEventListener('submit', function () {
+    var s1 = document.getElementById('senha'), s2 = document.getElementById('senha2');
+    if (s2.value && s1.value !== s2.value) {
+      s2.classList.add('input-error');
+      document.getElementById('e-senha2').classList.add('is-on');
+    }
+  }, true);
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

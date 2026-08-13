@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu perfil — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel" data-flow="assinatura"
+      data-route="/painel/perfil"
+      data-screen="Edição do perfil profissional"
+      data-stories="US-004"
+      data-api="GET /api/profiles/me|PUT /api/profiles/{id}|POST /api/profiles/{id}/submit|POST /api/uploads"
+      data-states="Rascunho|Em análise (somente leitura)|Ajustes solicitados com comentário|Aprovado|Slug já em uso">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Perfil</span>
+    <b>Meu perfil</b>
+  </div>
+  <div class="row">
+    <span class="badge badge-ok">Aprovado e no ar</span>
+    <button class="btn btn-ghost btn-sm" data-toast="Rascunho salvo. Nada muda no perfil público até você enviar para conferência.">Salvar rascunho</button>
+    <button class="btn btn-primary btn-sm" form="form-perfil" type="submit">Enviar para conferência</button>
+  </div>
+</div>
+
+<div class="app-body">
+
+  <div class="notice notice-info" style="margin-bottom:24px">
+    <div><strong>Alterações passam por conferência</strong>Seu perfil continua no ar com a versão atual enquanto a nova é revisada. Costuma levar até 2 dias úteis.</div>
+  </div>
+
+  <form id="form-perfil" data-validar data-sucesso="Enviado para conferência. Avisamos por e-mail quando sair o resultado.">
+
+    <fieldset class="fieldset">
+      <legend>Quem é você</legend>
+
+      <div class="row" style="gap:20px;align-items:flex-start;margin-bottom:20px">
+        <span class="avatar avatar-lg">JR</span>
+        <div>
+          <span class="label label-req">Foto de perfil</span>
+          <div class="row" style="gap:8px">
+            <button class="btn btn-ghost btn-sm" type="button" data-toast="Abriria o seletor de arquivos.">Trocar foto</button>
+            <button class="btn btn-quiet btn-sm" type="button" data-toast="Foto removida do rascunho.">Remover</button>
+          </div>
+          <p class="hint">JPG, PNG ou WebP de até 5 MB. Quadrada, a partir de 600×600 px.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="p-nome">Nome profissional</label>
+        <input class="input" id="p-nome" value="Joana Ribeiro" data-erro="e-pnome">
+        <span class="msg-error" id="e-pnome">Informe seu nome profissional.</span>
+        <p class="hint">É o nome que aparece no diretório. Pode ser nome social.</p>
+      </div>
+
+      <div class="field">
+        <label for="p-head">Título <span class="counter" id="c-head"></span></label>
+        <input class="input" id="p-head" maxlength="80" data-contar="c-head"
+               value="Psicóloga clínica — Terapia Cognitivo-Comportamental">
+        <p class="hint">Uma linha que resume seu trabalho. Aparece logo abaixo do seu nome.</p>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="p-bio">Apresentação <span class="counter" id="c-bio"></span></label>
+        <textarea class="textarea" id="p-bio" maxlength="2000" data-contar="c-bio" data-erro="e-pbio" style="min-height:180px">Atendo adultos que chegam cansados de funcionar no automático. Meu trabalho parte da Terapia Cognitivo-Comportamental, com atenção especial a quadros de ansiedade, esgotamento e episódios depressivos.</textarea>
+        <span class="msg-error" id="e-pbio">A apresentação deve ter entre 100 e 2000 caracteres.</span>
+        <p class="hint">Entre 100 e 2000 caracteres. Escreva para quem está procurando ajuda, não para colegas.</p>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Registro e atuação</legend>
+
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="p-crp">Registro no conselho</label>
+          <input class="input" id="p-crp" value="CRP 06/12345" data-erro="e-crp" data-regex="^CRP\s?\d{2}\/\d{4,6}$">
+          <span class="msg-error" id="e-crp">Informe um CRP válido (ex.: CRP 00/00000).</span>
+          <p class="hint">Conferimos o número antes de publicar o perfil.</p>
+        </div>
+        <div class="field">
+          <label class="label-req" for="p-crpuf">Estado do registro</label>
+          <select class="select" id="p-crpuf"><option>SP</option><option>RJ</option><option>MG</option><option>RS</option></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="p-esp">Especialidades</label>
+        <div class="row" style="gap:6px;margin-bottom:8px">
+          <span class="chip chip-deep">Ansiedade <button type="button" class="btn-quiet" style="padding:0;line-height:1" data-toast="Removido do rascunho.">×</button></span>
+          <span class="chip chip-deep">Depressão <button type="button" class="btn-quiet" style="padding:0;line-height:1" data-toast="Removido do rascunho.">×</button></span>
+        </div>
+        <select class="select" id="p-esp"><option>Adicionar especialidade…</option><option>Luto</option><option>Burnout</option><option>Relacionamentos</option></select>
+        <p class="hint">De 1 a 10 especialidades.</p>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="p-abd">Abordagem</label>
+        <div class="row" style="gap:6px;margin-bottom:8px">
+          <span class="chip chip-deep">TCC <button type="button" class="btn-quiet" style="padding:0;line-height:1" data-toast="Removido do rascunho.">×</button></span>
+        </div>
+        <select class="select" id="p-abd"><option>Adicionar abordagem…</option><option>Psicanálise</option><option>Gestalt-terapia</option><option>ACT</option></select>
+      </div>
+
+      <div class="field">
+        <span class="label">Como você atende</span>
+        <label class="check"><input type="checkbox" checked id="p-online"> On-line</label>
+        <label class="check"><input type="checkbox" checked id="p-presencial"> Presencial</label>
+      </div>
+
+      <div class="grid g-3" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="p-cidade">Cidade</label>
+          <input class="input" id="p-cidade" value="São Paulo" data-erro="e-cidade">
+          <span class="msg-error" id="e-cidade">Informe a cidade.</span>
+        </div>
+        <div class="field">
+          <label class="label-req" for="p-uf">Estado</label>
+          <select class="select" id="p-uf"><option>SP</option><option>RJ</option><option>MG</option></select>
+        </div>
+        <div class="field">
+          <label for="p-bairro">Bairro ou região</label>
+          <input class="input" id="p-bairro" value="Pinheiros">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="p-end">Endereço do consultório</label>
+        <input class="input" id="p-end" value="Rua Fictícia, 100">
+        <p class="hint">Só preencha se quiser que o endereço apareça publicamente.</p>
+      </div>
+
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label for="p-preco">Faixa de preço</label>
+          <select class="select" id="p-preco">
+            <option>Não informar</option><option>Valor social</option><option>Até R$ 100</option>
+            <option selected>R$ 150–200</option><option>Acima de R$ 200</option><option>A combinar</option>
+          </select>
+          <p class="hint">Campo opcional. Verifique as regras do seu conselho sobre divulgação de honorários antes de publicar.</p>
+        </div>
+        <div class="field">
+          <label for="p-conv">Convênios aceitos</label>
+          <select class="select" id="p-conv"><option>Nenhum</option><option>Unimed</option><option>Bradesco Saúde</option><option>Reembolso por nota fiscal</option></select>
+        </div>
+      </div>
+
+      <label class="check"><input type="checkbox" checked id="p-aceita"> Estou aceitando novos pacientes</label>
+      <p class="hint" style="margin-top:0">Quando desmarcado, seu perfil continua no ar com o aviso “agenda cheia”.</p>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Contato</legend>
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="p-tel">Telefone ou WhatsApp</label>
+          <input class="input" id="p-tel" value="+55 11 99999-0000" data-erro="e-tel">
+          <span class="msg-error" id="e-tel">Informe um telefone válido com DDD.</span>
+        </div>
+        <div class="field">
+          <label for="p-mail">E-mail público</label>
+          <input class="input" type="email" id="p-mail" placeholder="Opcional">
+          <p class="hint">Se preenchido, fica visível no perfil.</p>
+        </div>
+        <div class="field">
+          <label for="p-site">Site pessoal</label>
+          <input class="input" id="p-site" placeholder="https://">
+        </div>
+        <div class="field">
+          <label for="p-insta">Instagram</label>
+          <input class="input" id="p-insta" value="https://instagram.com/exemplo">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Endereço do perfil</legend>
+      <div class="field">
+        <label class="label-req" for="p-slug">Link personalizado</label>
+        <div class="row" style="gap:0;align-items:stretch">
+          <span class="mono small" style="display:flex;align-items:center;padding:0 12px;background:var(--surface-2);border:1px solid var(--line);border-right:0;border-radius:8px 0 0 8px;color:var(--ink-3)">confluencias.com.br/profissionais/</span>
+          <input class="input" id="p-slug" value="joana-ribeiro" style="border-radius:0 8px 8px 0" data-erro="e-slug" data-regex="^[a-z0-9-]+$">
+        </div>
+        <span class="msg-error" id="e-slug">Use apenas letras minúsculas, números e hífens.</span>
+        <p class="hint">Mudar o link quebra os endereços já compartilhados.</p>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <button class="btn btn-primary btn-lg" type="submit">Enviar para conferência</button>
+      <button class="btn btn-ghost" type="button" data-toast="Rascunho salvo.">Salvar rascunho</button>
+      <a class="btn btn-quiet" href="perfil.html">Pré-visualizar</a>
+    </div>
+  </form>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

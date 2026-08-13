@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O que a ansiedade tenta dizer antes de virar sintoma — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="visitante"
+      data-route="/artigos/ansiedade-antes-do-sintoma"
+      data-screen="Detalhe de conteúdo (artigo)"
+      data-stories="US-010, US-022"
+      data-api="GET /api/contents/{slug}|GET /api/contents?profile={id}&limit=3"
+      data-states="Conteúdo aprovado|Pendente ou reprovado → 404|Autor com assinatura vencida|Dados estruturados Article no head">
+
+<article class="section">
+  <div class="wrap wrap-narrow">
+    <nav class="small muted" style="margin-bottom:22px">
+      <a href="home.html">Início</a> › <a href="#">Artigos</a> › Ansiedade
+    </nav>
+
+    <span class="badge badge-plain">Artigo</span>
+    <h1 style="margin:14px 0 16px">O que a ansiedade tenta dizer antes de virar sintoma</h1>
+    <p class="lede">Um convite a escutar o corpo antes que ele grite. Sobre sinais precoces, o que costuma passar batido e o que fazer com isso.</p>
+
+    <div class="row" style="gap:12px;margin:24px 0 10px">
+      <a class="row" href="perfil.html" style="gap:10px;text-decoration:none;color:inherit">
+        <span class="avatar avatar-sm">JR</span>
+        <span><b style="display:block;font-size:.92rem">Joana Ribeiro</b>
+        <span class="pro-meta">CRP 06/12345 · São Paulo/SP</span></span>
+      </a>
+      <span class="muted small" style="margin-left:auto">Publicado em 04/08/2026 · 6 min de leitura</span>
+    </div>
+    <hr class="rule-confluencia wide">
+
+    <div class="prose" style="margin-top:28px">
+      <p>Quase ninguém procura ajuda no primeiro sinal. As pessoas chegam ao consultório quando o corpo já não deixa mais escolha — quando a insônia virou rotina, quando o peito aperta no meio de uma reunião comum, quando a irritação passou a ser o tom padrão de casa.</p>
+
+      <h2>Os sinais que costumam vir antes</h2>
+      <p>Antes do quadro instalado, existe um período em que a ansiedade se comunica de forma discreta. Ela raramente se apresenta como medo declarado. Aparece como pressa sem motivo, como dificuldade de terminar tarefas simples, como a sensação de estar sempre atrasado para algo que ninguém sabe nomear.</p>
+      <ul>
+        <li>Sono que começa bem e se interrompe na madrugada.</li>
+        <li>Tensão na mandíbula ou nos ombros ao fim do dia.</li>
+        <li>Adiar decisões pequenas por semanas.</li>
+        <li>Cansaço que o descanso não resolve.</li>
+      </ul>
+
+      <blockquote>Sintoma é linguagem. Quando falta espaço para dizer, o corpo assume a fala.</blockquote>
+
+      <h2>O que fazer com esses sinais</h2>
+      <p>O primeiro passo não é eliminar o desconforto, é conseguir olhar para ele sem pressa de resolver. Nomear o que se sente já reduz parte da intensidade — não por mágica, mas porque transforma uma sensação difusa em algo com contorno.</p>
+      <p>A partir daí, algumas perguntas ajudam: quando isso começou, o que estava acontecendo na sua vida, o que piora e o que alivia. Levar essas respostas para uma primeira sessão encurta bastante o caminho.</p>
+
+      <h3>Quando procurar ajuda</h3>
+      <p>Não existe um limiar mínimo de sofrimento para procurar atendimento psicológico. Se o desconforto está atrapalhando o sono, o trabalho ou as relações, já é motivo suficiente.</p>
+    </div>
+
+    <div class="row" style="gap:8px;margin-top:32px">
+      <span class="chip">Ansiedade</span>
+      <span class="chip">Sinais precoces</span>
+      <span class="chip">Primeira sessão</span>
+    </div>
+
+    <div class="card" style="margin-top:38px;display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+      <span class="avatar">JR</span>
+      <div style="flex:1;min-width:220px">
+        <span class="eyebrow">Escrito por</span>
+        <h3 style="margin:0 0 4px">Joana Ribeiro</h3>
+        <p class="small muted" style="margin:0">Psicóloga clínica em São Paulo. Atende adultos, presencial e on-line.</p>
+      </div>
+      <a class="btn btn-primary" href="perfil.html">Ver perfil</a>
+    </div>
+  </div>
+</article>
+
+<section class="section-tight" style="padding-bottom:60px">
+  <div class="wrap">
+    <span class="eyebrow">Continue lendo</span>
+    <h2 style="margin-bottom:22px">Outras publicações do diretório</h2>
+    <div class="grid g-3" id="relacionados"></div>
+  </div>
+</section>
+
+<script src="assets/dados.js"></script>
+<script>
+window.confPagina = function () {
+  var alvo = document.getElementById('relacionados');
+  window.CONF_CONTEUDOS.slice(1, 4).forEach(function (c) {
+    alvo.insertAdjacentHTML('beforeend',
+      '<a class="card card-link" href="artigo.html">' +
+      '<span class="badge badge-plain">' + c.tipo + '</span>' +
+      '<h3 style="margin:12px 0 8px">' + c.titulo + '</h3>' +
+      '<p class="small muted" style="margin:0 0 14px">' + c.resumo + '</p>' +
+      '<span class="pro-meta">' + c.autor + ' · ' + c.data.split('-').reverse().join('/') + '</span></a>');
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

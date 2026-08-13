@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel" data-flow="assinatura"
+      data-route="/painel"
+      data-screen="Painel do profissional"
+      data-stories="US-015"
+      data-api="GET /api/auth/me|GET /api/profiles/me/metrics?range=30d|GET /api/subscriptions/current"
+      data-states="Perfil em análise|Perfil reprovado com motivo|Assinatura vencida|Sem métricas ainda (perfil novo)">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Painel</span>
+    <b>Olá, Joana</b>
+  </div>
+  <div class="row">
+    <a class="btn btn-ghost btn-sm" href="perfil.html">Ver meu perfil público</a>
+    <a class="btn btn-primary btn-sm" href="painel-conteudo-novo.html">Nova publicação</a>
+  </div>
+</div>
+
+<div class="app-body">
+
+  <div class="notice notice-wait" style="margin-bottom:24px">
+    <div>
+      <strong>Uma publicação sua está em análise</strong>
+      “Sono e ansiedade: o que a noite revela” foi enviada em 11/08. A conferência costuma levar até 2 dias úteis.
+      <a href="painel-conteudos.html">Ver na lista</a>
+    </div>
+  </div>
+
+  <h1 class="page-title" style="font-size:1.7rem">Como está seu perfil</h1>
+  <p class="muted small" style="margin-bottom:22px">Últimos 30 dias · comparado ao período anterior</p>
+
+  <div class="grid g-4" style="margin-bottom:32px">
+    <div class="metric">
+      <div class="metric-label">Visitas ao perfil</div>
+      <div class="metric-value">312</div>
+      <div class="metric-delta">+18% no período</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Cliques em contato</div>
+      <div class="metric-value">47</div>
+      <div class="metric-delta">+6% no período</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Mensagens recebidas</div>
+      <div class="metric-value">9</div>
+      <div class="metric-delta down">−2 no período</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Publicações no ar</div>
+      <div class="metric-value">10</div>
+      <div class="metric-delta">1 em análise</div>
+    </div>
+  </div>
+
+  <div class="grid g-2" style="align-items:start">
+
+    <div class="card">
+      <div class="row-between" style="margin-bottom:14px">
+        <h3>Últimas mensagens</h3>
+        <a class="small" href="painel-contatos.html">Ver todas</a>
+      </div>
+      <div class="stack">
+        <div class="row" style="gap:12px;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line-soft)">
+          <span class="avatar avatar-sm avatar-amber">CM</span>
+          <div style="flex:1;min-width:0">
+            <div class="row-between"><b style="font-size:.92rem">Camila M.</b><span class="badge badge-wait">Nova</span></div>
+            <p class="small muted" style="margin:2px 0 0">Agendamento · “Gostaria de saber se você tem horário nas terças à noite…”</p>
+          </div>
+        </div>
+        <div class="row" style="gap:12px;align-items:flex-start;padding-bottom:12px;border-bottom:1px solid var(--line-soft)">
+          <span class="avatar avatar-sm avatar-river">RT</span>
+          <div style="flex:1;min-width:0">
+            <div class="row-between"><b style="font-size:.92rem">Rodrigo T.</b><span class="badge badge-wait">Nova</span></div>
+            <p class="small muted" style="margin:2px 0 0">Dúvida · “Você atende por reembolso de convênio?”</p>
+          </div>
+        </div>
+        <div class="row" style="gap:12px;align-items:flex-start">
+          <span class="avatar avatar-sm">AP</span>
+          <div style="flex:1;min-width:0">
+            <div class="row-between"><b style="font-size:.92rem">Ana P.</b><span class="badge badge-ok">Respondida</span></div>
+            <p class="small muted" style="margin:2px 0 0">Agendamento · “Obrigada pelo retorno!”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <span class="eyebrow">Situação da assinatura</span>
+        <div class="row-between" style="margin-bottom:10px">
+          <h3 style="margin:0">Perfil no diretório</h3>
+          <span class="badge badge-ok">Ativa</span>
+        </div>
+        <p class="small muted" style="margin:0 0 4px">R$ 90,00/mês · cartão final 4218</p>
+        <p class="small mono" style="margin:0;color:var(--ink-3)">Próxima cobrança em 13/09/2026</p>
+        <a class="btn btn-ghost btn-sm" href="painel-assinatura.html" style="margin-top:14px">Gerenciar assinatura</a>
+      </div>
+
+      <div class="card">
+        <span class="eyebrow">O que ainda dá para melhorar</span>
+        <div class="stack small">
+          <div class="row" style="gap:10px"><span class="badge badge-ok">Feito</span> Foto e biografia preenchidas</div>
+          <div class="row" style="gap:10px"><span class="badge badge-ok">Feito</span> Especialidades e abordagem</div>
+          <div class="row" style="gap:10px"><span class="badge badge-draft">Falta</span> Convênios aceitos</div>
+          <div class="row" style="gap:10px"><span class="badge badge-draft">Falta</span> Foto de capa</div>
+        </div>
+        <p class="hint" style="margin-top:12px">Perfis completos recebem mais contatos. Nenhum destes campos é obrigatório.</p>
+        <a class="btn btn-ghost btn-sm" href="painel-perfil.html" style="margin-top:10px">Completar perfil</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

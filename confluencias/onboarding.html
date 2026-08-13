@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como você quer participar — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="assinatura"
+      data-route="/onboarding"
+      data-screen="Escolha de participação"
+      data-stories="US-003"
+      data-api="GET /api/plans|POST /api/subscriptions/checkout"
+      data-states="Escolha não feita|Já possui assinatura ativa|Apenas navegar → painel limitado">
+
+<section class="section">
+  <div class="wrap" style="max-width:880px">
+    <span class="eyebrow">Passo 2 de 3</span>
+    <h1 style="font-size:2.1rem">Como você quer participar</h1>
+    <hr class="rule-confluencia" style="margin-top:16px">
+    <p class="lede">Dá para mudar depois. Se escolher apenas navegar agora, você pode assinar um perfil a qualquer momento pelo painel.</p>
+
+    <form data-validar data-ir-para="checkout.html" data-sucesso="Levando você ao pagamento…" style="margin-top:30px">
+      <div class="stack">
+
+        <label class="option is-on">
+          <input type="radio" name="participacao" value="perfil" checked>
+          <div class="option-head">
+            <span>
+              <h3>Perfil no diretório</h3>
+              <p class="small muted" style="margin:6px 0 0">Perfil público completo, publicações vinculadas ao seu nome, contato direto de quem procura e painel com métricas.</p>
+            </span>
+            <span class="option-price">R$ 90<span class="small muted">/mês</span></span>
+          </span>
+          <div class="row" style="gap:8px;margin-top:14px">
+            <span class="chip chip-deep">R$ 60 mantêm a plataforma</span>
+            <span class="chip chip-deep">R$ 30 vão para o movimento</span>
+          </div>
+          <p class="hint" style="margin-top:10px">Exige registro profissional ativo. Seu perfil passa por conferência antes de ficar público.</p>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="participacao" value="contribuicao">
+          <div class="option-head">
+            <span>
+              <h3>Contribuição voluntária</h3>
+              <p class="small muted" style="margin:6px 0 0">Sem perfil público. Seu nome pode aparecer na página de apoiadores, se você quiser.</p>
+            </span>
+            <span class="option-price">R$ 30<span class="small muted">/mês</span></span>
+          </span>
+          <div class="row" style="gap:8px;margin-top:14px">
+            <span class="chip chip-deep">100% vai para o movimento</span>
+            <span class="chip">Mensal ou pontual</span>
+          </div>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="participacao" value="navegar">
+          <div class="option-head">
+            <span>
+              <h3>Apenas navegar</h3>
+              <p class="small muted" style="margin:6px 0 0">Sem pagamento agora. Você pode buscar profissionais, ler publicações e acompanhar eventos.</p>
+            </span>
+            <span class="option-price small muted" style="font-family:var(--font-ui)">Gratuito</span>
+          </span>
+        </label>
+
+      </div>
+
+      <div class="card" style="margin-top:24px" data-mostrar-se="contribuicao" hidden>
+        <span class="eyebrow">Detalhes da contribuição</span>
+        <div class="grid g-2">
+          <div class="field">
+            <label for="freq">Frequência</label>
+            <select class="select" id="freq"><option>Mensal — R$ 30</option><option>Pontual — valor livre</option></select>
+          </div>
+          <div class="field">
+            <label for="valor">Valor</label>
+            <input class="input" id="valor" value="R$ 30,00">
+            <p class="hint">Mínimo de R$ 30,00.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:26px">
+        <button class="btn btn-primary btn-lg" type="submit">Continuar</button>
+        <a class="btn btn-quiet" href="painel.html">Decidir depois</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+window.confPagina = function () {
+  var form = document.querySelector('form[data-validar]');
+  form.addEventListener('change', function () {
+    var v = form.querySelector('input[name="participacao"]:checked').value;
+    form.dataset.irPara = v === 'navegar' ? 'painel.html' : (v === 'contribuicao' ? 'apoie.html' : 'checkout.html');
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

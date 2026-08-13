@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public"
+      data-route="/login"
+      data-screen="Entrar na conta"
+      data-stories="US-002"
+      data-api="POST /api/auth/login|POST /api/auth/forgot-password"
+      data-states="Credenciais inválidas|E-mail não confirmado|Conta suspensa|Muitas tentativas → bloqueio temporário">
+
+<section class="section">
+  <div class="wrap" style="max-width:430px">
+    <span class="eyebrow">Acesso</span>
+    <h1 style="font-size:1.9rem">Entrar</h1>
+    <hr class="rule-confluencia" style="margin-top:14px">
+
+    <form class="card" data-validar data-ir-para="painel.html" data-sucesso="Bem-vinda de volta, Joana.">
+      <div class="field">
+        <label class="label-req" for="email">E-mail</label>
+        <input class="input" type="email" id="email" autocomplete="email" value="joana@exemplo.com.br"
+               data-erro="e-email" data-regex="^[^@\s]+@[^@\s]+\.[^@\s]+$">
+        <span class="msg-error" id="e-email">E-mail inválido.</span>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="senha">Senha</label>
+        <input class="input" type="password" id="senha" autocomplete="current-password" value="protótipo123" data-erro="e-senha">
+        <span class="msg-error" id="e-senha">Informe sua senha.</span>
+      </div>
+
+      <div class="row-between" style="margin-bottom:18px">
+        <label class="check" style="margin:0"><input type="checkbox" checked> Continuar conectada</label>
+        <a class="small" href="#" data-toast="Enviaríamos um link de redefinição para o e-mail informado.">Esqueci a senha</a>
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" type="submit">Entrar</button>
+    </form>
+
+    <div class="card card-pad-sm" style="margin-top:16px">
+      <span class="eyebrow">Atalhos do protótipo</span>
+      <div class="row" style="gap:8px">
+        <a class="btn btn-ghost btn-sm" href="painel.html">Entrar como profissional</a>
+        <a class="btn btn-ghost btn-sm" href="admin.html">Entrar como admin</a>
+      </div>
+    </div>
+
+    <p class="small muted center" style="margin-top:20px">Ainda não tem conta? <a href="cadastro.html">Criar conta</a>.</p>
+  </div>
+</section>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

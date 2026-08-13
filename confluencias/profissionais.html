@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profissionais — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="visitante"
+      data-route="/profissionais"
+      data-screen="Diretório, busca e filtros"
+      data-stories="US-006, US-007"
+      data-api="GET /api/profiles?q=&especialidade=&uf=&cidade=&online=&presencial=&preco=&page=1"
+      data-states="Carregando|Nenhum resultado para os filtros|Filtros ativos refletidos na URL|Paginação">
+
+<section class="section-tight">
+  <div class="wrap">
+    <span class="eyebrow">Diretório</span>
+    <h1 style="font-size:2.2rem">Profissionais</h1>
+    <hr class="rule-confluencia" style="margin-top:16px">
+    <div class="searchbar" style="max-width:640px">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="9" cy="9" r="6" stroke="#6C7B76" stroke-width="1.8"/>
+        <path d="m13.5 13.5 4 4" stroke="#6C7B76" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input id="q" type="search" placeholder="Nome, especialidade, cidade ou abordagem" aria-label="Buscar profissionais">
+      <button class="btn btn-primary btn-sm" id="btn-buscar" type="button">Buscar</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:60px">
+  <div class="wrap" style="display:grid;grid-template-columns:262px 1fr;gap:28px;align-items:start" id="layout-diretorio">
+
+    <form class="filters" id="filtros" style="position:sticky;top:96px">
+      <h2 class="filter-title">Filtros</h2>
+
+      <div class="field">
+        <label for="f-esp">Especialidade</label>
+        <select class="select" id="f-esp"><option value="">Todas</option></select>
+      </div>
+
+      <div class="field">
+        <label for="f-abd">Abordagem</label>
+        <select class="select" id="f-abd"><option value="">Todas</option></select>
+      </div>
+
+      <div class="field">
+        <label for="f-uf">Estado</label>
+        <select class="select" id="f-uf"><option value="">Todos</option></select>
+      </div>
+
+      <div class="field">
+        <label for="f-preco">Faixa de preço</label>
+        <select class="select" id="f-preco">
+          <option value="">Qualquer</option>
+          <option>Valor social</option>
+          <option>Até R$ 100</option>
+          <option>R$ 100–150</option>
+          <option>R$ 150–200</option>
+          <option>Acima de R$ 200</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <span class="label">Atendimento</span>
+        <label class="check"><input type="checkbox" id="f-online"> On-line</label>
+        <label class="check"><input type="checkbox" id="f-presencial"> Presencial</label>
+        <label class="check"><input type="checkbox" id="f-aceita"> Aceitando novos pacientes</label>
+      </div>
+
+      <button class="btn btn-ghost btn-sm btn-block" type="button" id="limpar">Limpar filtros</button>
+    </form>
+
+    <div>
+      <div class="row-between" style="margin-bottom:16px">
+        <p class="small muted" id="resumo" style="margin:0">—</p>
+        <label class="row small" style="gap:8px;margin:0">Ordenar por
+          <select class="select" id="ordem" style="width:auto;padding:6px 32px 6px 10px">
+            <option>Mais recentes</option><option>Nome (A–Z)</option>
+          </select>
+        </label>
+      </div>
+      <div class="stack" id="lista"></div>
+      <div class="empty" id="vazio" hidden>
+        <h3>Nenhum profissional com esses filtros</h3>
+        <p class="muted small">Tente remover um filtro ou ampliar a busca para outro estado.</p>
+        <button class="btn btn-ghost btn-sm" type="button" onclick="document.getElementById('limpar').click()">Limpar filtros</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/dados.js"></script>
+<script>
+window.confPagina = function () {
+  var lista = document.getElementById('lista');
+  var vazio = document.getElementById('vazio');
+  var resumo = document.getElementById('resumo');
+
+  function preencher(id, itens) {
+    var sel = document.getElementById(id);
+    itens.forEach(function (i) {
+      var o = document.createElement('option'); o.textContent = i; sel.appendChild(o);
+    });
+  }
+  preencher('f-esp', window.CONF_ESPECIALIDADES);
+  preencher('f-abd', window.CONF_ABORDAGENS);
+  preencher('f-uf', window.CONF_UFS);
+
+  function cartao(p) {
+    return '<a class="card card-link pro-card" href="perfil.html">' +
+      '<span class="avatar ' + p.cor + '">' + confIniciais(p.nome) + '</span>' +
+      '<span style="flex:1;min-width:0">' +
+        '<span class="row-between" style="align-items:flex-start">' +
+          '<span><h3>' + p.nome + '</h3>' +
+          '<span class="pro-meta">' + p.crp + ' · ' + p.bairro + ', ' + p.cidade + '/' + p.uf + '</span></span>' +
+          (p.aceitando
+            ? '<span class="badge badge-ok">Aceitando</span>'
+            : '<span class="badge badge-draft">Agenda cheia</span>') +
+        '</span>' +
+        '<p class="small" style="margin:10px 0 0;color:var(--ink-2)">' + p.headline + '</p>' +
+        '<span class="pro-tags">' +
+          p.especialidades.map(function (e) { return '<span class="chip">' + e + '</span>'; }).join('') +
+          p.abordagens.map(function (a) { return '<span class="chip chip-deep">' + a + '</span>'; }).join('') +
+          (p.online ? '<span class="chip">On-line</span>' : '') +
+          (p.presencial ? '<span class="chip">Presencial</span>' : '') +
+          '<span class="chip">' + p.preco + '</span>' +
+        '</span>' +
+      '</span></a>';
+  }
+
+  function filtrar() {
+    var q = document.getElementById('q').value.trim().toLowerCase();
+    var esp = document.getElementById('f-esp').value;
+    var abd = document.getElementById('f-abd').value;
+    var uf = document.getElementById('f-uf').value;
+    var preco = document.getElementById('f-preco').value;
+    var online = document.getElementById('f-online').checked;
+    var pres = document.getElementById('f-presencial').checked;
+    var aceita = document.getElementById('f-aceita').checked;
+
+    var r = window.CONF_PROFISSIONAIS.filter(function (p) {
+      var texto = [p.nome, p.headline, p.cidade, p.uf, p.bairro]
+        .concat(p.especialidades, p.abordagens).join(' ').toLowerCase();
+      if (q && texto.indexOf(q) === -1) return false;
+      if (esp && p.especialidades.indexOf(esp) === -1) return false;
+      if (abd && p.abordagens.indexOf(abd) === -1) return false;
+      if (uf && p.uf !== uf) return false;
+      if (preco && p.preco !== preco) return false;
+      if (online && !p.online) return false;
+      if (pres && !p.presencial) return false;
+      if (aceita && !p.aceitando) return false;
+      return true;
+    });
+
+    if (document.getElementById('ordem').value.indexOf('Nome') === 0) {
+      r.sort(function (a, b) { return a.nome.localeCompare(b.nome, 'pt-BR'); });
+    }
+
+    lista.innerHTML = r.map(cartao).join('');
+    vazio.hidden = r.length > 0;
+    resumo.textContent = r.length === 1
+      ? '1 profissional encontrado'
+      : r.length + ' profissionais encontrados';
+  }
+
+  document.getElementById('filtros').addEventListener('change', filtrar);
+  document.getElementById('ordem').addEventListener('change', filtrar);
+  document.getElementById('q').addEventListener('input', filtrar);
+  document.getElementById('btn-buscar').addEventListener('click', filtrar);
+  document.getElementById('limpar').addEventListener('click', function () {
+    document.getElementById('filtros').reset();
+    document.getElementById('q').value = '';
+    filtrar();
+  });
+
+  filtrar();
+
+  /* empilha os filtros no mobile */
+  var mq = window.matchMedia('(max-width: 900px)');
+  function ajustar() {
+    var g = document.getElementById('layout-diretorio');
+    g.style.gridTemplateColumns = mq.matches ? '1fr' : '262px 1fr';
+    document.getElementById('filtros').style.position = mq.matches ? 'static' : 'sticky';
+  }
+  mq.addEventListener('change', ajustar); ajustar();
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

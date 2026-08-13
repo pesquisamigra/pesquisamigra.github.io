@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagamento da assinatura — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="assinatura"
+      data-route="/checkout"
+      data-screen="Checkout — assinatura de perfil"
+      data-stories="US-011"
+      data-api="POST /api/subscriptions/checkout|POST /webhooks/gateway (assíncrono)"
+      data-states="Cartão recusado|Pix aguardando pagamento|Boleto emitido|Pagamento aprovado → editar perfil|Split registrado em split_info">
+
+<section class="section">
+  <div class="wrap" style="max-width:960px;display:grid;grid-template-columns:1fr 330px;gap:34px;align-items:start" id="grade-checkout">
+
+    <div>
+      <span class="eyebrow">Passo 3 de 3</span>
+      <h1 style="font-size:2rem">Pagamento</h1>
+      <hr class="rule-confluencia" style="margin-top:14px">
+
+      <form data-validar data-ir-para="painel-perfil.html" data-sucesso="Pagamento aprovado. Vamos montar seu perfil.">
+
+        <fieldset class="fieldset">
+          <legend>Forma de pagamento</legend>
+          <div class="grid g-3" style="gap:10px">
+            <label class="option is-on" style="padding:14px;text-align:center">
+              <input type="radio" name="metodo" value="cartao" checked>
+              <b style="font-size:.95rem">Cartão</b>
+              <p class="hint" style="margin:4px 0 0">Renova sozinho</p>
+            </label>
+            <label class="option" style="padding:14px;text-align:center">
+              <input type="radio" name="metodo" value="pix">
+              <b style="font-size:.95rem">Pix</b>
+              <p class="hint" style="margin:4px 0 0">Renova por lembrete</p>
+            </label>
+            <label class="option" style="padding:14px;text-align:center">
+              <input type="radio" name="metodo" value="boleto">
+              <b style="font-size:.95rem">Boleto</b>
+              <p class="hint" style="margin:4px 0 0">Compensa em até 3 dias</p>
+            </label>
+          </div>
+
+          <div data-mostrar-se="cartao" style="margin-top:20px">
+            <div class="field">
+              <label class="label-req" for="cc-num">Número do cartão</label>
+              <input class="input" id="cc-num" inputmode="numeric" placeholder="0000 0000 0000 0000" data-erro="e-cc">
+              <span class="msg-error" id="e-cc">Número de cartão inválido.</span>
+            </div>
+            <div class="field">
+              <label class="label-req" for="cc-nome">Nome impresso no cartão</label>
+              <input class="input" id="cc-nome" data-erro="e-ccnome">
+              <span class="msg-error" id="e-ccnome">Informe o nome do cartão.</span>
+            </div>
+            <div class="grid g-2" style="gap:14px">
+              <div class="field">
+                <label class="label-req" for="cc-val">Validade</label>
+                <input class="input" id="cc-val" placeholder="MM/AA" data-erro="e-ccval" data-regex="^\d{2}\/\d{2}$">
+                <span class="msg-error" id="e-ccval">Cartão vencido ou data inválida.</span>
+              </div>
+              <div class="field">
+                <label class="label-req" for="cc-cvv">CVV</label>
+                <input class="input" id="cc-cvv" inputmode="numeric" placeholder="000" data-erro="e-cvv" data-regex="^\d{3,4}$">
+                <span class="msg-error" id="e-cvv">CVV inválido.</span>
+              </div>
+            </div>
+          </div>
+
+          <div data-mostrar-se="pix" hidden style="margin-top:20px">
+            <div class="notice notice-info"><div><strong>Como funciona com Pix</strong>Ao confirmar, geramos um código válido por 30 minutos. A assinatura é ativada assim que o pagamento cai. Enviamos um lembrete antes de cada renovação.</div></div>
+          </div>
+
+          <div data-mostrar-se="boleto" hidden style="margin-top:20px">
+            <div class="notice notice-wait"><div><strong>Boleto leva até 3 dias úteis</strong>Seu perfil só entra na fila de conferência depois que o pagamento compensar.</div></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Dados do pagador</legend>
+          <div class="grid g-2" style="gap:14px">
+            <div class="field">
+              <label class="label-req" for="cpf">CPF ou CNPJ</label>
+              <input class="input" id="cpf" inputmode="numeric" placeholder="000.000.000-00" data-erro="e-cpf">
+              <span class="msg-error" id="e-cpf">CPF/CNPJ inválido.</span>
+            </div>
+            <div class="field">
+              <label class="label-req" for="pg-nome">Nome completo</label>
+              <input class="input" id="pg-nome" value="Joana Ribeiro" data-erro="e-pgnome">
+              <span class="msg-error" id="e-pgnome">Informe o nome completo.</span>
+            </div>
+            <div class="field">
+              <label class="label-req" for="cep">CEP</label>
+              <input class="input" id="cep" placeholder="00000-000" data-erro="e-cep" data-regex="^\d{5}-?\d{3}$">
+              <span class="msg-error" id="e-cep">CEP inválido.</span>
+            </div>
+            <div class="field">
+              <label for="cupom">Cupom de desconto</label>
+              <input class="input" id="cupom" placeholder="Opcional">
+            </div>
+          </div>
+        </fieldset>
+
+        <label class="check">
+          <input type="checkbox" id="aceite" data-erro="e-aceite">
+          Aceito os <a href="#">termos da assinatura</a>, incluindo a renovação mensal automática e a política de cancelamento.
+        </label>
+        <span class="msg-error" id="e-aceite" style="margin:-8px 0 14px">É preciso aceitar os termos da assinatura.</span>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Assinar por R$ 90,00/mês</button>
+        <p class="hint center" style="margin-top:12px">Você pode cancelar quando quiser. O perfil segue no ar até o fim do período pago.</p>
+      </form>
+    </div>
+
+    <aside class="card" style="position:sticky;top:96px">
+      <span class="eyebrow">Resumo</span>
+      <hr class="rule-confluencia">
+      <h3 style="margin-bottom:4px">Perfil no diretório</h3>
+      <p class="small muted" style="margin:0 0 18px">Cobrança mensal, renovação automática.</p>
+
+      <div class="row-between small" style="padding:8px 0;border-bottom:1px solid var(--line-soft)">
+        <span>Manutenção da plataforma</span><span class="mono">R$ 60,00</span>
+      </div>
+      <div class="row-between small" style="padding:8px 0;border-bottom:1px solid var(--line-soft)">
+        <span>Fundo do movimento</span><span class="mono">R$ 30,00</span>
+      </div>
+      <div class="row-between" style="padding:14px 0 0">
+        <b>Total mensal</b>
+        <span class="option-price">R$ 90,00</span>
+      </div>
+
+      <div class="notice notice-info" style="margin-top:18px">
+        <div class="small"><strong>Primeira cobrança hoje</strong>Próxima em 13/09/2026.</div>
+      </div>
+
+      <p class="hint" style="margin-top:14px">O rateio é feito automaticamente pelo meio de pagamento e fica registrado em cada cobrança para auditoria.</p>
+    </aside>
+  </div>
+</section>
+
+<script>
+window.confPagina = function () {
+  var mq = window.matchMedia('(max-width: 860px)');
+  function ajustar() {
+    var g = document.getElementById('grade-checkout');
+    g.style.gridTemplateColumns = mq.matches ? '1fr' : '1fr 330px';
+    g.querySelector('aside').style.position = mq.matches ? 'static' : 'sticky';
+  }
+  mq.addEventListener('change', ajustar); ajustar();
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

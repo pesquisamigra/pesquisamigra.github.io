@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eventos — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="visitante"
+      data-route="/eventos"
+      data-screen="Agenda pública de eventos"
+      data-stories="US-027, US-010"
+      data-api="GET /api/contents?type=event&from=&city=&modalidade=|GET /api/contents/{slug}"
+      data-states="Sem eventos futuros|Evento já realizado|Evento lotado|Filtro sem resultado">
+
+<section class="section-tight">
+  <div class="wrap">
+    <span class="eyebrow">Agenda</span>
+    <h1 style="font-size:2.2rem">Eventos</h1>
+    <p class="lede" style="margin-top:10px">Rodas de conversa, supervisões abertas e encontros organizados por quem está no diretório.</p>
+    <hr class="rule-confluencia" style="margin-top:18px">
+
+    <div class="row" style="gap:10px">
+      <select class="select" id="e-mod" style="width:auto"><option value="">Todas as modalidades</option><option>On-line</option><option>Presencial</option></select>
+      <select class="select" id="e-cidade" style="width:auto"><option value="">Todas as cidades</option><option>São Paulo</option><option>Belo Horizonte</option><option>Recife</option></select>
+      <select class="select" id="e-valor" style="width:auto"><option value="">Qualquer valor</option><option>Gratuito</option><option>Pago</option><option>Contribuição voluntária</option></select>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:60px">
+  <div class="wrap stack" id="lista-eventos"></div>
+</section>
+
+<script>
+var EVENTOS = [
+  { titulo: 'Roda de conversa: luto e trabalho', mod: 'On-line', cidade: '—', dia: '12', mes: 'SET',
+    hora: '19h00 — 21h00 (BRT)', valor: 'Gratuito', vagas: '60 vagas · 41 preenchidas',
+    autor: 'Helena Vasques', desc: 'Encontro aberto sobre como o luto atravessa a vida profissional e o que ambientes de trabalho podem fazer.' },
+  { titulo: 'Supervisão aberta em clínica infantil', mod: 'Presencial', cidade: 'Belo Horizonte', dia: '26', mes: 'SET',
+    hora: '09h00 — 12h00', valor: 'Contribuição voluntária', vagas: '25 vagas · 25 preenchidas',
+    autor: 'Aline Souza Costa', desc: 'Discussão de casos com profissionais em formação. Espaço restrito a psicólogos e estudantes de psicologia.' },
+  { titulo: 'Oficina: primeiros atendimentos on-line', mod: 'On-line', cidade: '—', dia: '03', mes: 'OUT',
+    hora: '14h00 — 17h00 (BRT)', valor: 'R$ 80,00', vagas: '100 vagas · 12 preenchidas',
+    autor: 'Rafael Nunes', desc: 'Aspectos práticos, éticos e técnicos do atendimento remoto, conforme as resoluções vigentes.' },
+  { titulo: 'Encontro Confluências — Recife', mod: 'Presencial', cidade: 'Recife', dia: '18', mes: 'OUT',
+    hora: '18h30 — 21h00', valor: 'Gratuito', vagas: 'Sem limite de vagas',
+    autor: 'Diego Ferraz', desc: 'Primeiro encontro presencial do movimento no Nordeste. Aberto a profissionais e ao público.' }
+];
+
+window.confPagina = function () {
+  var lista = document.getElementById('lista-eventos');
+
+  function cartao(e) {
+    var lotado = e.vagas.indexOf('25 · 25') > -1 || /(\d+) vagas · \1 preenchidas/.test(e.vagas);
+    return '<article class="card" style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap">' +
+      '<div style="text-align:center;min-width:66px">' +
+        '<div style="font-family:var(--font-display);font-size:2.2rem;line-height:1;color:var(--deep)">' + e.dia + '</div>' +
+        '<div class="mono small" style="letter-spacing:.12em;color:var(--ink-3)">' + e.mes + '</div>' +
+      '</div>' +
+      '<div style="flex:1;min-width:220px">' +
+        '<div class="row" style="gap:8px">' +
+          '<span class="badge badge-plain">' + e.mod + '</span>' +
+          (lotado ? '<span class="badge badge-stop">Lotado</span>' : '<span class="badge badge-ok">Inscrições abertas</span>') +
+        '</div>' +
+        '<h3 style="margin:10px 0 6px">' + e.titulo + '</h3>' +
+        '<p class="small mono muted" style="margin:0">' + e.hora + (e.cidade !== '—' ? ' · ' + e.cidade : '') + ' · ' + e.valor + '</p>' +
+        '<p class="small" style="margin:10px 0 0;color:var(--ink-2)">' + e.desc + '</p>' +
+        '<p class="small muted" style="margin:10px 0 0">Organizado por <a href="perfil.html">' + e.autor + '</a> · ' + e.vagas + '</p>' +
+      '</div>' +
+      '<div class="stack" style="min-width:170px">' +
+        (lotado
+          ? '<button class="btn btn-ghost btn-block" aria-disabled="true">Sem vagas</button>'
+          : '<a class="btn btn-primary btn-block" href="#" data-toast="Abre o link de inscrição externo do organizador.">Inscrever-se</a>') +
+        '<a class="btn btn-quiet btn-block" href="#" data-toast="Detalhe do evento — /eventos/{slug}">Ver detalhes</a>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function render() {
+    var mod = document.getElementById('e-mod').value;
+    var cid = document.getElementById('e-cidade').value;
+    var val = document.getElementById('e-valor').value;
+    var r = EVENTOS.filter(function (e) {
+      if (mod && e.mod !== mod) return false;
+      if (cid && e.cidade !== cid) return false;
+      if (val === 'Gratuito' && e.valor !== 'Gratuito') return false;
+      if (val === 'Pago' && e.valor.indexOf('R$') !== 0) return false;
+      if (val === 'Contribuição voluntária' && e.valor !== 'Contribuição voluntária') return false;
+      return true;
+    });
+    lista.innerHTML = r.length
+      ? r.map(cartao).join('')
+      : '<div class="empty"><h3>Nenhum evento com esses filtros</h3><p class="muted small">Tente ampliar a modalidade ou a cidade.</p></div>';
+    lista.querySelectorAll('[data-toast]').forEach(function (b) {
+      b.addEventListener('click', function (ev) { ev.preventDefault(); window.confToast(b.dataset.toast); });
+    });
+  }
+
+  ['e-mod', 'e-cidade', 'e-valor'].forEach(function (id) {
+    document.getElementById(id).addEventListener('change', render);
+  });
+  render();
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>

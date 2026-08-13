@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joana Ribeiro — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="public" data-flow="visitante"
+      data-route="/profissionais/joana-ribeiro"
+      data-screen="Perfil público do profissional"
+      data-stories="US-005, US-009"
+      data-api="GET /api/profiles/{slug}|GET /api/contents?profile={id}&type=article|POST /api/profiles/{id}/contact"
+      data-states="Perfil aprovado|Perfil pendente ou reprovado → 404|Sem publicações ainda|Assinatura vencida → fora do ar|Contato enviado">
+
+<section style="background:var(--surface);border-bottom:1px solid var(--line);padding:34px 0 0">
+  <div class="wrap">
+    <nav class="small muted" style="margin-bottom:20px">
+      <a href="home.html">Início</a> › <a href="profissionais.html">Profissionais</a> › Joana Ribeiro
+    </nav>
+
+    <div class="row" style="gap:24px;align-items:flex-start">
+      <span class="avatar avatar-lg">JR</span>
+      <div style="flex:1;min-width:240px">
+        <div class="row" style="gap:10px">
+          <h1 style="font-size:2rem">Joana Ribeiro</h1>
+          <span class="badge badge-ok">Aceitando pacientes</span>
+        </div>
+        <p class="lede" style="margin:6px 0 12px;font-size:1.05rem">Psicóloga clínica — Terapia Cognitivo-Comportamental</p>
+        <p class="mono small" style="color:var(--ink-3);margin:0">CRP 06/12345 · São Paulo/SP · Pinheiros e on-line</p>
+        <div class="pro-tags" style="margin-top:14px">
+          <span class="chip">Ansiedade</span>
+          <span class="chip">Depressão</span>
+          <span class="chip chip-deep">TCC</span>
+          <span class="chip">On-line</span>
+          <span class="chip">Presencial</span>
+          <span class="chip">R$ 150–200</span>
+        </div>
+      </div>
+      <div class="stack" style="min-width:200px">
+        <a class="btn btn-primary btn-block" href="#contato">Enviar mensagem</a>
+        <a class="btn btn-ghost btn-block" href="#" data-toast="No produto real, abre o WhatsApp do profissional.">WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="tabs" data-tabs style="margin-top:26px">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p-sobre">Sobre</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-artigos">Artigos<span class="tab-count">4</span></button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-noticias">Notícias<span class="tab-count">2</span></button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-refs">Referências<span class="tab-count">3</span></button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-eventos">Eventos<span class="tab-count">1</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap" style="display:grid;grid-template-columns:1fr 320px;gap:38px;align-items:start" id="grade-perfil">
+    <div>
+      <div class="tabpanel" id="p-sobre" role="tabpanel">
+        <h2>Sobre o trabalho</h2>
+        <hr class="rule-confluencia" style="margin-top:14px">
+        <div class="prose">
+          <p>Atendo adultos que chegam cansados de funcionar no automático. Meu trabalho parte da Terapia Cognitivo-Comportamental, com atenção especial a quadros de ansiedade, esgotamento e episódios depressivos.</p>
+          <p>Formada pela Universidade de São Paulo, com especialização em TCC pelo Instituto de Psiquiatria. Atendo em consultório em Pinheiros e também on-line, para qualquer lugar do país.</p>
+          <blockquote>A primeira sessão é uma conversa. Você não precisa chegar sabendo explicar o que está sentindo.</blockquote>
+          <h3>Como funciona o atendimento</h3>
+          <ul>
+            <li>Sessões de 50 minutos, semanais ou quinzenais.</li>
+            <li>Primeira conversa sem compromisso, de 20 minutos.</li>
+            <li>Atendimento presencial às terças e quintas; on-line nos demais dias.</li>
+          </ul>
+        </div>
+
+        <div class="grid g-2" style="margin-top:32px">
+          <div class="card card-pad-sm">
+            <span class="eyebrow">Convênios</span>
+            <p class="small" style="margin:0">Unimed, Bradesco Saúde e reembolso por nota fiscal.</p>
+          </div>
+          <div class="card card-pad-sm">
+            <span class="eyebrow">Idiomas</span>
+            <p class="small" style="margin:0">Português e inglês.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="p-artigos" role="tabpanel" hidden>
+        <h2>Artigos</h2>
+        <hr class="rule-confluencia" style="margin-top:14px">
+        <div class="stack" id="aba-artigos"></div>
+      </div>
+
+      <div class="tabpanel" id="p-noticias" role="tabpanel" hidden>
+        <h2>Notícias</h2>
+        <hr class="rule-confluencia" style="margin-top:14px">
+        <div class="empty">
+          <h3>Nada publicado por aqui ainda</h3>
+          <p class="muted small">Quando Joana publicar uma notícia, ela aparece nesta aba.</p>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="p-refs" role="tabpanel" hidden>
+        <h2>Referências bibliográficas</h2>
+        <hr class="rule-confluencia" style="margin-top:14px">
+        <div class="stack">
+          <div class="card card-pad-sm">
+            <span class="badge badge-plain">Referência</span>
+            <h3 style="margin:10px 0 6px">Terapia cognitivo-comportamental em grupo: revisão sistemática</h3>
+            <p class="small mono muted" style="margin:0">SILVA, J.; SANTOS, M. · Revista Brasileira de Psicologia · 2024 · DOI 10.1000/exemplo</p>
+            <p class="small" style="margin:10px 0 0">Revisão de 42 estudos sobre eficácia de intervenções em grupo para transtornos de ansiedade.</p>
+          </div>
+          <div class="card card-pad-sm">
+            <span class="badge badge-plain">Referência</span>
+            <h3 style="margin:10px 0 6px">Manual de intervenções breves na atenção primária</h3>
+            <p class="small mono muted" style="margin:0">COSTA, A. · Editora Fictícia · 2023</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="p-eventos" role="tabpanel" hidden>
+        <h2>Eventos</h2>
+        <hr class="rule-confluencia" style="margin-top:14px">
+        <div class="card">
+          <div class="row-between">
+            <div>
+              <span class="badge badge-plain">Evento on-line</span>
+              <h3 style="margin:10px 0 4px">Grupo aberto: ansiedade e trabalho</h3>
+              <p class="small mono muted" style="margin:0">12 de setembro de 2026 · 19h00 · Gratuito</p>
+            </div>
+            <a class="btn btn-ghost btn-sm" href="eventos.html">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="stack" id="contato">
+      <div class="card">
+        <span class="eyebrow">Falar com Joana</span>
+        <hr class="rule-confluencia">
+        <form data-validar data-sucesso="Mensagem enviada. Joana recebe no painel dela.">
+          <div class="field">
+            <label class="label-req" for="c-nome">Seu nome</label>
+            <input class="input" id="c-nome" data-erro="e-c-nome">
+            <span class="msg-error" id="e-c-nome">Informe seu nome.</span>
+          </div>
+          <div class="field">
+            <label class="label-req" for="c-email">E-mail</label>
+            <input class="input" type="email" id="c-email" data-erro="e-c-email" data-regex="^[^@\s]+@[^@\s]+\.[^@\s]+$">
+            <span class="msg-error" id="e-c-email">E-mail inválido.</span>
+          </div>
+          <div class="field">
+            <label class="label-req" for="c-assunto">Assunto</label>
+            <select class="select" id="c-assunto">
+              <option>Agendamento</option><option>Dúvida sobre o atendimento</option><option>Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label-req" for="c-msg">Mensagem <span class="counter" id="cont-msg"></span></label>
+            <textarea class="textarea" id="c-msg" maxlength="1000" data-contar="cont-msg" data-erro="e-c-msg"
+              placeholder="Conte brevemente o que você procura."></textarea>
+            <span class="msg-error" id="e-c-msg">Escreva ao menos uma linha.</span>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="c-consent" data-erro="e-c-consent">
+            Autorizo o contato por e-mail ou WhatsApp sobre esta mensagem.
+          </label>
+          <span class="msg-error" id="e-c-consent" style="margin:-6px 0 12px">É preciso autorizar o contato.</span>
+          <button class="btn btn-primary btn-block" type="submit">Enviar mensagem</button>
+          <p class="hint">Seus dados vão apenas para Joana. Nada é publicado.</p>
+        </form>
+      </div>
+
+      <div class="card card-pad-sm">
+        <span class="eyebrow">Onde atende</span>
+        <p class="small" style="margin:0 0 4px"><b>Consultório</b><br>Rua Fictícia, 100 — Pinheiros<br>São Paulo/SP</p>
+        <p class="small muted" style="margin:10px 0 0">Também atende on-line para todo o Brasil.</p>
+      </div>
+
+      <div class="card card-pad-sm">
+        <span class="eyebrow">Encontre também em</span>
+        <div class="row" style="gap:8px">
+          <a class="chip" href="#" data-toast="Link externo do perfil.">Instagram</a>
+          <a class="chip" href="#" data-toast="Link externo do perfil.">LinkedIn</a>
+          <a class="chip" href="#" data-toast="Link externo do perfil.">Site pessoal</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script src="assets/dados.js"></script>
+<script>
+window.confPagina = function () {
+  var alvo = document.getElementById('aba-artigos');
+  window.CONF_CONTEUDOS.filter(function (c) { return c.tipo === 'Artigo'; }).forEach(function (c) {
+    alvo.insertAdjacentHTML('beforeend',
+      '<a class="card card-link card-pad-sm" href="artigo.html">' +
+      '<span class="badge badge-plain">Artigo</span>' +
+      '<h3 style="margin:10px 0 6px">' + c.titulo + '</h3>' +
+      '<p class="small muted" style="margin:0 0 10px">' + c.resumo + '</p>' +
+      '<span class="pro-meta">' + c.data.split('-').reverse().join('/') + '</span></a>');
+  });
+
+  var mq = window.matchMedia('(max-width: 900px)');
+  function ajustar() {
+    document.getElementById('grade-perfil').style.gridTemplateColumns = mq.matches ? '1fr' : '1fr 320px';
+  }
+  mq.addEventListener('change', ajustar); ajustar();
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
