@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meus conteúdos — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel" data-flow="publicacao"
+      data-route="/painel/conteudos"
+      data-screen="Gestão de conteúdos do profissional"
+      data-stories="US-016"
+      data-api="GET /api/contents?author=me&status=|DELETE /api/contents/{id}|POST /api/contents/{id}/submit"
+      data-states="Nenhum conteúdo ainda|Rascunho|Em análise|Ajustes solicitados|Publicado|Reprovado">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Conteúdos</span>
+    <b>Meus conteúdos</b>
+  </div>
+  <a class="btn btn-primary btn-sm" href="painel-conteudo-novo.html">Nova publicação</a>
+</div>
+
+<div class="app-body">
+
+  <div class="notice notice-stop" style="margin-bottom:22px">
+    <div>
+      <strong>Uma publicação precisa de ajustes</strong>
+      “Medicação e psicoterapia: o que combinar” — a conferência pediu que você inclua a fonte das afirmações sobre eficácia e retire a recomendação direta de fármaco. <a href="painel-conteudo-novo.html">Editar publicação</a>
+    </div>
+  </div>
+
+  <div class="tabs" data-tabs style="margin-bottom:20px">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="t-todos">Todos<span class="tab-count">12</span></button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t-analise">Em análise<span class="tab-count">1</span></button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="t-rascunho">Rascunhos<span class="tab-count">2</span></button>
+  </div>
+
+  <div class="tabpanel" id="t-todos" role="tabpanel">
+    <div class="table-card">
+      <table class="table">
+        <thead>
+          <tr><th>Título</th><th>Tipo</th><th>Situação</th><th>Atualizado</th><th></th></tr>
+        </thead>
+        <tbody id="linhas"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t-analise" role="tabpanel" hidden>
+    <div class="table-card">
+      <table class="table">
+        <thead><tr><th>Título</th><th>Tipo</th><th>Enviado em</th><th>Prazo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Sono e ansiedade: o que a noite revela</b></td>
+            <td><span class="chip">Artigo</span></td>
+            <td class="mono small">11/08/2026</td>
+            <td class="small">Até 13/08/2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t-rascunho" role="tabpanel" hidden>
+    <div class="empty">
+      <h3>Dois rascunhos esperando você</h3>
+      <p class="muted small">Rascunhos ficam só com você até serem enviados para conferência.</p>
+      <a class="btn btn-ghost btn-sm" href="painel-conteudo-novo.html">Continuar escrevendo</a>
+    </div>
+  </div>
+</div>
+
+<script>
+window.confPagina = function () {
+  var itens = [
+    { t: 'Sono e ansiedade: o que a noite revela', tipo: 'Artigo', s: 'analise', d: '11/08/2026' },
+    { t: 'Medicação e psicoterapia: o que combinar', tipo: 'Artigo', s: 'ajustes', d: '09/08/2026' },
+    { t: 'O que a ansiedade tenta dizer antes de virar sintoma', tipo: 'Artigo', s: 'pub', d: '04/08/2026' },
+    { t: 'Grupo aberto: ansiedade e trabalho', tipo: 'Evento', s: 'pub', d: '02/08/2026' },
+    { t: 'TCC em grupo: revisão sistemática', tipo: 'Referência', s: 'pub', d: '28/07/2026' },
+    { t: 'Nova resolução sobre atendimento remoto', tipo: 'Notícia', s: 'pub', d: '21/07/2026' },
+    { t: 'Primeira sessão: um roteiro (rascunho)', tipo: 'Artigo', s: 'rascunho', d: '18/07/2026' },
+    { t: 'Leituras de agosto', tipo: 'Referência', s: 'rascunho', d: '15/07/2026' },
+    { t: 'Encontro de supervisão — julho', tipo: 'Evento', s: 'reprovado', d: '02/07/2026' }
+  ];
+  var selo = {
+    pub: '<span class="badge badge-ok">Publicado</span>',
+    analise: '<span class="badge badge-wait">Em análise</span>',
+    ajustes: '<span class="badge badge-stop">Ajustes pedidos</span>',
+    reprovado: '<span class="badge badge-stop">Reprovado</span>',
+    rascunho: '<span class="badge badge-draft">Rascunho</span>'
+  };
+  var tbody = document.getElementById('linhas');
+  tbody.innerHTML = itens.map(function (i) {
+    return '<tr><td><b>' + i.t + '</b></td>' +
+      '<td><span class="chip">' + i.tipo + '</span></td>' +
+      '<td>' + selo[i.s] + '</td>' +
+      '<td class="mono small muted">' + i.d + '</td>' +
+      '<td style="text-align:right;white-space:nowrap">' +
+        '<a class="btn btn-quiet btn-sm" href="painel-conteudo-novo.html">Editar</a>' +
+        '<button class="btn btn-quiet btn-sm" data-toast="Cópia criada como rascunho.">Duplicar</button>' +
+        '<button class="btn btn-quiet btn-sm" style="color:var(--stop)" data-toast="Pediríamos confirmação antes de excluir.">Excluir</button>' +
+      '</td></tr>';
+  }).join('');
+  tbody.querySelectorAll('[data-toast]').forEach(function (b) {
+    b.addEventListener('click', function () { window.confToast(b.dataset.toast); });
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
