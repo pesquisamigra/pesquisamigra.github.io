@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova publicação — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel" data-flow="publicacao"
+      data-route="/painel/conteudos/novo"
+      data-screen="Criação de conteúdo (4 tipos)"
+      data-stories="US-008"
+      data-api="POST /api/contents|PUT /api/contents/{id}|POST /api/contents/{id}/submit|POST /api/uploads"
+      data-states="Rascunho salvo|Campos condicionais por tipo|Data de evento no passado|Slug duplicado|Enviado para conferência">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Conteúdos</span>
+    <b>Nova publicação</b>
+  </div>
+  <div class="row">
+    <span class="badge badge-draft">Rascunho</span>
+    <button class="btn btn-ghost btn-sm" data-toast="Rascunho salvo às 14h32.">Salvar rascunho</button>
+    <button class="btn btn-primary btn-sm" form="form-conteudo" type="submit">Enviar para conferência</button>
+  </div>
+</div>
+
+<div class="app-body">
+  <form id="form-conteudo" data-validar data-ir-para="painel-conteudos.html" data-sucesso="Enviado. Você recebe o resultado por e-mail.">
+
+    <fieldset class="fieldset">
+      <legend>O que você vai publicar</legend>
+      <div class="grid g-4" style="gap:10px">
+        <label class="option is-on" style="padding:14px">
+          <input type="radio" name="tipo" value="artigo" checked>
+          <b style="font-size:.95rem">Artigo</b>
+          <p class="hint" style="margin:4px 0 0">Texto autoral, mais longo.</p>
+        </label>
+        <label class="option" style="padding:14px">
+          <input type="radio" name="tipo" value="noticia">
+          <b style="font-size:.95rem">Notícia</b>
+          <p class="hint" style="margin:4px 0 0">Fato recente, com fonte.</p>
+        </label>
+        <label class="option" style="padding:14px">
+          <input type="radio" name="tipo" value="referencia">
+          <b style="font-size:.95rem">Referência</b>
+          <p class="hint" style="margin:4px 0 0">Livro, artigo ou capítulo.</p>
+        </label>
+        <label class="option" style="padding:14px">
+          <input type="radio" name="tipo" value="evento">
+          <b style="font-size:.95rem">Evento</b>
+          <p class="hint" style="margin:4px 0 0">Encontro com data e hora.</p>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Informações principais</legend>
+
+      <div class="field">
+        <label class="label-req" for="c-titulo">Título <span class="counter" id="ct-titulo"></span></label>
+        <input class="input" id="c-titulo" maxlength="150" data-contar="ct-titulo" data-erro="e-titulo">
+        <span class="msg-error" id="e-titulo">O título é obrigatório e vai até 150 caracteres.</span>
+      </div>
+
+      <div class="field">
+        <label class="label-req" for="c-resumo">Resumo <span class="counter" id="ct-resumo"></span></label>
+        <textarea class="textarea" id="c-resumo" maxlength="300" data-contar="ct-resumo" data-erro="e-resumo" style="min-height:80px"></textarea>
+        <span class="msg-error" id="e-resumo">O resumo é obrigatório e vai até 300 caracteres.</span>
+        <p class="hint">Aparece nas listagens e nos cartões. É o que faz alguém clicar.</p>
+      </div>
+
+      <div class="field">
+        <label for="c-capa">Imagem de capa</label>
+        <div style="border:1px dashed var(--line);border-radius:8px;padding:26px;text-align:center;background:var(--surface-2)">
+          <p class="small muted" style="margin:0 0 10px">Arraste um arquivo ou escolha do computador</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-toast="Abriria o seletor de arquivos.">Escolher imagem</button>
+          <p class="hint" style="margin-top:10px">JPG, PNG ou WebP de até 5 MB. Recomendado 1200×630 px.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ARTIGO -->
+    <fieldset class="fieldset" data-mostrar-se="artigo">
+      <legend>Texto do artigo</legend>
+      <div class="field">
+        <label class="label-req" for="a-corpo">Conteúdo <span class="counter" id="ct-corpo"></span></label>
+        <div class="row" style="gap:4px;padding:6px;background:var(--surface-2);border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0">
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração."><b>B</b></button>
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração."><i>I</i></button>
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração.">H2</button>
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração.">Lista</button>
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração.">Citação</button>
+          <button class="btn btn-quiet btn-sm" type="button" data-toast="Editor de demonstração.">Link</button>
+        </div>
+        <textarea class="textarea" id="a-corpo" data-contar="ct-corpo" data-max="mín. 500" data-erro="e-corpo"
+                  style="min-height:260px;border-radius:0 0 8px 8px"></textarea>
+        <span class="msg-error" id="e-corpo">O artigo precisa de pelo menos 500 caracteres.</span>
+      </div>
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="a-cat">Categoria</label>
+          <select class="select" id="a-cat"><option>Ansiedade</option><option>Depressão</option><option>Relacionamentos</option><option>Infância</option></select>
+        </div>
+        <div class="field">
+          <label for="a-tags">Tags</label>
+          <input class="input" id="a-tags" placeholder="Separe por vírgula. Até 10.">
+        </div>
+      </div>
+      <label class="check"><input type="checkbox"> Destacar este artigo no topo do meu perfil</label>
+    </fieldset>
+
+    <!-- NOTÍCIA -->
+    <fieldset class="fieldset" data-mostrar-se="noticia" hidden>
+      <legend>Corpo da notícia</legend>
+      <div class="field">
+        <label class="label-req" for="n-lead">Linha fina</label>
+        <textarea class="textarea" id="n-lead" maxlength="200" style="min-height:70px"></textarea>
+        <p class="hint">Até 200 caracteres. O essencial em uma frase.</p>
+      </div>
+      <div class="field">
+        <label class="label-req" for="n-corpo">Texto</label>
+        <textarea class="textarea" id="n-corpo" style="min-height:200px"></textarea>
+        <p class="hint">Mínimo de 200 caracteres.</p>
+      </div>
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="n-data">Data da notícia</label>
+          <input class="input" type="date" id="n-data" value="2026-08-13">
+        </div>
+        <div class="field">
+          <label for="n-fonte">Link da fonte original</label>
+          <input class="input" id="n-fonte" placeholder="https://">
+          <p class="hint">Se a notícia veio de outro veículo, credite a fonte.</p>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- REFERÊNCIA -->
+    <fieldset class="fieldset" data-mostrar-se="referencia" hidden>
+      <legend>Dados da obra</legend>
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label class="label-req" for="r-autores">Autores</label>
+          <input class="input" id="r-autores" placeholder="SILVA, J.; SANTOS, M.">
+        </div>
+        <div class="field">
+          <label class="label-req" for="r-ano">Ano de publicação</label>
+          <input class="input" id="r-ano" inputmode="numeric" placeholder="2024">
+        </div>
+        <div class="field">
+          <label class="label-req" for="r-fonte">Periódico ou editora</label>
+          <input class="input" id="r-fonte">
+        </div>
+        <div class="field">
+          <label for="r-doi">DOI</label>
+          <input class="input" id="r-doi" placeholder="10.1000/exemplo">
+        </div>
+      </div>
+      <div class="field">
+        <label for="r-url">Link de acesso</label>
+        <input class="input" id="r-url" placeholder="https://">
+      </div>
+      <div class="field">
+        <label for="r-abs">Resumo da obra</label>
+        <textarea class="textarea" id="r-abs" maxlength="1000" style="min-height:120px"></textarea>
+        <p class="hint">Até 1000 caracteres. Escreva com suas palavras — não cole o resumo original.</p>
+      </div>
+      <div class="field">
+        <label for="r-pdf">Arquivo em PDF</label>
+        <button class="btn btn-ghost btn-sm" type="button" data-toast="Abriria o seletor de arquivos.">Anexar PDF</button>
+        <p class="hint">Até 10 MB. Só anexe se você tem direito de distribuir o arquivo.</p>
+      </div>
+    </fieldset>
+
+    <!-- EVENTO -->
+    <fieldset class="fieldset" data-mostrar-se="evento" hidden>
+      <legend>Quando e onde</legend>
+      <div class="field">
+        <label class="label-req" for="ev-tipo">Modalidade</label>
+        <select class="select" id="ev-tipo"><option>On-line</option><option>Presencial</option><option>Híbrido</option></select>
+      </div>
+      <div class="grid g-4" style="gap:14px">
+        <div class="field">
+          <label class="label-req" for="ev-di">Início</label>
+          <input class="input" type="date" id="ev-di" data-erro="e-evdi">
+          <span class="msg-error" id="e-evdi">Informe uma data futura.</span>
+        </div>
+        <div class="field"><label class="label-req" for="ev-hi">Hora</label><input class="input" type="time" id="ev-hi"></div>
+        <div class="field"><label for="ev-df">Término</label><input class="input" type="date" id="ev-df"></div>
+        <div class="field"><label for="ev-hf">Hora</label><input class="input" type="time" id="ev-hf"></div>
+      </div>
+      <div class="field">
+        <label class="label-req" for="ev-fuso">Fuso horário</label>
+        <select class="select" id="ev-fuso"><option>America/Sao_Paulo (BRT)</option><option>America/Manaus</option><option>America/Belem</option></select>
+      </div>
+      <div class="grid g-2" style="gap:16px">
+        <div class="field">
+          <label for="ev-link">Link do encontro</label>
+          <input class="input" id="ev-link" placeholder="https://">
+          <p class="hint">Obrigatório para eventos on-line e híbridos.</p>
+        </div>
+        <div class="field">
+          <label for="ev-insc">Link de inscrição</label>
+          <input class="input" id="ev-insc" placeholder="Sympla, formulário, etc.">
+        </div>
+      </div>
+      <div class="grid g-3" style="gap:14px">
+        <div class="field">
+          <label class="label-req" for="ev-valor">Valor</label>
+          <select class="select" id="ev-valor"><option>Gratuito</option><option>Pago</option><option>Contribuição voluntária</option></select>
+        </div>
+        <div class="field"><label for="ev-preco">Preço</label><input class="input" id="ev-preco" placeholder="R$ 0,00"></div>
+        <div class="field"><label for="ev-vagas">Vagas</label><input class="input" id="ev-vagas" inputmode="numeric" placeholder="Sem limite"></div>
+      </div>
+      <div class="field">
+        <label class="label-req" for="ev-desc">Descrição</label>
+        <textarea class="textarea" id="ev-desc" style="min-height:160px"></textarea>
+        <p class="hint">Mínimo de 200 caracteres. Diga para quem é o evento e o que a pessoa leva de lá.</p>
+      </div>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Como aparece nas buscas</legend>
+      <div class="field">
+        <label for="s-titulo">Título para buscadores <span class="counter" id="ct-seo"></span></label>
+        <input class="input" id="s-titulo" maxlength="60" data-contar="ct-seo">
+        <p class="hint">Se ficar vazio, usamos o título da publicação.</p>
+      </div>
+      <div class="field">
+        <label for="s-desc">Descrição para buscadores <span class="counter" id="ct-seodesc"></span></label>
+        <textarea class="textarea" id="s-desc" maxlength="160" data-contar="ct-seodesc" style="min-height:70px"></textarea>
+      </div>
+      <div class="card card-pad-sm" style="background:var(--surface-2)">
+        <span class="eyebrow">Prévia no Google</span>
+        <p class="small mono" style="margin:0;color:var(--deep-300)">confluencias.com.br › artigos › titulo-da-publicacao</p>
+        <p style="margin:2px 0 2px;color:#1A0DAB;font-size:1.02rem">Título da publicação — Confluências</p>
+        <p class="small muted" style="margin:0">A descrição aparece aqui. Escreva pensando em quem está procurando ajuda.</p>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <button class="btn btn-primary btn-lg" type="submit">Enviar para conferência</button>
+      <button class="btn btn-ghost" type="button" data-toast="Rascunho salvo.">Salvar rascunho</button>
+      <a class="btn btn-quiet" href="painel-conteudos.html">Descartar</a>
+    </div>
+  </form>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
