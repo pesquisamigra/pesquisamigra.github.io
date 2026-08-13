@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minha assinatura — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel"
+      data-route="/painel/assinatura"
+      data-screen="Gestão da assinatura"
+      data-stories="US-013, US-014"
+      data-api="GET /api/subscriptions/current|POST /api/subscriptions/cancel|POST /api/subscriptions/reactivate|GET /api/payments/history"
+      data-states="Ativa|Cancelada (acesso até o fim do período)|Pagamento em atraso|Cartão recusado|Reativada">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Assinatura</span>
+    <b>Minha assinatura</b>
+  </div>
+  <a class="btn btn-ghost btn-sm" href="#" data-toast="Baixaria as notas fiscais em PDF.">Notas fiscais</a>
+</div>
+
+<div class="app-body">
+
+  <div class="grid g-2" style="align-items:start;margin-bottom:30px">
+    <div class="card">
+      <div class="row-between" style="margin-bottom:14px">
+        <div>
+          <span class="eyebrow" style="margin:0">Plano atual</span>
+          <h2 style="font-size:1.4rem">Perfil no diretório</h2>
+        </div>
+        <span class="badge badge-ok">Ativa</span>
+      </div>
+      <div class="row-between small" style="padding:9px 0;border-bottom:1px solid var(--line-soft)">
+        <span class="muted">Valor</span><b class="mono">R$ 90,00/mês</b>
+      </div>
+      <div class="row-between small" style="padding:9px 0;border-bottom:1px solid var(--line-soft)">
+        <span class="muted">Manutenção da plataforma</span><span class="mono">R$ 60,00</span>
+      </div>
+      <div class="row-between small" style="padding:9px 0;border-bottom:1px solid var(--line-soft)">
+        <span class="muted">Fundo do movimento</span><span class="mono">R$ 30,00</span>
+      </div>
+      <div class="row-between small" style="padding:9px 0;border-bottom:1px solid var(--line-soft)">
+        <span class="muted">Assinante desde</span><span class="mono">13/02/2026</span>
+      </div>
+      <div class="row-between small" style="padding:9px 0">
+        <span class="muted">Próxima cobrança</span><b class="mono">13/09/2026</b>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <span class="eyebrow">Forma de pagamento</span>
+        <div class="row-between">
+          <div>
+            <b>Cartão de crédito</b>
+            <p class="small mono muted" style="margin:2px 0 0">•••• •••• •••• 4218 · vence 08/28</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-toast="Abriria o formulário de troca de cartão.">Trocar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="eyebrow">Cancelar</span>
+        <p class="small" style="margin:0 0 4px">Você pode cancelar quando quiser.</p>
+        <p class="small muted" style="margin:0 0 14px">Seu perfil continua público e você mantém acesso ao painel até <b>13/09/2026</b>, fim do período já pago. Depois disso, o perfil sai do ar e suas publicações deixam de aparecer — mas nada é apagado. Se voltar, tudo está no mesmo lugar.</p>
+        <button class="btn btn-danger btn-sm" id="btn-cancelar">Cancelar assinatura</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-between" style="margin-bottom:14px">
+    <h2 style="font-size:1.3rem">Histórico de cobranças</h2>
+    <span class="small muted mono">12 cobranças</span>
+  </div>
+
+  <div class="table-card">
+    <table class="table">
+      <thead>
+        <tr><th>Data</th><th>Descrição</th><th>Forma</th><th>Valor</th><th>Situação</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono small">13/08/2026</td><td>Mensalidade — perfil no diretório</td><td class="small">Cartão 4218</td><td class="mono">R$ 90,00</td><td><span class="badge badge-ok">Paga</span></td><td style="text-align:right"><button class="btn btn-quiet btn-sm" data-toast="Baixaria o recibo em PDF.">Recibo</button></td></tr>
+        <tr><td class="mono small">13/07/2026</td><td>Mensalidade — perfil no diretório</td><td class="small">Cartão 4218</td><td class="mono">R$ 90,00</td><td><span class="badge badge-ok">Paga</span></td><td style="text-align:right"><button class="btn btn-quiet btn-sm" data-toast="Baixaria o recibo em PDF.">Recibo</button></td></tr>
+        <tr><td class="mono small">13/06/2026</td><td>Mensalidade — perfil no diretório</td><td class="small">Cartão 4218</td><td class="mono">R$ 90,00</td><td><span class="badge badge-stop">Recusada</span></td><td style="text-align:right"><span class="small muted">Refeita em 14/06</span></td></tr>
+        <tr><td class="mono small">14/06/2026</td><td>Mensalidade — nova tentativa</td><td class="small">Cartão 4218</td><td class="mono">R$ 90,00</td><td><span class="badge badge-ok">Paga</span></td><td style="text-align:right"><button class="btn btn-quiet btn-sm" data-toast="Baixaria o recibo em PDF.">Recibo</button></td></tr>
+        <tr><td class="mono small">13/05/2026</td><td>Mensalidade — perfil no diretório</td><td class="small">Pix</td><td class="mono">R$ 90,00</td><td><span class="badge badge-ok">Paga</span></td><td style="text-align:right"><button class="btn btn-quiet btn-sm" data-toast="Baixaria o recibo em PDF.">Recibo</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+window.confPagina = function () {
+  document.getElementById('btn-cancelar').addEventListener('click', function () {
+    window.confToast('Aqui abriria a confirmação, com o motivo do cancelamento.');
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
