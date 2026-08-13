@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administração — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="admin" data-flow="admin"
+      data-route="/admin"
+      data-screen="Painel administrativo"
+      data-stories="US-021, US-020"
+      data-api="GET /api/admin/metrics|GET /api/admin/moderation/profiles?status=pending|GET /api/admin/users"
+      data-states="Fila de moderação vazia|SLA estourado|Falha de webhook do gateway|Split divergente na conciliação">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Administração</span>
+    <b>Visão geral</b>
+  </div>
+  <div class="row">
+    <select class="select" style="width:auto;padding:6px 32px 6px 10px"><option>Últimos 30 dias</option><option>Últimos 90 dias</option><option>Este ano</option></select>
+    <a class="btn btn-primary btn-sm" href="admin-moderacao.html">Ir para moderação</a>
+  </div>
+</div>
+
+<div class="app-body">
+
+  <div class="notice notice-wait" style="margin-bottom:24px">
+    <div>
+      <strong>7 itens esperando conferência</strong>
+      3 perfis e 4 publicações. O mais antigo entrou há 1 dia e 4 horas — o prazo combinado é de 2 dias úteis.
+      <a href="admin-moderacao.html">Abrir a fila</a>
+    </div>
+  </div>
+
+  <div class="grid g-4" style="margin-bottom:14px">
+    <div class="metric">
+      <div class="metric-label">Receita recorrente</div>
+      <div class="metric-value">R$ 11.520</div>
+      <div class="metric-delta">+9,4% no mês</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Perfis ativos</div>
+      <div class="metric-value">128</div>
+      <div class="metric-delta">+11 no mês</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Cancelamentos</div>
+      <div class="metric-value">3,9%</div>
+      <div class="metric-delta down">+0,6 p.p.</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Apoiadores</div>
+      <div class="metric-value">43</div>
+      <div class="metric-delta">+5 no mês</div>
+    </div>
+  </div>
+
+  <div class="grid g-4" style="margin-bottom:30px">
+    <div class="metric">
+      <div class="metric-label">Fundo do movimento</div>
+      <div class="metric-value" style="color:var(--amber)">R$ 5.130</div>
+      <div class="metric-delta muted" style="color:var(--ink-3)">Repassado no mês</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Publicações no ar</div>
+      <div class="metric-value">340</div>
+      <div class="metric-delta">+38 no mês</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Contatos enviados</div>
+      <div class="metric-value">612</div>
+      <div class="metric-delta">+14% no mês</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Visitas ao site</div>
+      <div class="metric-value">18,4 mil</div>
+      <div class="metric-delta">+22% no mês</div>
+    </div>
+  </div>
+
+  <div class="grid g-2" style="align-items:start">
+
+    <div class="card">
+      <div class="row-between" style="margin-bottom:14px">
+        <h3>Esperando conferência</h3>
+        <a class="small" href="admin-moderacao.html">Abrir fila</a>
+      </div>
+      <div class="stack">
+        <div class="row-between" style="padding-bottom:11px;border-bottom:1px solid var(--line-soft)">
+          <span class="row" style="gap:10px"><span class="avatar avatar-sm avatar-amber">NS</span>
+          <span><b style="font-size:.92rem;display:block">Nara Siqueira</b><span class="pro-meta">Perfil novo · CRP 03/42655</span></span></span>
+          <span class="mono small muted">há 1d 4h</span>
+        </div>
+        <div class="row-between" style="padding-bottom:11px;border-bottom:1px solid var(--line-soft)">
+          <span class="row" style="gap:10px"><span class="avatar avatar-sm">JR</span>
+          <span><b style="font-size:.92rem;display:block">Sono e ansiedade</b><span class="pro-meta">Artigo · Joana Ribeiro</span></span></span>
+          <span class="mono small muted">há 20h</span>
+        </div>
+        <div class="row-between">
+          <span class="row" style="gap:10px"><span class="avatar avatar-sm avatar-river">PA</span>
+          <span><b style="font-size:.92rem;display:block">Paulo Andrade</b><span class="pro-meta">Alteração de perfil</span></span></span>
+          <span class="mono small muted">há 6h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row-between" style="margin-bottom:14px">
+        <h3>Pagamentos que exigem atenção</h3>
+        <a class="small" href="#" data-toast="Abriria /admin/assinaturas com o filtro aplicado.">Ver todos</a>
+      </div>
+      <div class="stack">
+        <div class="notice notice-stop">
+          <div class="small"><strong>2 cobranças recusadas</strong>Nova tentativa automática em 14/08. Se falhar de novo, os perfis são suspensos em 20/08.</div>
+        </div>
+        <div class="notice notice-wait">
+          <div class="small"><strong>1 boleto vencido</strong>Emitido em 02/08, sem compensação. O perfil ainda não foi publicado.</div>
+        </div>
+        <div class="notice notice-ok">
+          <div class="small"><strong>Conciliação do dia fecha</strong>127 cobranças, split conferido em todas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
