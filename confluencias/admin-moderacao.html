@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moderação — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="admin" data-flow="admin"
+      data-route="/admin/moderacao"
+      data-screen="Fila de moderação (perfis e conteúdos)"
+      data-stories="US-018, US-019"
+      data-api="GET /api/admin/moderation/profiles|POST /api/admin/moderation/profiles/{id}/decision|GET /api/admin/moderation/contents|POST /api/admin/moderation/contents/{id}/decision"
+      data-states="Fila vazia|Comentário obrigatório ao reprovar ou pedir ajustes|Notificação por e-mail ligada|Registro em ModerationAction|SLA de 2 dias úteis">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Moderação</span>
+    <b>Fila de conferência</b>
+  </div>
+  <div class="row">
+    <span class="badge badge-wait">7 pendentes</span>
+    <a class="btn btn-ghost btn-sm" href="#" data-toast="Abriria o manual de conferência.">Critérios de conferência</a>
+  </div>
+</div>
+
+<div class="app-body">
+
+  <div class="tabs" data-tabs style="margin-bottom:22px">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="m-perfis">Perfis<span class="tab-count">3</span></button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="m-conteudos">Publicações<span class="tab-count">4</span></button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="m-historico">Histórico</button>
+  </div>
+
+  <!-- PERFIS -->
+  <div class="tabpanel" id="m-perfis" role="tabpanel">
+    <article class="card" style="margin-bottom:18px">
+      <div class="row-between" style="margin-bottom:16px">
+        <div class="row" style="gap:14px">
+          <span class="avatar avatar-amber">NS</span>
+          <div>
+            <div class="row" style="gap:8px"><h3 style="margin:0">Nara Siqueira</h3><span class="badge badge-wait">Perfil novo</span></div>
+            <p class="pro-meta" style="margin:2px 0 0">CRP 03/42655 · Salvador/BA · enviado há 1d 4h</p>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="perfil.html">Ver como ficaria</a>
+      </div>
+
+      <div class="grid g-2" style="gap:14px;margin-bottom:16px">
+        <div class="card card-pad-sm" style="background:var(--surface-2)">
+          <span class="eyebrow">Registro no conselho</span>
+          <p class="small mono" style="margin:0">CRP 03/42655 — Bahia</p>
+          <div class="row" style="gap:8px;margin-top:10px">
+            <button class="btn btn-ghost btn-sm" data-toast="Abriria a consulta pública do conselho em nova aba.">Conferir no conselho</button>
+            <span class="badge badge-draft">Não conferido</span>
+          </div>
+        </div>
+        <div class="card card-pad-sm" style="background:var(--surface-2)">
+          <span class="eyebrow">Assinatura</span>
+          <p class="small" style="margin:0">Perfil no diretório · R$ 90,00</p>
+          <p class="small mono muted" style="margin:4px 0 0">Paga em 12/08 · cartão aprovado · split registrado</p>
+        </div>
+      </div>
+
+      <div class="card card-pad-sm" style="margin-bottom:16px">
+        <span class="eyebrow">Apresentação enviada</span>
+        <p class="small" style="margin:0;color:var(--ink-2)">Trabalho com mulheres em situação de violência há doze anos, em atendimento individual e em grupo. Minha prática combina TCC e ACT, com foco em recuperação de autonomia e reconstrução de vínculo. Atendo particular com valor social e recebo encaminhamentos da rede pública do bairro.</p>
+      </div>
+
+      <form data-validar data-sucesso="Perfil aprovado. Nara foi avisada por e-mail." style="border-top:1px solid var(--line-soft);padding-top:16px">
+        <div class="row" style="gap:10px;margin-bottom:14px">
+          <label class="option is-on" style="padding:10px 16px;flex:1;text-align:center">
+            <input type="radio" name="decisao" value="aprovar" checked><b style="font-size:.9rem">Aprovar</b>
+          </label>
+          <label class="option" style="padding:10px 16px;flex:1;text-align:center">
+            <input type="radio" name="decisao" value="ajustes"><b style="font-size:.9rem">Pedir ajustes</b>
+          </label>
+          <label class="option" style="padding:10px 16px;flex:1;text-align:center">
+            <input type="radio" name="decisao" value="reprovar"><b style="font-size:.9rem">Reprovar</b>
+          </label>
+        </div>
+
+        <div class="field" data-mostrar-se="ajustes" hidden>
+          <label class="label-req" for="c-ajustes">O que precisa mudar <span class="counter" id="ct-aj"></span></label>
+          <textarea class="textarea" id="c-ajustes" maxlength="1000" data-contar="ct-aj" style="min-height:90px"
+            placeholder="Seja específica: a pessoa recebe este texto e precisa saber exatamente o que corrigir."></textarea>
+        </div>
+
+        <div class="field" data-mostrar-se="reprovar" hidden>
+          <label class="label-req" for="c-reprovar">Motivo da reprovação <span class="counter" id="ct-rep"></span></label>
+          <textarea class="textarea" id="c-reprovar" maxlength="1000" data-contar="ct-rep" style="min-height:90px"
+            placeholder="O motivo vai por e-mail e fica registrado no histórico."></textarea>
+        </div>
+
+        <div class="row-between">
+          <label class="check" style="margin:0"><input type="checkbox" checked> Avisar por e-mail</label>
+          <button class="btn btn-primary" type="submit">Registrar decisão</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="card">
+      <div class="row-between">
+        <div class="row" style="gap:14px">
+          <span class="avatar avatar-river">PA</span>
+          <div>
+            <div class="row" style="gap:8px"><h3 style="margin:0">Paulo Andrade</h3><span class="badge badge-draft">Alteração</span></div>
+            <p class="pro-meta" style="margin:2px 0 0">CRP 04/30188 · já aprovado em 03/2026 · alteração há 6h</p>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn btn-ghost btn-sm" data-toast="Mostraria só o que mudou em relação à versão publicada.">Ver o que mudou</button>
+          <button class="btn btn-primary btn-sm" data-toast="Alteração aprovada. Perfil atualizado.">Aprovar</button>
+        </div>
+      </div>
+      <div class="notice notice-info" style="margin-top:14px">
+        <div class="small"><strong>Mudou nesta versão</strong>Faixa de preço, convênios aceitos e três parágrafos da apresentação. O perfil publicado continua no ar enquanto isso.</div>
+      </div>
+    </article>
+  </div>
+
+  <!-- CONTEÚDOS -->
+  <div class="tabpanel" id="m-conteudos" role="tabpanel" hidden>
+    <div class="table-card" style="margin-bottom:18px">
+      <table class="table">
+        <thead><tr><th>Publicação</th><th>Tipo</th><th>Autor</th><th>Na fila há</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Sono e ansiedade: o que a noite revela</b></td>
+            <td><span class="chip">Artigo</span></td><td class="small">Joana Ribeiro</td>
+            <td class="mono small">20h</td>
+            <td style="text-align:right;white-space:nowrap">
+              <button class="btn btn-ghost btn-sm" data-toast="Abriria a publicação completa para leitura.">Ler</button>
+              <button class="btn btn-primary btn-sm" data-toast="Publicada. Já aparece no perfil da Joana.">Aprovar</button>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Nova diretriz sobre atendimento remoto</b></td>
+            <td><span class="chip">Notícia</span></td><td class="small">Marcos Tavares</td>
+            <td class="mono small">1d 2h</td>
+            <td style="text-align:right;white-space:nowrap">
+              <button class="btn btn-ghost btn-sm" data-toast="Abriria a publicação completa para leitura.">Ler</button>
+              <button class="btn btn-primary btn-sm" data-toast="Publicada.">Aprovar</button>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Protocolo caseiro para crises de pânico</b></td>
+            <td><span class="chip">Artigo</span></td><td class="small">Autor fictício</td>
+            <td class="mono small">1d 9h</td>
+            <td style="text-align:right;white-space:nowrap">
+              <button class="btn btn-ghost btn-sm" data-toast="Abriria a publicação completa para leitura.">Ler</button>
+              <button class="btn btn-danger btn-sm" data-toast="Ajustes pedidos ao autor, com o comentário registrado.">Pedir ajustes</button>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Encontro Confluências — Recife</b></td>
+            <td><span class="chip">Evento</span></td><td class="small">Diego Ferraz</td>
+            <td class="mono small">4h</td>
+            <td style="text-align:right;white-space:nowrap">
+              <button class="btn btn-ghost btn-sm" data-toast="Abriria a publicação completa para leitura.">Ler</button>
+              <button class="btn btn-primary btn-sm" data-toast="Publicado. Já aparece na agenda.">Aprovar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice notice-info">
+      <div class="small"><strong>Lembrete de conferência</strong>Publicações que prometem cura, indicam medicação ou trazem dado clínico sem fonte devem receber pedido de ajuste, não reprovação direta — salvo repetição.</div>
+    </div>
+  </div>
+
+  <!-- HISTÓRICO -->
+  <div class="tabpanel" id="m-historico" role="tabpanel" hidden>
+    <div class="table-card">
+      <table class="table">
+        <thead><tr><th>Quando</th><th>Item</th><th>Decisão</th><th>Quem decidiu</th><th>Comentário</th></tr></thead>
+        <tbody>
+          <tr><td class="mono small">12/08 16:20</td><td>Perfil — Thiago Almeida</td><td><span class="badge badge-ok">Aprovado</span></td><td class="small">Equipe Confluências</td><td class="small muted">—</td></tr>
+          <tr><td class="mono small">11/08 10:04</td><td>Artigo — Medicação e psicoterapia</td><td><span class="badge badge-stop">Ajustes</span></td><td class="small">Equipe Confluências</td><td class="small muted">Faltou fonte para as afirmações sobre eficácia.</td></tr>
+          <tr><td class="mono small">10/08 09:12</td><td>Perfil — Sofia Benites</td><td><span class="badge badge-ok">Aprovado</span></td><td class="small">Equipe Confluências</td><td class="small muted">CRP conferido.</td></tr>
+          <tr><td class="mono small">08/08 14:47</td><td>Evento — Supervisão de julho</td><td><span class="badge badge-stop">Reprovado</span></td><td class="small">Equipe Confluências</td><td class="small muted">Data já passada no momento do envio.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:12px">Toda decisão fica registrada com autor, data e comentário. O histórico não pode ser editado nem apagado.</p>
+  </div>
+</div>
+
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
