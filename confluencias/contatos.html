@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contatos — Confluências</title>
+<link rel="stylesheet" href="assets/confluencias.css">
+</head>
+<body data-shell="painel"
+      data-route="/painel/contatos"
+      data-screen="Contatos recebidos"
+      data-stories="US-017"
+      data-api="GET /api/contacts?profile=me&status=|PATCH /api/contacts/{id} (marcar como lida)"
+      data-states="Nenhuma mensagem ainda|Nova|Lida|Respondida|Retenção LGPD: exclusão após 24 meses">
+
+<div class="app-bar">
+  <div>
+    <span class="eyebrow" style="margin:0">Contatos</span>
+    <b>Mensagens recebidas</b>
+  </div>
+  <div class="row">
+    <select class="select" style="width:auto;padding:6px 32px 6px 10px"><option>Todas</option><option>Novas</option><option>Respondidas</option></select>
+    <button class="btn btn-ghost btn-sm" data-toast="Exportaria as mensagens em CSV.">Exportar</button>
+  </div>
+</div>
+
+<div class="app-body">
+  <div class="notice notice-info" style="margin-bottom:22px">
+    <div><strong>Estas mensagens são só suas</strong>Ninguém mais tem acesso ao conteúdo. Guardamos por 24 meses e depois excluímos automaticamente.</div>
+  </div>
+
+  <div class="stack" id="mensagens"></div>
+</div>
+
+<script>
+window.confPagina = function () {
+  var msgs = [
+    { n: 'Camila Moreira', e: 'camila@exemplo.com', tel: '(11) 98888-1122', assunto: 'Agendamento', s: 'nova', d: '13/08 · 09:41',
+      m: 'Oi Joana, li seu artigo sobre ansiedade e me identifiquei bastante. Você tem horário disponível nas terças à noite? Consigo pagar particular.' },
+    { n: 'Rodrigo Teixeira', e: 'rodrigo.t@exemplo.com', tel: '', assunto: 'Dúvida sobre o atendimento', s: 'nova', d: '12/08 · 18:02',
+      m: 'Boa noite. Você atende por reembolso de convênio? Tenho Bradesco Saúde e queria entender como funciona a nota fiscal.' },
+    { n: 'Ana Paula Guedes', e: 'anapaula@exemplo.com', tel: '(11) 97777-3040', assunto: 'Agendamento', s: 'respondida', d: '09/08 · 11:15',
+      m: 'Obrigada pelo retorno! Confirmo a primeira conversa na quinta às 19h.' },
+    { n: 'Lucas F.', e: 'lucasf@exemplo.com', tel: '', assunto: 'Outro', s: 'lida', d: '05/08 · 14:50',
+      m: 'Sou estudante de psicologia e queria saber se você aceita observação de estágio.' }
+  ];
+  var selo = {
+    nova: '<span class="badge badge-wait">Nova</span>',
+    lida: '<span class="badge badge-draft">Lida</span>',
+    respondida: '<span class="badge badge-ok">Respondida</span>'
+  };
+  var alvo = document.getElementById('mensagens');
+  alvo.innerHTML = msgs.map(function (m) {
+    return '<article class="card">' +
+      '<div class="row" style="gap:14px;align-items:flex-start">' +
+        '<span class="avatar avatar-sm">' + confIniciais(m.n) + '</span>' +
+        '<div style="flex:1;min-width:0">' +
+          '<div class="row-between"><b>' + m.n + '</b>' +
+          '<span class="row" style="gap:10px">' + selo[m.s] + '<span class="mono small muted">' + m.d + '</span></span></div>' +
+          '<p class="small mono muted" style="margin:2px 0 0">' + m.assunto + ' · ' + m.e + (m.tel ? ' · ' + m.tel : '') + '</p>' +
+          '<p style="margin:12px 0 0;color:var(--ink-2)">' + m.m + '</p>' +
+          '<div class="row" style="margin-top:14px">' +
+            '<button class="btn btn-primary btn-sm" data-toast="Abriria seu cliente de e-mail já preenchido.">Responder por e-mail</button>' +
+            (m.tel ? '<button class="btn btn-ghost btn-sm" data-toast="Abriria o WhatsApp.">WhatsApp</button>' : '') +
+            '<button class="btn btn-quiet btn-sm" data-toast="Marcada como lida.">Marcar como lida</button>' +
+            '<button class="btn btn-quiet btn-sm" style="color:var(--stop)" data-toast="Pediríamos confirmação antes de excluir.">Excluir</button>' +
+          '</div>' +
+        '</div>' +
+      '</div></article>';
+  }).join('');
+  alvo.querySelectorAll('[data-toast]').forEach(function (b) {
+    b.addEventListener('click', function () { window.confToast(b.dataset.toast); });
+  });
+};
+</script>
+<script src="assets/confluencias.js"></script>
+</body>
+</html>
