@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ana Lima — Psicóloga em Belo Horizonte · Confluências</title>
+<meta name="description" content="Ana Lima, CRP 04/123456. Psicanálise. Atendimento online e presencial em Belo Horizonte, MG. Atende em português, Libras e espanhol.">
+<meta property="og:title" content="Ana Lima — Psicóloga em Belo Horizonte">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ESTA PÁGINA TRAZ O CSS EMBUTIDO só para abrir sozinha.
+   Ao integrar ao protótipo, apagar todo este bloco <style> e usar:
+     <link rel="stylesheet" href="design-system.css">
+     <link rel="stylesheet" href="perfil-componentes.css">
+   O trecho até a marca "COMPONENTES DE FORMULÁRIO" é cópia literal
+   de design-system.css. O que vem depois é o arquivo novo.
+   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   CONFLUÊNCIAS · SISTEMA DE DESIGN
+   Direção "Periódico" — aprovada em 14/08/2026
+
+   REGRAS INEGOCIÁVEIS DESTA LINGUAGEM
+   1. Nada de border-radius, box-shadow ou linear-gradient.
+      A hierarquia vem de fio, peso tipográfico e espaço.
+   2. Duas famílias apenas: Newsreader (voz editorial) e
+      IBM Plex Mono (metadado: data, CRP, índice, rótulo).
+      Nenhuma sans genérica.
+   3. O laranja #F29A1E NUNCA leva texto branco (2,2:1).
+      Sempre texto marrom #4C2A23 (5,7:1).
+   4. A terracota #BD6A4B reprova em AA para texto pequeno (3,6:1).
+      Para rótulos use --terracota-txt (#9E5334, 5,1:1).
+      Reserve #BD6A4B para traços e elementos decorativos.
+   5. Sem foto real, o retrato é monograma em cor chapada.
+      Cores válidas p/ iniciais em creme: #A61F21, #4C2A23,
+      #8F4A2E, #7A3B22, #9E5334. Com #F29A1E, iniciais em marrom.
+
+   FONTES (carregar no <head> de cada página)
+   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+   ═══════════════════════════════════════════════════════════════ */
+
+  :root{
+    --papel:#FAF4E4;
+    --papel-2:#F3E7CD;
+    --tinta:#3B211A;
+    --tinta-suave:#7A5647;
+    --terracota-txt:#9E5334;
+    --regra:rgba(59,33,26,.16);
+    --regra-media:rgba(59,33,26,.30);
+    --laranja:#F29A1E;
+    --vermelho:#CC1A1A;
+    --bordo:#A61F21;
+    --marrom:#4C2A23;
+    --terracota:#BD6A4B;
+    --dourado:#DFA567;
+    --pessego:#F0C6A3;
+    --creme:#FBF1D5;
+    --serif:'Newsreader', Georgia, serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ -webkit-font-smoothing:antialiased; }
+  body{
+    font-family:var(--serif); background:var(--papel); color:var(--tinta);
+    font-size:18px; line-height:1.6;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; }
+
+  .shell{ max-width:1280px; margin:0 auto; padding:0 48px; }
+  .grid{ display:grid; grid-template-columns:repeat(12,1fr); column-gap:28px; }
+  .mono{ font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; font-weight:500; }
+
+  /* ═════ CAMADA 1 · CABEÇALHO ═════ */
+  .utility{ border-bottom:1px solid var(--regra); }
+  .utility .shell{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:11px; padding-bottom:11px; color:var(--tinta-suave);
+  }
+  .utility a{ color:var(--tinta); }
+  .utility a + a{ margin-left:22px; }
+
+  .masthead .shell{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:48px; padding-top:32px; padding-bottom:26px;
+  }
+  .mh-brand{ display:flex; align-items:center; gap:22px; }
+  .mh-brand img{ width:84px; height:84px; }
+  .wordmark{ font-weight:400; font-size:70px; letter-spacing:-.028em; line-height:.88; }
+  .mh-meta{ text-align:right; padding-bottom:7px; }
+  .mh-meta .claim{
+    font-size:17px; font-style:italic; font-weight:300; color:var(--tinta-suave);
+    max-width:290px; margin-bottom:10px; line-height:1.4;
+  }
+  .mh-meta .figures{ color:var(--terracota-txt); }
+
+  .mainnav{ border-top:2px solid var(--tinta); border-bottom:1px solid var(--regra); }
+  .mainnav .shell{ display:flex; align-items:stretch; justify-content:space-between; }
+  .mainnav-links{ display:flex; }
+  .mainnav-links a{
+    padding:15px 22px 14px; border-right:1px solid var(--regra);
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500;
+  }
+  .mainnav-links a:first-child{ padding-left:0; }
+  .mainnav-links a.current{ color:var(--bordo); }
+  .nav-cta{
+    background:var(--laranja); color:var(--marrom); align-self:center;
+    padding:11px 22px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.11em; text-transform:uppercase; font-weight:600;
+  }
+
+  /* marcadores e cabeçalhos de seção */
+  .sec-mark{ display:flex; align-items:baseline; gap:14px; color:var(--terracota-txt); }
+  .sec-mark .num{ color:var(--bordo); font-weight:600; }
+  .sec-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:32px; margin:14px 0 32px;
+  }
+  .sec-head h2{ font-size:40px; font-weight:400; letter-spacing:-.022em; line-height:1; }
+  .sec-head .aside{ text-align:right; color:var(--tinta-suave); }
+  .sec-head .aside a{ color:var(--bordo); border-bottom:1px solid var(--bordo); padding-bottom:2px; }
+
+  /* ═════ CAMADA 2 · QUEM SOMOS ═════ */
+  .quem{ padding:54px 0 56px; border-bottom:1px solid var(--regra); }
+  .statement{
+    font-size:56px; line-height:1.05; font-weight:400; letter-spacing:-.018em;
+    margin:24px 0 34px; max-width:17.5em;
+  }
+  .statement em{ font-style:italic; color:var(--bordo); }
+  .quem-corpo{ columns:2; column-gap:44px; max-width:960px; margin-bottom:30px; }
+  .quem-corpo p{
+    font-size:18px; line-height:1.62; color:var(--tinta-suave);
+    font-weight:300; margin-bottom:14px; break-inside:avoid;
+  }
+  .quem-corpo p strong{ color:var(--tinta); font-weight:500; }
+  .quem-acoes{ display:flex; align-items:center; gap:28px; }
+  .btn-bloco{
+    background:var(--tinta); color:var(--papel); padding:14px 26px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:600;
+  }
+  .lnk-sub{
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500; color:var(--bordo);
+    border-bottom:1px solid var(--bordo); padding-bottom:3px;
+  }
+
+  /* ═════ CAMADA 3 · DIRETÓRIO (carrossel) ═════ */
+  .diretorio{ padding:46px 0 58px; border-bottom:1px solid var(--regra); overflow:hidden; }
+  .car-nav{ display:flex; align-items:center; gap:18px; justify-content:flex-end; }
+  .car-contador{ color:var(--tinta-suave); }
+  .car-setas{ display:flex; gap:8px; }
+  .car-setas span{
+    width:38px; height:38px; border:1px solid var(--regra-media);
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; color:var(--tinta);
+  }
+  .car-setas span.off{ color:var(--regra-media); }
+
+  .dir-viewport{ overflow:hidden; }
+  .dir-strip{
+    display:flex; gap:28px;
+    padding-left:max(48px, calc((100% - 1280px)/2 + 48px));
+    padding-right:48px;
+  }
+  .ficha{ flex:0 0 275px; display:flex; flex-direction:column; }
+  .ficha .retrato{
+    aspect-ratio:1 / 1; display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .ficha .retrato span{
+    font-family:var(--serif); font-size:66px; font-weight:400;
+    color:var(--creme); letter-spacing:.02em; line-height:1;
+  }
+  .ficha h3{ font-size:22px; font-weight:400; line-height:1.15; margin-bottom:5px; letter-spacing:-.015em; }
+  .ficha .reg{ color:var(--terracota-txt); display:block; margin-bottom:12px; }
+  .ficha .abord{
+    font-size:16px; line-height:1.4; color:var(--tinta); font-weight:400;
+    padding-top:11px; border-top:1px solid var(--regra); margin-bottom:7px;
+  }
+  .ficha .acesso{ color:var(--tinta-suave); display:block; font-size:10px; line-height:1.5; }
+
+  /* ═════ CAMADA 4 · AGENDA ═════ */
+  .agenda{ background:var(--papel-2); padding:46px 0 58px; }
+  .ag-row{
+    display:grid; grid-template-columns:112px 1fr 236px 172px;
+    column-gap:24px; align-items:center;
+    padding:21px 0; border-top:1px solid var(--regra-media);
+  }
+  .ag-row:last-child{ border-bottom:1px solid var(--regra-media); }
+  .ag-data{ display:flex; align-items:baseline; gap:8px; }
+  .ag-data .dia{ font-size:36px; font-weight:400; line-height:1; letter-spacing:-.03em; }
+  .ag-data .mes{ color:var(--terracota-txt); }
+  .ag-titulo{ font-size:21px; font-weight:400; line-height:1.25; }
+  .ag-local{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+  .ag-estado{ text-align:right; color:var(--bordo); white-space:nowrap; }
+  .ag-estado.espera{ color:var(--tinta-suave); }
+
+  /* ═════ CAMADA 5 · NOTÍCIAS ═════ */
+  .noticias{ padding:46px 0 58px; border-bottom:1px solid var(--regra); }
+  .not-grid{ display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--tinta); }
+  .not-item{ padding:22px 26px 4px; border-right:1px solid var(--regra); }
+  .not-item:first-child{ padding-left:0; }
+  .not-item:last-child{ border-right:none; padding-right:0; }
+  .not-item .data{ color:var(--bordo); display:block; margin-bottom:11px; }
+  .not-item h3{ font-size:20px; line-height:1.25; font-weight:400; margin-bottom:10px; letter-spacing:-.01em; }
+  .not-item p{ font-size:15px; line-height:1.5; color:var(--tinta-suave); font-weight:300; margin-bottom:12px; }
+  .not-item .fonte{ color:var(--tinta-suave); font-size:10px; }
+
+  /* ═════ CAMADA 6 · ARTIGOS ═════ */
+  .artigos{ padding:46px 0 60px; border-bottom:1px solid var(--regra); }
+  .destaque{ border-top:2px solid var(--tinta); padding-top:24px; }
+  .dest-cita{
+    grid-column:1 / span 5; background:var(--marrom); color:var(--creme);
+    padding:36px 32px 30px; position:relative; align-self:start;
+  }
+  .dest-cita p{ font-size:26px; line-height:1.3; font-weight:300; font-style:italic; margin-bottom:22px; }
+  .dest-cita .fonte{ color:var(--dourado); }
+  .dest-cita img{ width:46px; height:46px; position:absolute; right:26px; bottom:24px; opacity:.75; }
+  .dest-corpo{ grid-column:7 / span 6; }
+  .dest-corpo .kicker{ color:var(--bordo); margin-bottom:14px; display:block; }
+  .dest-corpo h3{ font-size:42px; line-height:1.06; font-weight:400; letter-spacing:-.022em; margin-bottom:16px; }
+  .dest-corpo .lide{
+    font-size:18px; line-height:1.6; color:var(--tinta-suave); font-weight:300;
+    margin-bottom:24px; max-width:30em;
+  }
+  .assinatura{ display:flex; align-items:baseline; gap:14px; color:var(--tinta-suave); flex-wrap:wrap; }
+  .assinatura .autor{ font-size:17px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--tinta); font-family:var(--serif); }
+
+  .indice{ margin-top:36px; }
+  .idx-row{
+    display:grid; grid-template-columns:44px 1fr 216px 82px;
+    column-gap:24px; align-items:baseline;
+    padding:18px 0; border-top:1px solid var(--regra);
+  }
+  .idx-row:last-child{ border-bottom:1px solid var(--regra); }
+  .idx-num{ color:var(--terracota-txt); }
+  .idx-titulo{ font-size:21px; line-height:1.25; font-weight:400; }
+  .idx-autor{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+  .idx-data{ color:var(--tinta-suave); text-align:right; white-space:nowrap; }
+
+  /* ═════ CAMADA 7 · BIBLIOTECA DE REFERÊNCIAS ═════ */
+  .biblio{ background:var(--papel-2); padding:46px 0 58px; }
+  .bib-grid{ display:grid; grid-template-columns:1fr 1fr; column-gap:56px; border-top:2px solid var(--tinta); }
+  .bib-item{ padding:20px 0; border-bottom:1px solid var(--regra-media); }
+  .bib-item .tipo{ color:var(--terracota-txt); display:block; margin-bottom:8px; font-size:10px; }
+  .bib-ref{
+    font-size:17px; line-height:1.45; font-weight:300; color:var(--tinta);
+    padding-left:26px; text-indent:-26px; margin-bottom:9px;
+  }
+  .bib-ref em{ font-style:italic; }
+  .bib-item .indic{ color:var(--tinta-suave); font-size:10px; }
+  .bib-item .indic b{ color:var(--terracota-txt); font-weight:500; }
+
+  /* ═════ FECHO ═════ */
+  .fecho{ background:var(--marrom); color:var(--creme); padding:74px 0 70px; }
+  .fecho .grid{ align-items:center; }
+  .fecho-mark{ grid-column:1 / span 3; }
+  .fecho-mark img{ width:168px; height:168px; }
+  .fecho-txt{ grid-column:5 / span 8; }
+  .fecho-txt h2{ font-size:42px; line-height:1.1; font-weight:400; letter-spacing:-.018em; margin-bottom:20px; max-width:16em; }
+  .fecho-txt h2 em{ font-style:italic; color:var(--laranja); }
+  .fecho-txt p{ font-size:17px; color:var(--pessego); font-weight:300; max-width:36em; margin-bottom:30px; line-height:1.55; }
+  .fecho-acoes{ display:flex; align-items:center; gap:28px; }
+  .btn-claro{
+    background:var(--laranja); color:var(--marrom); padding:14px 26px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:600;
+  }
+  .lnk-claro{
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500; color:var(--creme);
+    border-bottom:1px solid rgba(251,241,213,.5); padding-bottom:3px;
+  }
+
+  /* ═════ RODAPÉ ═════ */
+  footer{ background:var(--papel); padding:46px 0 30px; }
+  .foot-grid{ display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; column-gap:28px; }
+  .foot-brand{ display:flex; align-items:center; gap:13px; margin-bottom:15px; }
+  .foot-brand img{ width:40px; height:40px; }
+  .foot-brand span{ font-size:25px; letter-spacing:-.025em; }
+  .foot-grid p{ font-size:15px; color:var(--tinta-suave); font-weight:300; max-width:26em; line-height:1.55; }
+  .foot-grid h4{ color:var(--terracota-txt); margin-bottom:14px; }
+  .foot-grid a{ display:block; font-size:15px; color:var(--tinta); margin-bottom:9px; font-weight:300; }
+  .foot-base{
+    display:flex; justify-content:space-between; margin-top:40px; padding-top:18px;
+    border-top:1px solid var(--regra); color:var(--tinta-suave);
+  }
+
+/* ═════════════════════════════════════════════════════════════
+   COMPONENTES DE PÁGINAS INTERNAS
+   ═════════════════════════════════════════════════════════════ */
+
+/* --- barra de filtros --- */
+.filtros{ border-top:2px solid var(--tinta); border-bottom:1px solid var(--regra); }
+.filtros-linha{ display:flex; align-items:stretch; }
+.filtro{ padding:14px 24px; border-right:1px solid var(--regra); flex:1; }
+.filtro:first-child{ padding-left:0; }
+.filtro .rot{ display:block; color:var(--terracota-txt); font-size:10px; margin-bottom:5px; }
+.filtro .val{ font-size:16px; font-weight:400; }
+.filtro .val .seta{ color:var(--tinta-suave); margin-left:6px; font-size:12px; }
+.filtro-acao{ display:flex; align-items:center; padding-left:24px; }
+
+/* alternador de modalidade */
+.modos{ display:flex; gap:0; border:1px solid var(--regra-media); }
+.modos a{
+  padding:9px 18px; font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500; border-right:1px solid var(--regra-media);
+}
+.modos a:last-child{ border-right:none; }
+.modos a.ativo{ background:var(--tinta); color:var(--papel); }
+
+/* --- mapa --- */
+.mapa-bloco{ display:grid; grid-template-columns:1.55fr 1fr; column-gap:44px; align-items:start; }
+.mapa-quadro{ position:relative; }
+.mapa-quadro svg{ width:100%; height:auto; display:block; }
+.mapa-quadro .costa{ stroke:#3B211A; stroke-width:.9; fill:none; }
+.mapa-quadro .fronteira{ stroke:#BD6A4B; stroke-width:.55; fill:none; opacity:.55; }
+.mapa-ponto{ fill:#A61F21; fill-opacity:.72; stroke:#FAF4E4; stroke-width:.8; }
+.mapa-rot{ font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; fill:#3B211A; }
+.mapa-num{ font-family:var(--mono); font-size:9px; fill:#7A5647; }
+.mapa-legenda{
+  display:flex; gap:26px; align-items:center; margin-top:14px;
+  padding-top:12px; border-top:1px solid var(--regra); color:var(--tinta-suave);
+}
+.mapa-legenda .escala{ display:flex; align-items:center; gap:8px; }
+
+/* painel lateral do exterior */
+.exterior h3{ font-size:23px; font-weight:400; letter-spacing:-.015em; margin:8px 0 8px; }
+.exterior .nota{ font-size:14px; line-height:1.5; color:var(--tinta-suave); font-weight:300; margin-bottom:16px; }
+.exterior .mundo{ margin-bottom:16px; }
+.ext-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:9px 0; border-top:1px solid var(--regra);
+}
+.ext-row:last-child{ border-bottom:1px solid var(--regra); }
+.ext-row .cid{ font-size:16px; font-weight:400; }
+.ext-row .pais{ color:var(--tinta-suave); font-size:10px; margin-left:7px; }
+.ext-row .qtd{ font-family:var(--mono); font-size:12px; color:var(--bordo); }
+
+/* --- linha de resultado de busca --- */
+.res-row{
+  display:grid; grid-template-columns:64px 1fr 190px 150px 90px;
+  column-gap:22px; align-items:center;
+  padding:18px 0; border-top:1px solid var(--regra);
+}
+.res-row:last-child{ border-bottom:1px solid var(--regra); }
+.res-mono{
+  width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-size:24px; color:var(--creme);
+}
+.res-row h3{ font-size:21px; font-weight:400; line-height:1.2; margin-bottom:3px; }
+.res-row .crp{ color:var(--terracota-txt); font-size:10px; }
+.res-row .abord{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+.res-row .local{ font-size:14px; color:var(--tinta-suave); font-weight:300; }
+.res-row .ver{ text-align:right; }
+
+/* paginação */
+.paginacao{ display:flex; align-items:center; justify-content:space-between; margin-top:32px; }
+.pag-nums{ display:flex; gap:6px; }
+.pag-nums a{
+  min-width:36px; height:36px; border:1px solid var(--regra-media);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:11px;
+}
+.pag-nums a.ativo{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
+
+/* --- página do profissional --- */
+.perfil-topo{ display:grid; grid-template-columns:210px 1fr 300px; column-gap:44px; align-items:start; padding:44px 0 34px; }
+.perfil-mono{ width:210px; height:210px; display:flex; align-items:center; justify-content:center; }
+.perfil-mono span{ font-family:var(--serif); font-size:82px; color:var(--creme); }
+.perfil-id h1{ font-size:46px; font-weight:400; letter-spacing:-.022em; line-height:1.05; margin-bottom:8px; }
+.perfil-id .linha-crp{ color:var(--terracota-txt); margin-bottom:22px; display:block; }
+.perfil-dado{ display:flex; gap:14px; padding:11px 0; border-top:1px solid var(--regra); align-items:baseline; }
+.perfil-dado .rot{ color:var(--terracota-txt); font-size:10px; width:112px; flex:0 0 112px; }
+.perfil-dado .val{ font-size:16px; font-weight:400; }
+.contato-box{ border:1px solid var(--regra-media); padding:26px 24px; }
+.contato-box h3{ font-size:19px; font-weight:400; margin-bottom:6px; }
+.contato-box p{ font-size:14px; color:var(--tinta-suave); font-weight:300; line-height:1.5; margin-bottom:18px; }
+.contato-box .btn-bloco{ display:block; text-align:center; margin-bottom:10px; }
+.contato-box .sec{ display:block; text-align:center; font-family:var(--mono); font-size:10px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--bordo); padding:11px; border:1px solid var(--regra-media); }
+.selo{ display:inline-flex; align-items:center; gap:7px; color:var(--bordo); margin-bottom:16px; }
+.selo .pt{ width:7px; height:7px; background:var(--bordo); border-radius:50%; }
+
+/* --- corpo de texto longo (artigo / notícia) --- */
+.leitura{ max-width:34em; }
+.leitura p{ font-size:19px; line-height:1.72; margin-bottom:20px; font-weight:300; }
+.leitura p.abre::first-letter{
+  font-size:64px; line-height:.82; float:left; padding:6px 10px 0 0; color:var(--bordo);
+}
+.leitura h3{ font-size:25px; font-weight:400; margin:34px 0 14px; letter-spacing:-.015em; }
+.leitura blockquote{
+  border-left:2px solid var(--bordo); padding-left:24px; margin:28px 0;
+  font-size:23px; line-height:1.4; font-style:italic; font-weight:300; color:var(--tinta);
+}
+.leitura ul{ margin:0 0 20px 20px; }
+.leitura li{ font-size:18px; line-height:1.6; font-weight:300; margin-bottom:8px; }
+.artigo-cabeca{ padding:40px 0 30px; border-bottom:2px solid var(--tinta); margin-bottom:36px; }
+.artigo-cabeca h1{ font-size:54px; font-weight:400; line-height:1.05; letter-spacing:-.025em; margin:16px 0 18px; max-width:17em; }
+.artigo-cabeca .lide{ font-size:21px; line-height:1.5; color:var(--tinta-suave); font-weight:300; max-width:32em; margin-bottom:24px; }
+.artigo-corpo{ display:grid; grid-template-columns:1fr 300px; column-gap:56px; align-items:start; }
+.artigo-lado .bloco{ border-top:1px solid var(--regra); padding-top:14px; margin-bottom:26px; }
+.artigo-lado h4{ color:var(--terracota-txt); margin-bottom:12px; }
+.artigo-lado .autor-nome{ font-size:20px; font-weight:400; margin-bottom:4px; }
+.artigo-lado p{ font-size:14px; line-height:1.55; color:var(--tinta-suave); font-weight:300; }
+
+/* estado vazio */
+.vazio{ border:1px dashed var(--regra-media); padding:34px; text-align:center; }
+.vazio p{ font-size:16px; color:var(--tinta-suave); font-weight:300; }
+.res-row .ver a{ white-space:nowrap; }
+.exterior .mundo{ padding:10px 0; border-top:1px solid var(--regra); border-bottom:1px solid var(--regra); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONFLUÊNCIAS · COMPONENTES DE FORMULÁRIO E PERFIL
+   Acrescentar ao fim de design-system.css
+
+   Respeita as cinco regras inegociáveis da linguagem:
+   sem border-radius, sem box-shadow, sem gradiente;
+   só Newsreader e IBM Plex Mono; laranja nunca com texto branco;
+   terracota de texto só em --terracota-txt; monograma em cor chapada.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* verde de validação — 7,3:1 sobre o papel. Preenche uma das
+     lacunas apontadas em paleta-de-cores.md (cores semânticas). */
+  --verde:#1F5C34;
+}
+
+/* ═════ BARRA SECUNDÁRIA DO PAINEL ═════ */
+.painel-nav{ background:var(--papel-2); border-bottom:1px solid var(--regra); }
+.painel-nav .shell{ display:flex; overflow-x:auto; }
+.painel-nav a{
+  padding:12px 18px 11px; white-space:nowrap;
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500;
+  border-right:1px solid var(--regra);
+}
+.painel-nav a:first-child{ padding-left:0; }
+.painel-nav a.current{ color:var(--bordo); }
+
+/* ═════ ESTRUTURA DA PÁGINA DE EDIÇÃO ═════ */
+.pagina-cabeca{ padding:38px 0 26px; border-bottom:2px solid var(--tinta); }
+.pagina-cabeca h1{ font-size:44px; font-weight:400; letter-spacing:-.022em; line-height:1.05; margin:12px 0 10px; }
+.pagina-cabeca .lide{ font-size:18px; color:var(--tinta-suave); font-weight:300; max-width:36em; line-height:1.55; }
+
+.editor-layout{
+  display:grid; grid-template-columns:1fr 316px;
+  column-gap:56px; align-items:start; padding:34px 0 70px;
+}
+.editor-layout > *{ min-width:0; }
+.lateral{ position:sticky; top:18px; }
+
+/* ═════ SEÇÕES SANFONADAS ═════ */
+.secao{ border-top:1px solid var(--regra-media); }
+.secao:last-of-type{ border-bottom:1px solid var(--regra-media); }
+.secao > summary{
+  display:flex; align-items:baseline; gap:18px;
+  padding:19px 0; cursor:pointer; list-style:none;
+}
+.secao > summary::-webkit-details-marker{ display:none; }
+.secao > summary:focus-visible{ outline:2px solid var(--bordo); outline-offset:3px; }
+.secao .num{ color:var(--bordo); flex:0 0 auto; }
+.secao h2{ font-size:25px; font-weight:400; letter-spacing:-.015em; line-height:1.15; flex:1; min-width:0; }
+.secao .resumo{
+  font-size:14px; color:var(--tinta-suave); font-weight:300;
+  text-align:right; max-width:19em; line-height:1.4;
+}
+.secao .sinal{ color:var(--tinta-suave); flex:0 0 auto; }
+.secao[open] .sinal .mais{ display:none; }
+.secao:not([open]) .sinal .menos{ display:none; }
+.secao-corpo{ padding:2px 0 36px; max-width:700px; }
+
+/* ═════ CAMPOS ═════ */
+.campo{ margin-bottom:24px; }
+.campo:last-child{ margin-bottom:0; }
+.rot{
+  display:block; font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500; color:var(--terracota-txt); margin-bottom:8px;
+}
+.rot .opc{ color:var(--tinta-suave); }
+fieldset{ border:none; }
+legend.rot{ padding:0; }
+
+input[type=text], input[type=email], input[type=url], input[type=tel],
+input[type=search], select, textarea{
+  width:100%; font-family:var(--serif); font-size:17px; font-weight:300;
+  color:var(--tinta); background:var(--papel);
+  border:1px solid var(--regra-media); border-radius:0;
+  padding:11px 13px; appearance:none; -webkit-appearance:none;
+}
+textarea{ min-height:160px; line-height:1.6; resize:vertical; }
+input::placeholder, textarea::placeholder{ color:var(--tinta-suave); opacity:.7; }
+:focus-visible{ outline:2px solid var(--bordo); outline-offset:2px; }
+input:disabled, select:disabled{ color:var(--tinta-suave); background:var(--papel-2); cursor:not-allowed; }
+
+.sel{ position:relative; }
+.sel::after{
+  content:'▾'; position:absolute; right:13px; top:50%; transform:translateY(-50%);
+  color:var(--tinta-suave); font-size:12px; pointer-events:none;
+}
+.sel select{ padding-right:32px; }
+
+.ajuda{
+  display:block; font-size:14px; line-height:1.5; font-weight:300;
+  color:var(--tinta-suave); margin-top:7px;
+}
+.msg-erro{ display:block; font-size:14px; color:var(--vermelho); margin-top:7px; font-weight:400; }
+.msg-ok{ display:block; font-size:14px; color:var(--verde); margin-top:7px; font-weight:400; }
+.msg-aviso{ display:block; font-size:14px; color:var(--terracota-txt); margin-top:7px; font-weight:400; }
+.campo.erro input, .campo.erro select, .campo.erro .prefixado, .campo.erro textarea{ border-color:var(--vermelho); }
+
+.contador{ float:right; color:var(--tinta-suave); font-family:var(--mono); font-size:10px; letter-spacing:.08em; }
+
+/* linhas de dois e três campos */
+.linha{ display:grid; column-gap:20px; }
+.linha > *{ min-width:0; }
+.linha.d2{ grid-template-columns:1fr 1fr; }
+.linha.d3{ grid-template-columns:1fr 1fr 1fr; }
+.linha.reg{ grid-template-columns:minmax(0,1fr) 160px; }
+.linha.tel{ grid-template-columns:180px minmax(0,1fr); }
+.linha.cep{ grid-template-columns:160px minmax(0,1fr); }
+
+/* ═════ CAMPO COMPOSTO COM PRÉ-VISUALIZAÇÃO ═════ */
+.previa{
+  display:flex; align-items:baseline; gap:14px;
+  margin-top:14px; padding-top:13px; border-top:1px solid var(--regra);
+}
+.previa .rot{ margin:0; flex:0 0 auto; }
+.previa .val{ font-size:21px; font-weight:400; letter-spacing:.01em; }
+.previa .val.indefinido{ color:var(--tinta-suave); font-weight:300; }
+
+/* ═════ CAMPO COM PREFIXO FIXO (redes sociais) ═════ */
+.prefixado{ display:flex; align-items:stretch; border:1px solid var(--regra-media); background:var(--papel); }
+.prefixado:focus-within{ outline:2px solid var(--bordo); outline-offset:2px; }
+.prefixado .pref{
+  display:flex; align-items:center; padding:0 0 0 13px; white-space:nowrap;
+  font-family:var(--mono); font-size:12px; color:var(--tinta-suave);
+  border-right:1px solid var(--regra); margin-right:10px; padding-right:10px;
+}
+.prefixado input{ border:none; padding-left:0; background:transparent; }
+.prefixado input:focus-visible{ outline:none; }
+.rede{ margin-bottom:14px; }
+.rede .rot{ margin-bottom:6px; }
+
+/* ═════ ESCOLHAS (caixa e rádio) ═════ */
+.opcao{ display:flex; gap:12px; align-items:flex-start; padding:9px 0; cursor:pointer; }
+.opcao input[type=checkbox], .opcao input[type=radio]{
+  appearance:none; -webkit-appearance:none; flex:0 0 20px;
+  width:20px; height:20px; margin:3px 0 0; border:1px solid var(--regra-media);
+  background:var(--papel); cursor:pointer;
+}
+.opcao input:checked{ background:var(--tinta); border-color:var(--tinta); }
+.opcao input[type=checkbox]:checked::after{
+  content:'✓'; display:block; text-align:center; line-height:18px;
+  font-size:12px; color:var(--papel);
+}
+.opcao input[type=radio]:checked::after{
+  content:''; display:block; width:8px; height:8px; margin:5px auto; background:var(--papel);
+}
+.opcao .txt{ font-size:17px; font-weight:300; line-height:1.4; }
+.opcao .txt b{ font-weight:500; }
+.opcao .txt small{ display:block; font-size:14px; color:var(--tinta-suave); margin-top:2px; line-height:1.45; }
+
+/* ═════ FICHAS DE SELEÇÃO MÚLTIPLA ═════ */
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  display:inline-flex; align-items:center; gap:8px; min-height:24px;
+  font-family:var(--serif); font-size:15px; font-weight:300; color:var(--tinta);
+  background:var(--papel); border:1px solid var(--regra-media);
+  padding:8px 13px; cursor:pointer; border-radius:0;
+}
+.chip:hover{ border-color:var(--tinta); }
+.chip[aria-pressed="true"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); font-weight:400; }
+.chip[aria-pressed="true"]::before{ content:'✓'; font-size:11px; }
+.chip.destacado[aria-pressed="true"]{ background:var(--bordo); border-color:var(--bordo); }
+.chip:disabled{ opacity:.45; cursor:not-allowed; }
+.chips-grupo{ margin-bottom:16px; }
+.chips-grupo h4{
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  font-weight:500; color:var(--tinta-suave); margin-bottom:9px;
+  padding-top:9px; border-top:1px solid var(--regra);
+}
+.chips-grupo:first-child h4{ border-top:none; padding-top:0; }
+
+/* ═════ CAIXA DE BUSCA COM LISTA (combobox) ═════ */
+.combo{ position:relative; }
+.combo-lista{
+  position:absolute; z-index:30; left:0; right:0; top:100%;
+  background:var(--papel); border:1px solid var(--tinta); border-top:none;
+  max-height:262px; overflow-y:auto; list-style:none; margin:0; padding:0;
+}
+.combo-lista li{
+  padding:10px 13px; font-size:16px; font-weight:300; cursor:pointer;
+  border-bottom:1px solid var(--regra);
+}
+.combo-lista li:last-child{ border-bottom:none; }
+.combo-lista li[aria-selected="true"]{ background:var(--tinta); color:var(--papel); }
+.combo-lista li .uf{ font-family:var(--mono); font-size:10px; color:var(--terracota-txt); margin-left:8px; }
+.combo-lista li[aria-selected="true"] .uf{ color:var(--dourado); }
+.combo-lista .nada{ color:var(--tinta-suave); cursor:default; font-style:italic; }
+
+/* ═════ CARTELA DO VÍDEO ═════ */
+.video-cartela{ display:flex; gap:16px; align-items:flex-start; margin-top:16px; padding-top:16px; border-top:1px solid var(--regra); }
+.video-mini{
+  flex:0 0 168px; aspect-ratio:16/9; background:var(--marrom);
+  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.video-mini img{ width:100%; height:100%; object-fit:cover; }
+.video-mini .play{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  color:var(--creme); font-size:26px;
+}
+.video-cartela .meta h4{ font-size:18px; font-weight:400; margin-bottom:5px; }
+.video-cartela .meta p{ font-size:14px; color:var(--tinta-suave); font-weight:300; margin-bottom:10px; line-height:1.5; }
+
+/* ═════ PAINEL LATERAL: COMPLETUDE E PRÉVIA ═════ */
+.medidor{ border:1px solid var(--regra-media); padding:20px 20px 22px; margin-bottom:26px; }
+.medidor .topo{ display:flex; justify-content:space-between; align-items:baseline; }
+.medidor .pct{ font-size:30px; font-weight:400; letter-spacing:-.02em; line-height:1; }
+.barra{ height:6px; background:var(--regra); margin:13px 0 14px; }
+.barra i{ display:block; height:100%; background:var(--bordo); transition:width .25s ease; }
+.medidor p{ font-size:14px; line-height:1.5; font-weight:300; color:var(--tinta-suave); }
+.medidor ul{ list-style:none; margin-top:10px; }
+.medidor li{
+  font-size:14px; font-weight:300; color:var(--tinta-suave);
+  padding:6px 0; border-top:1px solid var(--regra);
+}
+.medidor li::before{ content:'· '; color:var(--bordo); }
+
+.previa-bloco{ border:1px solid var(--regra-media); padding:20px; margin-bottom:26px; }
+.previa-bloco > .rot{ margin-bottom:14px; }
+.previa-bloco .ficha .retrato{ background:var(--bordo); }
+.previa-nota{ font-size:13px; color:var(--tinta-suave); font-weight:300; line-height:1.5; margin-top:14px; padding-top:12px; border-top:1px solid var(--regra); }
+
+.acoes-lateral{ display:flex; flex-direction:column; gap:11px; }
+.acoes-lateral .btn-bloco{ text-align:center; border:none; cursor:pointer; }
+.btn-linha{
+  display:block; text-align:center; padding:13px; cursor:pointer;
+  border:1px solid var(--regra-media); background:transparent; color:var(--tinta);
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; font-weight:500;
+}
+.btn-linha:hover{ border-color:var(--tinta); }
+.salvo{ font-size:13px; color:var(--verde); font-weight:300; text-align:center; }
+
+/* ═════ AVISOS EM BLOCO ═════ */
+.aviso{ border-left:2px solid var(--bordo); padding:14px 0 14px 18px; margin-bottom:26px; }
+.aviso h4{ font-size:17px; font-weight:500; margin-bottom:5px; }
+.aviso p{ font-size:15px; line-height:1.55; font-weight:300; color:var(--tinta-suave); }
+.aviso.nota{ border-left-color:var(--terracota); }
+
+/* ═════ PÁGINA PÚBLICA — ACRÉSCIMOS ═════ */
+.selos{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+.selo-item{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  font-weight:500; padding:7px 11px; border:1px solid var(--regra-media); color:var(--tinta);
+}
+.selo-item .pt{ width:7px; height:7px; background:var(--bordo); }
+.selo-item.forte{ background:var(--bordo); color:var(--creme); border-color:var(--bordo); }
+.selo-item.forte .pt{ background:var(--creme); }
+.selo-item.calmo{ color:var(--tinta-suave); }
+.selo-item.calmo .pt{ background:var(--tinta-suave); }
+
+.bloco-perfil{ padding:34px 0; border-top:1px solid var(--regra); }
+.bloco-perfil > .sec-mark{ margin-bottom:16px; }
+.bloco-perfil h2{ font-size:30px; font-weight:400; letter-spacing:-.018em; margin-bottom:16px; }
+
+.video-fachada{
+  position:relative; width:100%; max-width:760px; aspect-ratio:16/9;
+  background:var(--marrom); border:none; padding:0; cursor:pointer; display:block; overflow:hidden;
+}
+.video-fachada img{ width:100%; height:100%; object-fit:cover; }
+.video-fachada .cobre{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px; color:var(--creme);
+  background:rgba(76,42,35,.34);
+}
+.video-fachada .cobre .simbolo{ font-size:40px; line-height:1; }
+.video-legenda{ font-size:14px; color:var(--tinta-suave); font-weight:300; margin-top:12px; max-width:44em; line-height:1.5; }
+
+.dados-grade{ display:grid; grid-template-columns:1fr 1fr; column-gap:48px; }
+.dados-grade > *{ min-width:0; }
+
+.abas{ display:flex; border-bottom:1px solid var(--regra-media); margin-bottom:6px; overflow-x:auto; }
+.abas button{
+  background:transparent; border:none; cursor:pointer; white-space:nowrap;
+  padding:12px 18px 11px; color:var(--tinta);
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; font-weight:500;
+  border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.abas button:first-child{ padding-left:0; }
+.abas button[aria-selected="true"]{ color:var(--bordo); border-bottom-color:var(--bordo); }
+.abas button .qtd{ color:var(--tinta-suave); margin-left:7px; }
+
+.redes-linha{ display:flex; flex-wrap:wrap; gap:0 26px; }
+.redes-linha a{
+  display:inline-flex; align-items:baseline; gap:8px; padding:11px 0;
+  border-bottom:1px solid transparent;
+}
+.redes-linha a:hover{ border-bottom-color:var(--bordo); }
+.redes-linha .rede-nome{ font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--terracota-txt); }
+.redes-linha .rede-user{ font-size:16px; font-weight:300; }
+
+.acao-fixa{ display:none; }
+
+/* ═════════════════════════════════════════════════════════════
+   RESPONSIVO — quebras 1200 / 1024 / 760, conforme responsivo.md.
+   Nunca em atributo style: media query não vence estilo inline.
+   ═════════════════════════════════════════════════════════════ */
+@media (max-width:1200px){
+  .editor-layout{ column-gap:36px; grid-template-columns:1fr 292px; }
+}
+@media (max-width:1024px){
+  .editor-layout{ grid-template-columns:1fr; row-gap:34px; }
+  .lateral{ position:static; }
+  .previa-bloco .ficha{ max-width:300px; }
+  .dados-grade{ grid-template-columns:1fr; }
+  .linha.d3{ grid-template-columns:1fr 1fr; }
+  .secao .resumo{ display:none; }
+}
+@media (max-width:760px){
+  .pagina-cabeca h1{ font-size:34px; }
+  .linha.d2, .linha.d3, .linha.reg, .linha.tel, .linha.cep{ grid-template-columns:1fr; row-gap:16px; }
+  .secao h2{ font-size:21px; }
+  .secao-corpo{ padding-bottom:28px; }
+  .video-cartela{ flex-direction:column; }
+  .video-mini{ flex:0 0 auto; width:100%; }
+  .prefixado{ flex-direction:column; align-items:stretch; }
+  .prefixado .pref{ border-right:none; border-bottom:1px solid var(--regra); margin-right:0; padding:9px 13px; }
+  .prefixado input{ padding-left:13px; }
+  .medidor, .previa-bloco{ padding:16px; }
+  /* barra de ação fixa no rodapé, no celular */
+  .acao-fixa{
+    display:flex; position:fixed; left:0; right:0; bottom:0; z-index:40;
+    background:var(--papel); border-top:1px solid var(--tinta); padding:10px var(--gutter, 20px);
+    gap:12px; align-items:center;
+  }
+  .acao-fixa .btn-bloco{ flex:1; text-align:center; border:none; cursor:pointer; }
+  body.tem-acao-fixa{ padding-bottom:78px; }
+}
+@media print{
+  .painel-nav, .lateral, .acao-fixa, .nav-cta{ display:none; }
+  .secao-corpo{ display:block !important; }
+}
+@media (prefers-reduced-motion:reduce){
+  .barra i{ transition:none; }
+}
+
+/* ═════ LINK DE ATALHO ═════ */
+.pular{ position:absolute; left:-9999px; }
+.pular:focus{
+  position:static; display:block; padding:10px 48px; background:var(--tinta); color:var(--papel);
+  font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase;
+}
+
+/* ═════════════════════════════════════════════════════════════
+   RESPONSIVO DE BASE
+   A cópia de design-system.css do projeto ainda é a versão
+   anterior à sessão de responsividade (nenhuma media query, onze
+   grades em pixel fixo). As regras abaixo cobrem só o que estas
+   duas telas usam. Ao integrar, conferir com responsivo.md e
+   remover o que já estiver lá — para não duplicar.
+   ═════════════════════════════════════════════════════════════ */
+:root{ --gutter:48px; }
+.shell{ padding-left:var(--gutter); padding-right:var(--gutter); }
+.wordmark{ font-size:clamp(34px, 7vw, 70px); }
+.pagina-cabeca h1{ font-size:clamp(30px, 6vw, 44px); }
+.perfil-id h1{ font-size:clamp(32px, 6.4vw, 46px); }
+.sec-head h2, .bloco-perfil h2{ font-size:clamp(24px, 4.4vw, 40px); }
+
+@media (max-width:1200px){
+  :root{ --gutter:36px; }
+  .perfil-topo{ grid-template-columns:170px 1fr 268px; column-gap:32px; }
+  .perfil-mono{ width:170px; height:170px; }
+  .perfil-mono span{ font-size:66px; }
+}
+@media (max-width:1024px){
+  :root{ --gutter:28px; }
+  .masthead .shell{ gap:24px; }
+  .mh-meta .claim{ font-size:15px; }
+  .perfil-topo{ grid-template-columns:132px 1fr; row-gap:28px; }
+  .perfil-mono{ width:132px; height:132px; }
+  .perfil-mono span{ font-size:52px; }
+  .contato-box{ grid-column:1 / -1; }
+  .idx-row{ grid-template-columns:34px 1fr 120px; }
+  .idx-row .idx-data{ display:none; }
+  .ag-row{ grid-template-columns:92px 1fr 180px; }
+  .ag-row .ag-estado{ display:none; }
+  .foot-grid{ grid-template-columns:1fr 1fr; row-gap:28px; }
+}
+@media (max-width:760px){
+  :root{ --gutter:20px; }
+  .utility .shell{ flex-direction:column; align-items:flex-start; gap:5px; }
+  .masthead .shell{ flex-direction:column; align-items:flex-start; padding-top:22px; padding-bottom:18px; }
+  .mh-brand{ gap:14px; }
+  .mh-brand img{ width:52px; height:52px; }
+  .mh-meta{ text-align:left; padding-bottom:0; }
+  .mh-meta .claim{ max-width:none; margin-bottom:6px; }
+  .mainnav .shell{ flex-direction:column; align-items:stretch; }
+  .mainnav-links{ display:grid; grid-template-columns:1fr 1fr; }
+  .mainnav-links a{ padding:13px 0; border-right:1px solid var(--regra); border-bottom:1px solid var(--regra); }
+  .mainnav-links a:nth-child(2n){ border-right:none; padding-left:14px; }
+  .nav-cta{ align-self:stretch; text-align:center; margin:12px 0; }
+  .perfil-topo{ grid-template-columns:1fr; padding:26px 0 22px; }
+  .perfil-mono{ width:104px; height:104px; }
+  .perfil-mono span{ font-size:40px; }
+  .perfil-dado{ flex-direction:column; gap:4px; }
+  .perfil-dado .rot{ width:auto; flex:0 0 auto; }
+  .sec-head{ flex-direction:column; align-items:flex-start; gap:12px; }
+  .sec-head .aside{ text-align:left; }
+  .idx-row{ grid-template-columns:28px 1fr; row-gap:4px; }
+  .idx-row .idx-autor{ grid-column:2; }
+  .ag-row{ grid-template-columns:1fr; row-gap:6px; }
+  .ag-row .ag-local{ display:block; }
+  .leitura p{ font-size:17px; }
+  .leitura p.abre::first-letter{ font-size:50px; }
+  .foot-grid{ grid-template-columns:1fr; }
+  .foot-base{ flex-direction:column; gap:6px; }
+  .redes-linha{ flex-direction:column; gap:0; }
+}
+@media (max-width:340px){
+  .mainnav-links{ grid-template-columns:1fr; }
+  .mainnav-links a:nth-child(2n){ padding-left:0; }
+}
+
+</style>
+</head>
+<body>
+
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<div class="utility">
+  <div class="shell">
+    <span class="mono">Diretório de psicólogas e psicólogos · Brasil e exterior</span>
+    <span class="mono"><a href="#">Buscar profissional</a><a href="painel-perfil.html">Entrar</a></span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="shell">
+    <div class="mh-brand">
+      <img src="assets/logo.png" alt="Confluências" onerror="this.style.display='none'">
+      <span class="wordmark">Confluências</span>
+    </div>
+    <div class="mh-meta">
+      <p class="claim">Um diretório sustentado por quem faz parte dele.</p>
+      <p class="mono figures">1.240 perfis · 27 estados · 16 países</p>
+    </div>
+  </div>
+</div>
+
+<nav class="mainnav">
+  <div class="shell">
+    <div class="mainnav-links">
+      <a href="#" class="current">Profissionais</a>
+      <a href="#">Agenda</a>
+      <a href="#">Notícias</a>
+      <a href="#">Artigos</a>
+      <a href="#">Biblioteca</a>
+      <a href="#">O movimento</a>
+    </div>
+    <a href="#" class="nav-cta">Criar perfil →</a>
+  </div>
+</nav>
+
+<main id="conteudo">
+<div class="shell">
+
+  <!-- ══════ IDENTIFICAÇÃO ══════ -->
+  <div class="sec-mark mono" style="padding-top:26px">
+    <span class="num">§</span>
+    <span><a href="#">Profissionais</a> · <a href="#">Minas Gerais</a> · <a href="#">Belo Horizonte</a></span>
+  </div>
+
+  <div class="perfil-topo">
+    <div class="perfil-mono" style="background:#A61F21"><span>AL</span></div>
+
+    <div class="perfil-id">
+      <h1>Ana Lima</h1>
+      <span class="mono linha-crp">CRP 04/123456 · ela/dela</span>
+
+<div class="selos">
+        <span class="selo-item forte"><i class="pt"></i>Atende em Libras</span>
+        <span class="selo-item"><i class="pt"></i>Atendimento online</span>
+        <span class="selo-item"><i class="pt"></i>Atendimento presencial</span>
+        <span class="selo-item calmo"><i class="pt"></i>Migrantes · Refugiadas(os)</span>
+      </div>
+
+      <div class="perfil-dado">
+        <span class="mono rot">Abordagem</span>
+        <span class="val">Psicanálise</span>
+      </div>
+      <div class="perfil-dado">
+        <span class="mono rot">Onde atende</span>
+        <span class="val">Belo Horizonte — MG · também em Contagem</span>
+      </div>
+      <div class="perfil-dado">
+        <span class="mono rot">Idiomas</span>
+        <span class="val">Português · Libras · Espanhol</span>
+      </div>
+      <div class="perfil-dado">
+        <span class="mono rot">Público</span>
+        <span class="val">Adultos · Casais</span>
+      </div>
+      <div class="perfil-dado">
+        <span class="mono rot">Populações</span>
+        <span class="val">Migrantes · Refugiadas e refugiados · Brasileiras(os) no exterior</span>
+      </div>
+    </div>
+
+    <div class="contato-box">
+      <h3>Falar com Ana</h3>
+      <p>A mensagem chega direto no painel dela. Você recebe uma cópia por e-mail.</p>
+      <a href="#form-contato" class="btn-bloco">Enviar mensagem</a>
+      <a href="/api/v1/profissionais/ana-lima/whatsapp" class="sec" id="btn-whats"
+         rel="nofollow noopener">Chamar no WhatsApp</a>
+      <button type="button" class="sec" id="btn-telefone" style="width:100%;background:transparent;cursor:pointer;font-family:inherit;margin-top:10px">Ver telefone</button>
+      <p style="margin:16px 0 0;font-size:13px">O número não está escrito nesta página, nem no botão do WhatsApp — ele passa por um redirecionamento da plataforma. Segura robô de spam e atende ao princípio de minimização da LGPD.</p>
+    </div>
+  </div>
+
+  <!-- ══════ VÍDEO ══════ -->
+  <section class="bloco-perfil">
+    <div class="sec-mark mono"><span class="num">§ 01</span><span>Apresentação em vídeo</span></div>
+    <button class="video-fachada" id="video-fachada" aria-label="Reproduzir o vídeo de apresentação de Ana Lima">
+      <img src="https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg" alt="" onerror="this.style.display='none'">
+      <span class="cobre">
+        <span class="simbolo">▶</span>
+        <span class="mono">Reproduzir · 1 min 24 s</span>
+      </span>
+    </button>
+    <p class="video-legenda">O player só é carregado depois do clique. Antes disso, nenhum cookie de terceiro é gravado no seu navegador — e a página abre em uma fração do tempo.</p>
+  </section>
+
+  <!-- ══════ SOBRE ══════ -->
+  <section class="bloco-perfil">
+    <div class="sec-mark mono"><span class="num">§ 02</span><span>Sobre</span></div>
+    <div class="leitura">
+      <p class="abre">Atendo adultos há doze anos, com escuta orientada pela psicanálise. Meu trabalho parte de uma premissa simples: sofrimento tem história, e história tem contexto — familiar, social, racial, econômico.</p>
+      <p>Boa parte de quem chega ao consultório vem com a sensação de estar falhando em dar conta de algo que, olhando de perto, nunca foi só individual. Trabalho com essa distinção sem transformá-la em desculpa nem em sentença.</p>
+      <p>Na primeira sessão não há questionário nem devolutiva pronta. Conversamos sobre o que trouxe você até aqui e, ao fim, avaliamos juntos se faz sentido continuar. Se eu não for a profissional indicada para o seu caso, digo isso e indico colegas.</p>
+    </div>
+  </section>
+
+  <!-- ══════ COMO ATENDO ══════ -->
+  <section class="bloco-perfil">
+    <div class="sec-mark mono"><span class="num">§ 03</span><span>Como atendo</span></div>
+    <div class="dados-grade">
+      <div>
+        <div class="perfil-dado"><span class="mono rot">Abordagem</span><span class="val">Psicanálise</span></div>
+        <div class="perfil-dado"><span class="mono rot">Especialidades</span><span class="val">Ansiedade · Luto · Racismo e saúde mental</span></div>
+        <div class="perfil-dado"><span class="mono rot">Público</span><span class="val">Adultos · Casais</span></div>
+        <div class="perfil-dado"><span class="mono rot">Populações</span><span class="val">Migrantes · Refugiadas e refugiados · Brasileiras(os) no exterior</span></div>
+      </div>
+      <div>
+        <div class="perfil-dado"><span class="mono rot">Idiomas</span><span class="val">Português · Libras · Espanhol</span></div>
+        <div class="perfil-dado"><span class="mono rot">Convênios</span><span class="val">Não atendo por convênio</span></div>
+        <div class="perfil-dado"><span class="mono rot">Especialidades</span><span class="val">Uso abusivo de álcool e outras drogas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ ONDE ATENDO ══════ -->
+  <section class="bloco-perfil">
+    <div class="sec-mark mono"><span class="num">§ 04</span><span>Onde atendo</span></div>
+    <div class="dados-grade">
+      <div>
+        <div class="perfil-dado"><span class="mono rot">Modalidade</span><span class="val">Online e presencial</span></div>
+        <div class="perfil-dado"><span class="mono rot">Presencial</span><span class="val">Centro, Belo Horizonte — MG</span></div>
+      </div>
+      <div>
+        <div class="perfil-dado"><span class="mono rot">Também atende</span><span class="val">Contagem — MG</span></div>
+        <div class="perfil-dado"><span class="mono rot">Online</span><span class="val">Todo o Brasil e exterior</span></div>
+      </div>
+    </div>
+    <p class="video-legenda">O endereço completo não é exibido porque a profissional optou por não exibi-lo — o padrão da plataforma. Ele é informado no contato.</p>
+  </section>
+
+  <!-- ══════ PUBLICAÇÕES ══════ -->
+  <section class="bloco-perfil">
+    <div class="sec-mark mono"><span class="num">§ 05</span><span>Publicações</span></div>
+    <h2>Escrito e indicado por Ana</h2>
+
+    <div class="abas" role="tablist" aria-label="Publicações">
+      <button role="tab" aria-selected="true" aria-controls="p-artigos" id="t-artigos">Artigos <span class="qtd">4</span></button>
+      <button role="tab" aria-selected="false" aria-controls="p-referencias" id="t-referencias">Referências <span class="qtd">7</span></button>
+      <button role="tab" aria-selected="false" aria-controls="p-eventos" id="t-eventos">Eventos <span class="qtd">1</span></button>
+    </div>
+
+    <div id="p-artigos" role="tabpanel" aria-labelledby="t-artigos">
+      <div class="indice">
+        <div class="idx-row"><span class="mono idx-num">01</span><span class="idx-titulo">O que a fila de espera diz sobre a clínica</span><span class="idx-autor">Artigo</span><span class="mono idx-data">02 ago 2026</span></div>
+        <div class="idx-row"><span class="mono idx-num">02</span><span class="idx-titulo">Luto não é etapa, é travessia</span><span class="idx-autor">Artigo</span><span class="mono idx-data">14 jun 2026</span></div>
+        <div class="idx-row"><span class="mono idx-num">03</span><span class="idx-titulo">Escuta e raça: notas de consultório</span><span class="idx-autor">Artigo</span><span class="mono idx-data">28 abr 2026</span></div>
+        <div class="idx-row"><span class="mono idx-num">04</span><span class="idx-titulo">Primeira sessão: o que eu digo e o que eu calo</span><span class="idx-autor">Artigo</span><span class="mono idx-data">09 mar 2026</span></div>
+      </div>
+    </div>
+
+    <div id="p-referencias" role="tabpanel" aria-labelledby="t-referencias" hidden>
+      <div class="indice">
+        <div class="idx-row"><span class="mono idx-num">01</span><span class="idx-titulo">SOUZA, Neusa Santos. <em>Tornar-se negro.</em> Rio de Janeiro: Graal, 1983.</span><span class="idx-autor">Livro</span><span class="mono idx-data">Indicado</span></div>
+        <div class="idx-row"><span class="mono idx-num">02</span><span class="idx-titulo">KILOMBA, Grada. <em>Memórias da plantação.</em> Rio de Janeiro: Cobogó, 2019.</span><span class="idx-autor">Livro</span><span class="mono idx-data">Indicado</span></div>
+        <div class="idx-row"><span class="mono idx-num">03</span><span class="idx-titulo">GONÇALVES FILHO, José Moura. <em>Humilhação social.</em> São Paulo: Edusp, 2004.</span><span class="idx-autor">Livro</span><span class="mono idx-data">Indicado</span></div>
+      </div>
+    </div>
+
+    <div id="p-eventos" role="tabpanel" aria-labelledby="t-eventos" hidden>
+      <div class="ag-row">
+        <span class="ag-data"><span class="dia">12</span><span class="mono mes">set</span></span>
+        <span class="ag-titulo">Roda de conversa: escuta clínica e território</span>
+        <span class="ag-local">Centro Cultural UFMG · Belo Horizonte</span>
+        <span class="mono ag-estado">Inscrições abertas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ CONTATO ══════ -->
+  <section class="bloco-perfil" id="form-contato">
+    <div class="sec-mark mono"><span class="num">§ 06</span><span>Contato</span></div>
+    <div class="dados-grade">
+      <div>
+        <h2>Enviar uma mensagem</h2>
+        <div class="campo">
+          <label class="rot" for="c-nome">Seu nome</label>
+          <input type="text" id="c-nome" autocomplete="name">
+        </div>
+        <div class="linha d2">
+          <div class="campo">
+            <label class="rot" for="c-email">Seu e-mail</label>
+            <input type="email" id="c-email" autocomplete="email">
+          </div>
+          <div class="campo">
+            <label class="rot" for="c-assunto">Assunto</label>
+            <div class="sel"><select id="c-assunto">
+              <option>Agendamento</option><option>Dúvida</option><option>Outro</option>
+            </select></div>
+          </div>
+        </div>
+        <div class="campo">
+          <label class="rot" for="c-msg">Mensagem</label>
+          <textarea id="c-msg" maxlength="1000"></textarea>
+        </div>
+        <label class="opcao"><input type="checkbox" id="c-lgpd"><span class="txt">Aceito que meus dados sejam enviados para Ana Lima e que ela entre em contato comigo
+          <small>Nada é usado para outro fim e nada é compartilhado com terceiros.</small></span></label>
+        <p style="margin-top:18px"><button type="button" class="btn-bloco" style="border:none;cursor:pointer">Enviar mensagem</button></p>
+      </div>
+
+      <div>
+        <h2>Onde mais encontrar</h2>
+        <div class="redes-linha">
+          <a href="https://instagram.com/analima.psi" rel="me nofollow noopener" target="_blank">
+            <span class="rede-nome">Instagram</span><span class="rede-user">@analima.psi</span></a>
+          <a href="https://linkedin.com/in/ana-lima-psicologa" rel="me nofollow noopener" target="_blank">
+            <span class="rede-nome">LinkedIn</span><span class="rede-user">ana-lima-psicologa</span></a>
+          <a href="http://lattes.cnpq.br/1234567890123456" rel="me nofollow noopener" target="_blank">
+            <span class="rede-nome">Lattes</span><span class="rede-user">Currículo</span></a>
+          <a href="https://analima.com.br" rel="me nofollow noopener" target="_blank">
+            <span class="rede-nome">Site</span><span class="rede-user">analima.com.br</span></a>
+        </div>
+        <p class="video-legenda">Os endereços são montados pela plataforma a partir do nome de usuário informado — por isso nenhum deles quebra.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="foot-base">
+      <span class="mono">© 2026 Confluências</span>
+      <span class="mono">Protótipo · conteúdo fictício</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Ana Lima",
+  "jobTitle":"Psicóloga",
+  "url":"https://confluencias.org/profissionais/ana-lima",
+  "identifier":{"@type":"PropertyValue","propertyID":"CRP","value":"CRP 04/123456"},
+  "knowsLanguage":["pt-BR","sgn-BR","es"],
+  "address":{"@type":"PostalAddress","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},
+  "sameAs":["https://instagram.com/analima.psi","https://linkedin.com/in/ana-lima-psicologa"],
+  "subjectOf":{"@type":"VideoObject","name":"Apresentação — Ana Lima","uploadDate":"2026-05-02"}
+}
+</script>
+
+<script>
+(function(){
+'use strict';
+/* abas de publicações */
+const abas = Array.from(document.querySelectorAll('[role=tab]'));
+abas.forEach((t,i)=>{
+  t.addEventListener('click', ()=>{
+    abas.forEach(o=>{
+      const sel = o===t;
+      o.setAttribute('aria-selected', sel?'true':'false');
+      document.getElementById(o.getAttribute('aria-controls')).hidden = !sel;
+    });
+  });
+  t.addEventListener('keydown', ev=>{
+    const d = ev.key==='ArrowRight'?1 : ev.key==='ArrowLeft'?-1 : 0;
+    if(!d) return;
+    ev.preventDefault();
+    const alvo = abas[(i+d+abas.length)%abas.length];
+    alvo.focus(); alvo.click();
+  });
+});
+
+/* vídeo: o player só entra depois do clique */
+const fachada = document.getElementById('video-fachada');
+fachada.addEventListener('click', ()=>{
+  const q = document.createElement('div');
+  q.className = 'video-fachada';
+  q.innerHTML = '<iframe width="100%" height="100%" '
+    + 'src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?autoplay=1" '
+    + 'title="Apresentação — Ana Lima" frameborder="0" '
+    + 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" '
+    + 'allowfullscreen style="border:0;display:block"></iframe>';
+  fachada.replaceWith(q);
+});
+
+/* WhatsApp: no protótipo não há back-end, então o clique é interceptado.
+   Em produção o href responde 302 para wa.me com a mensagem já escrita. */
+document.getElementById('btn-whats').addEventListener('click', ev=>{
+  ev.preventDefault();
+  alert('Em produção: 302 para wa.me/5531999999999 com a mensagem inicial já escrita.\n\nO número não aparece em nenhum ponto do HTML desta página — e o clique entra como contato recebido no painel da profissional.');
+});
+
+/* telefone revelado por clique */
+document.getElementById('btn-telefone').addEventListener('click', function(){
+  this.textContent = '(31) 99999-9999 · WhatsApp';
+  this.disabled = true;
+});
+})();
+</script>
+</body>
+</html>

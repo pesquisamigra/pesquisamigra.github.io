@@ -4,36 +4,852 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Meu perfil · Confluências</title>
+<meta name="description" content="Edição do perfil profissional no diretório Confluências.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#FAF4E4">
-<meta name="description" content="Edite seu perfil profissional no Confluências.">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
-<link rel="icon" href="assets/icon-192.png">
-<meta name="apple-mobile-web-app-title" content="Confluências">
-<link rel="stylesheet" href="design-system.css">
-</head>
-<body>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ESTA PÁGINA TRAZ O CSS EMBUTIDO só para abrir sozinha.
+   Ao integrar ao protótipo, apagar todo este bloco <style> e usar:
+     <link rel="stylesheet" href="design-system.css">
+     <link rel="stylesheet" href="perfil-componentes.css">
+   O trecho até a marca "COMPONENTES DE FORMULÁRIO" é cópia literal
+   de design-system.css. O que vem depois é o arquivo novo.
+   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   CONFLUÊNCIAS · SISTEMA DE DESIGN
+   Direção "Periódico" — aprovada em 14/08/2026
 
+   REGRAS INEGOCIÁVEIS DESTA LINGUAGEM
+   1. Nada de border-radius, box-shadow ou linear-gradient.
+      A hierarquia vem de fio, peso tipográfico e espaço.
+   2. Duas famílias apenas: Newsreader (voz editorial) e
+      IBM Plex Mono (metadado: data, CRP, índice, rótulo).
+      Nenhuma sans genérica.
+   3. O laranja #F29A1E NUNCA leva texto branco (2,2:1).
+      Sempre texto marrom #4C2A23 (5,7:1).
+   4. A terracota #BD6A4B reprova em AA para texto pequeno (3,6:1).
+      Para rótulos use --terracota-txt (#9E5334, 5,1:1).
+      Reserve #BD6A4B para traços e elementos decorativos.
+   5. Sem foto real, o retrato é monograma em cor chapada.
+      Cores válidas p/ iniciais em creme: #A61F21, #4C2A23,
+      #8F4A2E, #7A3B22, #9E5334. Com #F29A1E, iniciais em marrom.
+
+   FONTES (carregar no <head> de cada página)
+   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+   ═══════════════════════════════════════════════════════════════ */
+
+  :root{
+    --papel:#FAF4E4;
+    --papel-2:#F3E7CD;
+    --tinta:#3B211A;
+    --tinta-suave:#7A5647;
+    --terracota-txt:#9E5334;
+    --regra:rgba(59,33,26,.16);
+    --regra-media:rgba(59,33,26,.30);
+    --laranja:#F29A1E;
+    --vermelho:#CC1A1A;
+    --bordo:#A61F21;
+    --marrom:#4C2A23;
+    --terracota:#BD6A4B;
+    --dourado:#DFA567;
+    --pessego:#F0C6A3;
+    --creme:#FBF1D5;
+    --serif:'Newsreader', Georgia, serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ -webkit-font-smoothing:antialiased; }
+  body{
+    font-family:var(--serif); background:var(--papel); color:var(--tinta);
+    font-size:18px; line-height:1.6;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; }
+
+  .shell{ max-width:1280px; margin:0 auto; padding:0 48px; }
+  .grid{ display:grid; grid-template-columns:repeat(12,1fr); column-gap:28px; }
+  .mono{ font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; font-weight:500; }
+
+  /* ═════ CAMADA 1 · CABEÇALHO ═════ */
+  .utility{ border-bottom:1px solid var(--regra); }
+  .utility .shell{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:11px; padding-bottom:11px; color:var(--tinta-suave);
+  }
+  .utility a{ color:var(--tinta); }
+  .utility a + a{ margin-left:22px; }
+
+  .masthead .shell{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:48px; padding-top:32px; padding-bottom:26px;
+  }
+  .mh-brand{ display:flex; align-items:center; gap:22px; }
+  .mh-brand img{ width:84px; height:84px; }
+  .wordmark{ font-weight:400; font-size:70px; letter-spacing:-.028em; line-height:.88; }
+  .mh-meta{ text-align:right; padding-bottom:7px; }
+  .mh-meta .claim{
+    font-size:17px; font-style:italic; font-weight:300; color:var(--tinta-suave);
+    max-width:290px; margin-bottom:10px; line-height:1.4;
+  }
+  .mh-meta .figures{ color:var(--terracota-txt); }
+
+  .mainnav{ border-top:2px solid var(--tinta); border-bottom:1px solid var(--regra); }
+  .mainnav .shell{ display:flex; align-items:stretch; justify-content:space-between; }
+  .mainnav-links{ display:flex; }
+  .mainnav-links a{
+    padding:15px 22px 14px; border-right:1px solid var(--regra);
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500;
+  }
+  .mainnav-links a:first-child{ padding-left:0; }
+  .mainnav-links a.current{ color:var(--bordo); }
+  .nav-cta{
+    background:var(--laranja); color:var(--marrom); align-self:center;
+    padding:11px 22px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.11em; text-transform:uppercase; font-weight:600;
+  }
+
+  /* marcadores e cabeçalhos de seção */
+  .sec-mark{ display:flex; align-items:baseline; gap:14px; color:var(--terracota-txt); }
+  .sec-mark .num{ color:var(--bordo); font-weight:600; }
+  .sec-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:32px; margin:14px 0 32px;
+  }
+  .sec-head h2{ font-size:40px; font-weight:400; letter-spacing:-.022em; line-height:1; }
+  .sec-head .aside{ text-align:right; color:var(--tinta-suave); }
+  .sec-head .aside a{ color:var(--bordo); border-bottom:1px solid var(--bordo); padding-bottom:2px; }
+
+  /* ═════ CAMADA 2 · QUEM SOMOS ═════ */
+  .quem{ padding:54px 0 56px; border-bottom:1px solid var(--regra); }
+  .statement{
+    font-size:56px; line-height:1.05; font-weight:400; letter-spacing:-.018em;
+    margin:24px 0 34px; max-width:17.5em;
+  }
+  .statement em{ font-style:italic; color:var(--bordo); }
+  .quem-corpo{ columns:2; column-gap:44px; max-width:960px; margin-bottom:30px; }
+  .quem-corpo p{
+    font-size:18px; line-height:1.62; color:var(--tinta-suave);
+    font-weight:300; margin-bottom:14px; break-inside:avoid;
+  }
+  .quem-corpo p strong{ color:var(--tinta); font-weight:500; }
+  .quem-acoes{ display:flex; align-items:center; gap:28px; }
+  .btn-bloco{
+    background:var(--tinta); color:var(--papel); padding:14px 26px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:600;
+  }
+  .lnk-sub{
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500; color:var(--bordo);
+    border-bottom:1px solid var(--bordo); padding-bottom:3px;
+  }
+
+  /* ═════ CAMADA 3 · DIRETÓRIO (carrossel) ═════ */
+  .diretorio{ padding:46px 0 58px; border-bottom:1px solid var(--regra); overflow:hidden; }
+  .car-nav{ display:flex; align-items:center; gap:18px; justify-content:flex-end; }
+  .car-contador{ color:var(--tinta-suave); }
+  .car-setas{ display:flex; gap:8px; }
+  .car-setas span{
+    width:38px; height:38px; border:1px solid var(--regra-media);
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; color:var(--tinta);
+  }
+  .car-setas span.off{ color:var(--regra-media); }
+
+  .dir-viewport{ overflow:hidden; }
+  .dir-strip{
+    display:flex; gap:28px;
+    padding-left:max(48px, calc((100% - 1280px)/2 + 48px));
+    padding-right:48px;
+  }
+  .ficha{ flex:0 0 275px; display:flex; flex-direction:column; }
+  .ficha .retrato{
+    aspect-ratio:1 / 1; display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .ficha .retrato span{
+    font-family:var(--serif); font-size:66px; font-weight:400;
+    color:var(--creme); letter-spacing:.02em; line-height:1;
+  }
+  .ficha h3{ font-size:22px; font-weight:400; line-height:1.15; margin-bottom:5px; letter-spacing:-.015em; }
+  .ficha .reg{ color:var(--terracota-txt); display:block; margin-bottom:12px; }
+  .ficha .abord{
+    font-size:16px; line-height:1.4; color:var(--tinta); font-weight:400;
+    padding-top:11px; border-top:1px solid var(--regra); margin-bottom:7px;
+  }
+  .ficha .acesso{ color:var(--tinta-suave); display:block; font-size:10px; line-height:1.5; }
+
+  /* ═════ CAMADA 4 · AGENDA ═════ */
+  .agenda{ background:var(--papel-2); padding:46px 0 58px; }
+  .ag-row{
+    display:grid; grid-template-columns:112px 1fr 236px 172px;
+    column-gap:24px; align-items:center;
+    padding:21px 0; border-top:1px solid var(--regra-media);
+  }
+  .ag-row:last-child{ border-bottom:1px solid var(--regra-media); }
+  .ag-data{ display:flex; align-items:baseline; gap:8px; }
+  .ag-data .dia{ font-size:36px; font-weight:400; line-height:1; letter-spacing:-.03em; }
+  .ag-data .mes{ color:var(--terracota-txt); }
+  .ag-titulo{ font-size:21px; font-weight:400; line-height:1.25; }
+  .ag-local{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+  .ag-estado{ text-align:right; color:var(--bordo); white-space:nowrap; }
+  .ag-estado.espera{ color:var(--tinta-suave); }
+
+  /* ═════ CAMADA 5 · NOTÍCIAS ═════ */
+  .noticias{ padding:46px 0 58px; border-bottom:1px solid var(--regra); }
+  .not-grid{ display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--tinta); }
+  .not-item{ padding:22px 26px 4px; border-right:1px solid var(--regra); }
+  .not-item:first-child{ padding-left:0; }
+  .not-item:last-child{ border-right:none; padding-right:0; }
+  .not-item .data{ color:var(--bordo); display:block; margin-bottom:11px; }
+  .not-item h3{ font-size:20px; line-height:1.25; font-weight:400; margin-bottom:10px; letter-spacing:-.01em; }
+  .not-item p{ font-size:15px; line-height:1.5; color:var(--tinta-suave); font-weight:300; margin-bottom:12px; }
+  .not-item .fonte{ color:var(--tinta-suave); font-size:10px; }
+
+  /* ═════ CAMADA 6 · ARTIGOS ═════ */
+  .artigos{ padding:46px 0 60px; border-bottom:1px solid var(--regra); }
+  .destaque{ border-top:2px solid var(--tinta); padding-top:24px; }
+  .dest-cita{
+    grid-column:1 / span 5; background:var(--marrom); color:var(--creme);
+    padding:36px 32px 30px; position:relative; align-self:start;
+  }
+  .dest-cita p{ font-size:26px; line-height:1.3; font-weight:300; font-style:italic; margin-bottom:22px; }
+  .dest-cita .fonte{ color:var(--dourado); }
+  .dest-cita img{ width:46px; height:46px; position:absolute; right:26px; bottom:24px; opacity:.75; }
+  .dest-corpo{ grid-column:7 / span 6; }
+  .dest-corpo .kicker{ color:var(--bordo); margin-bottom:14px; display:block; }
+  .dest-corpo h3{ font-size:42px; line-height:1.06; font-weight:400; letter-spacing:-.022em; margin-bottom:16px; }
+  .dest-corpo .lide{
+    font-size:18px; line-height:1.6; color:var(--tinta-suave); font-weight:300;
+    margin-bottom:24px; max-width:30em;
+  }
+  .assinatura{ display:flex; align-items:baseline; gap:14px; color:var(--tinta-suave); flex-wrap:wrap; }
+  .assinatura .autor{ font-size:17px; font-weight:500; text-transform:none; letter-spacing:0; color:var(--tinta); font-family:var(--serif); }
+
+  .indice{ margin-top:36px; }
+  .idx-row{
+    display:grid; grid-template-columns:44px 1fr 216px 82px;
+    column-gap:24px; align-items:baseline;
+    padding:18px 0; border-top:1px solid var(--regra);
+  }
+  .idx-row:last-child{ border-bottom:1px solid var(--regra); }
+  .idx-num{ color:var(--terracota-txt); }
+  .idx-titulo{ font-size:21px; line-height:1.25; font-weight:400; }
+  .idx-autor{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+  .idx-data{ color:var(--tinta-suave); text-align:right; white-space:nowrap; }
+
+  /* ═════ CAMADA 7 · BIBLIOTECA DE REFERÊNCIAS ═════ */
+  .biblio{ background:var(--papel-2); padding:46px 0 58px; }
+  .bib-grid{ display:grid; grid-template-columns:1fr 1fr; column-gap:56px; border-top:2px solid var(--tinta); }
+  .bib-item{ padding:20px 0; border-bottom:1px solid var(--regra-media); }
+  .bib-item .tipo{ color:var(--terracota-txt); display:block; margin-bottom:8px; font-size:10px; }
+  .bib-ref{
+    font-size:17px; line-height:1.45; font-weight:300; color:var(--tinta);
+    padding-left:26px; text-indent:-26px; margin-bottom:9px;
+  }
+  .bib-ref em{ font-style:italic; }
+  .bib-item .indic{ color:var(--tinta-suave); font-size:10px; }
+  .bib-item .indic b{ color:var(--terracota-txt); font-weight:500; }
+
+  /* ═════ FECHO ═════ */
+  .fecho{ background:var(--marrom); color:var(--creme); padding:74px 0 70px; }
+  .fecho .grid{ align-items:center; }
+  .fecho-mark{ grid-column:1 / span 3; }
+  .fecho-mark img{ width:168px; height:168px; }
+  .fecho-txt{ grid-column:5 / span 8; }
+  .fecho-txt h2{ font-size:42px; line-height:1.1; font-weight:400; letter-spacing:-.018em; margin-bottom:20px; max-width:16em; }
+  .fecho-txt h2 em{ font-style:italic; color:var(--laranja); }
+  .fecho-txt p{ font-size:17px; color:var(--pessego); font-weight:300; max-width:36em; margin-bottom:30px; line-height:1.55; }
+  .fecho-acoes{ display:flex; align-items:center; gap:28px; }
+  .btn-claro{
+    background:var(--laranja); color:var(--marrom); padding:14px 26px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:600;
+  }
+  .lnk-claro{
+    font-family:var(--mono); font-size:11px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:500; color:var(--creme);
+    border-bottom:1px solid rgba(251,241,213,.5); padding-bottom:3px;
+  }
+
+  /* ═════ RODAPÉ ═════ */
+  footer{ background:var(--papel); padding:46px 0 30px; }
+  .foot-grid{ display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; column-gap:28px; }
+  .foot-brand{ display:flex; align-items:center; gap:13px; margin-bottom:15px; }
+  .foot-brand img{ width:40px; height:40px; }
+  .foot-brand span{ font-size:25px; letter-spacing:-.025em; }
+  .foot-grid p{ font-size:15px; color:var(--tinta-suave); font-weight:300; max-width:26em; line-height:1.55; }
+  .foot-grid h4{ color:var(--terracota-txt); margin-bottom:14px; }
+  .foot-grid a{ display:block; font-size:15px; color:var(--tinta); margin-bottom:9px; font-weight:300; }
+  .foot-base{
+    display:flex; justify-content:space-between; margin-top:40px; padding-top:18px;
+    border-top:1px solid var(--regra); color:var(--tinta-suave);
+  }
+
+/* ═════════════════════════════════════════════════════════════
+   COMPONENTES DE PÁGINAS INTERNAS
+   ═════════════════════════════════════════════════════════════ */
+
+/* --- barra de filtros --- */
+.filtros{ border-top:2px solid var(--tinta); border-bottom:1px solid var(--regra); }
+.filtros-linha{ display:flex; align-items:stretch; }
+.filtro{ padding:14px 24px; border-right:1px solid var(--regra); flex:1; }
+.filtro:first-child{ padding-left:0; }
+.filtro .rot{ display:block; color:var(--terracota-txt); font-size:10px; margin-bottom:5px; }
+.filtro .val{ font-size:16px; font-weight:400; }
+.filtro .val .seta{ color:var(--tinta-suave); margin-left:6px; font-size:12px; }
+.filtro-acao{ display:flex; align-items:center; padding-left:24px; }
+
+/* alternador de modalidade */
+.modos{ display:flex; gap:0; border:1px solid var(--regra-media); }
+.modos a{
+  padding:9px 18px; font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500; border-right:1px solid var(--regra-media);
+}
+.modos a:last-child{ border-right:none; }
+.modos a.ativo{ background:var(--tinta); color:var(--papel); }
+
+/* --- mapa --- */
+.mapa-bloco{ display:grid; grid-template-columns:1.55fr 1fr; column-gap:44px; align-items:start; }
+.mapa-quadro{ position:relative; }
+.mapa-quadro svg{ width:100%; height:auto; display:block; }
+.mapa-quadro .costa{ stroke:#3B211A; stroke-width:.9; fill:none; }
+.mapa-quadro .fronteira{ stroke:#BD6A4B; stroke-width:.55; fill:none; opacity:.55; }
+.mapa-ponto{ fill:#A61F21; fill-opacity:.72; stroke:#FAF4E4; stroke-width:.8; }
+.mapa-rot{ font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; fill:#3B211A; }
+.mapa-num{ font-family:var(--mono); font-size:9px; fill:#7A5647; }
+.mapa-legenda{
+  display:flex; gap:26px; align-items:center; margin-top:14px;
+  padding-top:12px; border-top:1px solid var(--regra); color:var(--tinta-suave);
+}
+.mapa-legenda .escala{ display:flex; align-items:center; gap:8px; }
+
+/* painel lateral do exterior */
+.exterior h3{ font-size:23px; font-weight:400; letter-spacing:-.015em; margin:8px 0 8px; }
+.exterior .nota{ font-size:14px; line-height:1.5; color:var(--tinta-suave); font-weight:300; margin-bottom:16px; }
+.exterior .mundo{ margin-bottom:16px; }
+.ext-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:9px 0; border-top:1px solid var(--regra);
+}
+.ext-row:last-child{ border-bottom:1px solid var(--regra); }
+.ext-row .cid{ font-size:16px; font-weight:400; }
+.ext-row .pais{ color:var(--tinta-suave); font-size:10px; margin-left:7px; }
+.ext-row .qtd{ font-family:var(--mono); font-size:12px; color:var(--bordo); }
+
+/* --- linha de resultado de busca --- */
+.res-row{
+  display:grid; grid-template-columns:64px 1fr 190px 150px 90px;
+  column-gap:22px; align-items:center;
+  padding:18px 0; border-top:1px solid var(--regra);
+}
+.res-row:last-child{ border-bottom:1px solid var(--regra); }
+.res-mono{
+  width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-size:24px; color:var(--creme);
+}
+.res-row h3{ font-size:21px; font-weight:400; line-height:1.2; margin-bottom:3px; }
+.res-row .crp{ color:var(--terracota-txt); font-size:10px; }
+.res-row .abord{ font-size:15px; color:var(--tinta-suave); font-weight:300; }
+.res-row .local{ font-size:14px; color:var(--tinta-suave); font-weight:300; }
+.res-row .ver{ text-align:right; }
+
+/* paginação */
+.paginacao{ display:flex; align-items:center; justify-content:space-between; margin-top:32px; }
+.pag-nums{ display:flex; gap:6px; }
+.pag-nums a{
+  min-width:36px; height:36px; border:1px solid var(--regra-media);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:11px;
+}
+.pag-nums a.ativo{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
+
+/* --- página do profissional --- */
+.perfil-topo{ display:grid; grid-template-columns:210px 1fr 300px; column-gap:44px; align-items:start; padding:44px 0 34px; }
+.perfil-mono{ width:210px; height:210px; display:flex; align-items:center; justify-content:center; }
+.perfil-mono span{ font-family:var(--serif); font-size:82px; color:var(--creme); }
+.perfil-id h1{ font-size:46px; font-weight:400; letter-spacing:-.022em; line-height:1.05; margin-bottom:8px; }
+.perfil-id .linha-crp{ color:var(--terracota-txt); margin-bottom:22px; display:block; }
+.perfil-dado{ display:flex; gap:14px; padding:11px 0; border-top:1px solid var(--regra); align-items:baseline; }
+.perfil-dado .rot{ color:var(--terracota-txt); font-size:10px; width:112px; flex:0 0 112px; }
+.perfil-dado .val{ font-size:16px; font-weight:400; }
+.contato-box{ border:1px solid var(--regra-media); padding:26px 24px; }
+.contato-box h3{ font-size:19px; font-weight:400; margin-bottom:6px; }
+.contato-box p{ font-size:14px; color:var(--tinta-suave); font-weight:300; line-height:1.5; margin-bottom:18px; }
+.contato-box .btn-bloco{ display:block; text-align:center; margin-bottom:10px; }
+.contato-box .sec{ display:block; text-align:center; font-family:var(--mono); font-size:10px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--bordo); padding:11px; border:1px solid var(--regra-media); }
+.selo{ display:inline-flex; align-items:center; gap:7px; color:var(--bordo); margin-bottom:16px; }
+.selo .pt{ width:7px; height:7px; background:var(--bordo); border-radius:50%; }
+
+/* --- corpo de texto longo (artigo / notícia) --- */
+.leitura{ max-width:34em; }
+.leitura p{ font-size:19px; line-height:1.72; margin-bottom:20px; font-weight:300; }
+.leitura p.abre::first-letter{
+  font-size:64px; line-height:.82; float:left; padding:6px 10px 0 0; color:var(--bordo);
+}
+.leitura h3{ font-size:25px; font-weight:400; margin:34px 0 14px; letter-spacing:-.015em; }
+.leitura blockquote{
+  border-left:2px solid var(--bordo); padding-left:24px; margin:28px 0;
+  font-size:23px; line-height:1.4; font-style:italic; font-weight:300; color:var(--tinta);
+}
+.leitura ul{ margin:0 0 20px 20px; }
+.leitura li{ font-size:18px; line-height:1.6; font-weight:300; margin-bottom:8px; }
+.artigo-cabeca{ padding:40px 0 30px; border-bottom:2px solid var(--tinta); margin-bottom:36px; }
+.artigo-cabeca h1{ font-size:54px; font-weight:400; line-height:1.05; letter-spacing:-.025em; margin:16px 0 18px; max-width:17em; }
+.artigo-cabeca .lide{ font-size:21px; line-height:1.5; color:var(--tinta-suave); font-weight:300; max-width:32em; margin-bottom:24px; }
+.artigo-corpo{ display:grid; grid-template-columns:1fr 300px; column-gap:56px; align-items:start; }
+.artigo-lado .bloco{ border-top:1px solid var(--regra); padding-top:14px; margin-bottom:26px; }
+.artigo-lado h4{ color:var(--terracota-txt); margin-bottom:12px; }
+.artigo-lado .autor-nome{ font-size:20px; font-weight:400; margin-bottom:4px; }
+.artigo-lado p{ font-size:14px; line-height:1.55; color:var(--tinta-suave); font-weight:300; }
+
+/* estado vazio */
+.vazio{ border:1px dashed var(--regra-media); padding:34px; text-align:center; }
+.vazio p{ font-size:16px; color:var(--tinta-suave); font-weight:300; }
+.res-row .ver a{ white-space:nowrap; }
+.exterior .mundo{ padding:10px 0; border-top:1px solid var(--regra); border-bottom:1px solid var(--regra); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONFLUÊNCIAS · COMPONENTES DE FORMULÁRIO E PERFIL
+   Acrescentar ao fim de design-system.css
+
+   Respeita as cinco regras inegociáveis da linguagem:
+   sem border-radius, sem box-shadow, sem gradiente;
+   só Newsreader e IBM Plex Mono; laranja nunca com texto branco;
+   terracota de texto só em --terracota-txt; monograma em cor chapada.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* verde de validação — 7,3:1 sobre o papel. Preenche uma das
+     lacunas apontadas em paleta-de-cores.md (cores semânticas). */
+  --verde:#1F5C34;
+}
+
+/* ═════ BARRA SECUNDÁRIA DO PAINEL ═════ */
+.painel-nav{ background:var(--papel-2); border-bottom:1px solid var(--regra); }
+.painel-nav .shell{ display:flex; overflow-x:auto; }
+.painel-nav a{
+  padding:12px 18px 11px; white-space:nowrap;
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500;
+  border-right:1px solid var(--regra);
+}
+.painel-nav a:first-child{ padding-left:0; }
+.painel-nav a.current{ color:var(--bordo); }
+
+/* ═════ ESTRUTURA DA PÁGINA DE EDIÇÃO ═════ */
+.pagina-cabeca{ padding:38px 0 26px; border-bottom:2px solid var(--tinta); }
+.pagina-cabeca h1{ font-size:44px; font-weight:400; letter-spacing:-.022em; line-height:1.05; margin:12px 0 10px; }
+.pagina-cabeca .lide{ font-size:18px; color:var(--tinta-suave); font-weight:300; max-width:36em; line-height:1.55; }
+
+.editor-layout{
+  display:grid; grid-template-columns:1fr 316px;
+  column-gap:56px; align-items:start; padding:34px 0 70px;
+}
+.editor-layout > *{ min-width:0; }
+.lateral{ position:sticky; top:18px; }
+
+/* ═════ SEÇÕES SANFONADAS ═════ */
+.secao{ border-top:1px solid var(--regra-media); }
+.secao:last-of-type{ border-bottom:1px solid var(--regra-media); }
+.secao > summary{
+  display:flex; align-items:baseline; gap:18px;
+  padding:19px 0; cursor:pointer; list-style:none;
+}
+.secao > summary::-webkit-details-marker{ display:none; }
+.secao > summary:focus-visible{ outline:2px solid var(--bordo); outline-offset:3px; }
+.secao .num{ color:var(--bordo); flex:0 0 auto; }
+.secao h2{ font-size:25px; font-weight:400; letter-spacing:-.015em; line-height:1.15; flex:1; min-width:0; }
+.secao .resumo{
+  font-size:14px; color:var(--tinta-suave); font-weight:300;
+  text-align:right; max-width:19em; line-height:1.4;
+}
+.secao .sinal{ color:var(--tinta-suave); flex:0 0 auto; }
+.secao[open] .sinal .mais{ display:none; }
+.secao:not([open]) .sinal .menos{ display:none; }
+.secao-corpo{ padding:2px 0 36px; max-width:700px; }
+
+/* ═════ CAMPOS ═════ */
+.campo{ margin-bottom:24px; }
+.campo:last-child{ margin-bottom:0; }
+.rot{
+  display:block; font-family:var(--mono); font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; font-weight:500; color:var(--terracota-txt); margin-bottom:8px;
+}
+.rot .opc{ color:var(--tinta-suave); }
+fieldset{ border:none; }
+legend.rot{ padding:0; }
+
+input[type=text], input[type=email], input[type=url], input[type=tel],
+input[type=search], select, textarea{
+  width:100%; font-family:var(--serif); font-size:17px; font-weight:300;
+  color:var(--tinta); background:var(--papel);
+  border:1px solid var(--regra-media); border-radius:0;
+  padding:11px 13px; appearance:none; -webkit-appearance:none;
+}
+textarea{ min-height:160px; line-height:1.6; resize:vertical; }
+input::placeholder, textarea::placeholder{ color:var(--tinta-suave); opacity:.7; }
+:focus-visible{ outline:2px solid var(--bordo); outline-offset:2px; }
+input:disabled, select:disabled{ color:var(--tinta-suave); background:var(--papel-2); cursor:not-allowed; }
+
+.sel{ position:relative; }
+.sel::after{
+  content:'▾'; position:absolute; right:13px; top:50%; transform:translateY(-50%);
+  color:var(--tinta-suave); font-size:12px; pointer-events:none;
+}
+.sel select{ padding-right:32px; }
+
+.ajuda{
+  display:block; font-size:14px; line-height:1.5; font-weight:300;
+  color:var(--tinta-suave); margin-top:7px;
+}
+.msg-erro{ display:block; font-size:14px; color:var(--vermelho); margin-top:7px; font-weight:400; }
+.msg-ok{ display:block; font-size:14px; color:var(--verde); margin-top:7px; font-weight:400; }
+.msg-aviso{ display:block; font-size:14px; color:var(--terracota-txt); margin-top:7px; font-weight:400; }
+.campo.erro input, .campo.erro select, .campo.erro .prefixado, .campo.erro textarea{ border-color:var(--vermelho); }
+
+.contador{ float:right; color:var(--tinta-suave); font-family:var(--mono); font-size:10px; letter-spacing:.08em; }
+
+/* linhas de dois e três campos */
+.linha{ display:grid; column-gap:20px; }
+.linha > *{ min-width:0; }
+.linha.d2{ grid-template-columns:1fr 1fr; }
+.linha.d3{ grid-template-columns:1fr 1fr 1fr; }
+.linha.reg{ grid-template-columns:minmax(0,1fr) 160px; }
+.linha.tel{ grid-template-columns:180px minmax(0,1fr); }
+.linha.cep{ grid-template-columns:160px minmax(0,1fr); }
+
+/* ═════ CAMPO COMPOSTO COM PRÉ-VISUALIZAÇÃO ═════ */
+.previa{
+  display:flex; align-items:baseline; gap:14px;
+  margin-top:14px; padding-top:13px; border-top:1px solid var(--regra);
+}
+.previa .rot{ margin:0; flex:0 0 auto; }
+.previa .val{ font-size:21px; font-weight:400; letter-spacing:.01em; }
+.previa .val.indefinido{ color:var(--tinta-suave); font-weight:300; }
+
+/* ═════ CAMPO COM PREFIXO FIXO (redes sociais) ═════ */
+.prefixado{ display:flex; align-items:stretch; border:1px solid var(--regra-media); background:var(--papel); }
+.prefixado:focus-within{ outline:2px solid var(--bordo); outline-offset:2px; }
+.prefixado .pref{
+  display:flex; align-items:center; padding:0 0 0 13px; white-space:nowrap;
+  font-family:var(--mono); font-size:12px; color:var(--tinta-suave);
+  border-right:1px solid var(--regra); margin-right:10px; padding-right:10px;
+}
+.prefixado input{ border:none; padding-left:0; background:transparent; }
+.prefixado input:focus-visible{ outline:none; }
+.rede{ margin-bottom:14px; }
+.rede .rot{ margin-bottom:6px; }
+
+/* ═════ ESCOLHAS (caixa e rádio) ═════ */
+.opcao{ display:flex; gap:12px; align-items:flex-start; padding:9px 0; cursor:pointer; }
+.opcao input[type=checkbox], .opcao input[type=radio]{
+  appearance:none; -webkit-appearance:none; flex:0 0 20px;
+  width:20px; height:20px; margin:3px 0 0; border:1px solid var(--regra-media);
+  background:var(--papel); cursor:pointer;
+}
+.opcao input:checked{ background:var(--tinta); border-color:var(--tinta); }
+.opcao input[type=checkbox]:checked::after{
+  content:'✓'; display:block; text-align:center; line-height:18px;
+  font-size:12px; color:var(--papel);
+}
+.opcao input[type=radio]:checked::after{
+  content:''; display:block; width:8px; height:8px; margin:5px auto; background:var(--papel);
+}
+.opcao .txt{ font-size:17px; font-weight:300; line-height:1.4; }
+.opcao .txt b{ font-weight:500; }
+.opcao .txt small{ display:block; font-size:14px; color:var(--tinta-suave); margin-top:2px; line-height:1.45; }
+
+/* ═════ FICHAS DE SELEÇÃO MÚLTIPLA ═════ */
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  display:inline-flex; align-items:center; gap:8px; min-height:24px;
+  font-family:var(--serif); font-size:15px; font-weight:300; color:var(--tinta);
+  background:var(--papel); border:1px solid var(--regra-media);
+  padding:8px 13px; cursor:pointer; border-radius:0;
+}
+.chip:hover{ border-color:var(--tinta); }
+.chip[aria-pressed="true"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); font-weight:400; }
+.chip[aria-pressed="true"]::before{ content:'✓'; font-size:11px; }
+.chip.destacado[aria-pressed="true"]{ background:var(--bordo); border-color:var(--bordo); }
+.chip:disabled{ opacity:.45; cursor:not-allowed; }
+.chips-grupo{ margin-bottom:16px; }
+.chips-grupo h4{
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  font-weight:500; color:var(--tinta-suave); margin-bottom:9px;
+  padding-top:9px; border-top:1px solid var(--regra);
+}
+.chips-grupo:first-child h4{ border-top:none; padding-top:0; }
+
+/* ═════ CAIXA DE BUSCA COM LISTA (combobox) ═════ */
+.combo{ position:relative; }
+.combo-lista{
+  position:absolute; z-index:30; left:0; right:0; top:100%;
+  background:var(--papel); border:1px solid var(--tinta); border-top:none;
+  max-height:262px; overflow-y:auto; list-style:none; margin:0; padding:0;
+}
+.combo-lista li{
+  padding:10px 13px; font-size:16px; font-weight:300; cursor:pointer;
+  border-bottom:1px solid var(--regra);
+}
+.combo-lista li:last-child{ border-bottom:none; }
+.combo-lista li[aria-selected="true"]{ background:var(--tinta); color:var(--papel); }
+.combo-lista li .uf{ font-family:var(--mono); font-size:10px; color:var(--terracota-txt); margin-left:8px; }
+.combo-lista li[aria-selected="true"] .uf{ color:var(--dourado); }
+.combo-lista .nada{ color:var(--tinta-suave); cursor:default; font-style:italic; }
+
+/* ═════ CARTELA DO VÍDEO ═════ */
+.video-cartela{ display:flex; gap:16px; align-items:flex-start; margin-top:16px; padding-top:16px; border-top:1px solid var(--regra); }
+.video-mini{
+  flex:0 0 168px; aspect-ratio:16/9; background:var(--marrom);
+  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.video-mini img{ width:100%; height:100%; object-fit:cover; }
+.video-mini .play{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  color:var(--creme); font-size:26px;
+}
+.video-cartela .meta h4{ font-size:18px; font-weight:400; margin-bottom:5px; }
+.video-cartela .meta p{ font-size:14px; color:var(--tinta-suave); font-weight:300; margin-bottom:10px; line-height:1.5; }
+
+/* ═════ PAINEL LATERAL: COMPLETUDE E PRÉVIA ═════ */
+.medidor{ border:1px solid var(--regra-media); padding:20px 20px 22px; margin-bottom:26px; }
+.medidor .topo{ display:flex; justify-content:space-between; align-items:baseline; }
+.medidor .pct{ font-size:30px; font-weight:400; letter-spacing:-.02em; line-height:1; }
+.barra{ height:6px; background:var(--regra); margin:13px 0 14px; }
+.barra i{ display:block; height:100%; background:var(--bordo); transition:width .25s ease; }
+.medidor p{ font-size:14px; line-height:1.5; font-weight:300; color:var(--tinta-suave); }
+.medidor ul{ list-style:none; margin-top:10px; }
+.medidor li{
+  font-size:14px; font-weight:300; color:var(--tinta-suave);
+  padding:6px 0; border-top:1px solid var(--regra);
+}
+.medidor li::before{ content:'· '; color:var(--bordo); }
+
+.previa-bloco{ border:1px solid var(--regra-media); padding:20px; margin-bottom:26px; }
+.previa-bloco > .rot{ margin-bottom:14px; }
+.previa-bloco .ficha .retrato{ background:var(--bordo); }
+.previa-nota{ font-size:13px; color:var(--tinta-suave); font-weight:300; line-height:1.5; margin-top:14px; padding-top:12px; border-top:1px solid var(--regra); }
+
+.acoes-lateral{ display:flex; flex-direction:column; gap:11px; }
+.acoes-lateral .btn-bloco{ text-align:center; border:none; cursor:pointer; }
+.btn-linha{
+  display:block; text-align:center; padding:13px; cursor:pointer;
+  border:1px solid var(--regra-media); background:transparent; color:var(--tinta);
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; font-weight:500;
+}
+.btn-linha:hover{ border-color:var(--tinta); }
+.salvo{ font-size:13px; color:var(--verde); font-weight:300; text-align:center; }
+
+/* ═════ AVISOS EM BLOCO ═════ */
+.aviso{ border-left:2px solid var(--bordo); padding:14px 0 14px 18px; margin-bottom:26px; }
+.aviso h4{ font-size:17px; font-weight:500; margin-bottom:5px; }
+.aviso p{ font-size:15px; line-height:1.55; font-weight:300; color:var(--tinta-suave); }
+.aviso.nota{ border-left-color:var(--terracota); }
+
+/* ═════ PÁGINA PÚBLICA — ACRÉSCIMOS ═════ */
+.selos{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+.selo-item{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  font-weight:500; padding:7px 11px; border:1px solid var(--regra-media); color:var(--tinta);
+}
+.selo-item .pt{ width:7px; height:7px; background:var(--bordo); }
+.selo-item.forte{ background:var(--bordo); color:var(--creme); border-color:var(--bordo); }
+.selo-item.forte .pt{ background:var(--creme); }
+.selo-item.calmo{ color:var(--tinta-suave); }
+.selo-item.calmo .pt{ background:var(--tinta-suave); }
+
+.bloco-perfil{ padding:34px 0; border-top:1px solid var(--regra); }
+.bloco-perfil > .sec-mark{ margin-bottom:16px; }
+.bloco-perfil h2{ font-size:30px; font-weight:400; letter-spacing:-.018em; margin-bottom:16px; }
+
+.video-fachada{
+  position:relative; width:100%; max-width:760px; aspect-ratio:16/9;
+  background:var(--marrom); border:none; padding:0; cursor:pointer; display:block; overflow:hidden;
+}
+.video-fachada img{ width:100%; height:100%; object-fit:cover; }
+.video-fachada .cobre{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px; color:var(--creme);
+  background:rgba(76,42,35,.34);
+}
+.video-fachada .cobre .simbolo{ font-size:40px; line-height:1; }
+.video-legenda{ font-size:14px; color:var(--tinta-suave); font-weight:300; margin-top:12px; max-width:44em; line-height:1.5; }
+
+.dados-grade{ display:grid; grid-template-columns:1fr 1fr; column-gap:48px; }
+.dados-grade > *{ min-width:0; }
+
+.abas{ display:flex; border-bottom:1px solid var(--regra-media); margin-bottom:6px; overflow-x:auto; }
+.abas button{
+  background:transparent; border:none; cursor:pointer; white-space:nowrap;
+  padding:12px 18px 11px; color:var(--tinta);
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; font-weight:500;
+  border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.abas button:first-child{ padding-left:0; }
+.abas button[aria-selected="true"]{ color:var(--bordo); border-bottom-color:var(--bordo); }
+.abas button .qtd{ color:var(--tinta-suave); margin-left:7px; }
+
+.redes-linha{ display:flex; flex-wrap:wrap; gap:0 26px; }
+.redes-linha a{
+  display:inline-flex; align-items:baseline; gap:8px; padding:11px 0;
+  border-bottom:1px solid transparent;
+}
+.redes-linha a:hover{ border-bottom-color:var(--bordo); }
+.redes-linha .rede-nome{ font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--terracota-txt); }
+.redes-linha .rede-user{ font-size:16px; font-weight:300; }
+
+.acao-fixa{ display:none; }
+
+/* ═════════════════════════════════════════════════════════════
+   RESPONSIVO — quebras 1200 / 1024 / 760, conforme responsivo.md.
+   Nunca em atributo style: media query não vence estilo inline.
+   ═════════════════════════════════════════════════════════════ */
+@media (max-width:1200px){
+  .editor-layout{ column-gap:36px; grid-template-columns:1fr 292px; }
+}
+@media (max-width:1024px){
+  .editor-layout{ grid-template-columns:1fr; row-gap:34px; }
+  .lateral{ position:static; }
+  .previa-bloco .ficha{ max-width:300px; }
+  .dados-grade{ grid-template-columns:1fr; }
+  .linha.d3{ grid-template-columns:1fr 1fr; }
+  .secao .resumo{ display:none; }
+}
+@media (max-width:760px){
+  .pagina-cabeca h1{ font-size:34px; }
+  .linha.d2, .linha.d3, .linha.reg, .linha.tel, .linha.cep{ grid-template-columns:1fr; row-gap:16px; }
+  .secao h2{ font-size:21px; }
+  .secao-corpo{ padding-bottom:28px; }
+  .video-cartela{ flex-direction:column; }
+  .video-mini{ flex:0 0 auto; width:100%; }
+  .prefixado{ flex-direction:column; align-items:stretch; }
+  .prefixado .pref{ border-right:none; border-bottom:1px solid var(--regra); margin-right:0; padding:9px 13px; }
+  .prefixado input{ padding-left:13px; }
+  .medidor, .previa-bloco{ padding:16px; }
+  /* barra de ação fixa no rodapé, no celular */
+  .acao-fixa{
+    display:flex; position:fixed; left:0; right:0; bottom:0; z-index:40;
+    background:var(--papel); border-top:1px solid var(--tinta); padding:10px var(--gutter, 20px);
+    gap:12px; align-items:center;
+  }
+  .acao-fixa .btn-bloco{ flex:1; text-align:center; border:none; cursor:pointer; }
+  body.tem-acao-fixa{ padding-bottom:78px; }
+}
+@media print{
+  .painel-nav, .lateral, .acao-fixa, .nav-cta{ display:none; }
+  .secao-corpo{ display:block !important; }
+}
+@media (prefers-reduced-motion:reduce){
+  .barra i{ transition:none; }
+}
+
+/* ═════ LINK DE ATALHO ═════ */
+.pular{ position:absolute; left:-9999px; }
+.pular:focus{
+  position:static; display:block; padding:10px 48px; background:var(--tinta); color:var(--papel);
+  font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase;
+}
+
+/* ═════════════════════════════════════════════════════════════
+   RESPONSIVO DE BASE
+   A cópia de design-system.css do projeto ainda é a versão
+   anterior à sessão de responsividade (nenhuma media query, onze
+   grades em pixel fixo). As regras abaixo cobrem só o que estas
+   duas telas usam. Ao integrar, conferir com responsivo.md e
+   remover o que já estiver lá — para não duplicar.
+   ═════════════════════════════════════════════════════════════ */
+:root{ --gutter:48px; }
+.shell{ padding-left:var(--gutter); padding-right:var(--gutter); }
+.wordmark{ font-size:clamp(34px, 7vw, 70px); }
+.pagina-cabeca h1{ font-size:clamp(30px, 6vw, 44px); }
+.perfil-id h1{ font-size:clamp(32px, 6.4vw, 46px); }
+.sec-head h2, .bloco-perfil h2{ font-size:clamp(24px, 4.4vw, 40px); }
+
+@media (max-width:1200px){
+  :root{ --gutter:36px; }
+  .perfil-topo{ grid-template-columns:170px 1fr 268px; column-gap:32px; }
+  .perfil-mono{ width:170px; height:170px; }
+  .perfil-mono span{ font-size:66px; }
+}
+@media (max-width:1024px){
+  :root{ --gutter:28px; }
+  .masthead .shell{ gap:24px; }
+  .mh-meta .claim{ font-size:15px; }
+  .perfil-topo{ grid-template-columns:132px 1fr; row-gap:28px; }
+  .perfil-mono{ width:132px; height:132px; }
+  .perfil-mono span{ font-size:52px; }
+  .contato-box{ grid-column:1 / -1; }
+  .idx-row{ grid-template-columns:34px 1fr 120px; }
+  .idx-row .idx-data{ display:none; }
+  .ag-row{ grid-template-columns:92px 1fr 180px; }
+  .ag-row .ag-estado{ display:none; }
+  .foot-grid{ grid-template-columns:1fr 1fr; row-gap:28px; }
+}
+@media (max-width:760px){
+  :root{ --gutter:20px; }
+  .utility .shell{ flex-direction:column; align-items:flex-start; gap:5px; }
+  .masthead .shell{ flex-direction:column; align-items:flex-start; padding-top:22px; padding-bottom:18px; }
+  .mh-brand{ gap:14px; }
+  .mh-brand img{ width:52px; height:52px; }
+  .mh-meta{ text-align:left; padding-bottom:0; }
+  .mh-meta .claim{ max-width:none; margin-bottom:6px; }
+  .mainnav .shell{ flex-direction:column; align-items:stretch; }
+  .mainnav-links{ display:grid; grid-template-columns:1fr 1fr; }
+  .mainnav-links a{ padding:13px 0; border-right:1px solid var(--regra); border-bottom:1px solid var(--regra); }
+  .mainnav-links a:nth-child(2n){ border-right:none; padding-left:14px; }
+  .nav-cta{ align-self:stretch; text-align:center; margin:12px 0; }
+  .perfil-topo{ grid-template-columns:1fr; padding:26px 0 22px; }
+  .perfil-mono{ width:104px; height:104px; }
+  .perfil-mono span{ font-size:40px; }
+  .perfil-dado{ flex-direction:column; gap:4px; }
+  .perfil-dado .rot{ width:auto; flex:0 0 auto; }
+  .sec-head{ flex-direction:column; align-items:flex-start; gap:12px; }
+  .sec-head .aside{ text-align:left; }
+  .idx-row{ grid-template-columns:28px 1fr; row-gap:4px; }
+  .idx-row .idx-autor{ grid-column:2; }
+  .ag-row{ grid-template-columns:1fr; row-gap:6px; }
+  .ag-row .ag-local{ display:block; }
+  .leitura p{ font-size:17px; }
+  .leitura p.abre::first-letter{ font-size:50px; }
+  .foot-grid{ grid-template-columns:1fr; }
+  .foot-base{ flex-direction:column; gap:6px; }
+  .redes-linha{ flex-direction:column; gap:0; }
+}
+@media (max-width:340px){
+  .mainnav-links{ grid-template-columns:1fr; }
+  .mainnav-links a:nth-child(2n){ padding-left:0; }
+}
+
+</style>
+</head>
+<body class="tem-acao-fixa">
+
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<!-- ══════ CABEÇALHO ══════ -->
 <div class="utility">
   <div class="shell">
-    <span class="mono">Diretório de psicólogas e psicólogos · Brasil e exterior</span>
-    <span class="mono"><a href="diretorio.html">Buscar profissional</a><a href="login.html">Entrar</a></span>
+    <span class="mono">Painel do profissional</span>
+    <span class="mono"><a href="perfil-publico.html">Ver meu perfil público</a><a href="#">Sair</a></span>
   </div>
 </div>
 
 <div class="masthead">
   <div class="shell">
     <div class="mh-brand">
-      <a href="index.html"><img src="assets/logo.png" alt="Confluências"></a>
-      <p class="wordmark"><a href="index.html">Confluências</a></p>
+      <img src="assets/logo.png" alt="Confluências" onerror="this.style.display='none'">
+      <span class="wordmark">Confluências</span>
     </div>
     <div class="mh-meta">
-      <p class="claim">Um diretório sustentado por quem faz parte dele.</p>
-      <p class="mono figures">1.240 perfis · 27 estados · 16 países</p>
+      <p class="claim">Ana Lima · assinatura ativa desde março de 2026.</p>
+      <p class="mono figures">Próxima cobrança 12 set · R$ 90</p>
     </div>
   </div>
 </div>
@@ -41,269 +857,1090 @@
 <nav class="mainnav">
   <div class="shell">
     <div class="mainnav-links">
-      <a href="diretorio.html">Profissionais</a>
-      <a href="agenda.html">Agenda</a>
-      <a href="noticia.html">Notícias</a>
-      <a href="artigo.html">Artigos</a>
-      <a href="biblioteca.html">Biblioteca</a>
-      <a href="sobre.html">O movimento</a>
+      <a href="#">Profissionais</a>
+      <a href="#">Agenda</a>
+      <a href="#">Notícias</a>
+      <a href="#">Artigos</a>
+      <a href="#">Biblioteca</a>
+      <a href="#">O movimento</a>
     </div>
-    <a href="cadastro.html" class="nav-cta">Criar perfil →</a>
+    <a href="#" class="nav-cta">Novo conteúdo →</a>
   </div>
 </nav>
 
 <nav class="painel-nav" aria-label="Painel">
   <div class="shell">
-    <a href="painel.html">Visão geral</a>
-    <a href="painel-perfil.html" class="ativo" aria-current="page">Meu perfil</a>
-    <a href="painel-conteudos.html">Conteúdos</a>
-    <a href="painel-assinatura.html">Assinatura</a>
-    <a href="painel-contatos.html">Contatos</a>
-    <a href="painel-configuracoes.html">Configurações</a>
+    <a href="#">Visão geral</a>
+    <a href="#" class="current" aria-current="page">Meu perfil</a>
+    <a href="#">Meus conteúdos</a>
+    <a href="#">Assinatura</a>
+    <a href="#">Contatos</a>
+    <a href="#">Configurações</a>
   </div>
 </nav>
 
 <main id="conteudo">
-<section class="shell">
-  <div class="painel-topo">
-    <div>
-      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Painel</span></div>
-      <h1>Meu perfil</h1>
-    </div>
-    <span class="estado pendente"><span class="pt"></span>Rascunho — ainda não publicado</span>
+<div class="shell">
+
+  <div class="pagina-cabeca">
+    <div class="sec-mark mono"><span class="num">§ 01</span><span>Perfil no diretório</span></div>
+    <h1>Meu perfil</h1>
+    <p class="lide">Quanto mais escolhas e menos digitação, menor a chance de alguém não encontrar você na busca. Por isso quase tudo aqui é seleção, não texto livre.</p>
   </div>
 
-  <div class="aviso" style="margin:22px 0 6px;max-width:760px">
-    <p><strong>O perfil passa por moderação antes de ficar público.</strong> Você pode salvar
-    como rascunho quantas vezes quiser e enviar para revisão quando estiver pronto.</p>
-  </div>
+  <div class="editor-layout">
 
-  <form novalidate>
+    <!-- ══════ COLUNA DO FORMULÁRIO ══════ -->
+    <form id="form-perfil" novalidate>
 
-    <div class="secao-form">
-      <div class="cab">
-        <h2>Identificação</h2>
-        <p>Aparece no topo do seu perfil público e nos resultados de busca.</p>
+      <div class="aviso nota">
+        <h4>O que muda no ar e o que passa por revisão</h4>
+        <p>Idiomas, convênios, público, cidade e redes sociais são publicados na hora. Nome, registro, foto, vídeo e apresentação passam por revisão — e, enquanto isso, a versão já aprovada continua visível para quem visita.</p>
       </div>
 
-      <div class="campo">
-        <span class="rot-campo">Foto de perfil</span>
-        <div class="foto-envio">
-          <div class="foto-previa"><span>JS</span></div>
-          <div>
-            <p class="ajuda" style="margin-top:0;margin-bottom:12px">
-              Envie uma foto em JPG, PNG ou WebP de até 5 MB. Enquanto não houver foto,
-              o perfil usa suas iniciais.</p>
-            <label for="foto" class="btn-secundario" style="display:inline-block">Escolher arquivo</label>
-            <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp"
-                   style="position:absolute;width:1px;height:1px;opacity:0">
+      <!-- ─── 01 IDENTIFICAÇÃO ─── -->
+      <details class="secao" name="perfil" open>
+        <summary>
+          <span class="mono num">01</span>
+          <h2>Identificação</h2>
+          <span class="resumo" data-resumo="identificacao"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <div class="campo">
+            <span class="rot">Retrato <span class="opc">— opcional</span></span>
+            <div class="video-cartela">
+              <div class="video-mini" id="retrato-previa" data-retrato>
+                <span class="play" style="font-size:34px">AL</span>
+              </div>
+              <div class="meta">
+                <h4>Nenhuma foto enviada</h4>
+                <p>Sem foto, seu perfil usa um monograma em cor chapada da paleta — é o padrão da casa e fica bem. Envie uma foto só se quiser.</p>
+                <button type="button" class="btn-linha">Enviar e recortar foto</button>
+              </div>
+            </div>
           </div>
+
+          <div class="campo">
+            <label class="rot" for="nome">Nome profissional</label>
+            <input type="text" id="nome" name="nome" value="Ana Lima" maxlength="120"
+                   autocomplete="name" aria-describedby="nome-ajuda">
+            <span class="ajuda" id="nome-ajuda">É o nome que aparece no diretório. Pode ser o seu nome social.</span>
+          </div>
+
+          <div class="linha d2">
+            <div class="campo">
+              <label class="rot" for="headline">Chamada <span class="opc">— opcional</span> <span class="contador" id="cont-headline">0/80</span></label>
+              <input type="text" id="headline" maxlength="80" placeholder="Psicóloga clínica — Psicanálise">
+            </div>
+            <div class="campo">
+              <label class="rot" for="pronomes">Pronomes <span class="opc">— opcional</span></label>
+              <div class="sel">
+                <select id="pronomes">
+                  <option value="">Não informar</option>
+                  <option>ela/dela</option>
+                  <option>ele/dele</option>
+                  <option>elu/delu</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </details>
+
+      <!-- ─── 02 REGISTRO PROFISSIONAL ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">02</span>
+          <h2>Registro profissional</h2>
+          <span class="resumo" data-resumo="registro"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <fieldset class="campo" aria-describedby="crp-previa-txt">
+            <legend class="rot">Conselho, regional e número</legend>
+
+            <div class="linha d2" style="margin-bottom:16px">
+              <div>
+                <label class="rot" for="conselho">Conselho</label>
+                <div class="sel">
+                  <select id="conselho" disabled>
+                    <option>CRP — Conselho Regional de Psicologia</option>
+                  </select>
+                </div>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="linha reg">
+              <div>
+                <label class="rot" for="regional">Regional</label>
+                <div class="combo">
+                  <input type="text" id="regional" role="combobox" aria-expanded="false"
+                         aria-controls="regional-lista" aria-autocomplete="list" autocomplete="off"
+                         placeholder="Busque por número ou estado">
+                  <ul class="combo-lista" id="regional-lista" role="listbox" aria-label="Regionais do CRP" hidden></ul>
+                </div>
+              </div>
+              <div>
+                <label class="rot" for="crp-num">Número</label>
+                <input type="text" id="crp-num" inputmode="numeric" maxlength="9"
+                       placeholder="123456" aria-describedby="crp-erro">
+              </div>
+            </div>
+
+            <span class="ajuda">Pode colar do jeito que estiver — “CRP 04/123456”, “04-123456”, só os números. A gente separa.</span>
+            <span class="msg-erro" id="crp-erro" role="alert" hidden></span>
+            <span class="msg-aviso" id="crp-aviso" role="status" hidden></span>
+
+            <div class="previa">
+              <span class="rot">Vai aparecer assim</span>
+              <span class="val indefinido" id="crp-previa-txt">CRP __/______</span>
+            </div>
+          </fieldset>
+
+        </div>
+      </details>
+
+      <!-- ─── 03 ATUAÇÃO ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">03</span>
+          <h2>Como eu trabalho</h2>
+          <span class="resumo" data-resumo="atuacao"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <fieldset class="campo">
+            <legend class="rot">Abordagem teórica <span class="opc">— de 1 a 3</span></legend>
+            <div class="chips" id="chips-abordagem" data-max="3"></div>
+            <span class="ajuda">Não encontrou a sua? <a href="#" class="lnk-sub" style="font-size:10px">Sugerir uma abordagem</a> — a sugestão vai para curadoria antes de virar filtro do diretório.</span>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend class="rot">Especialidades <span class="opc">— até 8</span></legend>
+            <div class="chips" id="chips-especialidade" data-max="8"></div>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend class="rot">Público que atendo</legend>
+            <div id="grupos-publico"></div>
+            <span class="ajuda">São dois eixos diferentes: idade e formato de um lado, populações do outro. Marcar uma população é dizer que você atende — não é declarar especialidade.</span>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend class="rot">Idiomas de atendimento</legend>
+            <div id="grupos-idioma"></div>
+            <span class="ajuda">Libras entra no primeiro grupo de propósito: é língua oficial e há pouquíssimo atendimento psicológico disponível para pessoas surdas.</span>
+          </fieldset>
+
+          <fieldset class="campo">
+            <legend class="rot">Convênios <span class="opc">— opcional</span></legend>
+            <div class="chips" id="chips-convenio"></div>
+          </fieldset>
+
+          <div class="aviso nota">
+            <h4>Aqui não há campo de vaga nem de valor</h4>
+            <p>As regras de publicidade do CFP não admitem que o perfil ofereça condições que funcionem como atrativo na escolha entre profissionais. Agenda e valor são conversa entre você e quem procura — não vitrine.</p>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- ─── 04 ATENDIMENTO ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">04</span>
+          <h2>Onde eu atendo</h2>
+          <span class="resumo" data-resumo="local"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <fieldset class="campo">
+            <legend class="rot">Modalidade</legend>
+            <label class="opcao"><input type="checkbox" id="mod-online" checked><span class="txt">Atendimento <b>online</b></span></label>
+            <label class="opcao"><input type="checkbox" id="mod-presencial"><span class="txt">Atendimento <b>presencial</b></span></label>
+            <span class="msg-erro" id="mod-erro" role="alert" hidden></span>
+          </fieldset>
+
+          <div class="linha d2">
+            <div class="campo">
+              <label class="rot" for="estado">Estado</label>
+              <div class="combo">
+                <input type="text" id="estado" role="combobox" aria-expanded="false"
+                       aria-controls="estado-lista" aria-autocomplete="list" autocomplete="off"
+                       placeholder="Busque por nome ou sigla">
+                <ul class="combo-lista" id="estado-lista" role="listbox" aria-label="Estados" hidden></ul>
+              </div>
+            </div>
+            <div class="campo">
+              <label class="rot" for="cidade">Cidade</label>
+              <div class="combo">
+                <input type="text" id="cidade" role="combobox" aria-expanded="false"
+                       aria-controls="cidade-lista" aria-autocomplete="list" autocomplete="off"
+                       placeholder="Escolha o estado primeiro" disabled
+                       aria-describedby="cidade-ajuda">
+                <ul class="combo-lista" id="cidade-lista" role="listbox" aria-label="Cidades" hidden></ul>
+              </div>
+              <span class="ajuda" id="cidade-ajuda">Busca sem acento: “sao paulo” encontra “São Paulo”.</span>
+            </div>
+          </div>
+
+          <div class="campo">
+            <span class="rot">Também atendo em <span class="opc">— até 2 cidades</span></span>
+            <div class="chips" id="chips-cidades-extra"><span class="ajuda" style="margin:0">Nenhuma cidade adicional.</span></div>
+          </div>
+
+          <p class="mono" id="end-anuncio" role="status" aria-live="polite" style="color:var(--terracota-txt)"></p>
+
+          <div id="bloco-endereco" hidden>
+            <div class="aviso">
+              <h4>Endereço do consultório</h4>
+              <p>Muita gente atende em casa. Por isso o padrão é <b>não mostrar</b> o endereço completo — o perfil exibe só o bairro e a cidade, a menos que você marque o contrário.</p>
+            </div>
+            <div class="campo">
+              <label class="rot" for="end-pais">País do endereço</label>
+              <div class="sel"><select id="end-pais">
+                <option value="BR" selected>Brasil</option>
+                <option value="XX">Fora do Brasil</option>
+              </select></div>
+            </div>
+
+            <div class="linha cep" id="linha-cep">
+              <div class="campo">
+                <label class="rot" for="cep">CEP</label>
+                <input type="text" id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000"
+                       autocomplete="postal-code" aria-describedby="cep-msg">
+                <span class="msg-erro" id="cep-msg" role="alert" hidden></span>
+              </div>
+              <div class="campo">
+                <label class="rot" for="logradouro">Logradouro</label>
+                <input type="text" id="logradouro" autocomplete="street-address">
+              </div>
+            </div>
+            <span class="ajuda" style="margin-bottom:18px;display:block">O CEP preenche logradouro, bairro, cidade e estado. Sobra você digitar o número — e mais nada.</span>
+            <div class="linha d3">
+              <div class="campo">
+                <label class="rot" for="numero">Número</label>
+                <input type="text" id="numero" inputmode="numeric">
+              </div>
+              <div class="campo">
+                <label class="rot" for="compl">Complemento <span class="opc">— opcional</span></label>
+                <input type="text" id="compl">
+              </div>
+              <div class="campo">
+                <label class="rot" for="bairro">Bairro</label>
+                <input type="text" id="bairro">
+              </div>
+            </div>
+            <label class="opcao">
+              <input type="checkbox" id="end-publico">
+              <span class="txt">Mostrar o endereço completo no meu perfil público
+                <small>Se ficar desmarcado, quem visita vê apenas “Centro, Belo Horizonte — MG”.</small></span>
+            </label>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- ─── 05 CONTATO E PRESENÇA ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">05</span>
+          <h2>Contato e presença</h2>
+          <span class="resumo" data-resumo="contato"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <fieldset class="campo" id="campo-telefone">
+            <legend class="rot">Telefone</legend>
+            <div class="linha tel">
+              <div>
+                <label class="rot" for="tel-pais" style="font-size:9px">País</label>
+                <div class="sel"><select id="tel-pais"></select></div>
+              </div>
+              <div>
+                <label class="rot" for="telefone" style="font-size:9px">Número</label>
+                <input type="tel" id="telefone" autocomplete="tel" inputmode="tel"
+                       placeholder="(00) 00000-0000" aria-describedby="tel-erro">
+              </div>
+            </div>
+            <span class="ajuda">Cole com o código do país se quiser — “+351 912 345 678” troca o país sozinho.</span>
+            <span class="msg-erro" id="tel-erro" role="alert" hidden></span>
+            <label class="opcao"><input type="checkbox" id="tel-whats" checked><span class="txt">Este número tem WhatsApp
+              <small>Quem visita ganha um botão que abre a conversa direto, com a mensagem já escrita.</small></span></label>
+            <label class="opcao"><input type="checkbox" id="tel-publico"><span class="txt">Mostrar o número no meu perfil público
+              <small>Desmarcado, quem visita usa o formulário de contato. O número nunca vai em texto puro na página — isso segura robô de spam e atende à LGPD.</small></span></label>
+          </fieldset>
+
+          <div class="campo" id="campo-whats-msg">
+            <label class="rot" for="whats-msg">Mensagem que já vem escrita <span class="opc">— opcional</span>
+              <span class="contador" id="cont-whats">0/180</span></label>
+            <input type="text" id="whats-msg" maxlength="180"
+                   value="Olá, Ana. Encontrei seu perfil no Confluências e gostaria de saber sobre atendimento.">
+            <span class="ajuda">Quem procura atendimento costuma travar na primeira frase. Uma mensagem pronta tira esse atrito. Sem promessa de retorno rápido: isso é promessa de serviço e recai nas regras de publicidade.</span>
+            <div class="previa">
+              <span class="rot">No seu perfil</span>
+              <span class="val" id="prev-whats">Chamar no WhatsApp</span>
+            </div>
+            <span class="ajuda"><b>Seu número não vai para o código da página.</b> O botão aponta para um redirecionamento da própria plataforma — assim nenhum robô raspa o número, e o clique conta como contato recebido no seu painel.</span>
+          </div>
+
+          <div class="linha d2">
+            <div class="campo">
+              <label class="rot" for="email-publico">E-mail público <span class="opc">— opcional</span></label>
+              <input type="email" id="email-publico" autocomplete="email" placeholder="contato@seusite.com.br">
+            </div>
+            <div class="campo">
+              <label class="rot" for="site">Site pessoal <span class="opc">— opcional</span></label>
+              <input type="url" id="site" placeholder="https://">
+            </div>
+          </div>
+
+          <fieldset class="campo">
+            <legend class="rot">Redes sociais <span class="opc">— só o nome de usuário</span></legend>
+            <div id="redes"></div>
+            <span class="ajuda">Se colar o link inteiro, a gente extrai o usuário e descarta os códigos de rastreio. O endereço final é montado pela plataforma — assim nenhum link do seu perfil quebra.</span>
+          </fieldset>
+
+          <div class="campo">
+            <label class="rot" for="video">Vídeo de apresentação <span class="opc">— opcional</span></label>
+            <input type="url" id="video" placeholder="Cole o link do YouTube ou do Vimeo" aria-describedby="video-msg">
+            <span class="msg-erro" id="video-msg" role="alert" hidden></span>
+            <span class="ajuda">Sessenta a noventa segundos funcionam melhor que um vídeo longo. <b>Ative as legendas se puder</b> — muita gente assiste sem som, e legenda é acessibilidade.</span>
+            <div class="video-cartela" id="video-cartela" hidden>
+              <div class="video-mini"><img id="video-thumb" alt=""><span class="play">▶</span></div>
+              <div class="meta">
+                <h4 id="video-titulo">Vídeo reconhecido</h4>
+                <p id="video-detalhe"></p>
+                <button type="button" class="btn-linha" id="video-remover">Remover vídeo</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- ─── 06 APRESENTAÇÃO ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">06</span>
+          <h2>Apresentação</h2>
+          <span class="resumo" data-resumo="bio"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <div class="aviso nota">
+            <h4>Se travar, responda estas três perguntas</h4>
+            <p>1. Como você trabalha, em palavras suas? · 2. Com quem você mais atende? · 3. O que alguém pode esperar da primeira sessão?<br>
+            As respostas já são três parágrafos. Boas apresentações costumam ter entre 600 e 1200 caracteres.</p>
+          </div>
+
+          <div class="campo">
+            <label class="rot" for="bio">Texto de apresentação <span class="contador" id="cont-bio">0/2000</span></label>
+            <textarea id="bio" maxlength="2000" aria-describedby="bio-erro"></textarea>
+            <span class="msg-erro" id="bio-erro" role="alert" hidden></span>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- ─── 07 ENDEREÇO DO PERFIL ─── -->
+      <details class="secao" name="perfil">
+        <summary>
+          <span class="mono num">07</span>
+          <h2>Endereço do perfil</h2>
+          <span class="resumo" data-resumo="slug"></span>
+          <span class="mono sinal"><span class="mais">+</span><span class="menos">—</span></span>
+        </summary>
+        <div class="secao-corpo">
+
+          <div class="campo">
+            <label class="rot" for="slug">Endereço público</label>
+            <div class="prefixado">
+              <span class="pref">confluencias.org/profissionais/</span>
+              <input type="text" id="slug" value="ana-lima" aria-describedby="slug-msg">
+            </div>
+            <span class="msg-ok" id="slug-msg" role="status">Endereço disponível.</span>
+            <span class="ajuda">Gerado a partir do seu nome. Se você mudar depois, o endereço antigo continua redirecionando por 12 meses.</span>
+          </div>
+
+          <fieldset class="campo">
+            <legend class="rot">Visibilidade</legend>
+            <label class="opcao"><input type="checkbox" id="listado" checked><span class="txt">Aparecer no diretório
+              <small>Desmarque para pausar sem cancelar a assinatura — útil em licença ou agenda cheia.</small></span></label>
+          </fieldset>
+
+        </div>
+      </details>
+
+      <div class="acoes-form" style="display:none"></div>
+    </form>
+
+    <!-- ══════ COLUNA LATERAL ══════ -->
+    <aside class="lateral" aria-label="Situação do perfil">
+
+      <div class="medidor">
+        <div class="topo">
+          <span class="rot" style="margin:0">Perfil completo</span>
+          <span class="pct" id="pct">0%</span>
+        </div>
+        <div class="barra"><i id="barra" style="width:0%"></i></div>
+        <p>Perfis completos aparecem antes nos resultados de busca. Não é enfeite: é a ordenação padrão do diretório.</p>
+        <ul id="lista-falta"></ul>
       </div>
 
-      <div class="form-grid">
-        <div class="campo">
-          <label for="nomeprof">Nome profissional</label>
-          <input type="text" id="nomeprof" name="nomeprof" value="Joana Silva" autocomplete="name" required>
+      <div class="previa-bloco">
+        <span class="rot">Como você aparece na busca</span>
+        <div class="ficha">
+          <div class="retrato" id="prev-retrato"><span id="prev-iniciais">AL</span></div>
+          <h3 id="prev-nome">Ana Lima</h3>
+          <span class="mono reg" id="prev-crp">CRP __/______</span>
+          <p class="abord" id="prev-abordagem">Abordagem ainda não escolhida</p>
+          <span class="mono acesso" id="prev-acesso">Cidade não informada</span>
         </div>
-        <div class="campo invalido">
-          <label for="crp">CRP</label>
-          <input type="text" id="crp" name="crp" value="06-00000" placeholder="CRP 00/00000"
-                 aria-describedby="erro-crp" aria-invalid="true" required>
-          <p class="erro" id="erro-crp" role="alert">Informe um CRP válido (ex.: CRP 00/00000).</p>
-        </div>
+        <p class="previa-nota">É a mesma ficha do carrossel da home: cinco campos, sem preço e sem lista de especialidades.</p>
       </div>
 
-      <div class="campo">
-        <label for="headline">Chamada <span class="contador">42 / 80</span></label>
-        <input type="text" id="headline" name="headline" maxlength="80"
-               value="Psicanálise · ansiedade, luto e relações raciais" aria-describedby="ajuda-headline">
-        <p class="ajuda" id="ajuda-headline">Uma linha que resume sua atuação. Máximo de 80 caracteres.</p>
+      <div class="acoes-lateral">
+        <button type="submit" form="form-perfil" class="btn-bloco">Enviar para revisão</button>
+        <a href="perfil-publico.html" class="btn-linha">Ver como visitante</a>
+        <button type="button" class="btn-linha" id="btn-copiar">Copiar link do perfil</button>
+        <p class="salvo" id="salvo">Rascunho salvo automaticamente.</p>
       </div>
 
-      <div class="campo">
-        <label for="slug">Endereço do perfil</label>
-        <input type="text" id="slug" name="slug" value="joana-silva" aria-describedby="ajuda-slug">
-        <p class="ajuda" id="ajuda-slug">confluencias.org/profissionais/<strong>joana-silva</strong>
-        — use apenas letras, números e hífens.</p>
-      </div>
-    </div>
-
-    <div class="secao-form">
-      <div class="cab">
-        <h2>Apresentação</h2>
-        <p>O texto que a pessoa lê antes de decidir entrar em contato.</p>
-      </div>
-      <div class="campo">
-        <label for="bio">Bio <span class="contador">486 / 2000</span></label>
-        <textarea id="bio" name="bio" minlength="100" maxlength="2000" aria-describedby="ajuda-bio" required>Atendo adultos há mais de dez anos, com foco em quadros de ansiedade e processos de luto. Meu trabalho parte da psicanálise, mas não trato a teoria como um roteiro: cada pessoa chega com uma história que pede um ritmo próprio.
-
-Acredito que sofrimento psíquico não se explica só pela biografia individual. Racismo, condições de trabalho, dinheiro e vínculos precários atravessam a clínica, e ignorar esse contexto costuma produzir um tratamento que culpabiliza quem procura ajuda.</textarea>
-        <p class="ajuda" id="ajuda-bio">A bio deve ter entre 100 e 2000 caracteres.</p>
-      </div>
-    </div>
-
-    <div class="secao-form">
-      <div class="cab">
-        <h2>Atuação</h2>
-        <p>É por estes campos que as pessoas filtram a busca no diretório.</p>
-      </div>
-
-      <fieldset>
-        <legend>Abordagem teórica — selecione ao menos uma</legend>
-        <div class="etiquetas">
-          <span class="etiqueta marcada">Psicanálise <span class="x">×</span></span>
-          <span class="etiqueta">Terapia cognitivo-comportamental</span>
-          <span class="etiqueta">Gestalt-terapia</span>
-          <span class="etiqueta">Terapia sistêmica</span>
-          <span class="etiqueta">Análise do comportamento</span>
-          <span class="etiqueta">Psicologia social contracolonial</span>
-          <span class="etiqueta">Clínica antimanicolonial</span>
-          <span class="etiqueta">+ outra</span>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Especialidades — selecione ao menos uma</legend>
-        <div class="etiquetas">
-          <span class="etiqueta marcada">Ansiedade <span class="x">×</span></span>
-          <span class="etiqueta marcada">Luto <span class="x">×</span></span>
-          <span class="etiqueta marcada">Relações raciais <span class="x">×</span></span>
-          <span class="etiqueta">Depressão</span>
-          <span class="etiqueta">Casais</span>
-          <span class="etiqueta">Infância</span>
-          <span class="etiqueta">Saúde do trabalhador</span>
-          <span class="etiqueta">+ outra</span>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Formato de atendimento</legend>
-        <div class="consent"><input type="checkbox" id="fonline" checked>
-          <label for="fonline">Online</label></div>
-        <div class="consent"><input type="checkbox" id="fpres" checked>
-          <label for="fpres">Presencial</label></div>
-      </fieldset>
-
-      <div class="form-grid">
-        <div class="campo">
-          <label for="cidade">Cidade</label>
-          <input type="text" id="cidade" name="cidade" value="São Paulo" required>
-        </div>
-        <div class="campo">
-          <label for="estado">Estado</label>
-          <select id="estado" name="estado" required>
-            <option>São Paulo</option><option>Rio de Janeiro</option><option>Minas Gerais</option>
-            <option>Bahia</option><option>Fora do Brasil</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-grid">
-        <div class="campo">
-          <label for="preco">Faixa de preço por sessão <span class="opcional">— opcional</span></label>
-          <input type="text" id="preco" name="preco" value="R$ 150 a R$ 200">
-        </div>
-        <div class="campo">
-          <label for="idiomas">Idiomas de atendimento</label>
-          <input type="text" id="idiomas" name="idiomas" value="Português, Inglês">
-        </div>
-      </div>
-    </div>
-
-    <div class="secao-form">
-      <div class="cab">
-        <h2>Contato</h2>
-        <p>Escolha o que fica visível. O telefone nunca aparece sem sua autorização.</p>
-      </div>
-      <div class="form-grid">
-        <div class="campo">
-          <label for="tel">Telefone ou WhatsApp</label>
-          <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="(11) 90000-0000"
-                 aria-describedby="ajuda-tel" required>
-          <p class="ajuda" id="ajuda-tel">Informe um telefone válido com DDD.</p>
-        </div>
-        <div class="campo">
-          <label for="emailpub">E-mail público <span class="opcional">— opcional</span></label>
-          <input type="email" id="emailpub" name="emailpub" inputmode="email">
-        </div>
-      </div>
-      <div class="consent" style="margin-bottom:20px">
-        <input type="checkbox" id="mostrartel">
-        <label for="mostrartel">Exibir meu telefone no perfil público</label>
-      </div>
-      <div class="form-grid">
-        <div class="campo">
-          <label for="site">Site <span class="opcional">— opcional</span></label>
-          <input type="url" id="site" name="site" placeholder="https://">
-        </div>
-        <div class="campo">
-          <label for="insta">Instagram <span class="opcional">— opcional</span></label>
-          <input type="url" id="insta" name="insta" placeholder="https://instagram.com/">
-        </div>
-      </div>
-    </div>
-
-    <div class="secao-form" style="border-bottom:1px solid var(--regra);padding-bottom:34px">
-      <div class="acoes-form">
-        <a href="#" class="btn-principal">Enviar para revisão</a>
-        <a href="#" class="btn-secundario">Salvar rascunho</a>
-        <a href="perfil.html" class="lnk-sub">Ver como fica →</a>
-      </div>
-    </div>
-  </form>
-</section>
+    </aside>
+  </div>
+</div>
 </main>
 
-<section class="fecho">
-  <div class="shell grid">
-    <div class="fecho-mark"><img src="assets/logo.png" alt=""></div>
-    <div class="fecho-txt">
-      <h2>Um diretório só se sustenta se <em>sustentar quem está nele</em>.</h2>
-      <p>Assine um perfil por R$ 90/mês ou contribua com R$ 30 sem perfil público. Nos dois casos, R$ 30 sustentam o movimento Confluências — e a prestação de contas é publicada.</p>
-      <div class="fecho-acoes">
-        <a href="cadastro.html" class="btn-claro">Criar meu perfil</a>
-        <a href="onboarding.html" class="lnk-claro">Contribuir sem perfil →</a>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- barra fixa no celular -->
+<div class="acao-fixa">
+  <button type="submit" form="form-perfil" class="btn-bloco">Enviar para revisão</button>
+  <a href="perfil-publico.html" class="lnk-sub">Ver perfil →</a>
+</div>
 
 <footer>
   <div class="shell">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand"><img src="assets/logo.png" alt=""><span>Confluências</span></div>
-        <p>Diretório de psicólogas e psicólogos, sustentado coletivamente. Sem anúncio, sem impulsionamento, sem venda de destaque.</p>
-      </div>
-      <div>
-        <h4 class="mono">Diretório</h4>
-        <a href="diretorio.html">Buscar profissional</a>
-        <a href="diretorio.html">Especialidades</a>
-        <a href="diretorio.html">Abordagens</a>
-        <a href="diretorio.html">Cidades</a>
-      </div>
-      <div>
-        <h4 class="mono">Publicações</h4>
-        <a href="noticia.html">Notícias</a>
-        <a href="artigo.html">Artigos</a>
-        <a href="biblioteca.html">Biblioteca</a>
-        <a href="agenda.html">Agenda</a>
-      </div>
-      <div>
-        <h4 class="mono">Movimento</h4>
-        <a href="sobre.html">O que defendemos</a>
-        <a href="sobre.html">Prestação de contas</a>
-        <a href="termos.html">Termos e privacidade</a>
-        <a href="privacidade.html">Privacidade e LGPD</a>
-      </div>
-    </div>
     <div class="foot-base">
       <span class="mono">© 2026 Confluências</span>
-      <span class="mono">Protótipo estático · conteúdo fictício</span>
+      <span class="mono">Protótipo · conteúdo fictício</span>
     </div>
   </div>
 </footer>
 
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   No protótipo original não havia JavaScript. Aqui há, e de
+   propósito: o que esta tela precisa demonstrar É comportamento —
+   cidade que depende do estado, registro que se monta sozinho,
+   link colado que vira usuário. Estático, nada disso apareceria.
+   Sem JS, a página continua sendo um formulário utilizável.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+const $ = (s, e) => (e||document).querySelector(s);
+const $$ = (s, e) => Array.from((e||document).querySelectorAll(s));
+const semAcento = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+/* ─── Dados de referência ────────────────────────────────────────
+   Em produção estes três conjuntos vêm da API própria, alimentada
+   pelo job de sincronização com o IBGE e pelos seeds de taxonomia.
+   Aqui é amostra, para o protótipo funcionar sem rede.          */
+
+const REGIONAIS = [
+  [1,'Distrito Federal',['DF']], [2,'Pernambuco',['PE']], [3,'Bahia',['BA']],
+  [4,'Minas Gerais',['MG']], [5,'Rio de Janeiro',['RJ']], [6,'São Paulo',['SP']],
+  [7,'Rio Grande do Sul',['RS']], [8,'Paraná',['PR']], [9,'Goiás',['GO']],
+  [10,'Pará e Amapá',['PA','AP']], [11,'Ceará',['CE']], [12,'Santa Catarina',['SC']],
+  [13,'Paraíba',['PB']], [14,'Mato Grosso do Sul',['MS']], [15,'Alagoas',['AL']],
+  [16,'Espírito Santo',['ES']], [17,'Rio Grande do Norte',['RN']], [18,'Mato Grosso',['MT']],
+  [19,'Sergipe',['SE']], [20,'Amazonas e Roraima',['AM','RR']], [21,'Piauí',['PI']],
+  [22,'Maranhão',['MA']], [23,'Tocantins',['TO']], [24,'Acre e Rondônia',['AC','RO']]
+];
+
+const ESTADOS = [
+  ['AC','Acre'],['AL','Alagoas'],['AP','Amapá'],['AM','Amazonas'],['BA','Bahia'],
+  ['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],
+  ['MA','Maranhão'],['MT','Mato Grosso'],['MS','Mato Grosso do Sul'],['MG','Minas Gerais'],
+  ['PA','Pará'],['PB','Paraíba'],['PR','Paraná'],['PE','Pernambuco'],['PI','Piauí'],
+  ['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RS','Rio Grande do Sul'],
+  ['RO','Rondônia'],['RR','Roraima'],['SC','Santa Catarina'],['SP','São Paulo'],
+  ['SE','Sergipe'],['TO','Tocantins']
+];
+
+const CIDADES = {
+  AC:['Rio Branco','Cruzeiro do Sul','Sena Madureira','Tarauacá','Feijó','Brasiléia'],
+  AL:['Maceió','Arapiraca','Rio Largo','Palmeira dos Índios','União dos Palmares','Penedo'],
+  AP:['Macapá','Santana','Laranjal do Jari','Oiapoque','Mazagão'],
+  AM:['Manaus','Parintins','Itacoatiara','Manacapuru','Coari','Tefé'],
+  BA:['Salvador','Feira de Santana','Vitória da Conquista','Camaçari','Juazeiro','Ilhéus','Itabuna','Lauro de Freitas'],
+  CE:['Fortaleza','Caucaia','Juazeiro do Norte','Maracanaú','Sobral','Crato'],
+  DF:['Brasília'],
+  ES:['Vitória','Vila Velha','Serra','Cariacica','Linhares','Colatina','Guarapari'],
+  GO:['Goiânia','Aparecida de Goiânia','Anápolis','Rio Verde','Luziânia','Catalão'],
+  MA:['São Luís','Imperatriz','Timon','Caxias','Codó','Açailândia'],
+  MT:['Cuiabá','Várzea Grande','Rondonópolis','Sinop','Tangará da Serra','Cáceres'],
+  MS:['Campo Grande','Dourados','Três Lagoas','Corumbá','Ponta Porã'],
+  MG:['Belo Horizonte','Uberlândia','Contagem','Juiz de Fora','Betim','Montes Claros','Uberaba','Ribeirão das Neves','Divinópolis','Ipatinga','Sete Lagoas','Poços de Caldas'],
+  PA:['Belém','Ananindeua','Santarém','Marabá','Castanhal','Parauapebas'],
+  PB:['João Pessoa','Campina Grande','Santa Rita','Patos','Bayeux','Sousa'],
+  PR:['Curitiba','Londrina','Maringá','Ponta Grossa','Cascavel','São José dos Pinhais','Foz do Iguaçu'],
+  PE:['Recife','Jaboatão dos Guararapes','Olinda','Caruaru','Petrolina','Paulista'],
+  PI:['Teresina','Parnaíba','Picos','Floriano','Piripiri'],
+  RJ:['Rio de Janeiro','São Gonçalo','Duque de Caxias','Nova Iguaçu','Niterói','Campos dos Goytacazes','Petrópolis','Volta Redonda'],
+  RN:['Natal','Mossoró','Parnamirim','São Gonçalo do Amarante','Macaíba'],
+  RS:['Porto Alegre','Caxias do Sul','Pelotas','Canoas','Santa Maria','Gravataí','Novo Hamburgo','São Leopoldo'],
+  RO:['Porto Velho','Ji-Paraná','Ariquemes','Vilhena','Cacoal'],
+  RR:['Boa Vista','Rorainópolis','Caracaraí','Mucajaí'],
+  SC:['Florianópolis','Joinville','Blumenau','São José','Chapecó','Itajaí','Criciúma','Balneário Camboriú'],
+  SP:['São Paulo','Guarulhos','Campinas','São Bernardo do Campo','Santo André','Osasco','Ribeirão Preto','Sorocaba','Santos','São José dos Campos','Bauru','Piracicaba'],
+  SE:['Aracaju','Nossa Senhora do Socorro','Lagarto','Itabaiana','São Cristóvão'],
+  TO:['Palmas','Araguaína','Gurupi','Porto Nacional','Paraíso do Tocantins']
+};
+
+const PAISES = [
+  ['BR','Brasil','+55'],['PT','Portugal','+351'],['US','Estados Unidos','+1'],
+  ['AR','Argentina','+54'],['ES','Espanha','+34'],['GB','Reino Unido','+44'],
+  ['DE','Alemanha','+49'],['FR','França','+33'],['IT','Itália','+39'],['JP','Japão','+81'],
+  ['—','──────────',''],
+  ['AO','Angola','+244'],['AU','Austrália','+61'],['BE','Bélgica','+32'],['CA','Canadá','+1'],
+  ['CL','Chile','+56'],['CO','Colômbia','+57'],['IE','Irlanda','+353'],['MX','México','+52'],
+  ['MZ','Moçambique','+258'],['NL','Países Baixos','+31'],['PY','Paraguai','+595'],
+  ['CH','Suíça','+41'],['UY','Uruguai','+598'],['ZA','África do Sul','+27']
+];
+
+const ABORDAGENS = ['Psicanálise','Terapia Cognitivo-Comportamental','Gestalt-terapia',
+  'Análise do Comportamento','Fenomenologia-existencial','Psicologia Analítica (junguiana)',
+  'Terapia Sistêmica','Psicodrama','Abordagem Centrada na Pessoa','Terapia Narrativa',
+  'Psicologia Histórico-Cultural','Terapia de Aceitação e Compromisso'];
+
+const ESPECIALIDADES = ['Ansiedade','Depressão','Luto','Trauma e TEPT','Relacionamentos',
+  'Sexualidade','Questões de gênero','Racismo e saúde mental','Maternidade e parentalidade',
+  'Neurodivergência','Uso abusivo de álcool e outras drogas','Transtornos alimentares','Orientação profissional',
+  'Saúde mental no trabalho','Infância e adolescência','Envelhecimento'];
+
+const PUBLICOS = [
+  ['Faixa etária e formato', ['Crianças','Adolescentes','Adultos','Idosos','Casais','Famílias','Grupos']],
+  ['Populações que atendo — lista a ser validada pelo movimento',
+   ['Migrantes','Refugiadas e refugiados','Indígenas','Quilombolas','Brasileiras e brasileiros no exterior']]
+];
+
+const CONVENIOS = ['Não atendo por convênio','Unimed','Bradesco Saúde','SulAmérica','Amil',
+  'Porto Seguro','Cassi','Golden Cross'];
+
+const IDIOMAS = [
+  ['Mais faladas no Brasil', ['Português','Libras','Inglês','Espanhol'], true],
+  ['Também comuns', ['Francês','Italiano','Alemão','Japonês','Árabe','Mandarim'], false],
+  ['Línguas indígenas — lista a ser curada pelo movimento', ['Guarani','Nheengatu','Tikuna','Kaingang','Terena'], false]
+];
+
+const REDES = [
+  {k:'instagram', nome:'Instagram',       pref:'instagram.com/',     re:/^[A-Za-z0-9._]{1,30}$/,   dica:'letras, números, ponto e sublinhado'},
+  {k:'linkedin',  nome:'LinkedIn',        pref:'linkedin.com/in/',   re:/^[A-Za-z0-9\-]{3,100}$/,  dica:'letras, números e hífen'},
+  {k:'youtube',   nome:'YouTube',         pref:'youtube.com/@',      re:/^[A-Za-z0-9._\-]{3,30}$/, dica:'o identificador que vem depois do @'},
+  {k:'facebook',  nome:'Facebook',        pref:'facebook.com/',      re:/^[A-Za-z0-9.]{5,50}$/,    dica:'letras, números e ponto'},
+  {k:'x',         nome:'X (Twitter)',     pref:'x.com/',             re:/^[A-Za-z0-9_]{1,15}$/,    dica:'até 15 caracteres'},
+  {k:'lattes',    nome:'Currículo Lattes',pref:'lattes.cnpq.br/',    re:/^\d{16}$/,                dica:'os 16 dígitos do seu ID Lattes'}
+];
+
+const estado = {
+  regional:null, abordagens:[], especialidades:[], publicos:[], idiomas:['Português'],
+  convenios:[], cidadesExtra:[], uf:null, cidade:null, pais:'BR', video:null
+};
+
+/* ─── Combobox reutilizável ──────────────────────────────────── */
+function combo(input, lista, fonte, aoEscolher){
+  let ativo = -1, itens = [];
+  const fecha = () => { lista.hidden = true; input.setAttribute('aria-expanded','false'); ativo = -1; };
+  const desenha = termo => {
+    const t = semAcento(termo||'');
+    itens = fonte().filter(o => semAcento(o.busca).includes(t)).slice(0,80);
+    lista.innerHTML = itens.length
+      ? itens.map((o,i)=>`<li role="option" id="op-${lista.id}-${i}" aria-selected="false">${o.rotulo}</li>`).join('')
+      : '<li class="nada" role="option" aria-selected="false">Nada encontrado com esse termo.</li>';
+    lista.hidden = false; input.setAttribute('aria-expanded','true');
+    $$('li', lista).forEach((li,i)=>{
+      if(!itens[i]) return;
+      li.addEventListener('mousedown', ev => { ev.preventDefault(); escolhe(i); });
+    });
+  };
+  const marca = () => $$('li', lista).forEach((li,i)=>{
+    li.setAttribute('aria-selected', i===ativo ? 'true':'false');
+    if(i===ativo){ li.scrollIntoView({block:'nearest'}); input.setAttribute('aria-activedescendant', li.id); }
+  });
+  const escolhe = i => { if(!itens[i]) return; input.value = itens[i].texto; fecha(); aoEscolher(itens[i]); };
+
+  input.addEventListener('focus', ()=>desenha(''));
+  input.addEventListener('input', ()=>desenha(input.value));
+  input.addEventListener('blur', ()=>setTimeout(fecha,120));
+  input.addEventListener('keydown', ev=>{
+    if(lista.hidden && (ev.key==='ArrowDown')){ desenha(input.value); return; }
+    if(ev.key==='ArrowDown'){ ev.preventDefault(); ativo=Math.min(ativo+1,itens.length-1); marca(); }
+    else if(ev.key==='ArrowUp'){ ev.preventDefault(); ativo=Math.max(ativo-1,0); marca(); }
+    else if(ev.key==='Enter'){ if(!lista.hidden){ ev.preventDefault(); escolhe(ativo<0?0:ativo); } }
+    else if(ev.key==='Escape'){ fecha(); }
+  });
+}
+
+/* ─── 02 · Registro profissional ─────────────────────────────── */
+const inRegional = $('#regional'), inNum = $('#crp-num'), previaCrp = $('#crp-previa-txt');
+
+combo(inRegional, $('#regional-lista'),
+  () => REGIONAIS.map(([id,nome,ufs])=>({
+    busca:`${String(id).padStart(2,'0')} ${nome} ${ufs.join(' ')}`,
+    rotulo:`CRP ${String(id).padStart(2,'0')} — ${nome}<span class="uf">${ufs.join('/')}</span>`,
+    texto:`CRP ${String(id).padStart(2,'0')} — ${nome}`, id, ufs
+  })),
+  o => { estado.regional = o; atualizaCrp(); }
+);
+
+/* aceita colagem completa: "CRP 04/123456", "04-123456", "123456" */
+inNum.addEventListener('input', () => {
+  const bruto = inNum.value;
+  const casa = bruto.match(/(?:CRP\s*)?(\d{1,2})\s*[\/\-]\s*(\d{4,7})/i);
+  if(casa){
+    const id = parseInt(casa[1],10);
+    const reg = REGIONAIS.find(r=>r[0]===id);
+    if(reg){
+      estado.regional = {id, ufs:reg[2]};
+      inRegional.value = `CRP ${String(id).padStart(2,'0')} — ${reg[1]}`;
+    }
+    inNum.value = casa[2];
+  } else {
+    inNum.value = bruto.replace(/\D/g,'').slice(0,7);
+  }
+  atualizaCrp();
+});
+
+function atualizaCrp(){
+  const id = estado.regional ? String(estado.regional.id).padStart(2,'0') : '__';
+  const n = inNum.value || '______';
+  const completo = !!(estado.regional && inNum.value.length>=4);
+  previaCrp.textContent = `CRP ${id}/${n}`;
+  previaCrp.classList.toggle('indefinido', !completo);
+
+  const erro = $('#crp-erro'), campo = inNum.closest('.campo');
+  const curto = inNum.value.length>0 && inNum.value.length<4;
+  erro.hidden = !curto;
+  if(curto) erro.textContent = 'O número do registro deve ter entre 4 e 7 dígitos.';
+  campo.classList.toggle('erro', curto);
+  inNum.setAttribute('aria-invalid', curto ? 'true':'false');
+
+  const aviso = $('#crp-aviso');
+  if(estado.regional && estado.uf && !estado.regional.ufs.includes(estado.uf)){
+    const nomeUf = (ESTADOS.find(e=>e[0]===estado.uf)||[])[1];
+    aviso.hidden = false;
+    aviso.textContent = `A sua regional é de ${estado.regional.ufs.join('/')}, mas você atende em ${nomeUf}. Se você se mudou e ainda não transferiu a inscrição, está tudo certo — só confira o número.`;
+  } else { aviso.hidden = true; }
+  sincroniza();
+}
+
+/* ─── 03 · Fichas de seleção ─────────────────────────────────── */
+function fichas(container, opcoes, destino, max, destacadas){
+  const el = $(container);
+  el.innerHTML = opcoes.map(o=>{
+    const dest = destacadas && destacadas.includes(o) ? ' destacado' : '';
+    return `<button type="button" class="chip${dest}" aria-pressed="${destino.includes(o)}">${o}</button>`;
+  }).join('');
+  $$('button', el).forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const on = b.getAttribute('aria-pressed')==='true';
+      if(!on && max && destino.length>=max){
+        b.animate([{opacity:.3},{opacity:1}],{duration:260});
+        return;
+      }
+      b.setAttribute('aria-pressed', on?'false':'true');
+      const i = destino.indexOf(b.textContent);
+      if(on){ if(i>-1) destino.splice(i,1); } else if(i<0){ destino.push(b.textContent); }
+      sincroniza();
+    });
+  });
+}
+fichas('#chips-abordagem', ABORDAGENS, estado.abordagens, 3);
+fichas('#chips-especialidade', ESPECIALIDADES, estado.especialidades, 8);
+$('#grupos-publico').innerHTML = PUBLICOS.map((g,i)=>
+  `<div class="chips-grupo"><h4>${g[0]}</h4><div class="chips" id="chips-publico-${i}"></div></div>`
+).join('');
+PUBLICOS.forEach((g,i)=>fichas(`#chips-publico-${i}`, g[1], estado.publicos));
+fichas('#chips-convenio', CONVENIOS, estado.convenios);
+
+/* idiomas, em grupos, com Libras destacada */
+$('#grupos-idioma').innerHTML = IDIOMAS.map((g,i)=>
+  `<div class="chips-grupo"><h4>${g[0]}</h4><div class="chips" id="chips-idioma-${i}"></div></div>`
+).join('');
+IDIOMAS.forEach((g,i)=>fichas(`#chips-idioma-${i}`, g[1], estado.idiomas, null, ['Libras']));
+
+/* ─── 04 · Estado, cidade e endereço ─────────────────────────── */
+const inCidade = $('#cidade');
+
+combo($('#estado'), $('#estado-lista'),
+  () => ESTADOS.map(([uf,nome])=>({busca:`${uf} ${nome}`, rotulo:`${nome}<span class="uf">${uf}</span>`, texto:nome, uf})),
+  o => {
+    if(estado.uf !== o.uf){ inCidade.value=''; estado.cidade=null; estado.cidadesExtra=[]; }
+    estado.uf = o.uf;
+    inCidade.disabled = false;
+    inCidade.placeholder = 'Comece a digitar';
+    if(!estado.regional){
+      const reg = REGIONAIS.find(r=>r[2].includes(o.uf));
+      if(reg){ estado.regional={id:reg[0], ufs:reg[2]}; inRegional.value=`CRP ${String(reg[0]).padStart(2,'0')} — ${reg[1]}`; }
+    }
+    atualizaCrp(); sincroniza();
+  }
+);
+
+combo(inCidade, $('#cidade-lista'),
+  () => (CIDADES[estado.uf]||[]).map(n=>({busca:n, rotulo:n, texto:n, nome:n})),
+  o => { estado.cidade = o.nome; sincroniza(); }
+);
+
+let enderecoJaAberto = false;
+function ligaEndereco(){
+  const presencial = $('#mod-presencial').checked;
+  const bloco = $('#bloco-endereco');
+  /* esconde, nunca apaga: quem desmarca por engano não perde o que digitou */
+  bloco.hidden = !presencial;
+  const anuncio = $('#end-anuncio');
+  if(presencial && !enderecoJaAberto){
+    enderecoJaAberto = true;
+    anuncio.textContent = 'Abrimos os campos de endereço do consultório abaixo.';
+    setTimeout(()=>{
+      bloco.scrollIntoView({behavior:'smooth', block:'nearest'});
+      $('#cep').focus({preventScroll:true});
+    }, 60);
+  } else if(!presencial){
+    enderecoJaAberto = false;
+    anuncio.textContent = '';
+  }
+  const nenhuma = !$('#mod-online').checked && !presencial;
+  const erro = $('#mod-erro');
+  erro.hidden = !nenhuma;
+  if(nenhuma) erro.textContent = 'Marque se você atende online, presencialmente, ou os dois.';
+  sincroniza();
+}
+
+$('#end-pais').addEventListener('change', e=>{
+  const br = e.target.value === 'BR';
+  $('#linha-cep').hidden = !br;
+  $('#end-anuncio').textContent = br
+    ? ''
+    : 'Fora do Brasil, o CEP some e o endereço vira campo livre — não vale inventar validação para 190 países.';
+});
+$('#mod-online').addEventListener('change', ligaEndereco);
+$('#mod-presencial').addEventListener('change', ligaEndereco);
+
+/* Amostra local: no protótipo não há rede. Em produção a consulta vai
+   para /api/v1/localidades/cep/{cep}, que fala com o ViaCEP pelo
+   back-end (cache, indisponibilidade controlada) e já devolve o
+   código IBGE da cidade resolvido contra a tabela `cities`. */
+const CEP_AMOSTRA = {
+  '30140071':{logradouro:'Rua da Bahia', bairro:'Centro', localidade:'Belo Horizonte', uf:'MG'},
+  '01310200':{logradouro:'Avenida Paulista', bairro:'Bela Vista', localidade:'São Paulo', uf:'SP'},
+  '90010150':{logradouro:'Rua dos Andradas', bairro:'Centro Histórico', localidade:'Porto Alegre', uf:'RS'},
+  '40026010':{logradouro:'Praça da Sé', bairro:'Sé', localidade:'Salvador', uf:'BA'}
+};
+
+const inCep = $('#cep'), msgCep = $('#cep-msg');
+inCep.addEventListener('input', e=>{
+  let v = e.target.value.replace(/\D/g,'').slice(0,8);
+  e.target.value = v.length>5 ? v.slice(0,5)+'-'+v.slice(5) : v;
+  if(v.length===8) consultaCep(v);
+});
+
+async function consultaCep(cep){
+  msgCep.hidden = true; inCep.closest('.campo').classList.remove('erro');
+  let d = null;
+  try{
+    const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const j = await r.json();
+    if(!j.erro) d = j;
+  }catch(_){ /* sem rede no protótipo: cai na amostra */ }
+  if(!d) d = CEP_AMOSTRA[cep] || null;
+
+  if(!d){
+    msgCep.hidden = false;
+    msgCep.textContent = 'Não encontramos esse CEP. Você pode preencher o endereço à mão.';
+    inCep.closest('.campo').classList.add('erro');
+    return;
+  }
+  $('#logradouro').value = d.logradouro || '';
+  $('#bairro').value = d.bairro || '';
+
+  /* cruza com a lista de cidades: nunca preencher cidade como texto solto */
+  const cidadeConhecida = (CIDADES[d.uf]||[]).find(c => semAcento(c)===semAcento(d.localidade));
+  if(cidadeConhecida){
+    if(estado.cidade && estado.cidade !== cidadeConhecida){
+      if(confirm(`Este CEP fica em ${cidadeConhecida}. Quer trocar a cidade de atendimento, hoje ${estado.cidade}?`)){
+        aplicaCidade(d.uf, cidadeConhecida);
+      }
+    } else {
+      aplicaCidade(d.uf, cidadeConhecida);
+    }
+  }
+  $('#end-anuncio').textContent = 'Endereço preenchido pelo CEP. Falta o número.';
+  $('#numero').focus({preventScroll:true});
+  sincroniza();
+}
+
+function aplicaCidade(uf, cidade){
+  estado.uf = uf; estado.cidade = cidade;
+  $('#estado').value = (ESTADOS.find(e=>e[0]===uf)||[,''])[1];
+  inCidade.disabled = false; inCidade.value = cidade;
+  atualizaCrp();
+}
+
+/* ─── 05 · Telefone com prefixo internacional ────────────────── */
+const selPais = $('#tel-pais'), inTel = $('#telefone');
+selPais.innerHTML = PAISES.map(([cod,nome,ddi])=>
+  cod==='—' ? `<option disabled>${nome}</option>`
+            : `<option value="${cod}" data-ddi="${ddi}"${cod==='BR'?' selected':''}>${nome} ${ddi}</option>`
+).join('');
+
+function formataTel(){
+  const ddi = selPais.selectedOptions[0]?.dataset.ddi || '';
+  let d = inTel.value.replace(/\D/g,'');
+  if(estado.pais==='BR'){
+    d = d.slice(0,11);
+    if(d.length>10)      inTel.value = `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+    else if(d.length>6)  inTel.value = `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+    else if(d.length>2)  inTel.value = `(${d.slice(0,2)}) ${d.slice(2)}`;
+    else                 inTel.value = d;
+  } else {
+    d = d.slice(0,14);
+    inTel.value = d.replace(/(\d{3})(?=\d)/g,'$1 ').trim();
+  }
+  const dig = inTel.value.replace(/\D/g,'');
+  const invalido = dig.length>0 && (estado.pais==='BR' ? dig.length<10 : dig.length<6);
+  const erro = $('#tel-erro');
+  erro.hidden = !invalido;
+  if(invalido){
+    const nome = PAISES.find(p=>p[0]===estado.pais)?.[1] || 'esse país';
+    erro.textContent = `Esse número não parece válido para ${nome}. Confira a quantidade de dígitos.`;
+  }
+  $('#campo-telefone').classList.toggle('erro', invalido);
+  inTel.setAttribute('aria-invalid', invalido?'true':'false');
+  inTel.dataset.e164 = ddi + dig;
+  sincroniza();
+}
+selPais.addEventListener('change', ()=>{ estado.pais = selPais.value; inTel.value=''; formataTel(); });
+inTel.addEventListener('input', e=>{
+  /* colou com código do país: troca o país sozinho */
+  const bruto = e.target.value.trim();
+  if(bruto.startsWith('+') || /^00\d/.test(bruto)){
+    const so = bruto.replace(/\D/g,'').replace(/^00/,'');
+    const achado = PAISES.filter(p=>p[2]).sort((a,b)=>b[2].length-a[2].length)
+      .find(p => so.startsWith(p[2].slice(1)));
+    if(achado){
+      selPais.value = achado[0]; estado.pais = achado[0];
+      e.target.value = so.slice(achado[2].length-1);
+    }
+  }
+  formataTel();
+});
+
+/* ─── 05 · WhatsApp ──────────────────────────────────────────── */
+const whatsMsg = $('#whats-msg');
+function ligaWhats(){
+  $('#campo-whats-msg').hidden = !$('#tel-whats').checked;
+  $('#cont-whats').textContent = `${whatsMsg.value.length}/180`;
+}
+$('#tel-whats').addEventListener('change', ligaWhats);
+whatsMsg.addEventListener('input', ()=>{
+  $('#cont-whats').textContent = `${whatsMsg.value.length}/180`;
+  /* mensagem inicial não pode carregar link */
+  const temLink = /https?:\/\/|www\./i.test(whatsMsg.value);
+  whatsMsg.closest('.campo').classList.toggle('erro', temLink);
+});
+
+/* ─── 05 · Redes sociais por nome de usuário ─────────────────── */
+$('#redes').innerHTML = REDES.map(r=>`
+  <div class="campo rede" data-rede="${r.k}">
+    <label class="rot" for="rede-${r.k}">${r.nome}</label>
+    <div class="prefixado"><span class="pref">${r.pref}</span>
+      <input type="text" id="rede-${r.k}" autocomplete="off" aria-describedby="rede-${r.k}-msg"></div>
+    <span class="msg-erro" id="rede-${r.k}-msg" role="alert" hidden></span>
+  </div>`).join('');
+
+REDES.forEach(r=>{
+  const inp = $('#rede-'+r.k), msg = $('#rede-'+r.k+'-msg'), campo = inp.closest('.campo');
+  const limpa = v => {
+    let s = v.trim();
+    let avisou = false;
+    if(/^https?:\/\//i.test(s) || /\.(com|net|br|org)/i.test(s)){
+      s = s.replace(/^https?:\/\//i,'').replace(/^www\./i,'');
+      s = s.split('?')[0].split('#')[0].replace(/\/+$/,'');
+      const partes = s.split('/');
+      s = partes[partes.length-1];
+      avisou = true;
+    }
+    s = s.replace(/^@/,'');
+    return {valor:s, extraiu:avisou};
+  };
+  const valida = () => {
+    const {valor, extraiu} = limpa(inp.value);
+    if(valor !== inp.value) inp.value = valor;
+    if(!valor){ msg.hidden = true; campo.classList.remove('erro'); sincroniza(); return; }
+    const ok = r.re.test(valor);
+    campo.classList.toggle('erro', !ok);
+    inp.setAttribute('aria-invalid', ok?'false':'true');
+    msg.hidden = false;
+    msg.className = ok ? (extraiu ? 'msg-ok' : 'msg-ok') : 'msg-erro';
+    msg.textContent = ok
+      ? (extraiu ? `Guardamos só o usuário: ${valor}. O endereço final é montado pela plataforma.`
+                 : `Vai virar ${r.pref}${valor}`)
+      : `Esse usuário não parece válido para o ${r.nome} — use ${r.dica}.`;
+    sincroniza();
+  };
+  inp.addEventListener('blur', valida);
+  inp.addEventListener('paste', ()=>setTimeout(valida,10));
+});
+
+/* ─── 05 · Vídeo ─────────────────────────────────────────────── */
+const inVideo = $('#video'), msgVideo = $('#video-msg'), cartela = $('#video-cartela');
+function leVideo(url){
+  const s = url.trim();
+  if(!s) return null;
+  let m = s.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  if(m) return {p:'youtube', id:m[1]};
+  m = s.match(/vimeo\.com\/(?:video\/)?(\d{6,})/);
+  if(m) return {p:'vimeo', id:m[1]};
+  return false;
+}
+inVideo.addEventListener('blur', ()=>{
+  const v = leVideo(inVideo.value);
+  estado.video = v || null;
+  if(v===null){ msgVideo.hidden=true; cartela.hidden=true; sincroniza(); return; }
+  if(v===false){
+    msgVideo.hidden=false; msgVideo.className='msg-erro';
+    msgVideo.textContent='Não reconhecemos esse link. Cole o endereço de um vídeo do YouTube ou do Vimeo.';
+    cartela.hidden=true; sincroniza(); return;
+  }
+  msgVideo.hidden=false; msgVideo.className='msg-ok';
+  msgVideo.textContent = `Vídeo do ${v.p==='youtube'?'YouTube':'Vimeo'} reconhecido.`;
+  cartela.hidden=false;
+  $('#video-detalhe').textContent = `Guardamos plataforma e identificador (${v.id}) — nunca o link colado. Assim o endereço do player é sempre montado do jeito certo.`;
+  const img = $('#video-thumb');
+  if(v.p==='youtube'){ img.src = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`; img.hidden=false;
+    img.onerror = ()=>{ img.hidden=true; }; }
+  else { img.hidden = true; }
+  sincroniza();
+});
+$('#video-remover').addEventListener('click', ()=>{
+  inVideo.value=''; estado.video=null; cartela.hidden=true; msgVideo.hidden=true; sincroniza();
+});
+
+/* ─── 06 · Bio, 01 · chamada, 07 · endereço público ──────────── */
+const bio = $('#bio'), contBio = $('#cont-bio');
+bio.addEventListener('input', ()=>{
+  contBio.textContent = `${bio.value.length}/2000`;
+  const curta = bio.value.length>0 && bio.value.length<100;
+  const erro = $('#bio-erro');
+  erro.hidden = !curta;
+  if(curta) erro.textContent = 'A apresentação deve ter entre 100 e 2000 caracteres.';
+  bio.closest('.campo').classList.toggle('erro', curta);
+  sincroniza();
+});
+$('#headline').addEventListener('input', e=>{
+  $('#cont-headline').textContent = `${e.target.value.length}/80`; sincroniza();
+});
+const nome = $('#nome');
+nome.addEventListener('input', ()=>{
+  $('#slug').value = semAcento(nome.value).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+  sincroniza();
+});
+$('#btn-copiar').addEventListener('click', function(){
+  const url = 'https://confluencias.org/profissionais/' + $('#slug').value;
+  if(navigator.clipboard) navigator.clipboard.writeText(url);
+  this.textContent = 'Link copiado';
+  setTimeout(()=>{ this.textContent = 'Copiar link do perfil'; }, 2200);
+});
+
+/* ─── Completude, prévia e resumos ───────────────────────────── */
+const ITENS = [
+  {rot:'nome',              peso:1, ok:()=>nome.value.trim().length>=3},
+  {rot:'registro no CRP',   peso:2, ok:()=>estado.regional && inNum.value.length>=4},
+  {rot:'abordagem',         peso:2, ok:()=>estado.abordagens.length>0},
+  {rot:'especialidades',    peso:1, ok:()=>estado.especialidades.length>0},
+  {rot:'faixa etária e formato', peso:1, ok:()=>PUBLICOS[0][1].some(o=>estado.publicos.includes(o))},
+  {rot:'populações atendidas',   peso:1, ok:()=>PUBLICOS[1][1].some(o=>estado.publicos.includes(o))},
+  {rot:'idiomas',           peso:1, ok:()=>estado.idiomas.length>0},
+  {rot:'cidade',            peso:2, ok:()=>!!estado.cidade},
+  {rot:'telefone',          peso:2, ok:()=>inTel.value.replace(/\D/g,'').length>=10},
+  {rot:'apresentação',      peso:2, ok:()=>bio.value.length>=100},
+  {rot:'chamada',           peso:1, ok:()=>$('#headline').value.length>0},
+  {rot:'foto ou monograma', peso:1, ok:()=>true},
+  {rot:'vídeo',             peso:1, ok:()=>!!estado.video},
+  {rot:'redes sociais',     peso:1, ok:()=>REDES.some(r=>$('#rede-'+r.k).value.trim())},
+  {rot:'convênios',         peso:1, ok:()=>estado.convenios.length>0}
+];
+
+function sincroniza(){
+  const total = ITENS.reduce((s,i)=>s+i.peso,0);
+  const feito = ITENS.filter(i=>i.ok()).reduce((s,i)=>s+i.peso,0);
+  const pct = Math.round(feito/total*100);
+  $('#pct').textContent = pct+'%';
+  $('#barra').style.width = pct+'%';
+  const falta = ITENS.filter(i=>!i.ok()).map(i=>i.rot);
+  $('#lista-falta').innerHTML = falta.length
+    ? falta.map(f=>`<li>${f}</li>`).join('')
+    : '<li>Nada pendente. Bom trabalho.</li>';
+
+  /* ficha de prévia — os cinco campos do carrossel */
+  const ini = nome.value.trim().split(/\s+/).map(p=>p[0]||'').join('').slice(0,2).toUpperCase();
+  $('#prev-iniciais').textContent = ini || '—';
+  $('#prev-nome').textContent = nome.value.trim() || 'Seu nome';
+  $('#prev-crp').textContent = previaCrp.textContent;
+  $('#prev-abordagem').textContent = estado.abordagens.length
+    ? estado.abordagens.join(' · ') : 'Abordagem ainda não escolhida';
+  const mods = [];
+  if($('#mod-online').checked) mods.push('online');
+  if($('#mod-presencial').checked) mods.push('presencial');
+  $('#prev-acesso').textContent = estado.cidade
+    ? `${estado.cidade}${estado.uf?', '+estado.uf:''} · ${mods.join(' e ') || 'modalidade não informada'}`
+    : 'Cidade não informada';
+
+  /* resumos das seções fechadas */
+  const r = {
+    identificacao: nome.value.trim() || '—',
+    registro: (estado.regional && inNum.value.length>=4) ? previaCrp.textContent : 'ainda não informado',
+    atuacao: estado.abordagens.length ? `${estado.abordagens.length} abordagem(ns), ${estado.especialidades.length} especialidade(s), ${estado.idiomas.length} idioma(s)` : 'ainda não informado',
+    local: estado.cidade ? `${estado.cidade} — ${mods.join(' e ')||'sem modalidade'}` : 'ainda não informado',
+    contato: inTel.value ? (inTel.value + ($('#tel-whats').checked ? ' · WhatsApp' : '')) : 'ainda não informado',
+    bio: bio.value.length>=100 ? `${bio.value.length} caracteres` : 'ainda não escrita',
+    slug: '/profissionais/' + $('#slug').value
+  };
+  Object.keys(r).forEach(k=>{ const el=$(`[data-resumo="${k}"]`); if(el) el.textContent = r[k]; });
+
+  /* indicador de salvamento automático */
+  clearTimeout(sincroniza.t);
+  const s = $('#salvo'); s.textContent = 'Salvando…';
+  sincroniza.t = setTimeout(()=>{ s.textContent = 'Rascunho salvo automaticamente.'; }, 700);
+}
+
+/* ─── Envio: foco no primeiro erro ───────────────────────────── */
+$('#form-perfil').addEventListener('submit', ev=>{
+  ev.preventDefault();
+  const pendentes = ITENS.filter(i=>i.peso>=2 && !i.ok());
+  if(pendentes.length){
+    alert(`Faltam ${pendentes.length} campos obrigatórios: ${pendentes.map(p=>p.rot).join(', ')}.`);
+    const primeiro = $('.campo.erro input, .campo.erro textarea');
+    if(primeiro){ primeiro.closest('details').open = true; primeiro.focus(); }
+    return;
+  }
+  alert('Perfil enviado para revisão. A versão que já estava no ar continua visível para quem visita.');
+});
+
+ligaEndereco();
+ligaWhats();
+sincroniza();
+})();
+</script>
 </body>
 </html>
