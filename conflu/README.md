@@ -16,9 +16,43 @@ Serve para alinhar design e navegação com outras pessoas **antes** de começar
 | `noticia.html` | Leitura de notícia |
 | `biblioteca.html` | Referências: textos e livros indicados pela rede |
 | `agenda.html` | Eventos da rede |
+| `login.html` | Entrar na conta |
+| `cadastro.html` | Criar conta, com estados de erro demonstrados |
+| `onboarding.html` | Escolha de participação: perfil, contribuição ou navegar |
+| `checkout.html` | Pagamento da assinatura, com o rateio visível |
+| `painel-perfil.html` | Edição do perfil profissional (área logada) |
+| `admin.html` | Administração — visão geral, métricas e fila |
+| `admin-perfis.html` | Moderação de perfis: fila + revisão + decisão |
+| `admin-conteudos.html` | Moderação de conteúdos |
+| `admin-usuarios.html` | Gestão de usuários |
+| `admin-assinaturas.html` | Gestão de assinaturas |
+
+O administrativo não é acessível pela navegação do site — abra `admin.html`
+diretamente. A barra escura no topo sinaliza que se trata de contexto privilegiado.
+
+As telas de conta usam um cabeçalho enxuto, sem o menu principal, para o fluxo não
+competir com a navegação. As mensagens de erro são as da seção 7 da especificação,
+ao pé da letra.
 
 `design-system.css` concentra tokens e componentes. **Leia o cabeçalho do arquivo antes
 de editar** — ele lista as regras da linguagem visual e duas armadilhas de contraste.
+
+## Responsivo e webapp
+
+Funciona de 320px a telas grandes. Tipografia fluida com `clamp()` e três pontos de
+quebra: **1200 / 1024 / 760** (mais um ajuste em 340px).
+
+- **Menu:** no celular vira uma grade de duas colunas — todos os itens visíveis, sem
+  esconder navegação atrás de um ícone.
+- **Carrossel do diretório:** rola por toque, com encaixe (`scroll-snap`). Sem JavaScript.
+- **Mapa:** traços mais grossos e rótulos maiores no celular; as contagens por cidade
+  saem, porque o tamanho do ponto e a legenda já dão a grandeza.
+- **Alvos de toque:** mínimo de 24px (WCAG 2.2 · 2.5.8, nível AA), a maioria com 44px.
+- Instalável como app: `manifest.webmanifest`, ícones e `theme-color`.
+- Inclui folha de impressão e respeito a `prefers-reduced-motion`.
+
+Verificado em 360, 390, 768, 1024 e 1440px: sem rolagem horizontal e sem alvo abaixo
+do mínimo em nenhuma das sete páginas.
 
 ## Publicar no GitHub Pages
 

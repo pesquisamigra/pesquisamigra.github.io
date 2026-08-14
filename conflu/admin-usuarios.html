@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usuários · Administração · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#4C2A23">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Área administrativa do Confluências.">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<div class="admin-barra">
+  <div class="shell">
+    <span class="marca"><img src="assets/logo.png" alt=""><b>Confluências</b>
+      <span class="rotulo">Administração</span></span>
+    <span class="mono"><a href="index.html">Ver o site</a> &nbsp;·&nbsp; <a href="#">Sair</a></span>
+  </div>
+</div>
+
+<nav class="admin-nav" aria-label="Administração">
+  <div class="shell"><a href="admin.html">Visão geral</a><a href="admin-perfis.html">Perfis</a><a href="admin-conteudos.html">Conteúdos</a><a href="admin-usuarios.html" class="ativo" aria-current="page">Usuários</a><a href="admin-assinaturas.html">Assinaturas</a><a href="#">Configurações</a><span class="conta mono">ana.moderadora@confluencias.org</span></div>
+</nav>
+
+<main id="conteudo">
+
+<section class="shell">
+  <div class="painel-topo">
+    <div>
+      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Administração</span></div>
+      <h1>Usuários</h1>
+    </div>
+    <span class="mono" style="color:var(--tinta-suave)">1.418 contas · 1.240 com perfil ativo</span>
+  </div>
+
+  <section class="filtros" style="margin-top:24px">
+    <div class="shell filtros-linha" style="padding:0">
+      <div class="filtro" style="padding-left:0"><span class="mono rot">Buscar</span>
+        <span class="val">Nome, e-mail ou CRP</span></div>
+      <div class="filtro"><span class="mono rot">Papel</span><span class="val">Todos <span class="seta">▾</span></span></div>
+      <div class="filtro"><span class="mono rot">Situação</span><span class="val">Todas <span class="seta">▾</span></span></div>
+      <div class="filtro"><span class="mono rot">Assinatura</span><span class="val">Todas <span class="seta">▾</span></span></div>
+    </div>
+  </section>
+
+  <div class="tabela-rolagem" style="margin-top:30px">
+  <table class="tabela">
+    <caption class="mono" style="text-align:left;color:var(--tinta-suave);padding-bottom:12px">
+      Mostrando 8 de 1.418 contas</caption>
+    <thead>
+      <tr><th>Conta</th><th>Papel</th><th>Perfil</th><th>Assinatura</th>
+      <th class="num">Cadastro</th><th class="acao">&nbsp;</th></tr>
+    </thead>
+    <tbody><tr>
+      <td><strong>Joana Silva</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">joana@exemplo.com</span></td>
+      <td>Profissional</td>
+      <td><span class="selo pend">Pendente</span></td>
+      <td>Perfil · ativa</td>
+      <td class="num">04 ago 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Marcos Andrade</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">marcos@exemplo.com</span></td>
+      <td>Profissional</td>
+      <td><span class="selo ok">Aprovado</span></td>
+      <td>Perfil · ativa</td>
+      <td class="num">22 jul 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Renata Costa</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">renata@exemplo.com</span></td>
+      <td>Profissional</td>
+      <td><span class="selo ok">Aprovado</span></td>
+      <td>Perfil · ativa</td>
+      <td class="num">18 jul 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Beatriz Nunes</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">beatriz@exemplo.com</span></td>
+      <td>Profissional</td>
+      <td><span class="selo ok">Aprovado</span></td>
+      <td>Perfil · ativa</td>
+      <td class="num">02 jul 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Carlos Apoiador</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">carlos@exemplo.com</span></td>
+      <td>Apoiador</td>
+      <td><span class="selo ok">Ativo</span></td>
+      <td>Contribuição · R$ 30</td>
+      <td class="num">29 jun 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Marina Leitora</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">marina@exemplo.com</span></td>
+      <td>Visitante</td>
+      <td><span class="selo ok">Ativo</span></td>
+      <td>—</td>
+      <td class="num">14 jun 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>conta #4471</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">oculto@exemplo.com</span></td>
+      <td>Profissional</td>
+      <td><span class="selo rej">Reprovado</span></td>
+      <td>Cancelada</td>
+      <td class="num">09 jun 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr><tr>
+      <td><strong>Ana Moderadora</strong><br><span class="mono" style="font-size:11px;color:var(--tinta-suave)">ana.moderadora@confluencias.org</span></td>
+      <td>Administração</td>
+      <td><span class="selo ok">Ativo</span></td>
+      <td>—</td>
+      <td class="num">02 jan 2026</td>
+      <td class="acao"><a href="#" class="lnk-sub">Abrir →</a></td>
+    </tr></tbody>
+  </table>
+  </div>
+
+  <div class="paginacao">
+    <span class="mono" style="color:var(--tinta-suave)">Mostrando 1–8 de 1.418</span>
+    <span class="pag-nums"><a href="#" class="ativo">1</a><a href="#">2</a><a href="#">3</a>
+      <a href="#">…</a><a href="#">178</a><a href="#">→</a></span>
+  </div>
+</section>
+</main>
+<footer class="rodape-slim">
+  <div class="shell">
+    <span class="mono">© 2026 Confluências · protótipo estático · dados fictícios</span>
+    <span class="mono"><a href="#">Registro de auditoria</a><a href="#">Ajuda</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moderação de conteúdos · Administração · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#4C2A23">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Área administrativa do Confluências.">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<div class="admin-barra">
+  <div class="shell">
+    <span class="marca"><img src="assets/logo.png" alt=""><b>Confluências</b>
+      <span class="rotulo">Administração</span></span>
+    <span class="mono"><a href="index.html">Ver o site</a> &nbsp;·&nbsp; <a href="#">Sair</a></span>
+  </div>
+</div>
+
+<nav class="admin-nav" aria-label="Administração">
+  <div class="shell"><a href="admin.html">Visão geral</a><a href="admin-perfis.html">Perfis</a><a href="admin-conteudos.html" class="ativo" aria-current="page">Conteúdos</a><a href="admin-usuarios.html">Usuários</a><a href="admin-assinaturas.html">Assinaturas</a><a href="#">Configurações</a><span class="conta mono">ana.moderadora@confluencias.org</span></div>
+</nav>
+
+<main id="conteudo">
+
+<section class="shell">
+  <div class="painel-topo">
+    <div>
+      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Moderação</span></div>
+      <h1>Conteúdos aguardando revisão</h1>
+    </div>
+    <span class="selo pend">3 na fila</span>
+  </div>
+
+  <div class="moderacao" style="margin-top:28px">
+    <div>
+      <div class="fila">
+        <div class="fila-cab"><span class="mono" style="color:var(--terracota-txt)">Fila · mais antigos primeiro</span></div>
+        <a href="#" class="fila-item ativo">
+        <span class="linha1"><span class="nome">Aquilombamento como método</span><span class="espera">2 dias</span></span>
+        <span class="meta">Artigo · Paulo Meireles</span></a><a href="#" class="fila-item">
+        <span class="linha1"><span class="nome">Roda de conversa: escuta e território</span><span class="espera">1 dia</span></span>
+        <span class="meta">Evento · Lúcia Matos</span></a><a href="#" class="fila-item">
+        <span class="linha1"><span class="nome">KILOMBA, Grada. Memórias da plantação</span><span class="espera">1 dia</span></span>
+        <span class="meta">Referência · Beatriz Nunes</span></a>
+      </div>
+      <p style="margin-top:18px"><a href="#" class="lnk-sub">Ver todos os conteúdos →</a></p>
+    </div>
+
+    <div>
+      <article class="revisao">
+        <div class="revisao-cab">
+          <div>
+            <h2>Aquilombamento como método</h2>
+            <span class="mono" style="color:var(--tinta-suave)">Artigo · Paulo Meireles · CRP 05/00000 · enviado em 12 ago</span>
+          </div>
+          <span class="selo pend">Pendente</span>
+        </div>
+
+        <div class="revisao-corpo">
+          <div class="campo-revisao">
+            <span class="rot">Tipo</span><span class="val">Artigo · categoria: clínica</span>
+          </div>
+          <div class="campo-revisao">
+            <span class="rot">Título</span>
+            <span class="val">Aquilombamento como método: notas sobre clínica coletiva</span>
+          </div>
+          <div class="campo-revisao">
+            <span class="rot">Resumo</span>
+            <span class="val">O que muda na condução clínica quando a referência deixa de ser o
+            indivíduo isolado e passa a ser a comunidade que o sustenta.</span>
+          </div>
+          <div class="campo-revisao">
+            <span class="rot">Corpo</span>
+            <span class="val">A clínica que aprendi na formação supõe um sujeito que chega sozinho,
+            fala sozinho e melhora sozinho. É um pressuposto, não um dado — e ele tem história.<br><br>
+            <em>[texto completo: 11.400 caracteres · 9 minutos de leitura]</em>
+            <br><a href="artigo.html" class="lnk-sub" style="margin-top:10px;display:inline-block">Abrir pré-visualização →</a></span>
+          </div>
+          <div class="campo-revisao">
+            <span class="rot">Referências citadas</span>
+            <span class="val">SANTOS, Antônio Bispo dos. <em>Colonização, quilombos.</em> 2015.<br>
+            NASCIMENTO, Abdias. <em>O genocídio do negro brasileiro.</em> 1978.</span>
+          </div>
+          <div class="campo-revisao">
+            <span class="rot">Imagem de capa</span>
+            <span class="val"><em>Não enviada.</em></span>
+          </div>
+
+          <div class="criterios">
+            <h4>Critérios de aprovação</h4>
+            <ul>
+              <li>Autoria própria, ou fonte creditada quando houver citação.</li>
+              <li>Sem caso clínico identificável nem dado de paciente.</li>
+              <li>Sem promessa de cura, diagnóstico à distância ou publicidade enganosa.</li>
+              <li>Referências verificáveis, com autoria, obra e ano.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="decisao">
+          <h3>Decisão</h3>
+          <div class="campo" style="margin-bottom:0">
+            <label for="parecer2">Parecer <span class="opcional">— obrigatório ao reprovar ou pedir ajustes</span></label>
+            <textarea id="parecer2" name="parecer" style="min-height:96px"
+              placeholder="Explique o que precisa mudar. Este texto é enviado por e-mail e fica no registro."></textarea>
+          </div>
+          <div class="consent" style="margin:16px 0 0">
+            <input type="checkbox" id="notificar2" checked>
+            <label for="notificar2">Notificar a pessoa por e-mail e no painel</label>
+          </div>
+          <div class="decisao-botoes">
+            <button type="button" class="btn-principal btn-aprovar">Aprovar e publicar</button>
+            <button type="button" class="btn-secundario btn-ajustes">Solicitar ajustes</button>
+            <button type="button" class="btn-secundario btn-reprovar">Reprovar</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="rodape-slim">
+  <div class="shell">
+    <span class="mono">© 2026 Confluências · protótipo estático · dados fictícios</span>
+    <span class="mono"><a href="#">Registro de auditoria</a><a href="#">Ajuda</a></span>
+  </div>
+</footer>
+</body>
+</html>

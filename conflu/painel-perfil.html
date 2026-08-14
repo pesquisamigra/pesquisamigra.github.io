@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu perfil · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAF4E4">
+<meta name="description" content="Edite seu perfil profissional no Confluências.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Confluências">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+
+<div class="utility">
+  <div class="shell">
+    <span class="mono">Diretório de psicólogas e psicólogos · Brasil e exterior</span>
+    <span class="mono"><a href="diretorio.html">Buscar profissional</a><a href="login.html">Entrar</a></span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="shell">
+    <div class="mh-brand">
+      <a href="index.html"><img src="assets/logo.png" alt="Confluências"></a>
+      <p class="wordmark"><a href="index.html">Confluências</a></p>
+    </div>
+    <div class="mh-meta">
+      <p class="claim">Um diretório sustentado por quem faz parte dele.</p>
+      <p class="mono figures">1.240 perfis · 27 estados · 16 países</p>
+    </div>
+  </div>
+</div>
+
+<nav class="mainnav">
+  <div class="shell">
+    <div class="mainnav-links">
+      <a href="diretorio.html">Profissionais</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="noticia.html">Notícias</a>
+      <a href="artigo.html">Artigos</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="index.html">O movimento</a>
+    </div>
+    <a href="cadastro.html" class="nav-cta">Criar perfil →</a>
+  </div>
+</nav>
+
+<nav class="painel-nav" aria-label="Painel">
+  <div class="shell">
+    <a href="#">Visão geral</a>
+    <a href="painel-perfil.html" class="ativo" aria-current="page">Meu perfil</a>
+    <a href="#">Conteúdos</a>
+    <a href="#">Assinatura</a>
+    <a href="#">Contatos</a>
+    <a href="#">Configurações</a>
+  </div>
+</nav>
+
+<main id="conteudo">
+<section class="shell">
+  <div class="painel-topo">
+    <div>
+      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Painel</span></div>
+      <h1>Meu perfil</h1>
+    </div>
+    <span class="estado pendente"><span class="pt"></span>Rascunho — ainda não publicado</span>
+  </div>
+
+  <div class="aviso" style="margin:22px 0 6px;max-width:760px">
+    <p><strong>O perfil passa por moderação antes de ficar público.</strong> Você pode salvar
+    como rascunho quantas vezes quiser e enviar para revisão quando estiver pronto.</p>
+  </div>
+
+  <form novalidate>
+
+    <div class="secao-form">
+      <div class="cab">
+        <h2>Identificação</h2>
+        <p>Aparece no topo do seu perfil público e nos resultados de busca.</p>
+      </div>
+
+      <div class="campo">
+        <span class="rot-campo">Foto de perfil</span>
+        <div class="foto-envio">
+          <div class="foto-previa"><span>JS</span></div>
+          <div>
+            <p class="ajuda" style="margin-top:0;margin-bottom:12px">
+              Envie uma foto em JPG, PNG ou WebP de até 5 MB. Enquanto não houver foto,
+              o perfil usa suas iniciais.</p>
+            <label for="foto" class="btn-secundario" style="display:inline-block">Escolher arquivo</label>
+            <input type="file" id="foto" name="foto" accept="image/jpeg,image/png,image/webp"
+                   style="position:absolute;width:1px;height:1px;opacity:0">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="campo">
+          <label for="nomeprof">Nome profissional</label>
+          <input type="text" id="nomeprof" name="nomeprof" value="Joana Silva" autocomplete="name" required>
+        </div>
+        <div class="campo invalido">
+          <label for="crp">CRP</label>
+          <input type="text" id="crp" name="crp" value="06-00000" placeholder="CRP 00/00000"
+                 aria-describedby="erro-crp" aria-invalid="true" required>
+          <p class="erro" id="erro-crp" role="alert">Informe um CRP válido (ex.: CRP 00/00000).</p>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="headline">Chamada <span class="contador">42 / 80</span></label>
+        <input type="text" id="headline" name="headline" maxlength="80"
+               value="Psicanálise · ansiedade, luto e relações raciais" aria-describedby="ajuda-headline">
+        <p class="ajuda" id="ajuda-headline">Uma linha que resume sua atuação. Máximo de 80 caracteres.</p>
+      </div>
+
+      <div class="campo">
+        <label for="slug">Endereço do perfil</label>
+        <input type="text" id="slug" name="slug" value="joana-silva" aria-describedby="ajuda-slug">
+        <p class="ajuda" id="ajuda-slug">confluencias.org/profissionais/<strong>joana-silva</strong>
+        — use apenas letras, números e hífens.</p>
+      </div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab">
+        <h2>Apresentação</h2>
+        <p>O texto que a pessoa lê antes de decidir entrar em contato.</p>
+      </div>
+      <div class="campo">
+        <label for="bio">Bio <span class="contador">486 / 2000</span></label>
+        <textarea id="bio" name="bio" minlength="100" maxlength="2000" aria-describedby="ajuda-bio" required>Atendo adultos há mais de dez anos, com foco em quadros de ansiedade e processos de luto. Meu trabalho parte da psicanálise, mas não trato a teoria como um roteiro: cada pessoa chega com uma história que pede um ritmo próprio.
+
+Acredito que sofrimento psíquico não se explica só pela biografia individual. Racismo, condições de trabalho, dinheiro e vínculos precários atravessam a clínica, e ignorar esse contexto costuma produzir um tratamento que culpabiliza quem procura ajuda.</textarea>
+        <p class="ajuda" id="ajuda-bio">A bio deve ter entre 100 e 2000 caracteres.</p>
+      </div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab">
+        <h2>Atuação</h2>
+        <p>É por estes campos que as pessoas filtram a busca no diretório.</p>
+      </div>
+
+      <fieldset>
+        <legend>Abordagem teórica — selecione ao menos uma</legend>
+        <div class="etiquetas">
+          <span class="etiqueta marcada">Psicanálise <span class="x">×</span></span>
+          <span class="etiqueta">Terapia cognitivo-comportamental</span>
+          <span class="etiqueta">Gestalt-terapia</span>
+          <span class="etiqueta">Terapia sistêmica</span>
+          <span class="etiqueta">Análise do comportamento</span>
+          <span class="etiqueta">Psicologia social contracolonial</span>
+          <span class="etiqueta">Clínica antimanicolonial</span>
+          <span class="etiqueta">+ outra</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Especialidades — selecione ao menos uma</legend>
+        <div class="etiquetas">
+          <span class="etiqueta marcada">Ansiedade <span class="x">×</span></span>
+          <span class="etiqueta marcada">Luto <span class="x">×</span></span>
+          <span class="etiqueta marcada">Relações raciais <span class="x">×</span></span>
+          <span class="etiqueta">Depressão</span>
+          <span class="etiqueta">Casais</span>
+          <span class="etiqueta">Infância</span>
+          <span class="etiqueta">Saúde do trabalhador</span>
+          <span class="etiqueta">+ outra</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Formato de atendimento</legend>
+        <div class="consent"><input type="checkbox" id="fonline" checked>
+          <label for="fonline">Online</label></div>
+        <div class="consent"><input type="checkbox" id="fpres" checked>
+          <label for="fpres">Presencial</label></div>
+      </fieldset>
+
+      <div class="form-grid">
+        <div class="campo">
+          <label for="cidade">Cidade</label>
+          <input type="text" id="cidade" name="cidade" value="São Paulo" required>
+        </div>
+        <div class="campo">
+          <label for="estado">Estado</label>
+          <select id="estado" name="estado" required>
+            <option>São Paulo</option><option>Rio de Janeiro</option><option>Minas Gerais</option>
+            <option>Bahia</option><option>Fora do Brasil</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="campo">
+          <label for="preco">Faixa de preço por sessão <span class="opcional">— opcional</span></label>
+          <input type="text" id="preco" name="preco" value="R$ 150 a R$ 200">
+        </div>
+        <div class="campo">
+          <label for="idiomas">Idiomas de atendimento</label>
+          <input type="text" id="idiomas" name="idiomas" value="Português, Inglês">
+        </div>
+      </div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab">
+        <h2>Contato</h2>
+        <p>Escolha o que fica visível. O telefone nunca aparece sem sua autorização.</p>
+      </div>
+      <div class="form-grid">
+        <div class="campo">
+          <label for="tel">Telefone ou WhatsApp</label>
+          <input type="tel" id="tel" name="tel" autocomplete="tel" placeholder="(11) 90000-0000"
+                 aria-describedby="ajuda-tel" required>
+          <p class="ajuda" id="ajuda-tel">Informe um telefone válido com DDD.</p>
+        </div>
+        <div class="campo">
+          <label for="emailpub">E-mail público <span class="opcional">— opcional</span></label>
+          <input type="email" id="emailpub" name="emailpub" inputmode="email">
+        </div>
+      </div>
+      <div class="consent" style="margin-bottom:20px">
+        <input type="checkbox" id="mostrartel">
+        <label for="mostrartel">Exibir meu telefone no perfil público</label>
+      </div>
+      <div class="form-grid">
+        <div class="campo">
+          <label for="site">Site <span class="opcional">— opcional</span></label>
+          <input type="url" id="site" name="site" placeholder="https://">
+        </div>
+        <div class="campo">
+          <label for="insta">Instagram <span class="opcional">— opcional</span></label>
+          <input type="url" id="insta" name="insta" placeholder="https://instagram.com/">
+        </div>
+      </div>
+    </div>
+
+    <div class="secao-form" style="border-bottom:1px solid var(--regra);padding-bottom:34px">
+      <div class="acoes-form">
+        <a href="#" class="btn-principal">Enviar para revisão</a>
+        <a href="#" class="btn-secundario">Salvar rascunho</a>
+        <a href="perfil.html" class="lnk-sub">Ver como fica →</a>
+      </div>
+    </div>
+  </form>
+</section>
+</main>
+
+<section class="fecho">
+  <div class="shell grid">
+    <div class="fecho-mark"><img src="assets/logo.png" alt=""></div>
+    <div class="fecho-txt">
+      <h2>Um diretório só se sustenta se <em>sustentar quem está nele</em>.</h2>
+      <p>Assine um perfil por R$ 90/mês ou contribua com R$ 30 sem perfil público. Nos dois casos, R$ 30 sustentam o movimento Confluências — e a prestação de contas é publicada.</p>
+      <div class="fecho-acoes">
+        <a href="cadastro.html" class="btn-claro">Criar meu perfil</a>
+        <a href="onboarding.html" class="lnk-claro">Contribuir sem perfil →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="assets/logo.png" alt=""><span>Confluências</span></div>
+        <p>Diretório de psicólogas e psicólogos, sustentado coletivamente. Sem anúncio, sem impulsionamento, sem venda de destaque.</p>
+      </div>
+      <div>
+        <h4 class="mono">Diretório</h4>
+        <a href="diretorio.html">Buscar profissional</a>
+        <a href="diretorio.html">Especialidades</a>
+        <a href="diretorio.html">Abordagens</a>
+        <a href="diretorio.html">Cidades</a>
+      </div>
+      <div>
+        <h4 class="mono">Publicações</h4>
+        <a href="noticia.html">Notícias</a>
+        <a href="artigo.html">Artigos</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div>
+        <h4 class="mono">Movimento</h4>
+        <a href="#">O que defendemos</a>
+        <a href="#">Prestação de contas</a>
+        <a href="#">Termos e privacidade</a>
+        <a href="#">Contato</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span class="mono">© 2026 Confluências</span>
+      <span class="mono">Protótipo estático · conteúdo fictício</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
