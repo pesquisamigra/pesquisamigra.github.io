@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configurações · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAF4E4">
+<meta name="description" content="Painel do profissional no Confluências.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Confluências">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+
+<div class="utility">
+  <div class="shell">
+    <span class="mono">Diretório de psicólogas e psicólogos · Brasil e exterior</span>
+    <span class="mono"><a href="diretorio.html">Buscar profissional</a><a href="login.html">Entrar</a></span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="shell">
+    <div class="mh-brand">
+      <a href="index.html"><img src="assets/logo.png" alt="Confluências"></a>
+      <p class="wordmark"><a href="index.html">Confluências</a></p>
+    </div>
+    <div class="mh-meta">
+      <p class="claim">Um diretório sustentado por quem faz parte dele.</p>
+      <p class="mono figures">1.240 perfis · 27 estados · 16 países</p>
+    </div>
+  </div>
+</div>
+
+<nav class="mainnav">
+  <div class="shell">
+    <div class="mainnav-links">
+      <a href="diretorio.html">Profissionais</a>
+      <a href="agenda.html">Agenda</a>
+      <a href="noticia.html">Notícias</a>
+      <a href="artigo.html">Artigos</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="sobre.html">O movimento</a>
+    </div>
+    <a href="cadastro.html" class="nav-cta">Criar perfil →</a>
+  </div>
+</nav>
+
+<nav class="painel-nav" aria-label="Painel">
+  <div class="shell">
+    <a href="painel.html">Visão geral</a>
+    <a href="painel-perfil.html">Meu perfil</a>
+    <a href="painel-conteudos.html">Conteúdos</a>
+    <a href="painel-assinatura.html">Assinatura</a>
+    <a href="painel-contatos.html">Contatos</a>
+    <a href="painel-configuracoes.html" class="ativo" aria-current="page">Configurações</a>
+  </div>
+</nav>
+<main id="conteudo">
+<section class="shell">
+  <div class="painel-topo">
+    <div>
+      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Painel</span></div>
+      <h1>Configurações da conta</h1>
+    </div>
+  </div>
+
+  <form novalidate style="max-width:760px;margin-top:14px">
+    <div class="secao-form">
+      <div class="cab"><h2>Dados da conta</h2>
+        <p>Usados para entrar e para falarmos com você. Não aparecem no perfil público.</p></div>
+      <div class="form-grid">
+        <div class="campo"><label for="cnome">Nome</label>
+          <input type="text" id="cnome" value="Joana Silva" autocomplete="name"></div>
+        <div class="campo"><label for="cemail">E-mail</label>
+          <input type="email" id="cemail" value="joana@exemplo.com" autocomplete="email"
+                 aria-describedby="ajuda-cemail">
+          <p class="ajuda" id="ajuda-cemail">Trocar o e-mail exige confirmação nos dois endereços.</p></div>
+      </div>
+      <div class="acoes-form"><a href="#" class="btn-secundario">Salvar dados</a></div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab"><h2>Senha</h2></div>
+      <div class="form-grid">
+        <div class="campo"><label for="atual">Senha atual</label>
+          <input type="password" id="atual" autocomplete="current-password"></div>
+        <div class="campo"><label for="nova">Nova senha</label>
+          <input type="password" id="nova" autocomplete="new-password" aria-describedby="ajuda-nova">
+          <p class="ajuda" id="ajuda-nova">Pelo menos 8 caracteres, incluindo letras e números.</p></div>
+      </div>
+      <div class="acoes-form"><a href="#" class="btn-secundario">Alterar senha</a></div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab"><h2>Notificações</h2>
+        <p>Avisos essenciais sobre conta, moderação e cobrança são sempre enviados.</p></div>
+      <div class="consent"><input type="checkbox" id="n1" checked>
+        <label for="n1">Novo contato recebido no perfil</label></div>
+      <div class="consent"><input type="checkbox" id="n2" checked>
+        <label for="n2">Resultado da moderação dos meus conteúdos</label></div>
+      <div class="consent"><input type="checkbox" id="n3">
+        <label for="n3">Boletim do movimento e convites para encontros</label></div>
+      <div class="consent"><input type="checkbox" id="n4">
+        <label for="n4">Resumo mensal de visitas e contatos</label></div>
+    </div>
+
+    <div class="secao-form">
+      <div class="cab"><h2>Seus dados (LGPD)</h2>
+        <p>Direitos garantidos pela Lei Geral de Proteção de Dados, disponíveis aqui mesmo,
+        sem precisar pedir por e-mail.</p></div>
+      <div class="acoes-form">
+        <a href="#" class="btn-secundario">Exportar meus dados (JSON)</a>
+        <a href="privacidade.html" class="lnk-sub">Ler a política de privacidade →</a>
+      </div>
+      <p class="ajuda" style="margin-top:14px">A exportação inclui conta, perfil, publicações,
+      contatos recebidos e histórico de pagamentos. O arquivo chega por e-mail em até 24 horas.</p>
+    </div>
+
+    <div class="zona-risco">
+      <h3>Excluir minha conta</h3>
+      <p>A exclusão é <strong>definitiva</strong>. Seu perfil sai do ar imediatamente, a assinatura
+      é cancelada e apagamos seus dados em até 30 dias — salvo registros fiscais, que a lei
+      obriga a guardar por 5 anos.</p>
+      <div class="consent"><input type="checkbox" id="anon">
+        <label for="anon">Manter minhas publicações no ar de forma anônima, sem meu nome nem CRP</label></div>
+      <p style="margin-top:14px"><a href="#" class="btn-secundario btn-reprovar">Excluir conta permanentemente</a></p>
+    </div>
+  </form>
+</section>
+</main>
+<section class="fecho">
+  <div class="shell grid">
+    <div class="fecho-mark"><img src="assets/logo.png" alt=""></div>
+    <div class="fecho-txt">
+      <h2>Um diretório só se sustenta se <em>sustentar quem está nele</em>.</h2>
+      <p>Assine um perfil por R$ 90/mês ou contribua com R$ 30 sem perfil público. Nos dois casos, R$ 30 sustentam o movimento Confluências — e a prestação de contas é publicada.</p>
+      <div class="fecho-acoes">
+        <a href="cadastro.html" class="btn-claro">Criar meu perfil</a>
+        <a href="onboarding.html" class="lnk-claro">Contribuir sem perfil →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><img src="assets/logo.png" alt=""><span>Confluências</span></div>
+        <p>Diretório de psicólogas e psicólogos, sustentado coletivamente. Sem anúncio, sem impulsionamento, sem venda de destaque.</p>
+      </div>
+      <div>
+        <h4 class="mono">Diretório</h4>
+        <a href="diretorio.html">Buscar profissional</a>
+        <a href="diretorio.html">Especialidades</a>
+        <a href="diretorio.html">Abordagens</a>
+        <a href="diretorio.html">Cidades</a>
+      </div>
+      <div>
+        <h4 class="mono">Publicações</h4>
+        <a href="noticia.html">Notícias</a>
+        <a href="artigo.html">Artigos</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="agenda.html">Agenda</a>
+      </div>
+      <div>
+        <h4 class="mono">Movimento</h4>
+        <a href="sobre.html">O que defendemos</a>
+        <a href="sobre.html">Prestação de contas</a>
+        <a href="termos.html">Termos e privacidade</a>
+        <a href="privacidade.html">Privacidade e LGPD</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span class="mono">© 2026 Confluências</span>
+      <span class="mono">Protótipo estático · conteúdo fictício</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

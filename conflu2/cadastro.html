@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Criar conta · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#FAF4E4">
+<meta name="description" content="Crie sua conta no diretório Confluências.">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Confluências">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<header class="fluxo-topo">
+  <div class="shell">
+    <a href="index.html" class="fluxo-marca">
+      <img src="assets/logo.png" alt=""><span>Confluências</span>
+    </a>
+    <a href="index.html" class="mono">Voltar ao site</a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<section class="shell" style="padding-top:44px;padding-bottom:20px">
+  <div class="checkout estreito">
+    <div class="form-col">
+      <h1 style="font-size:clamp(30px,3.6vw,44px);font-weight:400;letter-spacing:-.022em;line-height:1.08;margin-bottom:12px">
+        Criar conta</h1>
+      <p style="font-size:17px;color:var(--tinta-suave);font-weight:300;margin-bottom:30px">
+        Já tem conta? <a href="login.html" class="lnk-sub" style="border-bottom:1px solid var(--bordo)">Entrar →</a></p>
+
+      <div class="aviso">
+        <p><strong>Este é um protótipo.</strong> Os estados de erro abaixo estão exibidos de
+        propósito, para mostrar como a validação se comporta — as mensagens são as da
+        especificação do projeto.</p>
+      </div>
+
+      <form novalidate>
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" autocomplete="name" minlength="3" maxlength="120"
+                 value="Ana" aria-describedby="erro-nome" aria-invalid="false" required>
+          <p class="ajuda" id="erro-nome">Entre 3 e 120 caracteres.</p>
+        </div>
+
+        <div class="campo invalido">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
+                 value="ana@exemplo.com" aria-describedby="erro-email" aria-invalid="true" required>
+          <p class="erro" id="erro-email" role="alert">E-mail já cadastrado.</p>
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" autocomplete="new-password"
+                 minlength="8" aria-describedby="ajuda-senha" required>
+          <p class="ajuda" id="ajuda-senha">A senha deve ter pelo menos 8 caracteres, incluindo letras e números.</p>
+        </div>
+
+        <div class="campo invalido">
+          <label for="senha2">Confirmar senha</label>
+          <input type="password" id="senha2" name="senha2" autocomplete="new-password"
+                 aria-describedby="erro-senha2" aria-invalid="true" required>
+          <p class="erro" id="erro-senha2" role="alert">As senhas não coincidem.</p>
+        </div>
+
+        <fieldset>
+          <legend>Consentimentos</legend>
+          <div class="consent">
+            <input type="checkbox" id="termos" name="termos" required>
+            <label for="termos">Li e aceito os <a href="termos.html">Termos de uso</a>.</label>
+          </div>
+          <p class="erro" role="alert" style="margin:-6px 0 14px 35px">Você precisa aceitar os termos.</p>
+
+          <div class="consent">
+            <input type="checkbox" id="privacidade" name="privacidade" required>
+            <label for="privacidade">Li e aceito a <a href="privacidade.html">Política de privacidade</a> e autorizo
+            o tratamento dos meus dados conforme a LGPD.</label>
+          </div>
+
+          <div class="consent">
+            <input type="checkbox" id="boletim" name="boletim">
+            <label for="boletim">Quero receber notícias do movimento por e-mail.
+            <span style="display:block;font-size:13px;margin-top:3px">Opcional. Pode ser cancelado a qualquer momento.</span></label>
+          </div>
+        </fieldset>
+
+        <div class="acoes-form">
+          <a href="onboarding.html" class="btn-principal">Criar conta</a>
+          <span class="mono" style="color:var(--tinta-suave)">Você receberá um e-mail de confirmação</span>
+        </div>
+      </form>
+    </div>
+
+    <aside>
+      <div class="resumo">
+        <h3>Seus dados</h3>
+        <p class="sub">O que fazemos com o que você informa aqui.</p>
+        <div class="resumo-linha"><span>Nome e e-mail</span><b>conta e contato</b></div>
+        <div class="resumo-linha"><span>Senha</span><b>guardada cifrada</b></div>
+        <div class="resumo-linha"><span>Venda a terceiros</span><b>nunca</b></div>
+        <p style="font-size:14px;line-height:1.55;color:var(--tinta-suave);font-weight:300;margin-top:18px">
+        Você pode exportar ou apagar seus dados quando quiser, em Configurações da conta.</p>
+        <p style="margin-top:14px"><a href="privacidade.html" class="lnk-sub">Política de privacidade →</a></p>
+      </div>
+    </aside>
+  </div>
+</section>
+</main>
+<footer class="rodape-slim">
+  <div class="shell">
+    <span class="mono">© 2026 Confluências · protótipo estático</span>
+    <span class="mono">
+      <a href="termos.html">Termos de uso</a><a href="privacidade.html">Privacidade e LGPD</a><a href="#">Ajuda</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>

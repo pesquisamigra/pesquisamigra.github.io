@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recuperar senha · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#FAF4E4">
+<meta name="description" content="Recupere o acesso à sua conta.">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-title" content="Confluências">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<header class="fluxo-topo">
+  <div class="shell">
+    <a href="index.html" class="fluxo-marca">
+      <img src="assets/logo.png" alt=""><span>Confluências</span>
+    </a>
+    <a href="index.html" class="mono">Voltar ao site</a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<section class="shell" style="padding-top:58px;padding-bottom:20px">
+  <div class="form-col">
+    <div class="sec-mark mono" style="margin-bottom:14px"><span class="num">§</span><span>Acesso</span></div>
+    <h1 style="font-size:clamp(30px,3.6vw,44px);font-weight:400;letter-spacing:-.022em;line-height:1.08;margin-bottom:12px">
+      Recuperar senha</h1>
+    <p style="font-size:17px;color:var(--tinta-suave);font-weight:300;margin-bottom:30px">
+      Informe o e-mail da conta. Enviamos um link para você criar uma senha nova.
+      O link vale por 2 horas.</p>
+    <form novalidate>
+      <div class="campo">
+        <label for="email">E-mail da conta</label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email"
+               placeholder="voce@exemplo.com" required>
+      </div>
+      <div class="acoes-form">
+        <a href="#" class="btn-principal">Enviar link</a>
+        <a href="login.html" class="lnk-sub">Voltar para entrar</a>
+      </div>
+    </form>
+
+    <div class="aviso" style="margin-top:34px">
+      <p><strong>Por segurança, a resposta é sempre a mesma.</strong> Se o e-mail existir na
+      base, a mensagem chega em alguns minutos — mas não informamos se ele está ou não
+      cadastrado, para não expor quem faz parte da rede.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="rodape-slim">
+  <div class="shell">
+    <span class="mono">© 2026 Confluências · protótipo estático</span>
+    <span class="mono">
+      <a href="termos.html">Termos de uso</a><a href="privacidade.html">Privacidade e LGPD</a><a href="#">Ajuda</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visão geral · Administração · Confluências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#4C2A23">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Área administrativa do Confluências.">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="design-system.css">
+</head>
+<body>
+<a href="#conteudo" class="pular">Pular para o conteúdo</a>
+
+<div class="admin-barra">
+  <div class="shell">
+    <span class="marca"><img src="assets/logo.png" alt=""><b>Confluências</b>
+      <span class="rotulo">Administração</span></span>
+    <span class="mono"><a href="index.html">Ver o site</a> &nbsp;·&nbsp; <a href="#">Sair</a></span>
+  </div>
+</div>
+
+<nav class="admin-nav" aria-label="Administração">
+  <div class="shell"><a href="admin.html" class="ativo" aria-current="page">Visão geral</a><a href="admin-perfis.html">Perfis</a><a href="admin-conteudos.html">Moderar conteúdos</a><a href="admin-todos-conteudos.html">Conteúdos</a><a href="admin-usuarios.html">Usuários</a><a href="admin-assinaturas.html">Assinaturas</a><a href="admin-configuracoes.html">Configurações</a><span class="conta mono">ana.moderadora@confluencias.org</span></div>
+</nav>
+
+<main id="conteudo">
+
+<section class="shell">
+  <div class="painel-topo">
+    <div>
+      <div class="sec-mark mono" style="margin-bottom:10px"><span class="num">§</span><span>Administração</span></div>
+      <h1>Visão geral</h1>
+    </div>
+    <span class="mono" style="color:var(--tinta-suave)">Atualizado hoje, 09h12</span>
+  </div>
+
+  <div class="kpis" style="margin-top:26px">
+    <div class="kpi">
+      <span class="rot">Assinantes ativos</span>
+      <span class="val">1.240</span>
+      <span class="delta sobe">+116 no mês</span>
+    </div>
+    <div class="kpi">
+      <span class="rot">Receita recorrente mensal</span>
+      <span class="val">R$ 111.600</span>
+      <span class="delta sobe">+10,4% vs. julho</span>
+    </div>
+    <div class="kpi">
+      <span class="rot">Cancelamento no mês</span>
+      <span class="val">2,1%</span>
+      <span class="delta desce">+0,4 p.p. vs. julho</span>
+    </div>
+    <div class="kpi alerta">
+      <span class="rot">Aguardando moderação</span>
+      <span class="val">7</span>
+      <span class="delta">o mais antigo há 3 dias</span>
+    </div>
+  </div>
+
+  <div class="painel-grade" style="padding:34px 0 8px">
+    <div>
+      <div class="sec-head" style="margin-bottom:18px">
+        <div>
+          <h2 style="font-size:26px">Assinantes ativos por mês</h2>
+          <p style="font-size:14px;color:var(--tinta-suave);font-weight:300;margin-top:5px">
+            Janeiro a agosto de 2026</p>
+        </div>
+      </div>
+      <div class="grafico">
+  <svg viewBox="0 0 900 250" role="img"
+       aria-label="Assinantes ativos por mês, de janeiro a agosto de 2026, subindo de 180 para 1.240.">
+    <line class="gr-grade" x1="46" y1="220.0" x2="822" y2="220.0"/><line class="gr-grade" x1="46" y1="172.5" x2="822" y2="172.5"/><line class="gr-grade" x1="46" y1="124.9" x2="822" y2="124.9"/><line class="gr-grade" x1="46" y1="77.4" x2="822" y2="77.4"/><line class="gr-grade" x1="46" y1="29.8" x2="822" y2="29.8"/>
+    <text class="gr-eixo" x="36" y="223.5" text-anchor="end">0</text><text class="gr-eixo" x="36" y="176.0" text-anchor="end">300</text><text class="gr-eixo" x="36" y="128.4" text-anchor="end">600</text><text class="gr-eixo" x="36" y="80.9" text-anchor="end">900</text><text class="gr-eixo" x="36" y="33.3" text-anchor="end">1.200</text>
+    <text class="gr-eixo" x="46.0" y="240" text-anchor="middle">jan</text><text class="gr-eixo" x="156.9" y="240" text-anchor="middle">fev</text><text class="gr-eixo" x="267.7" y="240" text-anchor="middle">mar</text><text class="gr-eixo" x="378.6" y="240" text-anchor="middle">abr</text><text class="gr-eixo" x="489.4" y="240" text-anchor="middle">mai</text><text class="gr-eixo" x="600.3" y="240" text-anchor="middle">jun</text><text class="gr-eixo" x="711.1" y="240" text-anchor="middle">jul</text><text class="gr-eixo" x="822.0" y="240" text-anchor="middle">ago</text>
+    <path class="gr-linha" d="M46.0,191.5 L156.9,165.8 L267.7,139.0 L378.6,110.7 L489.4,86.4 L600.3,63.6 L711.1,41.9 L822.0,23.5"/>
+    <circle class="gr-ponto" cx="822.0" cy="23.5" r="5"/>
+    <text class="gr-rot" x="834.0" y="27.5">1.240</text>
+    <circle cx="46.0" cy="191.5" r="11" fill="transparent"><title>jan de 2026 · 180 assinantes</title></circle><circle cx="156.9" cy="165.8" r="11" fill="transparent"><title>fev de 2026 · 342 assinantes</title></circle><circle cx="267.7" cy="139.0" r="11" fill="transparent"><title>mar de 2026 · 511 assinantes</title></circle><circle cx="378.6" cy="110.7" r="11" fill="transparent"><title>abr de 2026 · 690 assinantes</title></circle><circle cx="489.4" cy="86.4" r="11" fill="transparent"><title>mai de 2026 · 843 assinantes</title></circle><circle cx="600.3" cy="63.6" r="11" fill="transparent"><title>jun de 2026 · 987 assinantes</title></circle><circle cx="711.1" cy="41.9" r="11" fill="transparent"><title>jul de 2026 · 1.124 assinantes</title></circle><circle cx="822.0" cy="23.5" r="11" fill="transparent"><title>ago de 2026 · 1.240 assinantes</title></circle>
+  </svg>
+  <details class="tabela-twin">
+    <summary>Ver como tabela</summary>
+    <table class="tabela" style="margin-top:14px">
+      <thead><tr><th>Mês</th><th class="num">Assinantes ativos</th></tr></thead>
+      <tbody><tr><td>jan 2026</td><td class='num'>180</td></tr><tr><td>fev 2026</td><td class='num'>342</td></tr><tr><td>mar 2026</td><td class='num'>511</td></tr><tr><td>abr 2026</td><td class='num'>690</td></tr><tr><td>mai 2026</td><td class='num'>843</td></tr><tr><td>jun 2026</td><td class='num'>987</td></tr><tr><td>jul 2026</td><td class='num'>1.124</td></tr><tr><td>ago 2026</td><td class='num'>1.240</td></tr></tbody>
+    </table>
+  </details>
+</div>
+    </div>
+
+    <div>
+      <h2 style="font-size:26px;font-weight:400;letter-spacing:-.015em;margin-bottom:4px">Fundo do movimento</h2>
+      <p style="font-size:14px;color:var(--tinta-suave);font-weight:300;margin-bottom:18px">
+        Acumulado no trimestre, a repassar</p>
+      <div class="resumo" style="padding:22px 22px">
+        <div class="resumo-linha" style="border-top:none;padding-top:0">
+          <span>De assinaturas (R$ 30 × 1.240)</span><b>R$ 37.200</b></div>
+        <div class="resumo-linha"><span>De contribuições voluntárias</span><b>R$ 5.640</b></div>
+        <div class="resumo-total"><span class="mono">Total do mês</span><span class="v">R$ 42.840</span></div>
+        <p style="font-size:14px;line-height:1.55;color:var(--tinta-suave);font-weight:300;margin-top:18px">
+          A prestação de contas do trimestre vence em 30 de setembro.</p>
+        <p style="margin-top:12px"><a href="#" class="lnk-sub">Gerar prestação de contas →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shell" style="padding-top:26px;padding-bottom:20px">
+  <div class="painel-grade igual">
+    <div>
+      <div class="sec-head" style="margin-bottom:6px">
+        <h2 style="font-size:26px">Fila de moderação</h2>
+        <div class="aside"><a href="admin-perfis.html" class="mono">Abrir fila →</a></div>
+      </div>
+      <div class="tabela-rolagem">
+      <table class="tabela">
+        <thead><tr><th>Item</th><th>Tipo</th><th>Enviado</th><th class="num">Espera</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Joana Silva</strong></td><td>Perfil</td><td>11 ago</td><td class="num">3 dias</td></tr>
+          <tr><td><strong>Aquilombamento como método</strong></td><td>Artigo</td><td>12 ago</td><td class="num">2 dias</td></tr>
+          <tr><td><strong>Diego Ferraz</strong></td><td>Perfil</td><td>12 ago</td><td class="num">2 dias</td></tr>
+          <tr><td><strong>Roda de conversa: escuta e território</strong></td><td>Evento</td><td>13 ago</td><td class="num">1 dia</td></tr>
+          <tr><td><strong>KILOMBA, Grada. Memórias da plantação</strong></td><td>Referência</td><td>13 ago</td><td class="num">1 dia</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head" style="margin-bottom:6px">
+        <h2 style="font-size:26px">Decisões recentes</h2>
+        <div class="aside"><a href="#" class="mono">Registro completo →</a></div>
+      </div>
+      <div class="historico">
+        <div class="hist-item"><span class="quando">hoje · 08h40</span>
+          <span class="oque"><b>Ana Moderadora</b> aprovou o perfil de <b>Lúcia Matos</b>.</span></div>
+        <div class="hist-item"><span class="quando">ontem · 17h22</span>
+          <span class="oque"><b>Ana Moderadora</b> solicitou ajustes no artigo <b>“Escuta infantil não é consulta encurtada”</b> — CRP ausente na assinatura.</span></div>
+        <div class="hist-item"><span class="quando">ontem · 15h05</span>
+          <span class="oque"><b>Rafael Admin</b> aprovou a referência <b>KRENAK, Ailton</b>.</span></div>
+        <div class="hist-item"><span class="quando">12 ago · 11h48</span>
+          <span class="oque"><b>Ana Moderadora</b> reprovou o perfil de <b>conta #4471</b> — registro profissional não localizado no conselho.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="rodape-slim">
+  <div class="shell">
+    <span class="mono">© 2026 Confluências · protótipo estático · dados fictícios</span>
+    <span class="mono"><a href="#">Registro de auditoria</a><a href="termos.html">Termos</a></span>
+  </div>
+</footer>
+</body>
+</html>
